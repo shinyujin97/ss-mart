@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { prisma } from "@/lib/prisma";
+import CategoryDropdown from "./CategoryDropdown";
 
 const NAV_LINKS = [
   { href: "/new", label: "신상품" },
@@ -11,16 +13,27 @@ const NAV_LINKS = [
   { href: "/brands", label: "브랜드관" },
 ];
 
-export default function Navigation() {
+export default async function Navigation() {
+  // DB에서 카테고리 트리 조회
+  const categories = await prisma.category.findMany({
+    where: { isActive: true, level: 0 },
+    orderBy: { sortOrder: "asc" },
+    include: {
+      children: {
+        where: { isActive: true },
+        orderBy: { sortOrder: "asc" },
+        select: { slug: true, name: true },
+      },
+    },
+  });
+
   return (
     <nav className="bg-[var(--black)]">
       <div className="max-w-[1340px] mx-auto px-6 flex items-stretch">
-        {/* All Categories Button */}
-        <div className="bg-[var(--red)] text-white px-6 font-bold flex items-center gap-3 text-[13px] min-w-[200px] tracking-[0.3px] cursor-pointer hover:bg-[var(--red-dark)] transition-colors">
-          ▣ ALL CATEGORIES
-        </div>
+        {/* ALL CATEGORIES 드롭다운 */}
+        <CategoryDropdown categories={categories} />
 
-        {/* Main Navigation */}
+        {/* 메인 네비게이션 */}
         <div className="flex flex-1 items-center">
           {NAV_LINKS.map((link) => (
             <Link

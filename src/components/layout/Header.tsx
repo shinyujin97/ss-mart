@@ -1,5 +1,6 @@
 import Link from "next/link";
 import CartIcon from "./CartIcon";
+import HeaderAuth from "./HeaderAuth";
 
 export default function Header() {
   return (
@@ -42,12 +43,7 @@ export default function Header() {
             </span>
           </Link>
           <CartIcon />
-          <Link
-            href="/mypage"
-            className="px-[18px] py-[10px] text-xs font-medium text-[var(--gray-700)] hover:text-[var(--red)] transition-colors border-l border-[var(--line)]"
-          >
-            마이페이지
-          </Link>
+          <HeaderAuth />
         </div>
       </div>
     </header>
