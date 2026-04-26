@@ -71,9 +71,12 @@ export default function HeroSection() {
   const slide = SLIDES[current];
 
   return (
-    <section className="flex" style={{ height: 560 }}>
+    <section
+      className="max-w-[1340px] mx-auto pl-6"
+      style={{ display: "grid", gridTemplateColumns: "200px 1fr 214px", gap: 0, height: 480 }}
+    >
       {/* 좌측: 카테고리 리스트 */}
-      <div className="w-[200px] flex-shrink-0 border-r border-[var(--line)] bg-white">
+      <div className="bg-white border-r border-[var(--line)] overflow-y-auto">
         <div className="bg-[var(--black)] text-white px-4 py-3 font-[var(--font-mono)] text-[11px] tracking-[1px] font-semibold flex items-center gap-2">
           ▣ CATEGORY
         </div>
@@ -100,7 +103,7 @@ export default function HeroSection() {
       </div>
 
       {/* 메인 배너 */}
-      <div className="flex-1 relative overflow-hidden">
+      <div className="relative overflow-hidden h-full">
         <div
           className="absolute inset-0 bg-cover bg-center transition-all duration-700"
           style={{ backgroundImage: `url('${slide.bg}')` }}
@@ -193,46 +196,50 @@ export default function HeroSection() {
       </div>
 
       {/* 우측 사이드 배너 */}
-      <div className="w-[180px] flex-shrink-0 flex flex-col">
+      <div className="flex flex-col h-full">
         <Link
           href="/embroidery"
-          className="flex-1 flex flex-col justify-end p-5 text-white relative overflow-hidden"
+          className="flex-1 flex flex-col justify-end p-6 text-white relative overflow-hidden hover:-translate-y-0.5 transition-transform"
           style={{
             background: "linear-gradient(135deg, rgba(200,22,29,0.9), rgba(156,14,21,0.98))",
           }}
         >
-          <div className="font-[var(--font-mono)] text-[9px] text-white/60 tracking-[1px] mb-2">
+          <div className="font-[var(--font-mono)] text-[10px] text-white/70 tracking-[1.5px] mb-2.5 font-semibold">
             ▶ EMBROIDERY
           </div>
-          <div className="text-sm font-black leading-tight mb-1">
+          <div className="text-[22px] font-black leading-tight tracking-tight mb-1.5">
             우리 회사
             <br />
             로고 자수
           </div>
-          <div className="text-[11px] text-white/70 leading-relaxed mb-3">
+          <div className="text-xs text-white/75 leading-relaxed mb-4">
             전문 디자이너 시안 무료 제작
+            <br />
+            저작권 안전 보장
           </div>
-          <div className="font-[var(--font-mono)] text-[10px] text-white/60">━ MORE</div>
+          <div className="font-[var(--font-mono)] text-sm tracking-[1px] text-white/70">━ MORE</div>
         </Link>
         <Link
           href="/bulk-order"
-          className="flex-1 flex flex-col justify-end p-5 text-white relative overflow-hidden"
+          className="flex-1 flex flex-col justify-end p-6 text-white relative overflow-hidden hover:-translate-y-0.5 transition-transform"
           style={{
             background: "linear-gradient(135deg, rgba(26,26,26,0.95), rgba(0,0,0,0.98))",
           }}
         >
-          <div className="font-[var(--font-mono)] text-[9px] text-white/60 tracking-[1px] mb-2">
+          <div className="font-[var(--font-mono)] text-[10px] text-[var(--yellow)] tracking-[1.5px] mb-2.5 font-semibold">
             ▶ BULK ORDER
           </div>
-          <div className="text-sm font-black leading-tight mb-1">
+          <div className="text-[22px] font-black leading-tight tracking-tight mb-1.5">
             단체주문
             <br />
             최대 30%
           </div>
-          <div className="text-[11px] text-white/70 leading-relaxed mb-3">
+          <div className="text-xs text-white/75 leading-relaxed mb-4">
             100벌 이상 견적 상담
+            <br />
+            전담 매니저 1:1 배정
           </div>
-          <div className="font-[var(--font-mono)] text-[10px] text-white/60">━ MORE</div>
+          <div className="font-[var(--font-mono)] text-sm tracking-[1px] text-white/70">━ MORE</div>
         </Link>
       </div>
     </section>

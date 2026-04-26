@@ -17,7 +17,7 @@ export default function HomePage() {
       <HeroSection />
 
       {/* INFO BAR */}
-      <div className="bg-[var(--black)] border-t border-[#333]">
+      <div className="bg-[var(--black)] border-t border-[#333] mt-2">
         <div className="max-w-[1340px] mx-auto px-6 grid grid-cols-4 divide-x divide-[#333]">
           {INFO_BAR.map((item) => (
             <div key={item.num} className="px-6 py-5">
