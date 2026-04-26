@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CartIcon from "./CartIcon";
 
 export default function Header() {
   return (
@@ -40,15 +41,7 @@ export default function Header() {
               0
             </span>
           </Link>
-          <Link
-            href="/cart"
-            className="px-[18px] py-[10px] text-xs font-medium text-[var(--gray-700)] hover:text-[var(--red)] transition-colors flex items-center gap-1.5 border-l border-[var(--line)]"
-          >
-            장바구니{" "}
-            <span className="text-[var(--red)] font-bold font-[var(--font-display)] text-sm">
-              0
-            </span>
-          </Link>
+          <CartIcon />
           <Link
             href="/mypage"
             className="px-[18px] py-[10px] text-xs font-medium text-[var(--gray-700)] hover:text-[var(--red)] transition-colors border-l border-[var(--line)]"

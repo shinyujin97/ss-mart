@@ -141,6 +141,10 @@ export default async function ProductDetailPage({ params }: Props) {
             {/* 옵션 선택 (Client Component) */}
             <ProductOptions
               productId={product.id}
+              productSlug={product.slug}
+              productName={product.name}
+              brandName={product.brand.name}
+              imageUrl={mainImage}
               options={product.options}
               colors={colors}
               sizes={sizes}

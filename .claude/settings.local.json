@@ -24,7 +24,8 @@
       "Bash(pnpm seed *)",
       "Bash(curl -s -o /dev/null -w \"/ = %{http_code}\\\\n\" http://localhost:3000/)",
       "Bash(curl -s -o /dev/null -w \"/categories/workwear = %{http_code}\\\\n\" http://localhost:3000/categories/workwear)",
-      "Bash(curl -s -o /dev/null -w \"/products/piozen-ws-001 = %{http_code}\\\\n\" http://localhost:3000/products/piozen-ws-001)"
+      "Bash(curl -s -o /dev/null -w \"/products/piozen-ws-001 = %{http_code}\\\\n\" http://localhost:3000/products/piozen-ws-001)",
+      "Bash(curl *)"
     ]
   }
 }

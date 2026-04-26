@@ -2,12 +2,15 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useCartStore } from "@/lib/cartStore";
 
 interface Option {
   id: string;
   color: string;
   colorHex: string | null;
   size: string;
+  sku: string;
   stockQuantity: number;
   reservedQuantity: number;
   priceAdjust: number;
@@ -20,6 +23,10 @@ interface ColorInfo {
 
 interface Props {
   productId: string;
+  productSlug: string;
+  productName: string;
+  brandName: string;
+  imageUrl: string;
   options: Option[];
   colors: ColorInfo[];
   sizes: string[];
@@ -28,15 +35,47 @@ interface Props {
 }
 
 export default function ProductOptions({
+  productSlug,
+  productName,
+  brandName,
+  imageUrl,
   options,
   colors,
   sizes,
   embroideryAvailable,
   salePrice,
 }: Props) {
+  const router = useRouter();
+  const addItem = useCartStore((s) => s.addItem);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
+  const [added, setAdded] = useState(false);
+
+  function handleAddToCart() {
+    if (!selectedOption) return;
+    addItem({
+      id: selectedOption.id,
+      productId: selectedOption.id,
+      productSlug,
+      productName,
+      brandName,
+      imageUrl,
+      color: selectedOption.color,
+      colorHex: selectedOption.colorHex,
+      size: selectedOption.size,
+      sku: selectedOption.sku,
+      unitPrice: salePrice + selectedOption.priceAdjust,
+      quantity,
+    });
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  }
+
+  function handleBuyNow() {
+    handleAddToCart();
+    router.push("/cart");
+  }
 
   const selectedOption = options.find(
     (o) => o.color === selectedColor && o.size === selectedSize
@@ -159,12 +198,14 @@ export default function ProductOptions({
       {/* 버튼 */}
       <div className="flex gap-2">
         <button
+          onClick={handleAddToCart}
           disabled={!selectedColor || !selectedSize || stock === 0}
           className="flex-1 bg-[var(--black)] text-white py-4 font-bold text-sm tracking-[0.5px] hover:bg-[var(--gray-900)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
-          장바구니 담기
+          {added ? "담겼습니다 ✓" : "장바구니 담기"}
         </button>
         <button
+          onClick={handleBuyNow}
           disabled={!selectedColor || !selectedSize || stock === 0}
           className="flex-1 bg-[var(--red)] text-white py-4 font-bold text-sm tracking-[0.5px] hover:bg-[var(--red-dark)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
