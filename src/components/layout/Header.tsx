@@ -1,5 +1,6 @@
 import Link from "next/link";
 import CartIcon from "./CartIcon";
+import WishlistIcon from "./WishlistIcon";
 import HeaderAuth from "./HeaderAuth";
 
 export default function Header() {
@@ -33,15 +34,7 @@ export default function Header() {
 
         {/* Icons */}
         <div className="flex items-center ml-auto">
-          <Link
-            href="/wishlist"
-            className="px-[18px] py-[10px] text-xs font-medium text-[var(--gray-700)] hover:text-[var(--red)] transition-colors flex items-center gap-1.5 border-[var(--line)]"
-          >
-            찜{" "}
-            <span className="text-[var(--red)] font-bold font-[var(--font-display)] text-sm">
-              0
-            </span>
-          </Link>
+          <WishlistIcon />
           <CartIcon />
           <HeaderAuth />
         </div>

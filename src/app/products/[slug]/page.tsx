@@ -2,7 +2,9 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { prisma } from "@/lib/prisma";
+import { auth } from "@/lib/auth";
 import ProductOptions from "./ProductOptions";
+import WishlistButton from "./WishlistButton";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -21,18 +23,28 @@ const CERT_LABELS: Record<string, string> = {
 export default async function ProductDetailPage({ params }: Props) {
   const { slug } = await params;
 
-  const product = await prisma.product.findUnique({
-    where: { slug },
-    include: {
-      brand: true,
-      images: { orderBy: { sortOrder: "asc" } },
-      options: { where: { isActive: true }, orderBy: [{ color: "asc" }, { size: "asc" }] },
-      certifications: true,
-      categories: { include: { category: true } },
-    },
-  });
+  const [product, session] = await Promise.all([
+    prisma.product.findUnique({
+      where: { slug },
+      include: {
+        brand: true,
+        images: { orderBy: { sortOrder: "asc" } },
+        options: { where: { isActive: true }, orderBy: [{ color: "asc" }, { size: "asc" }] },
+        certifications: true,
+        categories: { include: { category: true } },
+      },
+    }),
+    auth(),
+  ]);
 
   if (!product || product.status === "HIDDEN") notFound();
+
+  // 로그인 시 찜 여부 확인
+  const wishlisted = session?.user?.id
+    ? !!(await prisma.wishlist.findUnique({
+        where: { memberId_productId: { memberId: session.user.id as string, productId: product.id } },
+      }))
+    : false;
 
   const discountRate = Math.round(
     ((product.basePrice - product.salePrice) / product.basePrice) * 100
@@ -136,6 +148,14 @@ export default async function ProductDetailPage({ params }: Props) {
                   {product.basePrice.toLocaleString()}원
                 </span>
               )}
+            </div>
+
+            {/* 찜하기 버튼 */}
+            <div className="flex items-center gap-2 mb-2">
+              <WishlistButton productId={product.id} initialWishlisted={wishlisted} />
+              <span className="text-xs text-[var(--gray-500)]">
+                {wishlisted ? "찜한 상품입니다" : "찜하기"}
+              </span>
             </div>
 
             {/* 옵션 선택 (Client Component) */}
