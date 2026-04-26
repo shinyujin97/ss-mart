@@ -60,7 +60,6 @@ export default async function OrderCompletePage({ params, searchParams }: Props)
         <PaymentConfirmHandler
           paymentKey={sp.paymentKey!}
           orderId={orderId}
-          amount={Number(sp.amount)}
         />
       )}
 

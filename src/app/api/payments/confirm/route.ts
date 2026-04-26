@@ -8,16 +8,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "로그인이 필요합니다." }, { status: 401 });
   }
 
-  const { paymentKey, orderId, amount } = await req.json();
+  // [CRITICAL FIX 3] amount를 클라이언트에서 받지 않고 서버 DB에서 조회
+  const { paymentKey, orderId } = await req.json();
 
-  if (!paymentKey || !orderId || !amount) {
+  if (!paymentKey || !orderId) {
     return NextResponse.json({ error: "필수 파라미터가 누락되었습니다." }, { status: 400 });
   }
 
   try {
-    // 주문 금액 서버 재확인
+    // DB에서 실제 금액 조회
     const order = await prisma.order.findUnique({
-      where: { id: orderId, memberId: session.user.id },
+      where: { id: orderId, memberId: session.user.id as string },
       select: { totalAmount: true, status: true },
     });
 
@@ -27,11 +28,9 @@ export async function POST(req: NextRequest) {
     if (order.status !== "PENDING") {
       return NextResponse.json({ error: "이미 처리된 주문입니다." }, { status: 400 });
     }
-    if (order.totalAmount !== amount) {
-      return NextResponse.json({ error: "결제 금액이 일치하지 않습니다." }, { status: 400 });
-    }
 
-    // 토스페이먼츠 결제 승인 API 호출
+    // 서버 DB 금액으로 PG 승인 요청
+    const serverAmount = order.totalAmount;
     const secretKey = process.env.TOSS_SECRET_KEY!;
     const encoded = Buffer.from(`${secretKey}:`).toString("base64");
 
@@ -41,13 +40,12 @@ export async function POST(req: NextRequest) {
         Authorization: `Basic ${encoded}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ paymentKey, orderId, amount }),
+      body: JSON.stringify({ paymentKey, orderId, amount: serverAmount }),
     });
 
     const tossData = await tossRes.json();
 
     if (!tossRes.ok) {
-      // 결제 실패 → 재고 복구
       await rollbackStock(orderId);
       return NextResponse.json(
         { error: tossData.message ?? "결제 승인에 실패했습니다." },
@@ -55,7 +53,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 결제 성공 → DB 업데이트
+    // 결제 성공 → 트랜잭션으로 DB 업데이트
     await prisma.$transaction(async (tx) => {
       await tx.order.update({
         where: { id: orderId },
@@ -90,20 +88,24 @@ export async function POST(req: NextRequest) {
         });
       }
 
-      // 적립금 예약 기록
-      const orderData = await tx.order.findUnique({ where: { id: orderId }, select: { pointsEarned: true, memberId: true, member: { select: { points: true } } } });
+      // [HIGH FIX 5] 적립금은 PENDING 상태로 이력만 기록 (구매 확정 시 실지급)
+      const orderData = await tx.order.findUnique({
+        where: { id: orderId },
+        select: { pointsEarned: true, memberId: true, member: { select: { points: true } } },
+      });
       if (orderData && orderData.pointsEarned > 0) {
         await tx.pointHistory.create({
           data: {
             memberId: orderData.memberId,
             type: "EARN_PURCHASE",
             amount: orderData.pointsEarned,
-            balance: orderData.member.points + orderData.pointsEarned,
-            reason: "구매 적립금",
+            balance: orderData.member.points, // 아직 잔액 증가 안 함
+            reason: "구매 적립금 (구매 확정 후 지급)",
             relatedOrderId: orderId,
             expiresAt: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
           },
         });
+        // 실제 잔액은 구매 확정(CONFIRMED) 시점에 member.points 증가
       }
     });
 
@@ -115,18 +117,25 @@ export async function POST(req: NextRequest) {
   }
 }
 
+// [HIGH FIX 6] rollbackStock 트랜잭션으로 원자적 처리
 async function rollbackStock(orderId: string) {
-  const items = await prisma.orderItem.findMany({ where: { orderId } });
-  for (const item of items) {
-    await prisma.productOption.update({
-      where: { id: item.optionId },
-      data: { reservedQuantity: { decrement: item.quantity } },
+  try {
+    await prisma.$transaction(async (tx) => {
+      const items = await tx.orderItem.findMany({ where: { orderId } });
+      for (const item of items) {
+        await tx.productOption.update({
+          where: { id: item.optionId },
+          data: { reservedQuantity: { decrement: item.quantity } },
+        });
+      }
+      await tx.order.update({
+        where: { id: orderId },
+        data: { status: "CANCELLED", cancelledAt: new Date() },
+      });
     });
+  } catch (e) {
+    console.error("[ROLLBACK_STOCK_FAILED]", orderId, e);
   }
-  await prisma.order.update({
-    where: { id: orderId },
-    data: { status: "CANCELLED", cancelledAt: new Date() },
-  });
 }
 
 function mapPaymentMethod(method: string) {

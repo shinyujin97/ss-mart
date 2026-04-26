@@ -95,10 +95,17 @@ export default async function OrdersPage() {
                   총 <span className="font-black text-[var(--red)]">{order.totalAmount.toLocaleString()}</span>원
                 </div>
                 <div className="flex gap-2">
-                  {["PAID", "SHIPPING"].includes(order.status) && (
+                  {/* [HIGH FIX 4] 자수 주문은 단순 취소 불가 — 상담 연결 */}
+                  {["PAID", "SHIPPING"].includes(order.status) && !order.hasEmbroidery && (
                     <button className="text-[11px] px-3 py-1.5 border border-[var(--line)] font-[var(--font-mono)] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors">
                       주문 취소
                     </button>
+                  )}
+                  {["PAID"].includes(order.status) && order.hasEmbroidery && (
+                    <a href="https://pf.kakao.com/_ssmart" target="_blank" rel="noreferrer"
+                      className="text-[11px] px-3 py-1.5 border border-[var(--yellow)] text-[var(--gray-700)] font-[var(--font-mono)] hover:bg-[var(--yellow)] transition-colors">
+                      취소 상담 (자수 주문)
+                    </a>
                   )}
                   {order.status === "DELIVERED" && (
                     <button className="text-[11px] px-3 py-1.5 border border-[var(--line)] font-[var(--font-mono)] hover:border-[var(--black)] transition-colors">

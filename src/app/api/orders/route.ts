@@ -10,21 +10,34 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json();
-    const { items, address, shippingType = "STANDARD", pointsUsed = 0, couponId } = body;
+    const { items, address, shippingType = "STANDARD", pointsUsed = 0, paymentMethod } = body;
 
     if (!items?.length || !address) {
       return NextResponse.json({ error: "필수 항목이 누락되었습니다." }, { status: 400 });
     }
 
-    // 서버에서 가격 재계산 + 재고 확인 (동시성 제어)
     const order = await prisma.$transaction(async (tx) => {
+      // [CRITICAL FIX 2] 세금계산서 결제 시 사업자 회원 검증
+      if (paymentMethod === "TAX_INVOICE") {
+        const member = await tx.member.findUnique({
+          where: { id: session.user!.id as string },
+          select: { type: true },
+        });
+        if (member?.type !== "BUSINESS") {
+          throw new Error("세금계산서 결제는 사업자 회원만 이용할 수 있습니다.");
+        }
+      }
+
       let subtotal = 0;
+      let embroideryFeeTotal = 0;
 
       for (const item of items) {
-        // 재고 락
         const option = await tx.productOption.findUnique({
           where: { id: item.optionId },
-          select: { id: true, stockQuantity: true, reservedQuantity: true, priceAdjust: true, product: { select: { salePrice: true, status: true } } },
+          select: {
+            id: true, stockQuantity: true, reservedQuantity: true, priceAdjust: true,
+            product: { select: { salePrice: true, status: true } },
+          },
         });
 
         if (!option || option.product.status !== "ACTIVE") {
@@ -36,34 +49,42 @@ export async function POST(req: NextRequest) {
           throw new Error(`재고가 부족합니다. (남은 재고: ${available}개)`);
         }
 
-        // 서버 기준 단가 계산
         const unitPrice = option.product.salePrice + option.priceAdjust;
         subtotal += unitPrice * item.quantity;
 
-        // 재고 예약
+        // [CRITICAL FIX 1] 자수비는 DB에 저장된 서버 계산값 조회 (클라이언트 값 무시)
+        if (item.embroideryDesignId) {
+          const design = await tx.embroideryDesign.findUnique({
+            where: { id: item.embroideryDesignId },
+            select: { totalPrice: true },
+          });
+          embroideryFeeTotal += design?.totalPrice ?? 0;
+        }
+
         await tx.productOption.update({
           where: { id: item.optionId },
           data: { reservedQuantity: { increment: item.quantity } },
         });
       }
 
+      const grossAmount = subtotal + embroideryFeeTotal;
+
       // 적립금 검증
       if (pointsUsed > 0) {
         const member = await tx.member.findUnique({
-          where: { id: session.user!.id },
+          where: { id: session.user!.id as string },
           select: { points: true },
         });
         if (!member || member.points < pointsUsed) {
           throw new Error("적립금이 부족합니다.");
         }
-        if (pointsUsed > subtotal * 0.5) {
+        if (pointsUsed > grossAmount * 0.5) {
           throw new Error("적립금은 결제 금액의 50%까지만 사용 가능합니다.");
         }
       }
 
-      const totalAmount = Math.max(0, subtotal - pointsUsed);
+      const totalAmount = Math.max(0, grossAmount - pointsUsed);
 
-      // 주문번호 생성
       const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
       const count = await tx.order.count({
         where: { createdAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) } },
@@ -81,19 +102,23 @@ export async function POST(req: NextRequest) {
           addressDetail: address.addressDetail,
           deliveryMemo: address.deliveryMemo,
           shippingType,
-          shippingFee: 0, // 전 상품 무료 배송
+          shippingFee: 0,
           subtotal,
+          embroideryFee: embroideryFeeTotal,
           pointsUsed,
           totalAmount,
           pointsEarned: Math.floor(totalAmount * 0.01),
-          hasEmbroidery: items.some((i: { embroideryFee?: number }) => (i.embroideryFee ?? 0) > 0),
+          hasEmbroidery: embroideryFeeTotal > 0,
           items: {
             create: await Promise.all(
-              items.map(async (item: { optionId: string; quantity: number; embroideryFee?: number }) => {
+              items.map(async (item: { optionId: string; quantity: number; embroideryDesignId?: string }) => {
                 const option = await tx.productOption.findUnique({
                   where: { id: item.optionId },
                   include: { product: { include: { brand: true } } },
                 });
+                const serverEmbFee = item.embroideryDesignId
+                  ? (await tx.embroideryDesign.findUnique({ where: { id: item.embroideryDesignId }, select: { totalPrice: true } }))?.totalPrice ?? 0
+                  : 0;
                 return {
                   productId: option!.productId,
                   productSnapshot: {
@@ -106,7 +131,7 @@ export async function POST(req: NextRequest) {
                   quantity: item.quantity,
                   unitPrice: option!.product.salePrice + option!.priceAdjust,
                   totalPrice: (option!.product.salePrice + option!.priceAdjust) * item.quantity,
-                  embroideryFee: item.embroideryFee ?? 0,
+                  embroideryFee: serverEmbFee,
                 };
               })
             ),
@@ -115,10 +140,9 @@ export async function POST(req: NextRequest) {
         select: { id: true, orderNumber: true, totalAmount: true },
       });
 
-      // 적립금 차감
       if (pointsUsed > 0) {
         await tx.member.update({
-          where: { id: session.user!.id },
+          where: { id: session.user!.id as string },
           data: { points: { decrement: pointsUsed } },
         });
       }

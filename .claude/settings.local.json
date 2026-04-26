@@ -25,7 +25,10 @@
       "Bash(curl -s -o /dev/null -w \"/ = %{http_code}\\\\n\" http://localhost:3000/)",
       "Bash(curl -s -o /dev/null -w \"/categories/workwear = %{http_code}\\\\n\" http://localhost:3000/categories/workwear)",
       "Bash(curl -s -o /dev/null -w \"/products/piozen-ws-001 = %{http_code}\\\\n\" http://localhost:3000/products/piozen-ws-001)",
-      "Bash(curl *)"
+      "Bash(curl *)",
+      "Bash(grep -rn 'queryRaw\\\\|executeRaw\\\\|$queryRaw\\\\|$executeRaw' /home/boss/projects/ss-mart/src '--include=*.ts' '--include=*.tsx')",
+      "Bash(grep -rn 'rollbackStock\\\\|transaction\\\\|$transaction' /home/boss/projects/ss-mart/src/app/api '--include=*.ts')",
+      "Bash(pnpm build *)"
     ]
   }
 }
