@@ -23,10 +23,28 @@ const bebasNeue = Bebas_Neue({
   subsets: ["latin"],
 });
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ssmart.kr";
+
 export const metadata: Metadata = {
-  title: "에스에스종합상사 | 작업복·안전화·자수 전문",
-  description:
-    "80여 개 브랜드 작업복·안전화·안전용품 전문 쇼핑몰. 자수·마킹 서비스, 단체주문 최대 30% 할인.",
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: "에스에스종합상사 | 작업복·안전화·자수 전문",
+    template: "%s | 에스에스종합상사",
+  },
+  description: "80여 개 브랜드 작업복·안전화·안전용품 전문 쇼핑몰. 자수·마킹 서비스, 단체주문 최대 30% 할인.",
+  keywords: ["작업복", "안전화", "안전용품", "자수", "마킹", "단체주문", "유니폼", "에스에스종합상사"],
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    url: BASE_URL,
+    siteName: "에스에스종합상사",
+    title: "에스에스종합상사 | 작업복·안전화·자수 전문",
+    description: "80여 개 브랜드 작업복·안전화·안전용품 전문 쇼핑몰. 자수·마킹 서비스, 단체주문 최대 30% 할인.",
+  },
+  robots: { index: true, follow: true },
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION ?? "",
+  },
 };
 
 export default function RootLayout({
