@@ -4,7 +4,6 @@ import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import ProductOptions from "./ProductOptions";
-import WishlistButton from "./WishlistButton";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -150,15 +149,7 @@ export default async function ProductDetailPage({ params }: Props) {
               )}
             </div>
 
-            {/* 찜하기 버튼 */}
-            <div className="flex items-center gap-2 mb-2">
-              <WishlistButton productId={product.id} initialWishlisted={wishlisted} />
-              <span className="text-xs text-[var(--gray-500)]">
-                {wishlisted ? "찜한 상품입니다" : "찜하기"}
-              </span>
-            </div>
-
-            {/* 옵션 선택 (Client Component) */}
+            {/* 옵션 선택 + 찜하기 (Client Component) */}
             <ProductOptions
               productId={product.id}
               productSlug={product.slug}
@@ -170,6 +161,7 @@ export default async function ProductDetailPage({ params }: Props) {
               sizes={sizes}
               embroideryAvailable={product.embroideryAvailable}
               salePrice={product.salePrice}
+              initialWishlisted={wishlisted}
             />
 
             {/* 배송 정보 */}

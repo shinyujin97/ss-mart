@@ -32,9 +32,11 @@ interface Props {
   sizes: string[];
   embroideryAvailable: boolean;
   salePrice: number;
+  initialWishlisted?: boolean;
 }
 
 export default function ProductOptions({
+  productId,
   productSlug,
   productName,
   brandName,
@@ -44,6 +46,7 @@ export default function ProductOptions({
   sizes,
   embroideryAvailable,
   salePrice,
+  initialWishlisted = false,
 }: Props) {
   const router = useRouter();
   const addItem = useCartStore((s) => s.addItem);
@@ -51,6 +54,26 @@ export default function ProductOptions({
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
+  const [wishlisted, setWishlisted] = useState(initialWishlisted);
+  const [wishlistLoading, setWishlistLoading] = useState(false);
+
+  async function toggleWishlist() {
+    setWishlistLoading(true);
+    try {
+      const res = await fetch("/api/wishlist", {
+        method: wishlisted ? "DELETE" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productId }),
+      });
+      if (res.status === 401) { window.location.href = "/login"; return; }
+      if (res.ok) {
+        setWishlisted((v) => !v);
+        router.refresh(); // 헤더 배지 실시간 업데이트
+      }
+    } finally {
+      setWishlistLoading(false);
+    }
+  }
 
   function handleAddToCart() {
     if (!selectedOption) return;
@@ -195,7 +218,7 @@ export default function ProductOptions({
         </div>
       )}
 
-      {/* 버튼 */}
+      {/* 버튼: 장바구니 | 바로구매 | ♥ */}
       <div className="flex gap-2">
         <button
           onClick={handleAddToCart}
@@ -210,6 +233,25 @@ export default function ProductOptions({
           className="flex-1 bg-[var(--red)] text-white py-4 font-bold text-sm tracking-[0.5px] hover:bg-[var(--red-dark)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
           바로 구매
+        </button>
+        {/* 찜하기 */}
+        <button
+          onClick={toggleWishlist}
+          disabled={wishlistLoading}
+          title={wishlisted ? "찜 해제" : "찜하기"}
+          className={`w-[54px] flex-shrink-0 flex items-center justify-center border-2 transition-all disabled:opacity-50 ${
+            wishlisted
+              ? "border-[var(--red)] bg-[var(--red)] text-white"
+              : "border-[var(--line)] text-[var(--gray-500)] hover:border-[var(--red)] hover:text-[var(--red)]"
+          }`}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24"
+            fill={wishlisted ? "currentColor" : "none"}
+            stroke="currentColor" strokeWidth="1.8"
+            strokeLinecap="round" strokeLinejoin="round"
+          >
+            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+          </svg>
         </button>
       </div>
 

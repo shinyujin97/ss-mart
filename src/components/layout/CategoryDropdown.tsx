@@ -13,11 +13,15 @@ export default function CategoryDropdown({ categories }: { categories: Category[
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="relative">
+    // 버튼 + 드롭다운을 하나의 wrapper로 묶어 영역 이탈 시에만 닫힘
+    <div
+      className="relative h-full"
+      onMouseLeave={() => setOpen(false)}
+    >
       <button
         onClick={() => setOpen((v) => !v)}
         onMouseEnter={() => setOpen(true)}
-        className="bg-[var(--red)] text-white px-6 font-bold flex items-center gap-3 text-[13px] min-w-[200px] tracking-[0.3px] hover:bg-[var(--red-dark)] transition-colors h-full"
+        className="bg-[var(--red)] text-white px-6 font-bold flex items-center gap-3 text-[13px] min-w-[200px] tracking-[0.3px] hover:bg-[var(--red-dark)] transition-colors h-full w-full"
       >
         <span>▣</span>
         ALL CATEGORIES
@@ -26,18 +30,16 @@ export default function CategoryDropdown({ categories }: { categories: Category[
 
       {open && (
         <>
-          {/* 배경 클릭 닫기 */}
+          {/* 드롭다운 외부 클릭 닫기 (배경) */}
           <div
             className="fixed inset-0 z-40"
             onClick={() => setOpen(false)}
-            onMouseLeave={() => setOpen(false)}
           />
 
-          {/* 드롭다운 패널 */}
+          {/* 드롭다운 패널 — z-50으로 배경 위에 */}
           <div
             className="absolute top-full left-0 z-50 bg-white border border-[var(--line)] shadow-2xl"
             style={{ width: 680 }}
-            onMouseLeave={() => setOpen(false)}
           >
             {/* 헤더 */}
             <div className="bg-[var(--black)] px-5 py-3 flex items-center justify-between">
