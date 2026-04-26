@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -10,4 +5,957 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+// ============================================================================
+// 1. 회원
+// ============================================================================
+
+model Member {
+  id           String      @id @default(cuid())
+  email        String      @unique
+  passwordHash String
+  name         String
+  phone        String      @unique
+  type         MemberType  @default(INDIVIDUAL)
+  grade        MemberGrade @default(FAMILY)
+
+  birthDate DateTime?
+  gender    Gender?
+
+  businessInfo BusinessInfo?
+
+  marketingEmail Boolean @default(false)
+  marketingSms   Boolean @default(false)
+
+  points      Int       @default(2000)
+  totalOrders Int       @default(0)
+  totalAmount Int       @default(0)
+  lastLoginAt DateTime?
+
+  status          MemberStatus @default(ACTIVE)
+  withdrawnAt     DateTime?
+  withdrawnReason String?
+
+  addresses         Address[]
+  orders            Order[]
+  cartItems         CartItem[]
+  wishlist          Wishlist[]
+  reviews           Review[]
+  quoteRequests     QuoteRequest[]
+  bulkOrders        BulkOrder[]
+  embroideryDesigns EmbroideryDesign[]
+  pointHistory      PointHistory[]
+  coupons           MemberCoupon[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@index([phone])
+  @@index([status])
+  @@map("members")
+}
+
+model BusinessInfo {
+  id       String @id @default(cuid())
+  memberId String @unique
+  member   Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  companyName        String
+  businessNumber     String  @unique
+  representativeName String
+  industry           String?
+  businessType       String?
+  taxInvoiceEmail    String
+
+  creditLimit   Int     @default(0)
+  creditEnabled Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([businessNumber])
+  @@map("business_info")
+}
+
+model Address {
+  id       String @id @default(cuid())
+  memberId String
+  member   Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  label     String
+  isDefault Boolean @default(false)
+
+  recipientName  String
+  recipientPhone String
+  zipCode        String
+  address        String
+  addressDetail  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([memberId])
+  @@map("addresses")
+}
+
+enum MemberType {
+  INDIVIDUAL
+  BUSINESS
+}
+
+enum MemberGrade {
+  FAMILY
+  FRIEND
+  VIP
+  VVIP
+}
+
+enum MemberStatus {
+  ACTIVE
+  SUSPENDED
+  WITHDRAWN
+  DORMANT
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  UNDISCLOSED
+}
+
+// ============================================================================
+// 2. 브랜드 / 카테고리 / 상품
+// ============================================================================
+
+model Brand {
+  id          String  @id @default(cuid())
+  slug        String  @unique
+  name        String  @unique
+  nameKr      String
+  logoUrl     String?
+  description String? @db.Text
+  isActive    Boolean @default(true)
+  sortOrder   Int     @default(0)
+
+  products Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+  @@map("brands")
+}
+
+model Category {
+  id        String     @id @default(cuid())
+  slug      String     @unique
+  name      String
+  parentId  String?
+  parent    Category?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children  Category[] @relation("CategoryTree")
+  level     Int        @default(0)
+  sortOrder Int        @default(0)
+  isActive  Boolean    @default(true)
+  iconUrl   String?
+
+  products ProductCategory[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+  @@index([parentId])
+  @@map("categories")
+}
+
+model Product {
+  id      String @id @default(cuid())
+  slug    String @unique
+  brandId String
+  brand   Brand  @relation(fields: [brandId], references: [id])
+
+  name             String
+  shortDescription String?
+  description      String? @db.Text
+
+  basePrice Int
+  salePrice Int
+  costPrice Int?
+
+  embroideryAvailable Boolean          @default(true)
+  embroideryTypes     EmbroideryType[]
+
+  bulkOrderAvailable Boolean @default(true)
+  bulkMinQuantity    Int     @default(100)
+
+  certifications Certification[]
+  season         Season[]
+  industries     Industry[]
+
+  viewCount     Int   @default(0)
+  orderCount    Int   @default(0)
+  reviewCount   Int   @default(0)
+  averageRating Float @default(0)
+
+  status     ProductStatus @default(ACTIVE)
+  isNew      Boolean       @default(false)
+  isBest     Boolean       @default(false)
+  isFeatured Boolean       @default(false)
+
+  metaTitle       String?
+  metaDescription String?
+
+  categories ProductCategory[]
+  options    ProductOption[]
+  images     ProductImage[]
+  reviews    Review[]
+  cartItems  CartItem[]
+  orderItems OrderItem[]
+  wishlist   Wishlist[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+  @@index([brandId])
+  @@index([status])
+  @@index([isNew, isBest, isFeatured])
+  @@map("products")
+}
+
+model ProductCategory {
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([productId, categoryId])
+  @@map("product_categories")
+}
+
+model ProductOption {
+  id        String  @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  color    String
+  colorHex String?
+  size     String
+  sku      String  @unique
+
+  stockQuantity     Int @default(0)
+  reservedQuantity  Int @default(0)
+  lowStockThreshold Int @default(10)
+
+  priceAdjust Int     @default(0)
+  isActive    Boolean @default(true)
+
+  cartItems  CartItem[]
+  orderItems OrderItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([productId])
+  @@index([sku])
+  @@map("product_options")
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  url       String
+  altText   String?
+  sortOrder Int     @default(0)
+  isMain    Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  @@index([productId])
+  @@map("product_images")
+}
+
+model Certification {
+  id        String  @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  type        CertificationType
+  number      String
+  issuedAt    DateTime?
+  expiresAt   DateTime?
+  documentUrl String?
+
+  createdAt DateTime @default(now())
+
+  @@index([productId])
+  @@map("certifications")
+}
+
+enum CertificationType {
+  KCS
+  KS
+  FLAME_RETARDANT
+  ANTI_STATIC
+  KF94
+  KF80
+  OTHER
+}
+
+enum ProductStatus {
+  ACTIVE
+  OUT_OF_STOCK
+  DISCONTINUED
+  HIDDEN
+}
+
+enum Season {
+  ALL_SEASON
+  SPRING_FALL
+  SUMMER
+  WINTER
+}
+
+enum Industry {
+  CONSTRUCTION
+  MANUFACTURING
+  LOGISTICS
+  FOOD_SERVICE
+  MEDICAL
+  CLEANING
+  AGRICULTURE
+  OTHER
+}
+
+// ============================================================================
+// 3. 자수 시스템
+// ============================================================================
+
+model EmbroideryDesign {
+  id           String @id @default(cuid())
+  designNumber String @unique
+
+  memberId    String?
+  member      Member?    @relation(fields: [memberId], references: [id])
+  orderItemId String?
+  orderItem   OrderItem? @relation(fields: [orderItemId], references: [id])
+
+  designType EmbroideryDesignSource
+  status     EmbroideryStatus       @default(DRAFT)
+
+  embroideryType EmbroideryType
+  position       EmbroideryPosition
+  size           EmbroiderySize
+
+  textContent    String?
+  logoImageUrl   String?
+  designImageUrl String?
+  notes          String? @db.Text
+
+  unitPrice  Int
+  quantity   Int @default(1)
+  totalPrice Int
+
+  isCharacterDesign Boolean @default(false)
+  copyrightApproved Boolean @default(false)
+  copyrightNotes    String? @db.Text
+
+  designerId          String?
+  reviewedAt          DateTime?
+  confirmedAt         DateTime?
+  productionStartedAt DateTime?
+  completedAt         DateTime?
+
+  revisionCount Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([memberId])
+  @@index([orderItemId])
+  @@index([status])
+  @@index([designNumber])
+  @@map("embroidery_designs")
+}
+
+enum EmbroideryDesignSource {
+  SIMULATOR
+  DESIGNER
+  UPLOADED
+}
+
+enum EmbroideryStatus {
+  DRAFT
+  REVIEW_PENDING
+  REVIEW_IN_PROGRESS
+  CUSTOMER_REVIEW
+  REVISION_REQUESTED
+  CONFIRMED
+  IN_PRODUCTION
+  COMPLETED
+  CANCELLED
+  REJECTED
+}
+
+enum EmbroideryType {
+  COMPUTER
+  PATCH
+  APPLIQUE
+  REAL_PATCH
+  VELCRO
+  CHARACTER
+  SILK_PRINT
+}
+
+enum EmbroideryPosition {
+  LEFT_CHEST
+  RIGHT_CHEST
+  BACK_CENTER
+  BACK_TOP
+  LEFT_SLEEVE
+  RIGHT_SLEEVE
+  MULTIPLE
+}
+
+enum EmbroiderySize {
+  SMALL
+  MEDIUM
+  LARGE
+  XLARGE
+  XXLARGE
+}
+
+// ============================================================================
+// 4. 장바구니 / 위시리스트
+// ============================================================================
+
+model CartItem {
+  id       String @id @default(cuid())
+  memberId String
+  member   Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+
+  optionId String
+  option   ProductOption @relation(fields: [optionId], references: [id])
+
+  quantity Int @default(1)
+
+  embroideryDesignId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([memberId])
+  @@map("cart_items")
+}
+
+model Wishlist {
+  id        String  @id @default(cuid())
+  memberId  String
+  member    Member  @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([memberId, productId])
+  @@index([memberId])
+  @@map("wishlists")
+}
+
+// ============================================================================
+// 5. 주문 / 결제
+// ============================================================================
+
+model Order {
+  id          String @id @default(cuid())
+  orderNumber String @unique
+
+  memberId String
+  member   Member @relation(fields: [memberId], references: [id])
+
+  status OrderStatus @default(PENDING)
+
+  recipientName  String
+  recipientPhone String
+  zipCode        String
+  address        String
+  addressDetail  String?
+  deliveryMemo   String?
+
+  shippingType ShippingType @default(STANDARD)
+  shippingFee  Int          @default(0)
+
+  subtotal       Int
+  discountAmount Int @default(0)
+  embroideryFee  Int @default(0)
+  pointsUsed     Int @default(0)
+  couponDiscount Int @default(0)
+  totalAmount    Int
+
+  pointsEarned  Int     @default(0)
+  hasEmbroidery Boolean @default(false)
+
+  bulkOrderId String?
+  bulkOrder   BulkOrder? @relation(fields: [bulkOrderId], references: [id])
+
+  paidAt      DateTime?
+  shippedAt   DateTime?
+  deliveredAt DateTime?
+  confirmedAt DateTime?
+  cancelledAt DateTime?
+
+  items     OrderItem[]
+  payment   Payment?
+  shipments Shipment[]
+  refunds   Refund[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([memberId])
+  @@index([orderNumber])
+  @@index([status])
+  @@index([bulkOrderId])
+  @@map("orders")
+}
+
+model OrderItem {
+  id      String @id @default(cuid())
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  productId       String
+  product         Product @relation(fields: [productId], references: [id])
+  productSnapshot Json
+
+  optionId       String
+  option         ProductOption @relation(fields: [optionId], references: [id])
+  optionSnapshot Json
+
+  quantity   Int
+  unitPrice  Int
+  totalPrice Int
+
+  embroideryDesigns EmbroideryDesign[]
+  embroideryFee     Int                   @default(0)
+  embroideryStatus  EmbroideryItemStatus?
+
+  createdAt DateTime @default(now())
+
+  @@index([orderId])
+  @@map("order_items")
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  DESIGN_REVIEW
+  IN_PRODUCTION
+  PREPARING
+  SHIPPING
+  DELIVERED
+  CONFIRMED
+  CANCELLED
+  REFUND_REQUESTED
+  REFUNDED
+}
+
+enum EmbroideryItemStatus {
+  PENDING_REVIEW
+  IN_DESIGN
+  CUSTOMER_REVIEW
+  CONFIRMED
+  IN_PRODUCTION
+  COMPLETED
+}
+
+enum ShippingType {
+  STANDARD
+  EARLY_MORNING
+  BULK_SPLIT
+}
+
+// ============================================================================
+// 6. 결제 / 환불
+// ============================================================================
+
+model Payment {
+  id      String @id @default(cuid())
+  orderId String @unique
+  order   Order  @relation(fields: [orderId], references: [id])
+
+  method PaymentMethod
+  amount Int
+
+  pgProvider        String
+  pgTransactionId   String?
+  pgApprovalNumber  String?
+  cardCompany       String?
+  installmentMonths Int?    @default(0)
+
+  taxInvoiceRequested Boolean @default(false)
+  taxInvoiceIssued    Boolean @default(false)
+  taxInvoiceNumber    String?
+
+  status PaymentStatus @default(PENDING)
+
+  approvedAt    DateTime?
+  cancelledAt   DateTime?
+  failureReason String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([orderId])
+  @@index([pgTransactionId])
+  @@map("payments")
+}
+
+enum PaymentMethod {
+  CREDIT_CARD
+  EASY_PAY
+  BANK_TRANSFER
+  VIRTUAL_ACCOUNT
+  TAX_INVOICE
+}
+
+enum PaymentStatus {
+  PENDING
+  APPROVED
+  CANCELLED
+  FAILED
+  REFUNDED
+}
+
+model Refund {
+  id      String @id @default(cuid())
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id])
+
+  reason String
+  amount Int
+
+  status      RefundStatus @default(REQUESTED)
+  requestedAt DateTime     @default(now())
+  approvedAt  DateTime?
+  rejectedAt  DateTime?
+  refundedAt  DateTime?
+
+  notes String? @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([orderId])
+  @@map("refunds")
+}
+
+enum RefundStatus {
+  REQUESTED
+  APPROVED
+  REJECTED
+  COMPLETED
+}
+
+model Shipment {
+  id      String @id @default(cuid())
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id])
+
+  trackingNumber String?
+  carrier        String?
+  status         String
+
+  shippedAt   DateTime?
+  deliveredAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([orderId])
+  @@map("shipments")
+}
+
+// ============================================================================
+// 7. 단체주문 (B2B)
+// ============================================================================
+
+model QuoteRequest {
+  id            String @id @default(cuid())
+  requestNumber String @unique
+
+  memberId String?
+  member   Member? @relation(fields: [memberId], references: [id])
+
+  companyName     String
+  businessNumber  String?
+  managerName     String
+  managerPosition String?
+  managerPhone    String
+  managerEmail    String
+
+  categories     Json
+  sizeQuantities Json
+  totalQuantity  Int
+
+  embroideryRequested Boolean             @default(false)
+  embroideryType      EmbroideryType?
+  embroideryPosition  EmbroideryPosition?
+  embroideryContent   String?
+  logoFileUrl         String?
+
+  desiredDeliveryDate DateTime?
+  budgetRange         String?
+  paymentMethod       String?
+  additionalNotes     String?   @db.Text
+
+  status            QuoteStatus @default(PENDING)
+  assignedManagerId String?
+  assignedAt        DateTime?
+  quotedAt          DateTime?
+  expiresAt         DateTime?
+
+  quotedAmount      Int?
+  quotedDocumentUrl String?
+  quoteNotes        String? @db.Text
+
+  bulkOrderId String?    @unique
+  bulkOrder   BulkOrder?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([memberId])
+  @@index([status])
+  @@index([requestNumber])
+  @@map("quote_requests")
+}
+
+enum QuoteStatus {
+  PENDING
+  ASSIGNED
+  IN_REVIEW
+  QUOTED
+  ACCEPTED
+  REJECTED
+  EXPIRED
+  CONVERTED
+}
+
+model BulkOrder {
+  id              String @id @default(cuid())
+  bulkOrderNumber String @unique
+
+  memberId String
+  member   Member @relation(fields: [memberId], references: [id])
+
+  quoteRequestId String       @unique
+  quoteRequest   QuoteRequest @relation(fields: [quoteRequestId], references: [id])
+
+  status BulkOrderStatus @default(CONTRACT_PENDING)
+
+  totalQuantity Int
+  unitPrice     Int
+  embroideryFee Int @default(0)
+  shippingFee   Int @default(0)
+  taxAmount     Int
+  totalAmount   Int
+
+  paymentTerms        String
+  taxInvoiceRequested Boolean @default(true)
+
+  designsConfirmed  Boolean   @default(false)
+  designConfirmedAt DateTime?
+
+  contractedAt         DateTime?
+  productionStartedAt  DateTime?
+  expectedDeliveryDate DateTime?
+  completedAt          DateTime?
+
+  splitShipping     Boolean @default(false)
+  splitShipmentInfo Json?
+
+  managerId   String?
+  managerName String?
+
+  orders Order[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([memberId])
+  @@index([status])
+  @@index([bulkOrderNumber])
+  @@map("bulk_orders")
+}
+
+enum BulkOrderStatus {
+  CONTRACT_PENDING
+  CONTRACT_SIGNED
+  DESIGN_IN_PROGRESS
+  PRODUCTION_PENDING
+  IN_PRODUCTION
+  PARTIAL_DELIVERED
+  COMPLETED
+  CANCELLED
+}
+
+// ============================================================================
+// 8. 리뷰
+// ============================================================================
+
+model Review {
+  id          String  @id @default(cuid())
+  memberId    String
+  member      Member  @relation(fields: [memberId], references: [id])
+  productId   String
+  product     Product @relation(fields: [productId], references: [id])
+  orderItemId String  @unique
+
+  rating  Int
+  title   String?
+  content String  @db.Text
+  tags    Json
+
+  images ReviewImage[]
+
+  helpfulCount Int @default(0)
+  reportCount  Int @default(0)
+  pointsEarned Int @default(0)
+
+  status ReviewStatus @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([productId])
+  @@index([memberId])
+  @@map("reviews")
+}
+
+model ReviewImage {
+  id       String @id @default(cuid())
+  reviewId String
+  review   Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  url       String
+  sortOrder Int    @default(0)
+
+  createdAt DateTime @default(now())
+
+  @@index([reviewId])
+  @@map("review_images")
+}
+
+enum ReviewStatus {
+  ACTIVE
+  HIDDEN
+  REPORTED
+  DELETED
+}
+
+// ============================================================================
+// 9. 적립금 / 쿠폰
+// ============================================================================
+
+model PointHistory {
+  id       String @id @default(cuid())
+  memberId String
+  member   Member @relation(fields: [memberId], references: [id])
+
+  type    PointType
+  amount  Int
+  balance Int
+
+  reason         String
+  relatedOrderId String?
+
+  expiresAt DateTime?
+
+  createdAt DateTime @default(now())
+
+  @@index([memberId])
+  @@index([expiresAt])
+  @@map("point_history")
+}
+
+enum PointType {
+  EARN_SIGNUP
+  EARN_PURCHASE
+  EARN_REVIEW
+  EARN_BIRTHDAY
+  EARN_EVENT
+  USE_PURCHASE
+  EXPIRE
+  ADMIN_ADJUST
+}
+
+model Coupon {
+  id   String @id @default(cuid())
+  code String @unique
+  name String
+
+  type          CouponType
+  discountType  DiscountType
+  discountValue Int
+
+  minOrderAmount    Int  @default(0)
+  maxDiscountAmount Int?
+
+  validFrom  DateTime
+  validUntil DateTime
+
+  usageLimit     Int?
+  usedCount      Int  @default(0)
+  perMemberLimit Int  @default(1)
+
+  isActive Boolean @default(true)
+
+  memberCoupons MemberCoupon[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([code])
+  @@map("coupons")
+}
+
+model MemberCoupon {
+  id       String @id @default(cuid())
+  memberId String
+  member   Member @relation(fields: [memberId], references: [id])
+  couponId String
+  coupon   Coupon @relation(fields: [couponId], references: [id])
+
+  usedAt    DateTime?
+  expiresAt DateTime
+
+  createdAt DateTime @default(now())
+
+  @@unique([memberId, couponId])
+  @@index([memberId])
+  @@map("member_coupons")
+}
+
+enum CouponType {
+  SIGNUP_WELCOME
+  FIRST_PURCHASE
+  BIRTHDAY
+  EVENT
+  ADMIN_GIFT
+  BULK_DISCOUNT
+}
+
+enum DiscountType {
+  FIXED_AMOUNT
+  PERCENTAGE
+  FREE_SHIPPING
+  FREE_EMBROIDERY
 }
