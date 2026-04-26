@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm create *)",
+      "Bash(cp /tmp/ss-mart-init/package.json /home/boss/projects/ss-mart/)",
+      "Bash(cp /tmp/ss-mart-init/pnpm-lock.yaml /home/boss/projects/ss-mart/)",
+      "Bash(cp /tmp/ss-mart-init/pnpm-workspace.yaml /home/boss/projects/ss-mart/)",
+      "Bash(cp /tmp/ss-mart-init/tsconfig.json /home/boss/projects/ss-mart/)",
+      "Bash(cp /tmp/ss-mart-init/next.config.ts /home/boss/projects/ss-mart/)",
+      "Bash(node *)",
+      "Bash(pnpm add *)",
+      "Bash(pnpm approve-builds *)",
+      "Bash(pnpm install *)",
+      "Bash(pnpm prisma *)",
+      "Bash(pnpm typecheck *)",
+      "Bash(pnpm dev *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "Bash(git init *)"
+    ]
+  }
+}

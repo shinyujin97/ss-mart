@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+:root {
+  --red: #c8161d;
+  --red-dark: #9c0e15;
+  --black: #111;
+  --gray-900: #1a1a1a;
+  --gray-700: #4a4a4a;
+  --gray-500: #8a8a8a;
+  --gray-300: #d8d8d8;
+  --gray-100: #f4f4f4;
+  --gray-50: #fafafa;
+  --line: #e5e5e5;
+  --yellow: #ffd400;
+}
+
+@theme inline {
+  --color-red: var(--red);
+  --color-red-dark: var(--red-dark);
+  --color-black: var(--black);
+  --color-gray-900: var(--gray-900);
+  --color-gray-700: var(--gray-700);
+  --color-gray-500: var(--gray-500);
+  --color-gray-300: var(--gray-300);
+  --color-gray-100: var(--gray-100);
+  --color-gray-50: var(--gray-50);
+  --color-line: var(--line);
+  --color-yellow: var(--yellow);
+  --font-sans: var(--font-noto-sans-kr);
+  --font-mono: var(--font-ibm-plex-mono);
+  --font-display: var(--font-bebas-neue);
+  --radius: 0;
+}
+
+body {
+  background: #fff;
+  color: var(--black);
+  font-family: var(--font-sans), "Noto Sans KR", sans-serif;
+}

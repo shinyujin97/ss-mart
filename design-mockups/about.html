@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회사 소개 — 에스에스종합상사</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;900&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans KR', sans-serif; color: #1a1a1a; background: #fff; font-size: 13px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+:root { --red: #c8161d; --red-dark: #9c0e15; --black: #111; --gray-900: #1a1a1a; --gray-700: #4a4a4a; --gray-500: #8a8a8a; --gray-300: #d8d8d8; --gray-100: #f4f4f4; --gray-50: #fafafa; --line: #e5e5e5; --yellow: #ffd400; }
+
+/* 공통 헤더 */
+.topbar { background: #f4f4f4; color: #555; font-size: 11px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+.topbar-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+.topbar-left { display: flex; align-items: center; gap: 16px; }
+.topbar-left .divider { color: #ccc; }
+.topbar a { margin-left: 16px; }
+.topbar a.b2b { color: var(--red); font-weight: 600; }
+.header { background: #fff; border-bottom: 1px solid var(--line); }
+.header-inner { max-width: 1340px; margin: 0 auto; padding: 26px 24px; display: flex; align-items: center; gap: 40px; }
+.logo { display: flex; flex-direction: column; line-height: 1; padding-right: 30px; border-right: 1px solid var(--line); }
+.logo-main { font-size: 24px; font-weight: 900; color: var(--black); letter-spacing: -0.8px; }
+.logo-main .accent { color: var(--red); }
+.logo-sub { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 3px; color: var(--gray-500); margin-top: 5px; }
+.search-box { flex: 1; max-width: 580px; position: relative; }
+.search-box input { width: 100%; padding: 13px 50px 13px 18px; border: 2px solid var(--black); background: #fff; font-size: 13px; outline: none; font-weight: 500; }
+.search-box button { position: absolute; right: 0; top: 0; bottom: 0; background: var(--black); color: #fff; border: none; width: 50px; cursor: pointer; font-size: 16px; }
+.header-icons { display: flex; gap: 0; margin-left: auto; align-items: center; }
+.header-icons a { padding: 10px 18px; font-size: 12px; font-weight: 500; color: var(--gray-700); border-left: 1px solid var(--line); display: flex; align-items: center; gap: 6px; }
+.header-icons a:first-child { border-left: none; }
+.header-icons a .num { color: var(--red); font-weight: 700; font-family: 'Bebas Neue', sans-serif; font-size: 14px; }
+.nav { background: var(--black); }
+.nav-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; display: flex; align-items: stretch; }
+.nav-cat-btn { background: var(--red); color: #fff; padding: 0 24px; font-weight: 700; display: flex; align-items: center; gap: 12px; font-size: 13px; min-width: 200px; letter-spacing: 0.3px; }
+.nav-menu { display: flex; flex: 1; align-items: center; }
+.nav-menu a { padding: 16px 18px; font-weight: 500; color: #fff; font-size: 13px; }
+.nav-menu a.hot { color: var(--yellow); font-weight: 600; }
+.nav-cs { margin-left: auto; padding: 0 22px; display: flex; align-items: center; gap: 10px; border-left: 1px solid #333; color: #fff; font-size: 12px; }
+.nav-cs .cs-num { font-family: 'Bebas Neue', sans-serif; color: var(--yellow); font-size: 18px; letter-spacing: 1px; }
+
+/* HERO */
+.about-hero { max-width: 1340px; margin: 24px auto; padding: 0 24px; }
+.about-hero-box { background: var(--black); color: #fff; padding: 70px 60px; position: relative; overflow: hidden; min-height: 420px; display: flex; align-items: center; }
+.about-hero-box::before { content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(135deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 60%, transparent 100%), url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600&q=85&auto=format&fit=crop');
+  background-size: cover; background-position: center;
+}
+.about-hero-box::after { content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.about-hero-content { position: relative; z-index: 2; max-width: 700px; }
+.about-hero-tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 3px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+.about-hero-tag::before { content: ''; width: 28px; height: 1px; background: var(--red); }
+.about-hero-title { font-size: 56px; font-weight: 900; letter-spacing: -2px; line-height: 1.05; margin-bottom: 24px; }
+.about-hero-title .accent { color: var(--yellow); }
+.about-hero-desc { font-size: 16px; color: rgba(255,255,255,0.8); line-height: 1.7; margin-bottom: 30px; max-width: 580px; }
+.about-hero-stats { display: flex; gap: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.15); }
+.h-stat { display: flex; flex-direction: column; gap: 4px; }
+.h-stat-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 1.5px; }
+.h-stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--yellow); letter-spacing: 1px; line-height: 1; }
+
+/* SECTION COMMON */
+.section-wrap { max-width: 1340px; margin: 0 auto; padding: 60px 24px; }
+.section-header { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 16px; border-bottom: 2px solid var(--black); margin-bottom: 36px; }
+.section-tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 2px; margin-bottom: 8px; }
+.section-title { font-size: 32px; font-weight: 900; letter-spacing: -1px; }
+.section-title .accent { color: var(--red); }
+.section-meta { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--gray-500); letter-spacing: 0.3px; }
+
+/* MISSION */
+.mission-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center; }
+.mission-text { font-size: 17px; line-height: 1.8; color: var(--gray-700); }
+.mission-text p { margin-bottom: 18px; }
+.mission-text strong { color: var(--black); font-weight: 800; }
+.mission-text .quote { font-size: 24px; font-weight: 900; color: var(--black); line-height: 1.4; padding: 24px; border-left: 4px solid var(--red); background: var(--gray-50); margin: 24px 0; letter-spacing: -0.5px; }
+.mission-image { aspect-ratio: 4/5; background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1000&q=85&auto=format&fit=crop'); background-size: cover; background-position: center; position: relative; }
+.mission-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, transparent 60%, rgba(0,0,0,0.4) 100%); }
+.mission-image-tag { position: absolute; bottom: 24px; left: 24px; background: rgba(0,0,0,0.85); color: #fff; padding: 12px 18px; z-index: 2; }
+.mission-image-tag-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--yellow); letter-spacing: 1.5px; margin-bottom: 4px; }
+.mission-image-tag-text { font-size: 13px; font-weight: 700; }
+
+/* HISTORY */
+.history-section { background: var(--gray-50); }
+.history-grid { display: grid; grid-template-columns: 1fr; gap: 0; position: relative; }
+.history-grid::before { content: ''; position: absolute; left: 80px; top: 30px; bottom: 30px; width: 2px; background: var(--gray-300); }
+.history-item { display: grid; grid-template-columns: 80px 24px 1fr; gap: 24px; padding: 22px 0; align-items: flex-start; position: relative; z-index: 1; }
+.history-year { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--red); letter-spacing: 1px; line-height: 1; padding-top: 4px; }
+.history-marker { width: 24px; height: 24px; background: #fff; border: 3px solid var(--red); margin-top: 8px; border-radius: 50%; }
+.history-content { padding-bottom: 8px; }
+.history-title { font-size: 16px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.3px; }
+.history-desc { font-size: 13px; color: var(--gray-700); line-height: 1.7; }
+.history-tag { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--red); letter-spacing: 1px; margin-bottom: 6px; padding: 2px 6px; border: 1px solid var(--red); font-weight: 600; }
+
+/* PARTNERS */
+.partners-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.partner-cell { background: #fff; padding: 30px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 110px; transition: all .15s; }
+.partner-cell:hover { background: var(--gray-50); }
+.partner-name { font-size: 13px; font-weight: 800; letter-spacing: -0.3px; }
+.partner-sub { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--gray-500); letter-spacing: 0.5px; }
+
+/* WHY US (4개 섹션) */
+.why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--line); }
+.why-item { padding: 36px 28px; border-right: 1px solid var(--line); }
+.why-item:last-child { border-right: none; }
+.why-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 1.5px; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.why-icon { font-family: 'Bebas Neue', sans-serif; font-size: 56px; color: var(--black); letter-spacing: 1px; line-height: 1; margin-bottom: 14px; }
+.why-title { font-size: 18px; font-weight: 900; margin-bottom: 10px; letter-spacing: -0.5px; }
+.why-desc { font-size: 13px; color: var(--gray-700); line-height: 1.7; }
+.why-desc strong { color: var(--red); font-weight: 700; }
+
+/* COMPANY INFO */
+.info-section { background: var(--black); color: #fff; }
+.info-section .section-header { border-bottom-color: rgba(255,255,255,0.2); }
+.info-section .section-title { color: #fff; }
+.info-section .section-meta { color: rgba(255,255,255,0.5); }
+
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.info-block { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 28px; }
+.info-block-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--yellow); letter-spacing: 1.5px; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.15); font-weight: 600; }
+.info-row { display: grid; grid-template-columns: 130px 1fr; gap: 14px; padding: 8px 0; align-items: baseline; font-size: 13px; }
+.info-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 1px; font-weight: 600; }
+.info-value { color: #fff; line-height: 1.6; }
+.info-value strong { color: var(--yellow); font-weight: 700; }
+
+/* MAP */
+.map-section { background: #fff; }
+.map-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); }
+.map-info-block { padding: 36px 32px; background: var(--gray-50); }
+.map-info-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 1.5px; margin-bottom: 12px; }
+.map-info-title { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 18px; }
+.map-info-block .info-row { padding: 10px 0; border-bottom: 1px dashed var(--line); }
+.map-info-block .info-label { color: var(--gray-500); }
+.map-info-block .info-value { color: var(--black); }
+.map-image { background: var(--gray-100); position: relative; min-height: 380px; display: flex; align-items: center; justify-content: center; background-image: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('https://images.unsplash.com/photo-1524661135-423995f22d0b?w=1200&q=80&auto=format&fit=crop'); background-size: cover; }
+.map-pin { width: 56px; height: 56px; background: var(--red); color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; box-shadow: 0 8px 24px rgba(200, 22, 29, 0.3); animation: pinPulse 2s infinite; }
+@keyframes pinPulse { 0%, 100% { box-shadow: 0 8px 24px rgba(200, 22, 29, 0.3); } 50% { box-shadow: 0 8px 36px rgba(200, 22, 29, 0.5); } }
+
+/* CTA */
+.cta-section { background: var(--gray-50); padding: 60px 24px; }
+.cta-inner { max-width: 1340px; margin: 0 auto; background: var(--black); color: #fff; padding: 50px; display: grid; grid-template-columns: auto 1fr auto; gap: 40px; align-items: center; }
+.cta-icon { width: 70px; height: 70px; background: var(--red); display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 800; letter-spacing: 1px; }
+.cta-text {}
+.cta-title { font-size: 24px; font-weight: 900; margin-bottom: 8px; letter-spacing: -0.5px; }
+.cta-title .accent { color: var(--yellow); }
+.cta-desc { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.6; }
+.cta-buttons { display: flex; gap: 8px; flex-shrink: 0; }
+.cta-btn { padding: 16px 24px; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; cursor: pointer; transition: all .15s; }
+.cta-btn.primary { background: var(--red); color: #fff; }
+.cta-btn.primary:hover { background: var(--yellow); color: var(--black); }
+.cta-btn.secondary { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+.cta-btn.secondary:hover { background: rgba(255,255,255,0.05); }
+
+/* FOOTER */
+.footer { background: var(--black); color: #888; padding: 50px 0 28px; font-size: 12px; }
+.footer-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 36px; padding-bottom: 32px; border-bottom: 1px solid #333; }
+.footer-logo-main { font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 4px; letter-spacing: -0.8px; }
+.footer-logo-main .accent { color: var(--red); }
+.footer-logo-sub { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 3px; color: var(--gray-500); margin-bottom: 18px; }
+.footer-cs-num { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: #fff; letter-spacing: 1px; margin: 6px 0 4px; }
+.footer h4 { color: #fff; font-size: 12px; margin-bottom: 14px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 1.5px; font-weight: 600; }
+.footer ul { list-style: none; }
+.footer ul li { margin-bottom: 8px; }
+.footer-bottom { line-height: 1.8; opacity: .55; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.3px; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR / HEADER / NAV -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span>SS TRADING CO.</span><span class="divider">|</span>
+      <span>TEL. 1588-0000 / 평일 09:00 ─ 18:00</span><span class="divider">|</span>
+      <span>인천 본점 운영중</span>
+    </div>
+    <div>
+      <a href="#">로그인</a><a href="#">회원가입</a><a href="#">주문조회</a><a href="#">고객센터</a>
+      <a href="#" class="b2b">▶ 단체주문 견적</a>
+    </div>
+  </div>
+</div>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-main">에스에스<span class="accent">종합상사</span></div>
+      <div class="logo-sub">SAFETY · WORKWEAR · SINCE</div>
+    </a>
+    <div class="search-box"><input type="text" placeholder="브랜드, 상품명, 카테고리로 검색하세요"><button>⌕</button></div>
+    <div class="header-icons">
+      <a href="#">찜 <span class="num">12</span></a>
+      <a href="#">장바구니 <span class="num">02</span></a>
+      <a href="#">마이페이지</a>
+    </div>
+  </div>
+</header>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-cat-btn">▣ ALL CATEGORIES</div>
+    <div class="nav-menu">
+      <a href="#">신상품</a><a href="#" class="hot">▶ TODAY DEAL</a><a href="#">베스트</a>
+      <a href="#">작업복</a><a href="#">안전화</a><a href="#">안전용품</a><a href="#">자수/마킹</a><a href="#">브랜드관</a>
+    </div>
+    <div class="nav-cs"><span style="opacity:.6">단체주문</span><span class="cs-num">1588-0000</span></div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="about-hero">
+  <div class="about-hero-box">
+    <div class="about-hero-content">
+      <div class="about-hero-tag">ABOUT US / COMPANY PROFILE</div>
+      <h1 class="about-hero-title">현장의 신뢰<br><span class="accent">에스에스종합상사</span></h1>
+      <p class="about-hero-desc">인천에서 시작된 작업복 · 안전용품 종합상사. 80여 개 검증된 브랜드를 합리적 가격으로 공급하며, 자수 / 마킹까지 한 번에 해결합니다.</p>
+      <div class="about-hero-stats">
+        <div class="h-stat"><div class="h-stat-label">FOUNDED</div><div class="h-stat-value">2008</div></div>
+        <div class="h-stat"><div class="h-stat-label">BRANDS</div><div class="h-stat-value">80+</div></div>
+        <div class="h-stat"><div class="h-stat-label">CLIENTS</div><div class="h-stat-value">12,000+</div></div>
+        <div class="h-stat"><div class="h-stat-label">PROJECTS</div><div class="h-stat-value">38,000+</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">SECTION / 01 ─ MISSION</div>
+      <div class="section-title">우리의 <span class="accent">약속</span></div>
+    </div>
+    <div class="section-meta">SS TRADING CO. / VOL.01</div>
+  </div>
+
+  <div class="mission-grid">
+    <div class="mission-text">
+      <p>에스에스종합상사는 <strong>2008년 인천에서 시작</strong>된 작업복 · 안전화 · 안전용품 전문 종합상사입니다. 작은 매장에서 시작했지만, 지금은 <strong>80여 개 브랜드의 5,940여 개 상품</strong>을 취급하는 종합 유통사로 성장했습니다.</p>
+
+      <div class="quote">"좋은 작업복은 현장의 안전과 자부심을 만든다"</div>
+
+      <p>우리는 단순히 옷을 파는 곳이 아닙니다. 회사 로고가 박힌 자수 작업복은 직원들에게 <strong>소속감</strong>을, 거래처에게는 <strong>신뢰</strong>를 줍니다. 우리는 그 가치를 만드는 사람들입니다.</p>
+
+      <p>모든 작업복은 입고 검수, 자수 / 마킹 작업, 출고 검수까지 <strong>3단계 품질 관리</strong>를 거칩니다. 이 모든 것이 14년간 12,000여 거래처와 함께 쌓아온 신뢰의 이유입니다.</p>
+    </div>
+
+    <div class="mission-image">
+      <div class="mission-image-tag">
+        <div class="mission-image-tag-num">─ SINCE 2008</div>
+        <div class="mission-image-tag-text">에스에스종합상사 본사 / 인천</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="section-wrap" style="padding-top: 0;">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">SECTION / 02 ─ WHY US</div>
+      <div class="section-title">에스에스를 <span class="accent">선택하는 이유</span></div>
+    </div>
+    <div class="section-meta">04 REASONS</div>
+  </div>
+
+  <div class="why-grid">
+    <div class="why-item">
+      <div class="why-num">REASON / 01</div>
+      <div class="why-icon">★</div>
+      <div class="why-title">검증된 브랜드</div>
+      <div class="why-desc">PIOZEN, CARHARTT, K2 SAFETY, 3M 등 <strong>80여 개 브랜드</strong>의 정품만을 직매입하여 공급합니다.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">REASON / 02</div>
+      <div class="why-icon">▣</div>
+      <div class="why-title">자수 전문 노하우</div>
+      <div class="why-desc">자체 자수 / 마킹 시설 운영. <strong>캐릭터 디자인까지 저작권 안전</strong>하게 진행 가능합니다.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">REASON / 03</div>
+      <div class="why-icon">◆</div>
+      <div class="why-title">단체주문 30%</div>
+      <div class="why-desc">100벌 이상 단체주문 시 <strong>최대 30% 추가 할인</strong>. 자수 / 마킹 무료, 세금계산서 자동발행.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">REASON / 04</div>
+      <div class="why-icon">▲</div>
+      <div class="why-title">14년 신뢰</div>
+      <div class="why-desc">2008년부터 12,000여 거래처와 함께한 시간. <strong>리뷰 평점 ★ 4.9</strong>가 우리의 답입니다.</div>
+    </div>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<section class="history-section">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div>
+        <div class="section-tag">SECTION / 03 ─ HISTORY</div>
+        <div class="section-title">우리의 <span class="accent">발자취</span></div>
+      </div>
+      <div class="section-meta">2008 ─ 2026</div>
+    </div>
+
+    <div class="history-grid">
+      <div class="history-item">
+        <div class="history-year">2026</div>
+        <div class="history-marker"></div>
+        <div class="history-content">
+          <div class="history-tag">─ MILESTONE / 08</div>
+          <div class="history-title">웹사이트 / 자수 시뮬레이터 오픈</div>
+          <div class="history-desc">DIY 자수 시뮬레이터 도입. 고객이 직접 시안을 만들고 결제까지 한 번에 진행 가능. 누적 자수 작업 38,000건 돌파.</div>
+        </div>
+      </div>
+      <div class="history-item">
+        <div class="history-year">2023</div>
+        <div class="history-marker"></div>
+        <div class="history-content">
+          <div class="history-tag">─ MILESTONE / 07</div>
+          <div class="history-title">취급 브랜드 80개 돌파</div>
+          <div class="history-desc">국내외 작업복 / 안전용품 80여 브랜드 정품 공급. 글로벌 브랜드 (CARHARTT, BLAKLADER 등) 수입 라인업 확대.</div>
+        </div>
+      </div>
+      <div class="history-item">
+        <div class="history-year">2020</div>
+        <div class="history-marker"></div>
+        <div class="history-content">
+          <div class="history-tag">─ MILESTONE / 06</div>
+          <div class="history-title">자수 전용 공장 확장 이전</div>
+          <div class="history-desc">자수 / 마킹 전용 시설 확장. 컴퓨터 자수, 패치, 실크 인쇄, 캐릭터 디자인까지 풀라인업 구축.</div>
+        </div>
+      </div>
+      <div class="history-item">
+        <div class="history-year">2018</div>
+        <div class="history-marker"></div>
+        <div class="history-content">
+          <div class="history-tag">─ MILESTONE / 05</div>
+          <div class="history-title">누적 거래처 5,000개 돌파</div>
+          <div class="history-desc">건설 / 제조 / 물류 / F&B 전 분야 거래처 5,000여 곳. 대기업 협력사 다수 등록.</div>
+        </div>
+      </div>
+      <div class="history-item">
+        <div class="history-year">2015</div>
+        <div class="history-marker"></div>
+        <div class="history-content">
+          <div class="history-tag">─ MILESTONE / 04</div>
+          <div class="history-title">법인 전환 / 본사 신축 이전</div>
+          <div class="history-desc">㈜에스에스종합상사 법인 전환. 인천 ○○구 신사옥 이전 (창고 / 자수 작업장 통합).</div>
+        </div>
+      </div>
+      <div class="history-item">
+        <div class="history-year">2012</div>
+        <div class="history-marker"></div>
+        <div class="history-content">
+          <div class="history-tag">─ MILESTONE / 03</div>
+          <div class="history-title">자수 / 마킹 사업 본격 진출</div>
+          <div class="history-desc">단체 작업복 자수 수요 증가에 맞춰 자수 사업부 신설. 첫 단체주문 100벌 납품 (○○건설).</div>
+        </div>
+      </div>
+      <div class="history-item">
+        <div class="history-year">2010</div>
+        <div class="history-marker"></div>
+        <div class="history-content">
+          <div class="history-tag">─ MILESTONE / 02</div>
+          <div class="history-title">PIOZEN / K2 SAFETY 공식 대리점</div>
+          <div class="history-desc">국내 주요 작업복 / 안전용품 브랜드 공식 대리점 계약. 직매입 / 정품 공급 시스템 구축.</div>
+        </div>
+      </div>
+      <div class="history-item">
+        <div class="history-year">2008</div>
+        <div class="history-marker"></div>
+        <div class="history-content">
+          <div class="history-tag">─ MILESTONE / 01</div>
+          <div class="history-title">에스에스종합상사 창립</div>
+          <div class="history-desc">인천에서 작업복 / 안전용품 소매 매장으로 시작. "현장의 신뢰를 만든다" 슬로건 제정.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS / BRANDS -->
+<section class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">SECTION / 04 ─ BRANDS</div>
+      <div class="section-title">함께하는 <span class="accent">80여 개 브랜드</span></div>
+    </div>
+    <div class="section-meta">PARTNERED BRANDS</div>
+  </div>
+
+  <div class="partners-grid">
+    <div class="partner-cell"><div class="partner-name">PIOZEN</div><div class="partner-sub">피오젠</div></div>
+    <div class="partner-cell"><div class="partner-name">CARHARTT</div><div class="partner-sub">칼하트</div></div>
+    <div class="partner-cell"><div class="partner-name">DICKIES</div><div class="partner-sub">디키즈</div></div>
+    <div class="partner-cell"><div class="partner-name">LEVI'S</div><div class="partner-sub">리바이스</div></div>
+    <div class="partner-cell"><div class="partner-name">K2 SAFETY</div><div class="partner-sub">K2 안전화</div></div>
+    <div class="partner-cell"><div class="partner-name">3M</div><div class="partner-sub">스리엠</div></div>
+    <div class="partner-cell"><div class="partner-name">KOLON</div><div class="partner-sub">코오롱</div></div>
+    <div class="partner-cell"><div class="partner-name">한일</div><div class="partner-sub">HANIL</div></div>
+    <div class="partner-cell"><div class="partner-name">KOVEA</div><div class="partner-sub">코베아</div></div>
+    <div class="partner-cell"><div class="partner-name">RED WING</div><div class="partner-sub">레드윙</div></div>
+    <div class="partner-cell"><div class="partner-name">BLAKLADER</div><div class="partner-sub">블락클라데</div></div>
+    <div class="partner-cell"><div class="partner-name">PUMA SAFETY</div><div class="partner-sub">푸마</div></div>
+    <div class="partner-cell"><div class="partner-name">THINSULATE</div><div class="partner-sub">신슐레이트</div></div>
+    <div class="partner-cell"><div class="partner-name">DUNLOP</div><div class="partner-sub">던롭</div></div>
+    <div class="partner-cell"><div class="partner-name">VALUE BRAND</div><div class="partner-sub">밸류브랜드</div></div>
+    <div class="partner-cell" style="background: var(--gray-50);"><div class="partner-name" style="color: var(--gray-500);">+ 65개</div><div class="partner-sub">MORE BRANDS</div></div>
+  </div>
+</section>
+
+<!-- COMPANY INFO (DARK) -->
+<section class="info-section">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div>
+        <div class="section-tag">SECTION / 05 ─ INFO</div>
+        <div class="section-title">회사 <span class="accent">기본 정보</span></div>
+      </div>
+      <div class="section-meta">COMPANY DETAILS</div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-block">
+        <div class="info-block-tag">▶ COMPANY OVERVIEW</div>
+        <div class="info-row"><div class="info-label">COMPANY</div><div class="info-value"><strong>㈜에스에스종합상사</strong></div></div>
+        <div class="info-row"><div class="info-label">CEO</div><div class="info-value">○○○</div></div>
+        <div class="info-row"><div class="info-label">FOUNDED</div><div class="info-value">2008.03</div></div>
+        <div class="info-row"><div class="info-label">BUSINESS</div><div class="info-value">작업복 / 안전화 / 안전용품 종합 유통<br>자수 / 마킹 가공 서비스</div></div>
+        <div class="info-row"><div class="info-label">REG. NO.</div><div class="info-value">000-00-00000</div></div>
+        <div class="info-row"><div class="info-label">ECOMMERCE</div><div class="info-value">제2026-인천○○-0000호</div></div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-block-tag">▶ CONTACT</div>
+        <div class="info-row"><div class="info-label">CS LINE</div><div class="info-value"><strong>1588-0000</strong></div></div>
+        <div class="info-row"><div class="info-label">OFFICE</div><div class="info-value">TEL. 430-0497 / FAX. 430-0498</div></div>
+        <div class="info-row"><div class="info-label">EMAIL</div><div class="info-value">contact@ssmart.kr</div></div>
+        <div class="info-row"><div class="info-label">KAKAO</div><div class="info-value">@ssmart</div></div>
+        <div class="info-row"><div class="info-label">HOURS</div><div class="info-value">평일 09:00 - 18:00<br>점심 12:00 - 13:00 / 주말·공휴일 휴무</div></div>
+        <div class="info-row"><div class="info-label">ADDRESS</div><div class="info-value">인천광역시 ○○구 ○○로 000</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section class="map-section">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div>
+        <div class="section-tag">SECTION / 06 ─ LOCATION</div>
+        <div class="section-title">오시는 <span class="accent">길</span></div>
+      </div>
+      <div class="section-meta">INCHEON / MAIN OFFICE</div>
+    </div>
+
+    <div class="map-grid">
+      <div class="map-info-block">
+        <div class="map-info-tag">─ SS TRADING / HQ</div>
+        <div class="map-info-title">에스에스종합상사<br>본사 / 자수 작업장</div>
+        <div class="info-row"><div class="info-label">ADDRESS</div><div class="info-value"><strong>인천광역시 ○○구 ○○로 000</strong></div></div>
+        <div class="info-row"><div class="info-label">TEL</div><div class="info-value">430-0497 / 430-0498</div></div>
+        <div class="info-row"><div class="info-label">SUBWAY</div><div class="info-value">○○역 1번 출구 도보 5분</div></div>
+        <div class="info-row"><div class="info-label">PARKING</div><div class="info-value">건물 내 무료 주차 가능</div></div>
+        <div class="info-row"><div class="info-label">HOURS</div><div class="info-value">평일 09:00 - 18:00<br>토요일 방문 사전 연락 필수</div></div>
+
+        <div style="margin-top: 24px; padding: 18px; background: var(--black); color: #fff;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--yellow); letter-spacing: 1.5px; margin-bottom: 8px;">▶ DIRECT VISIT</div>
+          <div style="font-size: 13px; line-height: 1.7;">단체주문 견적은 <strong style="color: var(--yellow);">방문 상담</strong>이 가장 빠릅니다. 샘플을 직접 보시고 자수 / 마킹 시안까지 현장에서 확인 가능합니다.</div>
+        </div>
+      </div>
+
+      <div class="map-image">
+        <div class="map-pin">SS</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-icon">B2B</div>
+    <div class="cta-text">
+      <div class="cta-title">단체주문 / 협력사 등록 <span class="accent">문의</span></div>
+      <div class="cta-desc">신규 거래처 등록부터 정기 발주까지 1:1 매니저가 안내해드립니다. 견적은 1~2영업일 내 회신.</div>
+    </div>
+    <div class="cta-buttons">
+      <a href="#" class="cta-btn primary">견적 신청하기 →</a>
+      <a href="tel:1588-0000" class="cta-btn secondary">전화 1588-0000</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo-main">에스에스<span class="accent">종합상사</span></div>
+        <div class="footer-logo-sub">SAFETY · WORKWEAR</div>
+        <h4>CUSTOMER CENTER</h4>
+        <div class="footer-cs-num">1588-0000</div>
+        <div style="margin-top: 8px;">평일 09:00 - 18:00 (점심 12:00-13:00)<br>주말 및 공휴일 휴무 / 카톡: @ssmart</div>
+      </div>
+      <div><h4>SHOP</h4><ul><li>신상품</li><li>베스트</li><li>오늘의 특가</li><li>자수/마킹</li><li>단체주문</li></ul></div>
+      <div><h4>SUPPORT</h4><ul><li>공지사항</li><li>1:1 문의</li><li>FAQ</li><li>리뷰 이벤트</li><li>적립금 안내</li></ul></div>
+      <div><h4>POLICY</h4><ul><li>이용약관</li><li>개인정보처리방침</li><li>배송/교환/환불</li><li>사업자정보확인</li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      ㈜에스에스종합상사 / 대표: ○○○ / 사업자등록번호: 000-00-00000 / 통신판매업신고: 제2026-인천○○-0000호<br>
+      인천광역시 ○○구 ○○로 000 / TEL. 430-0497 / FAX. 430-0498<br>
+      © 2026 SS TRADING CO. ALL RIGHTS RESERVED.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

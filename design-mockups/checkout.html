@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>주문서 / 결제 — 에스에스종합상사</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;900&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans KR', sans-serif; color: #1a1a1a; background: #fff; font-size: 13px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+:root {
+  --red: #c8161d;
+  --red-dark: #9c0e15;
+  --black: #111;
+  --gray-900: #1a1a1a;
+  --gray-700: #4a4a4a;
+  --gray-500: #8a8a8a;
+  --gray-300: #d8d8d8;
+  --gray-100: #f4f4f4;
+  --gray-50: #fafafa;
+  --line: #e5e5e5;
+  --yellow: #ffd400;
+}
+
+/* ===== TOP BAR ===== */
+.topbar { background: #f4f4f4; color: #555; font-size: 11px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+.topbar-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+.topbar-left { display: flex; align-items: center; gap: 16px; }
+.topbar-left .divider { color: #ccc; }
+.topbar a { margin-left: 16px; }
+.topbar a:hover { color: var(--red); }
+.topbar a.b2b { color: var(--red); font-weight: 600; }
+
+/* ===== HEADER ===== */
+.header { background: #fff; border-bottom: 1px solid var(--line); }
+.header-inner { max-width: 1340px; margin: 0 auto; padding: 26px 24px; display: flex; align-items: center; gap: 40px; }
+.logo { display: flex; flex-direction: column; line-height: 1; padding-right: 30px; border-right: 1px solid var(--line); }
+.logo-main { font-size: 24px; font-weight: 900; color: var(--black); letter-spacing: -0.8px; }
+.logo-main .accent { color: var(--red); }
+.logo-sub { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 3px; color: var(--gray-500); margin-top: 5px; }
+.search-box { flex: 1; max-width: 580px; position: relative; }
+.search-box input { width: 100%; padding: 13px 50px 13px 18px; border: 2px solid var(--black); background: #fff; font-size: 13px; outline: none; font-weight: 500; }
+.search-box button { position: absolute; right: 0; top: 0; bottom: 0; background: var(--black); color: #fff; border: none; width: 50px; cursor: pointer; font-size: 16px; }
+.header-icons { display: flex; gap: 0; margin-left: auto; align-items: center; }
+.header-icons a { padding: 10px 18px; font-size: 12px; font-weight: 500; color: var(--gray-700); border-left: 1px solid var(--line); display: flex; align-items: center; gap: 6px; }
+.header-icons a:first-child { border-left: none; }
+.header-icons a:hover { color: var(--red); }
+.header-icons a .num { color: var(--red); font-weight: 700; font-family: 'Bebas Neue', sans-serif; font-size: 14px; }
+
+/* ===== NAV ===== */
+.nav { background: var(--black); }
+.nav-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; display: flex; align-items: stretch; }
+.nav-cat-btn { background: var(--red); color: #fff; padding: 0 24px; font-weight: 700; display: flex; align-items: center; gap: 12px; font-size: 13px; min-width: 200px; letter-spacing: 0.3px; }
+.nav-menu { display: flex; flex: 1; align-items: center; }
+.nav-menu a { padding: 16px 18px; font-weight: 500; color: #fff; transition: all .15s; font-size: 13px; }
+.nav-menu a:hover { background: rgba(255,255,255,0.1); }
+.nav-menu a.hot { color: var(--yellow); font-weight: 600; }
+.nav-cs { margin-left: auto; padding: 0 22px; display: flex; align-items: center; gap: 10px; border-left: 1px solid #333; color: #fff; font-size: 12px; }
+.nav-cs .cs-num { font-family: 'Bebas Neue', sans-serif; color: var(--yellow); font-size: 18px; letter-spacing: 1px; }
+
+/* ===== PAGE HEADER ===== */
+.page-header { max-width: 1340px; margin: 24px auto; padding: 0 24px; }
+.page-header-row { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 16px; border-bottom: 2px solid var(--black); }
+.page-header-tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 2px; margin-bottom: 8px; }
+.page-header-title { font-size: 32px; font-weight: 900; letter-spacing: -1px; }
+
+.step-progress { display: flex; align-items: center; gap: 0; }
+.step-pg { display: flex; align-items: center; gap: 10px; padding: 10px 18px; background: var(--gray-50); border: 1px solid var(--line); }
+.step-pg.done { background: #fff; color: var(--gray-500); }
+.step-pg.active { background: var(--black); border-color: var(--black); color: #fff; }
+.step-pg-num { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--gray-500); letter-spacing: 1px; line-height: 1; }
+.step-pg.done .step-pg-num { color: var(--gray-300); }
+.step-pg.active .step-pg-num { color: var(--yellow); }
+.step-pg-info {}
+.step-pg-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--gray-500); letter-spacing: 1px; }
+.step-pg.done .step-pg-label { color: var(--gray-300); }
+.step-pg.active .step-pg-label { color: rgba(255,255,255,0.6); }
+.step-pg-name { font-size: 12px; font-weight: 700; }
+.step-arrow { padding: 0 10px; color: var(--gray-300); font-size: 12px; font-family: 'IBM Plex Mono', monospace; }
+
+/* ===== MAIN LAYOUT ===== */
+.order-main { max-width: 1340px; margin: 0 auto 50px; padding: 0 24px; display: grid; grid-template-columns: 1fr 380px; gap: 24px; align-items: flex-start; }
+
+/* ===== ORDER FORM ===== */
+.order-form {}
+
+.form-section { background: #fff; border: 1px solid var(--line); margin-bottom: 12px; }
+.form-section-header { padding: 16px 20px; border-bottom: 1px solid var(--line); background: var(--gray-50); display: flex; justify-content: space-between; align-items: center; }
+.form-section-title { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 800; letter-spacing: -0.3px; }
+.form-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 1.5px; padding: 3px 8px; border: 1px solid var(--red); font-weight: 700; }
+.form-section-action { font-size: 12px; color: var(--gray-700); cursor: pointer; }
+.form-section-action:hover { color: var(--red); }
+.form-section-body { padding: 22px 24px; }
+
+/* ===== ORDERER ===== */
+.input-row { display: grid; grid-template-columns: 130px 1fr; gap: 14px; align-items: center; padding: 9px 0; }
+.input-label { font-size: 12px; color: var(--gray-700); font-weight: 600; display: flex; align-items: center; gap: 4px; }
+.input-label .required { color: var(--red); font-size: 11px; }
+.input-text { padding: 10px 12px; border: 1px solid var(--line); font-size: 13px; outline: none; font-family: 'Noto Sans KR'; width: 100%; }
+.input-text:focus { border-color: var(--black); }
+.input-text:read-only { background: var(--gray-50); color: var(--gray-700); }
+.input-row-double { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+
+/* ===== DELIVERY ===== */
+.delivery-saved { background: var(--gray-50); border: 1px solid var(--line); padding: 14px 16px; margin-bottom: 16px; }
+.delivery-saved-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.delivery-saved-tag { display: flex; gap: 6px; }
+.del-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; padding: 3px 8px; letter-spacing: 0.5px; font-weight: 600; }
+.del-tag.default { background: var(--red); color: #fff; }
+.del-tag.label { background: var(--black); color: #fff; }
+.delivery-saved-action { display: flex; gap: 4px; }
+.del-btn { font-size: 11px; padding: 4px 10px; border: 1px solid var(--line); background: #fff; cursor: pointer; transition: all .15s; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; font-weight: 600; }
+.del-btn:hover { border-color: var(--black); }
+.delivery-info-line { font-size: 13px; line-height: 1.7; }
+.delivery-info-line strong { font-weight: 700; }
+.delivery-info-line .sep { color: var(--gray-300); margin: 0 6px; }
+.delivery-info-line .addr { color: var(--gray-700); font-size: 12px; }
+
+.address-input-row { display: flex; gap: 6px; align-items: center; }
+.address-search-btn { padding: 10px 14px; background: var(--black); color: #fff; border: none; cursor: pointer; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; flex-shrink: 0; }
+.address-search-btn:hover { background: var(--red); }
+
+.delivery-options-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 14px; }
+.delivery-option { padding: 14px; border: 1.5px solid var(--line); cursor: pointer; transition: all .15s; }
+.delivery-option:hover { border-color: var(--gray-700); }
+.delivery-option.active { border-color: var(--red); background: #fff5f5; }
+.delivery-option-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.del-radio { width: 16px; height: 16px; border: 1.5px solid var(--gray-300); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.delivery-option.active .del-radio { border-color: var(--red); }
+.delivery-option.active .del-radio::after { content: ''; width: 8px; height: 8px; background: var(--red); border-radius: 50%; }
+.delivery-option-name { font-size: 13px; font-weight: 700; }
+.delivery-option-desc { font-size: 11px; color: var(--gray-500); padding-left: 24px; line-height: 1.5; }
+
+/* 메모 */
+.memo-select { width: 100%; padding: 10px 12px; border: 1px solid var(--line); font-size: 13px; outline: none; background: #fff; cursor: pointer; }
+.memo-input { width: 100%; padding: 10px 12px; border: 1px solid var(--line); font-size: 13px; outline: none; margin-top: 6px; }
+
+/* ===== ORDER ITEMS ===== */
+.order-items {}
+.order-item { padding: 14px 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 70px 1fr auto; gap: 14px; align-items: flex-start; }
+.order-item:last-child { border-bottom: none; }
+.order-item-img { width: 70px; height: 70px; background-size: cover; background-position: center; background-color: var(--gray-100); }
+.order-item-info {}
+.order-item-brand { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); letter-spacing: 1px; margin-bottom: 3px; font-weight: 600; }
+.order-item-name { font-size: 13px; font-weight: 600; line-height: 1.4; margin-bottom: 6px; }
+.order-item-options { font-size: 11px; color: var(--gray-700); }
+.order-item-emb { display: inline-flex; gap: 6px; align-items: center; margin-top: 6px; padding: 4px 8px; background: #fff5f5; border-left: 2px solid var(--red); font-size: 11px; }
+.order-item-emb-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 0.5px; font-weight: 700; }
+.order-item-prices { text-align: right; }
+.order-item-qty { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--gray-500); margin-bottom: 3px; }
+.order-item-price { font-size: 14px; font-weight: 800; }
+.order-item-emb-price { font-size: 11px; color: var(--red); margin-top: 3px; font-family: 'IBM Plex Mono', monospace; }
+
+/* ===== PAYMENT METHODS ===== */
+.payment-tabs { display: flex; gap: 0; border: 1px solid var(--line); margin-bottom: 18px; }
+.pay-tab { flex: 1; padding: 14px 12px; text-align: center; cursor: pointer; transition: all .15s; border-right: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.pay-tab:last-child { border-right: none; }
+.pay-tab:hover { background: var(--gray-50); }
+.pay-tab.active { background: var(--black); color: #fff; }
+.pay-tab-icon { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; line-height: 1; }
+.pay-tab-name { font-size: 12px; font-weight: 700; }
+.pay-tab.active .pay-tab-name { color: var(--yellow); }
+
+.payment-content { padding: 18px; background: var(--gray-50); border: 1px solid var(--line); }
+.payment-card-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 14px; }
+.pay-card { padding: 12px 8px; text-align: center; background: #fff; border: 1px solid var(--line); cursor: pointer; transition: all .15s; font-size: 11px; font-weight: 700; }
+.pay-card:hover { border-color: var(--gray-700); }
+.pay-card.active { border-color: var(--red); background: #fff5f5; color: var(--red); }
+.pay-card.b2b { background: var(--black); color: #fff; }
+.pay-card.b2b.active { background: var(--red); color: #fff; }
+
+.pay-installment-row { display: grid; grid-template-columns: 80px 1fr; gap: 12px; align-items: center; }
+.pay-installment-label { font-size: 12px; color: var(--gray-700); font-weight: 600; }
+.pay-installment-select { padding: 10px 12px; border: 1px solid var(--line); font-size: 12px; outline: none; background: #fff; width: 100%; }
+
+/* ===== AGREEMENT ===== */
+.agreement-section { background: #fff; border: 1px solid var(--line); padding: 18px 22px; }
+.agreement-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; }
+.agreement-row.all { padding-bottom: 12px; margin-bottom: 8px; border-bottom: 1px solid var(--line); }
+.agreement-label { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 13px; }
+.agreement-label.required { font-weight: 700; }
+.agreement-label.required .req-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 0.5px; }
+.agreement-label.optional .req-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); letter-spacing: 0.5px; }
+.checkbox { width: 18px; height: 18px; border: 1.5px solid var(--gray-300); display: flex; align-items: center; justify-content: center; transition: all .15s; flex-shrink: 0; background: #fff; cursor: pointer; }
+.checkbox.checked { background: var(--red); border-color: var(--red); color: #fff; font-size: 11px; font-weight: 700; }
+.checkbox.checked::after { content: '✓'; }
+.agreement-view { font-size: 11px; color: var(--gray-500); cursor: pointer; }
+.agreement-view:hover { color: var(--red); }
+
+/* ===== ORDER SUMMARY (우측) ===== */
+.order-summary { position: sticky; top: 24px; background: #fff; border: 1px solid var(--line); }
+.summary-header { background: var(--black); color: #fff; padding: 16px 20px; }
+.summary-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--yellow); letter-spacing: 1.5px; margin-bottom: 4px; }
+.summary-title { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; }
+
+.summary-section { padding: 18px 20px; border-bottom: 1px solid var(--line); }
+.summary-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); letter-spacing: 1.5px; margin-bottom: 14px; font-weight: 600; }
+
+.price-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 13px; }
+.price-row.discount-row { color: var(--red); }
+.price-label { color: var(--gray-700); }
+.price-label small { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); margin-left: 6px; letter-spacing: 0.3px; }
+.price-value { font-weight: 700; }
+.price-value.minus { color: var(--red); }
+.price-value.minus::before { content: '- '; }
+.price-value.free { color: var(--red); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+
+.total-section { padding: 22px 20px; background: var(--gray-50); border-top: 2px solid var(--black); }
+.total-row { display: flex; justify-content: space-between; align-items: baseline; }
+.total-label { font-size: 14px; font-weight: 800; letter-spacing: -0.3px; }
+.total-label small { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); margin-top: 2px; letter-spacing: 0.3px; font-weight: 400; }
+.total-price { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--red); letter-spacing: 1px; line-height: 1; }
+.total-price .unit { font-family: 'Noto Sans KR'; font-size: 18px; font-weight: 700; margin-left: 4px; }
+.total-earn { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--gray-500); letter-spacing: 0.3px; margin-top: 8px; padding-top: 10px; border-top: 1px dashed var(--line); display: flex; justify-content: space-between; }
+.total-earn strong { color: var(--red); }
+
+.checkout-btns { padding: 16px 20px; }
+.btn-pay { width: 100%; background: var(--red); color: #fff; padding: 18px; font-size: 15px; font-weight: 800; letter-spacing: 0.5px; cursor: pointer; transition: all .15s; border: none; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.btn-pay:hover { background: var(--red-dark); }
+.btn-pay-amount { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; }
+
+.summary-notice { padding: 14px 20px; background: #fff8e0; border-top: 1px solid var(--line); font-size: 11px; line-height: 1.7; color: var(--gray-700); }
+.summary-notice strong { color: var(--black); font-weight: 700; }
+
+/* ===== FLOATING CHAT ===== */
+.float-chat { position: fixed; bottom: 24px; right: 24px; background: var(--red); color: #fff; padding: 14px 22px; display: flex; align-items: center; gap: 12px; box-shadow: 0 8px 24px rgba(200, 22, 29, 0.3); cursor: pointer; z-index: 100; transition: all .15s; }
+.float-chat:hover { background: var(--black); }
+.float-chat-icon { width: 32px; height: 32px; background: #fff; color: var(--red); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 12px; font-family: 'IBM Plex Mono', monospace; }
+.float-chat-text { font-size: 13px; font-weight: 700; line-height: 1.2; }
+.float-chat-sub { font-size: 11px; opacity: .9; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+
+/* ===== FOOTER ===== */
+.footer { background: var(--black); color: #888; padding: 50px 0 28px; font-size: 12px; }
+.footer-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 36px; padding-bottom: 32px; border-bottom: 1px solid #333; }
+.footer-logo-main { font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 4px; letter-spacing: -0.8px; }
+.footer-logo-main .accent { color: var(--red); }
+.footer-logo-sub { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 3px; color: var(--gray-500); margin-bottom: 18px; }
+.footer-cs-num { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: #fff; letter-spacing: 1px; margin: 6px 0 4px; }
+.footer h4 { color: #fff; font-size: 12px; margin-bottom: 14px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 1.5px; font-weight: 600; }
+.footer ul { list-style: none; }
+.footer ul li { margin-bottom: 8px; }
+.footer-bottom { line-height: 1.8; opacity: .55; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.3px; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span>SS TRADING CO.</span>
+      <span class="divider">|</span>
+      <span>TEL. 1588-0000 / 평일 09:00 ─ 18:00</span>
+      <span class="divider">|</span>
+      <span>인천 본점 운영중</span>
+    </div>
+    <div>
+      <a href="#">로그인</a>
+      <a href="#">회원가입</a>
+      <a href="#">주문조회</a>
+      <a href="#">고객센터</a>
+      <a href="#" class="b2b">▶ 단체주문 견적</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-main">에스에스<span class="accent">종합상사</span></div>
+      <div class="logo-sub">SAFETY · WORKWEAR · SINCE</div>
+    </a>
+    <div class="search-box">
+      <input type="text" placeholder="브랜드, 상품명, 카테고리로 검색하세요">
+      <button>⌕</button>
+    </div>
+    <div class="header-icons">
+      <a href="#">찜 <span class="num">12</span></a>
+      <a href="#">장바구니 <span class="num">04</span></a>
+      <a href="#">마이페이지</a>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-cat-btn">▣ ALL CATEGORIES</div>
+    <div class="nav-menu">
+      <a href="#">신상품</a>
+      <a href="#" class="hot">▶ TODAY DEAL</a>
+      <a href="#">베스트</a>
+      <a href="#">작업복</a>
+      <a href="#">안전화</a>
+      <a href="#">안전용품</a>
+      <a href="#">자수/마킹</a>
+      <a href="#">브랜드관</a>
+    </div>
+    <div class="nav-cs">
+      <span style="opacity:.6">단체주문</span>
+      <span class="cs-num">1588-0000</span>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="page-header-row">
+    <div class="page-header-left">
+      <div class="page-header-tag">CHECKOUT</div>
+      <h1 class="page-header-title">주문서 / 결제</h1>
+    </div>
+
+    <div class="step-progress">
+      <div class="step-pg done">
+        <div class="step-pg-num">01</div>
+        <div class="step-pg-info">
+          <div class="step-pg-label">STEP / 01</div>
+          <div class="step-pg-name">장바구니</div>
+        </div>
+      </div>
+      <div class="step-arrow">─</div>
+      <div class="step-pg active">
+        <div class="step-pg-num">02</div>
+        <div class="step-pg-info">
+          <div class="step-pg-label">STEP / 02</div>
+          <div class="step-pg-name">주문서 / 결제</div>
+        </div>
+      </div>
+      <div class="step-arrow">─</div>
+      <div class="step-pg">
+        <div class="step-pg-num">03</div>
+        <div class="step-pg-info">
+          <div class="step-pg-label">STEP / 03</div>
+          <div class="step-pg-name">주문 완료</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<div class="order-main">
+
+  <!-- LEFT: 주문서 폼 -->
+  <main class="order-form">
+
+    <!-- 1. 주문자 정보 -->
+    <section class="form-section">
+      <div class="form-section-header">
+        <div class="form-section-title">
+          <span class="form-section-num">01 / ORDERER</span>
+          주문자 정보
+        </div>
+      </div>
+      <div class="form-section-body">
+        <div class="input-row">
+          <div class="input-label">이름 <span class="required">*</span></div>
+          <input type="text" class="input-text" value="홍길동" readonly>
+        </div>
+        <div class="input-row">
+          <div class="input-label">휴대폰 <span class="required">*</span></div>
+          <input type="text" class="input-text" value="010-1234-5678" readonly>
+        </div>
+        <div class="input-row">
+          <div class="input-label">이메일 <span class="required">*</span></div>
+          <input type="text" class="input-text" value="hong@example.com" readonly>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. 배송지 -->
+    <section class="form-section">
+      <div class="form-section-header">
+        <div class="form-section-title">
+          <span class="form-section-num">02 / DELIVERY</span>
+          배송지
+        </div>
+        <span class="form-section-action">+ 새 배송지 추가</span>
+      </div>
+      <div class="form-section-body">
+
+        <!-- 저장된 배송지 -->
+        <div class="delivery-saved">
+          <div class="delivery-saved-row">
+            <div class="delivery-saved-tag">
+              <span class="del-tag default">DEFAULT</span>
+              <span class="del-tag label">우리집</span>
+            </div>
+            <div class="delivery-saved-action">
+              <button class="del-btn">EDIT</button>
+              <button class="del-btn">CHANGE</button>
+            </div>
+          </div>
+          <div class="delivery-info-line">
+            <strong>홍길동</strong> <span class="sep">/</span> 010-1234-5678<br>
+            <span class="addr">[12345] 서울특별시 강남구 테헤란로 000 / 101동 1001호</span>
+          </div>
+        </div>
+
+        <!-- 받는 사람 (수정 가능) -->
+        <div class="input-row">
+          <div class="input-label">받는 사람 <span class="required">*</span></div>
+          <input type="text" class="input-text" value="홍길동">
+        </div>
+        <div class="input-row">
+          <div class="input-label">휴대폰 <span class="required">*</span></div>
+          <div class="input-row-double">
+            <input type="text" class="input-text" value="010-1234-5678">
+            <input type="text" class="input-text" placeholder="추가 연락처 (선택)">
+          </div>
+        </div>
+        <div class="input-row">
+          <div class="input-label">주소 <span class="required">*</span></div>
+          <div>
+            <div class="address-input-row" style="margin-bottom: 6px;">
+              <input type="text" class="input-text" value="12345" style="max-width: 120px;" readonly>
+              <button class="address-search-btn">우편번호 검색 ↗</button>
+            </div>
+            <input type="text" class="input-text" value="서울특별시 강남구 테헤란로 000" style="margin-bottom: 6px;" readonly>
+            <input type="text" class="input-text" value="101동 1001호" placeholder="상세주소">
+          </div>
+        </div>
+
+        <!-- 배송 방법 -->
+        <div class="input-row">
+          <div class="input-label">배송 방법</div>
+          <div class="delivery-options-row">
+            <div class="delivery-option active">
+              <div class="delivery-option-header">
+                <div class="del-radio"></div>
+                <div class="delivery-option-name">일반 배송 / FREE</div>
+              </div>
+              <div class="delivery-option-desc">평일 14시 이전 결제 시 당일 출고 / 1~2일 내 도착</div>
+            </div>
+            <div class="delivery-option">
+              <div class="delivery-option-header">
+                <div class="del-radio"></div>
+                <div class="delivery-option-name">새벽 배송 / + 3,000원</div>
+              </div>
+              <div class="delivery-option-desc">서울 / 경기 일부 지역 / 다음날 새벽 7시 이전 도착</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 배송 메모 -->
+        <div class="input-row">
+          <div class="input-label">배송 메모</div>
+          <div>
+            <select class="memo-select">
+              <option>배송 메모 선택</option>
+              <option>문 앞에 두고 가주세요</option>
+              <option selected>경비실에 맡겨주세요</option>
+              <option>배송 전 연락주세요</option>
+              <option>직접 받겠습니다</option>
+              <option>직접 입력</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. 주문 상품 -->
+    <section class="form-section">
+      <div class="form-section-header">
+        <div class="form-section-title">
+          <span class="form-section-num">03 / ITEMS</span>
+          주문 상품 / 4개
+        </div>
+      </div>
+      <div class="form-section-body" style="padding: 12px 24px;">
+        <div class="order-items">
+
+          <div class="order-item">
+            <div class="order-item-img" style="background-image: url('https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&q=80&auto=format&fit=crop');"></div>
+            <div class="order-item-info">
+              <div class="order-item-brand">PIOZEN ─ 피오젠</div>
+              <div class="order-item-name">동절기 보온 작업복 상하세트 방한 자켓</div>
+              <div class="order-item-options">색상: BLACK / 사이즈: L</div>
+              <div class="order-item-emb">
+                <span class="order-item-emb-tag">EMB</span>
+                <span>텍스트 자수 "에스에스건설" / 왼가슴 / 5×5cm</span>
+              </div>
+            </div>
+            <div class="order-item-prices">
+              <div class="order-item-qty">QTY × 1</div>
+              <div class="order-item-price">42,800원</div>
+              <div class="order-item-emb-price">+ 5,000원</div>
+            </div>
+          </div>
+
+          <div class="order-item">
+            <div class="order-item-img" style="background-image: url('https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&q=80&auto=format&fit=crop');"></div>
+            <div class="order-item-info">
+              <div class="order-item-brand">PIOZEN ─ 피오젠</div>
+              <div class="order-item-name">사계절 캐주얼 작업복 점퍼 단체복</div>
+              <div class="order-item-options">색상: NAVY / 사이즈: XL</div>
+            </div>
+            <div class="order-item-prices">
+              <div class="order-item-qty">QTY × 2</div>
+              <div class="order-item-price">90,000원</div>
+            </div>
+          </div>
+
+          <div class="order-item">
+            <div class="order-item-img" style="background-image: url('https://images.unsplash.com/photo-1542219550-37153d387c27?w=400&q=80&auto=format&fit=crop');"></div>
+            <div class="order-item-info">
+              <div class="order-item-brand">K2 SAFETY</div>
+              <div class="order-item-name">방수 안전화 6인치 발등 보호 절연화</div>
+              <div class="order-item-options">색상: BLACK / 사이즈: 270mm / KCs 인증</div>
+            </div>
+            <div class="order-item-prices">
+              <div class="order-item-qty">QTY × 1</div>
+              <div class="order-item-price">68,000원</div>
+            </div>
+          </div>
+
+          <div class="order-item">
+            <div class="order-item-img" style="background-image: url('https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&q=80&auto=format&fit=crop');"></div>
+            <div class="order-item-info">
+              <div class="order-item-brand">3M</div>
+              <div class="order-item-name">고시인성 안전조끼 형광 반사 야간작업</div>
+              <div class="order-item-options">색상: 형광 YELLOW / 사이즈: FREE</div>
+              <div class="order-item-emb">
+                <span class="order-item-emb-tag">EMB</span>
+                <span>로고 자수 / 등판 중앙 / 15×15cm / 패치 자수</span>
+              </div>
+            </div>
+            <div class="order-item-prices">
+              <div class="order-item-qty">QTY × 5</div>
+              <div class="order-item-price">64,500원</div>
+              <div class="order-item-emb-price">+ 40,000원</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 결제 수단 -->
+    <section class="form-section">
+      <div class="form-section-header">
+        <div class="form-section-title">
+          <span class="form-section-num">04 / PAYMENT</span>
+          결제 수단
+        </div>
+      </div>
+      <div class="form-section-body">
+
+        <div class="payment-tabs">
+          <div class="pay-tab active">
+            <div class="pay-tab-icon">CARD</div>
+            <div class="pay-tab-name">신용 / 체크카드</div>
+          </div>
+          <div class="pay-tab">
+            <div class="pay-tab-icon">PAY</div>
+            <div class="pay-tab-name">간편결제</div>
+          </div>
+          <div class="pay-tab">
+            <div class="pay-tab-icon">BANK</div>
+            <div class="pay-tab-name">계좌이체</div>
+          </div>
+          <div class="pay-tab">
+            <div class="pay-tab-icon">DEPO</div>
+            <div class="pay-tab-name">무통장입금</div>
+          </div>
+          <div class="pay-tab">
+            <div class="pay-tab-icon">B2B</div>
+            <div class="pay-tab-name">법인 / 세금계산서</div>
+          </div>
+        </div>
+
+        <div class="payment-content">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); letter-spacing: 1px; margin-bottom: 10px;">─ SELECT CARD</div>
+          <div class="payment-card-grid">
+            <div class="pay-card active">신한카드</div>
+            <div class="pay-card">국민카드</div>
+            <div class="pay-card">삼성카드</div>
+            <div class="pay-card">현대카드</div>
+            <div class="pay-card">롯데카드</div>
+            <div class="pay-card">하나카드</div>
+            <div class="pay-card">비씨카드</div>
+            <div class="pay-card">우리카드</div>
+            <div class="pay-card">NH카드</div>
+            <div class="pay-card">씨티카드</div>
+            <div class="pay-card">카카오뱅크</div>
+            <div class="pay-card">+ 더보기</div>
+          </div>
+
+          <div class="pay-installment-row">
+            <div class="pay-installment-label">할부 개월</div>
+            <select class="pay-installment-select">
+              <option>일시불 (권장)</option>
+              <option>2개월 무이자</option>
+              <option>3개월 무이자</option>
+              <option>6개월</option>
+              <option>12개월</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. 약관 동의 -->
+    <section class="agreement-section">
+      <div class="agreement-row all">
+        <div class="agreement-label" style="font-weight: 700;">
+          <div class="checkbox checked"></div>
+          전체 동의 <span style="color: var(--gray-500); font-weight: 400; font-size: 11px;">/ 필수 및 선택 정보 모두 동의</span>
+        </div>
+      </div>
+      <div class="agreement-row">
+        <div class="agreement-label required">
+          <div class="checkbox checked"></div>
+          <span class="req-tag">[필수]</span>
+          만 14세 이상입니다
+        </div>
+      </div>
+      <div class="agreement-row">
+        <div class="agreement-label required">
+          <div class="checkbox checked"></div>
+          <span class="req-tag">[필수]</span>
+          이용약관 동의
+        </div>
+        <span class="agreement-view">VIEW ↗</span>
+      </div>
+      <div class="agreement-row">
+        <div class="agreement-label required">
+          <div class="checkbox checked"></div>
+          <span class="req-tag">[필수]</span>
+          개인정보 수집 및 이용 동의
+        </div>
+        <span class="agreement-view">VIEW ↗</span>
+      </div>
+      <div class="agreement-row">
+        <div class="agreement-label required">
+          <div class="checkbox checked"></div>
+          <span class="req-tag">[필수]</span>
+          전자상거래 청약철회 안내 확인
+        </div>
+        <span class="agreement-view">VIEW ↗</span>
+      </div>
+      <div class="agreement-row">
+        <div class="agreement-label optional">
+          <div class="checkbox"></div>
+          <span class="req-tag">[선택]</span>
+          마케팅 정보 수신 동의
+        </div>
+        <span class="agreement-view">VIEW ↗</span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- RIGHT: 결제 요약 -->
+  <aside class="order-summary">
+    <div class="summary-header">
+      <div class="summary-tag">▶ FINAL CHECKOUT</div>
+      <div class="summary-title">최종 결제 금액</div>
+    </div>
+
+    <div class="summary-section">
+      <div class="summary-section-title">─ PRICE BREAKDOWN</div>
+      <div class="price-row">
+        <span class="price-label">상품 합계 <small>4건</small></span>
+        <span class="price-value">265,300원</span>
+      </div>
+      <div class="price-row discount-row">
+        <span class="price-label">상품 할인</span>
+        <span class="price-value minus">52,500원</span>
+      </div>
+      <div class="price-row">
+        <span class="price-label">자수 / 마킹 <small>2건</small></span>
+        <span class="price-value">+ 45,000원</span>
+      </div>
+      <div class="price-row discount-row">
+        <span class="price-label">쿠폰 할인 <small>SS-WELCOME10</small></span>
+        <span class="price-value minus">5,000원</span>
+      </div>
+      <div class="price-row">
+        <span class="price-label">배송비</span>
+        <span class="price-value free">FREE</span>
+      </div>
+    </div>
+
+    <div class="total-section">
+      <div class="total-row">
+        <div class="total-label">
+          TOTAL
+          <small>최종 결제 금액</small>
+        </div>
+        <div class="total-price">252,800<span class="unit">원</span></div>
+      </div>
+      <div class="total-earn">
+        <span>EARN POINT</span>
+        <strong>+ 2,528P</strong>
+      </div>
+    </div>
+
+    <div class="checkout-btns">
+      <button class="btn-pay">
+        <span>결제하기</span>
+        <span class="btn-pay-amount">252,800원</span>
+      </button>
+    </div>
+
+    <div class="summary-notice">
+      <strong>● 자수 상품 안내</strong> ─ 자수 / 마킹 추가 상품은 결제 후 디자이너 시안 확정을 거쳐 5~7일 내 배송됩니다.<br><br>
+      <strong>● 안전결제</strong> ─ 모든 결제는 SSL 암호화 및 PG사 인증 절차를 거칩니다.
+    </div>
+  </aside>
+
+</div>
+
+<!-- FLOATING CHAT -->
+<a href="#" class="float-chat">
+  <div class="float-chat-icon">1:1</div>
+  <div>
+    <div class="float-chat-text">전문 상담</div>
+    <div class="float-chat-sub">EMBROIDERY · BULK</div>
+  </div>
+</a>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo-main">에스에스<span class="accent">종합상사</span></div>
+        <div class="footer-logo-sub">SAFETY · WORKWEAR</div>
+        <h4>CUSTOMER CENTER</h4>
+        <div class="footer-cs-num">1588-0000</div>
+        <div style="margin-top: 8px;">평일 09:00 - 18:00 (점심 12:00-13:00)<br>주말 및 공휴일 휴무 / 카톡: @ssmart</div>
+      </div>
+      <div>
+        <h4>SHOP</h4>
+        <ul><li>신상품</li><li>베스트</li><li>오늘의 특가</li><li>자수/마킹</li><li>단체주문</li></ul>
+      </div>
+      <div>
+        <h4>SUPPORT</h4>
+        <ul><li>공지사항</li><li>1:1 문의</li><li>FAQ</li><li>리뷰 이벤트</li><li>적립금 안내</li></ul>
+      </div>
+      <div>
+        <h4>POLICY</h4>
+        <ul><li>이용약관</li><li>개인정보처리방침</li><li>배송/교환/환불</li><li>사업자정보확인</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      ㈜에스에스종합상사 / 대표: ○○○ / 사업자등록번호: 000-00-00000 / 통신판매업신고: 제2026-인천○○-0000호<br>
+      인천광역시 ○○구 ○○로 000 / TEL. 430-0497 / FAX. 430-0498<br>
+      © 2026 SS TRADING CO. ALL RIGHTS RESERVED.
+    </div>
+  </div>
+</footer>
+
+<script>
+// 체크박스 토글
+document.querySelectorAll('.checkbox').forEach(cb => {
+  cb.addEventListener('click', (e) => {
+    e.stopPropagation();
+    cb.classList.toggle('checked');
+  });
+});
+
+// 결제 탭 전환
+document.querySelectorAll('.pay-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.pay-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+
+// 카드 선택
+document.querySelectorAll('.pay-card').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.pay-card').forEach(c => c.classList.remove('active'));
+    card.classList.add('active');
+  });
+});
+
+// 배송 옵션 선택
+document.querySelectorAll('.delivery-option').forEach(opt => {
+  opt.addEventListener('click', () => {
+    document.querySelectorAll('.delivery-option').forEach(o => o.classList.remove('active'));
+    opt.classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>로그인 — 에스에스종합상사</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;900&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans KR', sans-serif; color: #1a1a1a; background: #fff; font-size: 13px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+:root {
+  --red: #c8161d;
+  --red-dark: #9c0e15;
+  --black: #111;
+  --gray-900: #1a1a1a;
+  --gray-700: #4a4a4a;
+  --gray-500: #8a8a8a;
+  --gray-300: #d8d8d8;
+  --gray-100: #f4f4f4;
+  --gray-50: #fafafa;
+  --line: #e5e5e5;
+  --yellow: #ffd400;
+}
+
+/* ===== TOP BAR ===== */
+.topbar { background: #f4f4f4; color: #555; font-size: 11px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+.topbar-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+.topbar-left { display: flex; align-items: center; gap: 16px; }
+.topbar-left .divider { color: #ccc; }
+.topbar a { margin-left: 16px; }
+.topbar a.b2b { color: var(--red); font-weight: 600; }
+
+/* ===== HEADER ===== */
+.header { background: #fff; border-bottom: 1px solid var(--line); }
+.header-inner { max-width: 1340px; margin: 0 auto; padding: 26px 24px; display: flex; align-items: center; gap: 40px; }
+.logo { display: flex; flex-direction: column; line-height: 1; padding-right: 30px; border-right: 1px solid var(--line); }
+.logo-main { font-size: 24px; font-weight: 900; color: var(--black); letter-spacing: -0.8px; }
+.logo-main .accent { color: var(--red); }
+.logo-sub { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 3px; color: var(--gray-500); margin-top: 5px; }
+.search-box { flex: 1; max-width: 580px; position: relative; }
+.search-box input { width: 100%; padding: 13px 50px 13px 18px; border: 2px solid var(--black); background: #fff; font-size: 13px; outline: none; font-weight: 500; }
+.search-box button { position: absolute; right: 0; top: 0; bottom: 0; background: var(--black); color: #fff; border: none; width: 50px; cursor: pointer; font-size: 16px; }
+.header-icons { display: flex; gap: 0; margin-left: auto; align-items: center; }
+.header-icons a { padding: 10px 18px; font-size: 12px; font-weight: 500; color: var(--gray-700); border-left: 1px solid var(--line); display: flex; align-items: center; gap: 6px; }
+.header-icons a:first-child { border-left: none; }
+.header-icons a .num { color: var(--red); font-weight: 700; font-family: 'Bebas Neue', sans-serif; font-size: 14px; }
+
+/* ===== NAV ===== */
+.nav { background: var(--black); }
+.nav-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; display: flex; align-items: stretch; }
+.nav-cat-btn { background: var(--red); color: #fff; padding: 0 24px; font-weight: 700; display: flex; align-items: center; gap: 12px; font-size: 13px; min-width: 200px; letter-spacing: 0.3px; }
+.nav-menu { display: flex; flex: 1; align-items: center; }
+.nav-menu a { padding: 16px 18px; font-weight: 500; color: #fff; font-size: 13px; }
+.nav-menu a.hot { color: var(--yellow); font-weight: 600; }
+.nav-cs { margin-left: auto; padding: 0 22px; display: flex; align-items: center; gap: 10px; border-left: 1px solid #333; color: #fff; font-size: 12px; }
+.nav-cs .cs-num { font-family: 'Bebas Neue', sans-serif; color: var(--yellow); font-size: 18px; letter-spacing: 1px; }
+
+/* ===== LOGIN MAIN ===== */
+.login-main { max-width: 1100px; margin: 50px auto; padding: 0 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 0; min-height: 600px; }
+
+/* 좌측: 이미지 영역 */
+.login-visual { background: var(--black); position: relative; overflow: hidden; padding: 60px 50px; color: #fff; display: flex; flex-direction: column; justify-content: space-between; }
+.login-visual::before { content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 100%), url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=85&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+}
+.login-visual::after { content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.login-visual-top { position: relative; z-index: 2; }
+.login-visual-tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 3px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+.login-visual-tag::before { content: ''; width: 28px; height: 1px; background: var(--red); }
+.login-visual-title { font-size: 40px; font-weight: 900; letter-spacing: -1.5px; line-height: 1.15; margin-bottom: 16px; }
+.login-visual-title .accent { color: var(--yellow); }
+.login-visual-desc { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.75); }
+
+.login-visual-bottom { position: relative; z-index: 2; }
+.login-features { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(255,255,255,0.15); margin-bottom: 24px; }
+.login-feature { padding: 14px 16px; background: rgba(0,0,0,0.4); }
+.login-feature-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--red); letter-spacing: 1.5px; margin-bottom: 4px; }
+.login-feature-name { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+.login-feature-desc { font-size: 10px; color: rgba(255,255,255,0.6); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+
+.login-stats { display: flex; gap: 24px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.15); }
+.stat-item {}
+.stat-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 1.5px; margin-bottom: 4px; }
+.stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--yellow); letter-spacing: 1px; line-height: 1; }
+
+/* 우측: 로그인 폼 */
+.login-form { background: #fff; border: 1px solid var(--line); border-left: none; padding: 50px; display: flex; flex-direction: column; }
+
+.login-tabs { display: flex; border-bottom: 2px solid var(--black); margin-bottom: 30px; }
+.login-tab { flex: 1; padding: 14px 0; text-align: center; cursor: pointer; transition: all .15s; font-size: 14px; font-weight: 700; color: var(--gray-500); position: relative; }
+.login-tab:hover { color: var(--black); }
+.login-tab.active { color: var(--black); }
+.login-tab.active::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 4px; background: var(--red); }
+.login-tab-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-300); letter-spacing: 0.5px; margin-right: 6px; }
+.login-tab.active .login-tab-num { color: var(--red); }
+
+.form-header { margin-bottom: 24px; }
+.form-tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 2px; margin-bottom: 6px; }
+.form-title { font-size: 24px; font-weight: 900; letter-spacing: -0.8px; }
+.form-sub { font-size: 12px; color: var(--gray-500); margin-top: 6px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+
+/* 입력 필드 */
+.input-group { margin-bottom: 12px; position: relative; }
+.input-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); letter-spacing: 1.5px; margin-bottom: 6px; font-weight: 600; }
+.input-field { width: 100%; padding: 14px 16px; border: 1.5px solid var(--line); font-size: 13px; outline: none; transition: border-color .15s; font-family: 'Noto Sans KR'; }
+.input-field:focus { border-color: var(--black); }
+.input-field.with-icon { padding-left: 44px; }
+.input-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--gray-500); font-weight: 600; letter-spacing: 0.5px; pointer-events: none; }
+.input-with-label { padding-top: 22px; }
+.input-with-label .input-icon { top: calc(50% + 11px); }
+
+/* 옵션 */
+.login-options { display: flex; justify-content: space-between; align-items: center; margin: 16px 0 22px; }
+.checkbox-row { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.checkbox { width: 16px; height: 16px; border: 1.5px solid var(--gray-300); display: flex; align-items: center; justify-content: center; transition: all .15s; flex-shrink: 0; background: #fff; }
+.checkbox.checked { background: var(--red); border-color: var(--red); color: #fff; font-size: 10px; font-weight: 700; }
+.checkbox.checked::after { content: '✓'; }
+.checkbox-text { font-size: 12px; font-weight: 600; }
+.find-links { display: flex; gap: 0; }
+.find-link { font-size: 11px; color: var(--gray-500); padding: 0 10px; border-right: 1px solid var(--line); cursor: pointer; transition: color .15s; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+.find-link:last-child { border-right: none; padding-right: 0; }
+.find-link:first-child { padding-left: 0; }
+.find-link:hover { color: var(--red); }
+
+/* 메인 버튼 */
+.btn-login { width: 100%; background: var(--red); color: #fff; padding: 16px; font-size: 14px; font-weight: 800; letter-spacing: 0.5px; cursor: pointer; transition: all .15s; border: none; }
+.btn-login:hover { background: var(--red-dark); }
+
+/* 구분선 */
+.divider-or { display: flex; align-items: center; gap: 12px; margin: 28px 0 20px; }
+.divider-or::before, .divider-or::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+.divider-or span { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); letter-spacing: 2px; }
+
+/* 소셜 로그인 */
+.social-login { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 22px; }
+.social-btn { padding: 14px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all .15s; border: 1px solid var(--line); background: #fff; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.social-btn:hover { border-color: var(--black); }
+.social-btn.kakao { background: #fee500; color: #1a1a1a; border-color: #fee500; }
+.social-btn.kakao:hover { background: #f5dc00; }
+.social-btn.naver { background: #03c75a; color: #fff; border-color: #03c75a; }
+.social-btn.naver:hover { background: #02a64a; }
+.social-btn.google { background: #fff; color: #1a1a1a; }
+.social-btn.apple { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+.social-icon { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 800; }
+
+/* 회원가입 안내 */
+.signup-section { padding: 22px; background: var(--gray-50); border: 1px solid var(--line); margin-top: auto; display: flex; justify-content: space-between; align-items: center; }
+.signup-text {}
+.signup-text-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 1.5px; margin-bottom: 4px; font-weight: 700; }
+.signup-text-title { font-size: 14px; font-weight: 800; }
+.signup-text-desc { font-size: 11px; color: var(--gray-500); margin-top: 2px; }
+.signup-btn { padding: 11px 20px; background: var(--black); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; cursor: pointer; transition: all .15s; }
+.signup-btn:hover { background: var(--red); }
+
+/* ===== B2B 안내 ===== */
+.b2b-banner { max-width: 1100px; margin: 24px auto 50px; padding: 0 24px; }
+.b2b-banner-box { background: #fff; border: 1px solid var(--line); padding: 24px 30px; display: grid; grid-template-columns: auto 1fr auto; gap: 24px; align-items: center; }
+.b2b-banner-icon { width: 56px; height: 56px; background: var(--black); color: var(--yellow); display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 800; letter-spacing: 1px; flex-shrink: 0; }
+.b2b-banner-text {}
+.b2b-banner-title { font-size: 15px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.3px; }
+.b2b-banner-desc { font-size: 12px; color: var(--gray-500); line-height: 1.6; }
+.b2b-banner-action { padding: 11px 20px; background: var(--red); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; cursor: pointer; }
+.b2b-banner-action:hover { background: var(--black); }
+
+/* ===== FOOTER ===== */
+.footer { background: var(--black); color: #888; padding: 50px 0 28px; font-size: 12px; }
+.footer-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 36px; padding-bottom: 32px; border-bottom: 1px solid #333; }
+.footer-logo-main { font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 4px; letter-spacing: -0.8px; }
+.footer-logo-main .accent { color: var(--red); }
+.footer-logo-sub { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 3px; color: var(--gray-500); margin-bottom: 18px; }
+.footer-cs-num { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: #fff; letter-spacing: 1px; margin: 6px 0 4px; }
+.footer h4 { color: #fff; font-size: 12px; margin-bottom: 14px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 1.5px; font-weight: 600; }
+.footer ul { list-style: none; }
+.footer ul li { margin-bottom: 8px; }
+.footer-bottom { line-height: 1.8; opacity: .55; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.3px; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span>SS TRADING CO.</span>
+      <span class="divider">|</span>
+      <span>TEL. 1588-0000 / 평일 09:00 ─ 18:00</span>
+      <span class="divider">|</span>
+      <span>인천 본점 운영중</span>
+    </div>
+    <div>
+      <a href="#">로그인</a>
+      <a href="#">회원가입</a>
+      <a href="#">주문조회</a>
+      <a href="#">고객센터</a>
+      <a href="#" class="b2b">▶ 단체주문 견적</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-main">에스에스<span class="accent">종합상사</span></div>
+      <div class="logo-sub">SAFETY · WORKWEAR · SINCE</div>
+    </a>
+    <div class="search-box">
+      <input type="text" placeholder="브랜드, 상품명, 카테고리로 검색하세요">
+      <button>⌕</button>
+    </div>
+    <div class="header-icons">
+      <a href="#">찜 <span class="num">0</span></a>
+      <a href="#">장바구니 <span class="num">0</span></a>
+      <a href="#">마이페이지</a>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-cat-btn">▣ ALL CATEGORIES</div>
+    <div class="nav-menu">
+      <a href="#">신상품</a>
+      <a href="#" class="hot">▶ TODAY DEAL</a>
+      <a href="#">베스트</a>
+      <a href="#">작업복</a>
+      <a href="#">안전화</a>
+      <a href="#">안전용품</a>
+      <a href="#">자수/마킹</a>
+      <a href="#">브랜드관</a>
+    </div>
+    <div class="nav-cs">
+      <span style="opacity:.6">단체주문</span>
+      <span class="cs-num">1588-0000</span>
+    </div>
+  </div>
+</nav>
+
+<!-- LOGIN MAIN -->
+<section class="login-main">
+
+  <!-- 좌측: 비주얼 -->
+  <div class="login-visual">
+    <div class="login-visual-top">
+      <div class="login-visual-tag">MEMBER LOGIN / VOL.01</div>
+      <h1 class="login-visual-title">현장의 신뢰<br><span class="accent">에스에스종합상사</span></h1>
+      <p class="login-visual-desc">80여 개 브랜드의 작업복 · 안전화 · 안전용품을<br>한 곳에서. 회원만의 특별한 혜택을 누려보세요.</p>
+    </div>
+
+    <div class="login-visual-bottom">
+      <div class="login-features">
+        <div class="login-feature">
+          <div class="login-feature-num">BENEFIT / 01</div>
+          <div class="login-feature-name">2,000P 즉시 적립</div>
+          <div class="login-feature-desc">신규 가입 즉시</div>
+        </div>
+        <div class="login-feature">
+          <div class="login-feature-num">BENEFIT / 02</div>
+          <div class="login-feature-name">10% 첫 구매 쿠폰</div>
+          <div class="login-feature-desc">최대 5만원</div>
+        </div>
+        <div class="login-feature">
+          <div class="login-feature-num">BENEFIT / 03</div>
+          <div class="login-feature-name">무료 자수 시안</div>
+          <div class="login-feature-desc">전문 디자이너</div>
+        </div>
+        <div class="login-feature">
+          <div class="login-feature-num">BENEFIT / 04</div>
+          <div class="login-feature-name">단체주문 30%</div>
+          <div class="login-feature-desc">100벌 이상</div>
+        </div>
+      </div>
+
+      <div class="login-stats">
+        <div class="stat-item">
+          <div class="stat-label">MEMBERS</div>
+          <div class="stat-value">12,000+</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">PRODUCTS</div>
+          <div class="stat-value">5,940+</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">REVIEWS</div>
+          <div class="stat-value">38,420</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 우측: 로그인 폼 -->
+  <div class="login-form">
+
+    <!-- 탭 -->
+    <div class="login-tabs">
+      <div class="login-tab active">
+        <span class="login-tab-num">/01</span>
+        개인 회원
+      </div>
+      <div class="login-tab">
+        <span class="login-tab-num">/02</span>
+        법인 / 사업자 회원
+      </div>
+    </div>
+
+    <div class="form-header">
+      <div class="form-tag">─ MEMBER LOGIN</div>
+      <h2 class="form-title">로그인</h2>
+      <div class="form-sub">welcome back ─ 에스에스종합상사</div>
+    </div>
+
+    <!-- 입력 필드 -->
+    <div class="input-group input-with-label">
+      <div class="input-label">─ EMAIL / ID</div>
+      <span class="input-icon">@</span>
+      <input type="text" class="input-field with-icon" placeholder="이메일 또는 아이디 입력">
+    </div>
+
+    <div class="input-group input-with-label">
+      <div class="input-label">─ PASSWORD</div>
+      <span class="input-icon">PW</span>
+      <input type="password" class="input-field with-icon" placeholder="비밀번호 입력">
+    </div>
+
+    <!-- 옵션 -->
+    <div class="login-options">
+      <div class="checkbox-row">
+        <div class="checkbox checked"></div>
+        <span class="checkbox-text">로그인 유지</span>
+      </div>
+      <div class="find-links">
+        <span class="find-link">아이디 찾기</span>
+        <span class="find-link">비밀번호 찾기</span>
+      </div>
+    </div>
+
+    <!-- 로그인 버튼 -->
+    <button class="btn-login">LOGIN →</button>
+
+    <!-- OR 구분선 -->
+    <div class="divider-or"><span>OR CONTINUE WITH</span></div>
+
+    <!-- 소셜 로그인 -->
+    <div class="social-login">
+      <button class="social-btn kakao">
+        <span class="social-icon">KA</span>
+        <span>카카오</span>
+      </button>
+      <button class="social-btn naver">
+        <span class="social-icon">N</span>
+        <span>네이버</span>
+      </button>
+      <button class="social-btn google">
+        <span class="social-icon">G</span>
+        <span>Google</span>
+      </button>
+      <button class="social-btn apple">
+        <span class="social-icon">A</span>
+        <span>Apple</span>
+      </button>
+    </div>
+
+    <!-- 회원가입 -->
+    <div class="signup-section">
+      <div class="signup-text">
+        <div class="signup-text-tag">▶ NEW MEMBER</div>
+        <div class="signup-text-title">아직 회원이 아니신가요?</div>
+        <div class="signup-text-desc">가입 즉시 2,000P + 10% 쿠폰 지급</div>
+      </div>
+      <button class="signup-btn">회원가입 →</button>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- B2B 안내 -->
+<section class="b2b-banner">
+  <div class="b2b-banner-box">
+    <div class="b2b-banner-icon">B2B</div>
+    <div class="b2b-banner-text">
+      <div class="b2b-banner-title">법인 / 사업자 회원이신가요?</div>
+      <div class="b2b-banner-desc">단체주문 30% 할인 · 전담 매니저 1:1 배정 · 세금계산서 자동 발행 · 신용 거래 가능</div>
+    </div>
+    <div class="b2b-banner-action">법인 회원 가입 →</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo-main">에스에스<span class="accent">종합상사</span></div>
+        <div class="footer-logo-sub">SAFETY · WORKWEAR</div>
+        <h4>CUSTOMER CENTER</h4>
+        <div class="footer-cs-num">1588-0000</div>
+        <div style="margin-top: 8px;">평일 09:00 - 18:00 (점심 12:00-13:00)<br>주말 및 공휴일 휴무 / 카톡: @ssmart</div>
+      </div>
+      <div>
+        <h4>SHOP</h4>
+        <ul><li>신상품</li><li>베스트</li><li>오늘의 특가</li><li>자수/마킹</li><li>단체주문</li></ul>
+      </div>
+      <div>
+        <h4>SUPPORT</h4>
+        <ul><li>공지사항</li><li>1:1 문의</li><li>FAQ</li><li>리뷰 이벤트</li><li>적립금 안내</li></ul>
+      </div>
+      <div>
+        <h4>POLICY</h4>
+        <ul><li>이용약관</li><li>개인정보처리방침</li><li>배송/교환/환불</li><li>사업자정보확인</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      ㈜에스에스종합상사 / 대표: ○○○ / 사업자등록번호: 000-00-00000 / 통신판매업신고: 제2026-인천○○-0000호<br>
+      인천광역시 ○○구 ○○로 000 / TEL. 430-0497 / FAX. 430-0498<br>
+      © 2026 SS TRADING CO. ALL RIGHTS RESERVED.
+    </div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.checkbox').forEach(cb => {
+  cb.addEventListener('click', (e) => {
+    e.stopPropagation();
+    cb.classList.toggle('checked');
+  });
+});
+document.querySelectorAll('.login-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>

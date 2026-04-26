@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>자수 갤러리 — 에스에스종합상사</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;900&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans KR', sans-serif; color: #1a1a1a; background: #fff; font-size: 13px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+:root { --red: #c8161d; --red-dark: #9c0e15; --black: #111; --gray-900: #1a1a1a; --gray-700: #4a4a4a; --gray-500: #8a8a8a; --gray-300: #d8d8d8; --gray-100: #f4f4f4; --gray-50: #fafafa; --line: #e5e5e5; --yellow: #ffd400; }
+
+/* 공통 헤더 */
+.topbar { background: #f4f4f4; color: #555; font-size: 11px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+.topbar-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+.topbar-left { display: flex; align-items: center; gap: 16px; }
+.topbar-left .divider { color: #ccc; }
+.topbar a { margin-left: 16px; }
+.topbar a.b2b { color: var(--red); font-weight: 600; }
+.header { background: #fff; border-bottom: 1px solid var(--line); }
+.header-inner { max-width: 1340px; margin: 0 auto; padding: 26px 24px; display: flex; align-items: center; gap: 40px; }
+.logo { display: flex; flex-direction: column; line-height: 1; padding-right: 30px; border-right: 1px solid var(--line); }
+.logo-main { font-size: 24px; font-weight: 900; color: var(--black); letter-spacing: -0.8px; }
+.logo-main .accent { color: var(--red); }
+.logo-sub { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 3px; color: var(--gray-500); margin-top: 5px; }
+.search-box { flex: 1; max-width: 580px; position: relative; }
+.search-box input { width: 100%; padding: 13px 50px 13px 18px; border: 2px solid var(--black); background: #fff; font-size: 13px; outline: none; font-weight: 500; }
+.search-box button { position: absolute; right: 0; top: 0; bottom: 0; background: var(--black); color: #fff; border: none; width: 50px; cursor: pointer; font-size: 16px; }
+.header-icons { display: flex; gap: 0; margin-left: auto; align-items: center; }
+.header-icons a { padding: 10px 18px; font-size: 12px; font-weight: 500; color: var(--gray-700); border-left: 1px solid var(--line); display: flex; align-items: center; gap: 6px; }
+.header-icons a:first-child { border-left: none; }
+.header-icons a .num { color: var(--red); font-weight: 700; font-family: 'Bebas Neue', sans-serif; font-size: 14px; }
+.nav { background: var(--black); }
+.nav-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; display: flex; align-items: stretch; }
+.nav-cat-btn { background: var(--red); color: #fff; padding: 0 24px; font-weight: 700; display: flex; align-items: center; gap: 12px; font-size: 13px; min-width: 200px; letter-spacing: 0.3px; }
+.nav-menu { display: flex; flex: 1; align-items: center; }
+.nav-menu a { padding: 16px 18px; font-weight: 500; color: #fff; font-size: 13px; }
+.nav-menu a.hot { color: var(--yellow); font-weight: 600; }
+.nav-menu a.active { background: var(--red); }
+.nav-cs { margin-left: auto; padding: 0 22px; display: flex; align-items: center; gap: 10px; border-left: 1px solid #333; color: #fff; font-size: 12px; }
+.nav-cs .cs-num { font-family: 'Bebas Neue', sans-serif; color: var(--yellow); font-size: 18px; letter-spacing: 1px; }
+
+/* HERO */
+.gallery-hero { max-width: 1340px; margin: 24px auto; padding: 0 24px; }
+.gallery-hero-box { background: var(--black); color: #fff; padding: 50px 60px; position: relative; overflow: hidden; }
+.gallery-hero-box::before { content: ''; position: absolute; right: -100px; top: -50px; width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(200, 22, 29, 0.4), transparent 70%); }
+.gallery-hero-box::after { content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 32px 32px; }
+.hero-content { position: relative; z-index: 2; display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: end; }
+.hero-left {}
+.hero-tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 3px; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+.hero-tag::before { content: ''; width: 28px; height: 1px; background: var(--red); }
+.hero-title { font-size: 50px; font-weight: 900; letter-spacing: -1.8px; line-height: 1.05; margin-bottom: 16px; }
+.hero-title .accent { color: var(--yellow); }
+.hero-desc { font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.7; max-width: 520px; }
+.hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.hero-stat { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 16px; }
+.hero-stat-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.5); letter-spacing: 1.5px; margin-bottom: 6px; }
+.hero-stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--yellow); letter-spacing: 1px; line-height: 1; }
+.hero-stat-sub { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 4px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+
+/* FILTER BAR */
+.filter-bar { max-width: 1340px; margin: 0 auto 24px; padding: 0 24px; }
+.filter-bar-inner { background: #fff; border: 1px solid var(--line); padding: 18px 22px; }
+
+.filter-row { display: flex; gap: 6px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; }
+.filter-row:last-child { margin-bottom: 0; }
+.filter-row-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); letter-spacing: 1.5px; font-weight: 600; min-width: 80px; }
+
+.filter-chip { padding: 7px 14px; border: 1px solid var(--line); cursor: pointer; transition: all .15s; font-size: 12px; font-weight: 600; background: #fff; }
+.filter-chip:hover { border-color: var(--gray-700); }
+.filter-chip.active { background: var(--black); color: #fff; border-color: var(--black); }
+.filter-chip.active.red { background: var(--red); border-color: var(--red); }
+
+.filter-result-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 22px; background: var(--gray-50); border: 1px solid var(--line); border-top: none; }
+.result-text { font-size: 13px; }
+.result-text strong { color: var(--red); font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 0.5px; vertical-align: -1px; }
+.sort-dropdown { padding: 7px 14px; border: 1px solid var(--line); background: #fff; font-size: 12px; cursor: pointer; outline: none; }
+
+/* GALLERY GRID (마사이) */
+.gallery-main { max-width: 1340px; margin: 0 auto 50px; padding: 0 24px; }
+.gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+.gallery-card { cursor: pointer; transition: transform .2s; background: #fff; border: 1px solid var(--line); }
+.gallery-card:hover { transform: translateY(-3px); border-color: var(--red); }
+
+.gallery-img-wrap { aspect-ratio: 4/5; background: var(--gray-100); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.gallery-img { width: 100%; height: 100%; background-size: cover; background-position: center; transition: transform .4s; }
+.gallery-card:hover .gallery-img { transform: scale(1.04); }
+
+/* 자수 시안 마크 (티셔츠 형태) */
+.gallery-tshirt { width: 60%; aspect-ratio: 1/1.15; background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,0.1); position: relative; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+.gallery-tshirt-mark { width: 50%; aspect-ratio: 1; background: var(--red); display: flex; align-items: center; justify-content: center; color: #fff; font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 800; letter-spacing: 0.5px; }
+.gallery-tshirt-mark.black { background: var(--black); color: var(--yellow); }
+.gallery-tshirt-mark.dark-red { background: var(--red-dark); }
+.gallery-tshirt-mark.blue { background: #1565c0; }
+.gallery-tshirt-mark.dark { background: var(--gray-900); color: #fff; }
+.gallery-tshirt-mark.yellow { background: var(--yellow); color: var(--black); }
+.gallery-tshirt-mark.green { background: #2e7d32; color: #fff; }
+
+.gallery-num { position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.85); color: #fff; padding: 4px 8px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; }
+.gallery-type-tag { position: absolute; top: 12px; right: 12px; padding: 4px 10px; font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.5px; font-weight: 700; }
+.gallery-type-tag.computer { background: var(--red); color: #fff; }
+.gallery-type-tag.patch { background: var(--black); color: var(--yellow); }
+.gallery-type-tag.character { background: var(--yellow); color: var(--black); }
+.gallery-type-tag.applique { background: #1565c0; color: #fff; }
+
+.gallery-info { padding: 14px 16px; }
+.gallery-meta-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.gallery-client { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 1px; font-weight: 700; }
+.gallery-date { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); letter-spacing: 0.3px; }
+.gallery-name { font-size: 14px; font-weight: 700; line-height: 1.4; margin-bottom: 8px; letter-spacing: -0.3px; }
+.gallery-detail { display: flex; gap: 6px; flex-wrap: wrap; }
+.gallery-detail-item { font-size: 10px; padding: 3px 7px; background: var(--gray-100); color: var(--gray-700); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; font-weight: 600; }
+
+/* PAGINATION */
+.pagination { display: flex; justify-content: center; align-items: center; gap: 4px; margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--line); }
+.page-btn { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); cursor: pointer; transition: all .15s; font-size: 13px; font-family: 'IBM Plex Mono', monospace; font-weight: 600; background: #fff; }
+.page-btn:hover { border-color: var(--black); }
+.page-btn.active { background: var(--black); color: #fff; border-color: var(--black); }
+.page-btn.nav { padding: 0 12px; min-width: 36px; }
+.page-btn.disabled { color: var(--gray-300); cursor: not-allowed; }
+
+/* CTA */
+.cta-section { background: var(--gray-50); padding: 50px 24px; }
+.cta-inner { max-width: 1340px; margin: 0 auto; background: var(--black); color: #fff; padding: 40px; display: grid; grid-template-columns: auto 1fr auto; gap: 32px; align-items: center; }
+.cta-icon { width: 60px; height: 60px; background: var(--red); display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 800; letter-spacing: 1px; }
+.cta-text {}
+.cta-title { font-size: 22px; font-weight: 900; margin-bottom: 6px; letter-spacing: -0.5px; }
+.cta-title .accent { color: var(--yellow); }
+.cta-desc { font-size: 12px; color: rgba(255,255,255,0.7); }
+.cta-buttons { display: flex; gap: 8px; flex-shrink: 0; }
+.cta-btn { padding: 14px 22px; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; cursor: pointer; transition: all .15s; }
+.cta-btn.primary { background: var(--red); color: #fff; }
+.cta-btn.primary:hover { background: var(--yellow); color: var(--black); }
+.cta-btn.secondary { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+
+/* FLOATING CHAT */
+.float-chat { position: fixed; bottom: 24px; right: 24px; background: var(--red); color: #fff; padding: 14px 22px; display: flex; align-items: center; gap: 12px; box-shadow: 0 8px 24px rgba(200, 22, 29, 0.3); cursor: pointer; z-index: 100; transition: all .15s; }
+.float-chat:hover { background: var(--black); }
+.float-chat-icon { width: 32px; height: 32px; background: #fff; color: var(--red); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 12px; font-family: 'IBM Plex Mono', monospace; }
+.float-chat-text { font-size: 13px; font-weight: 700; line-height: 1.2; }
+.float-chat-sub { font-size: 11px; opacity: .9; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+
+/* FOOTER */
+.footer { background: var(--black); color: #888; padding: 50px 0 28px; font-size: 12px; }
+.footer-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 36px; padding-bottom: 32px; border-bottom: 1px solid #333; }
+.footer-logo-main { font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 4px; letter-spacing: -0.8px; }
+.footer-logo-main .accent { color: var(--red); }
+.footer-logo-sub { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 3px; color: var(--gray-500); margin-bottom: 18px; }
+.footer-cs-num { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: #fff; letter-spacing: 1px; margin: 6px 0 4px; }
+.footer h4 { color: #fff; font-size: 12px; margin-bottom: 14px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 1.5px; font-weight: 600; }
+.footer ul { list-style: none; }
+.footer ul li { margin-bottom: 8px; }
+.footer-bottom { line-height: 1.8; opacity: .55; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.3px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span>SS TRADING CO.</span><span class="divider">|</span>
+      <span>TEL. 1588-0000 / 평일 09:00 ─ 18:00</span><span class="divider">|</span>
+      <span>인천 본점 운영중</span>
+    </div>
+    <div>
+      <a href="#">로그인</a><a href="#">회원가입</a><a href="#">주문조회</a><a href="#">고객센터</a>
+      <a href="#" class="b2b">▶ 단체주문 견적</a>
+    </div>
+  </div>
+</div>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-main">에스에스<span class="accent">종합상사</span></div>
+      <div class="logo-sub">SAFETY · WORKWEAR · SINCE</div>
+    </a>
+    <div class="search-box"><input type="text" placeholder="브랜드, 상품명, 카테고리로 검색하세요"><button>⌕</button></div>
+    <div class="header-icons">
+      <a href="#">찜 <span class="num">12</span></a>
+      <a href="#">장바구니 <span class="num">02</span></a>
+      <a href="#">마이페이지</a>
+    </div>
+  </div>
+</header>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-cat-btn">▣ ALL CATEGORIES</div>
+    <div class="nav-menu">
+      <a href="#">신상품</a><a href="#" class="hot">▶ TODAY DEAL</a><a href="#">베스트</a>
+      <a href="#">작업복</a><a href="#">안전화</a><a href="#">안전용품</a>
+      <a href="#" class="active">자수/마킹</a><a href="#">브랜드관</a>
+    </div>
+    <div class="nav-cs"><span style="opacity:.6">단체주문</span><span class="cs-num">1588-0000</span></div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="gallery-hero">
+  <div class="gallery-hero-box">
+    <div class="hero-content">
+      <div class="hero-left">
+        <div class="hero-tag">EMBROIDERY GALLERY / CASE STUDY</div>
+        <h1 class="hero-title">자수 작업<br><span class="accent">갤러리</span></h1>
+        <p class="hero-desc">14년간 12,000여 거래처와 함께한 자수 / 마킹 작업 사례. 컴퓨터 자수 · 패치 자수 · 캐릭터 디자인까지 모든 작업물을 모았습니다.</p>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-label">TOTAL CASES</div>
+          <div class="hero-stat-value">38,420</div>
+          <div class="hero-stat-sub">누적 작업</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-label">CLIENTS</div>
+          <div class="hero-stat-value">12,000+</div>
+          <div class="hero-stat-sub">거래처</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-label">RATING</div>
+          <div class="hero-stat-value">★ 4.9</div>
+          <div class="hero-stat-sub">시안 만족도</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-label">REWORK</div>
+          <div class="hero-stat-value">FREE</div>
+          <div class="hero-stat-sub">무제한 수정</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTER BAR -->
+<section class="filter-bar">
+  <div class="filter-bar-inner">
+
+    <div class="filter-row">
+      <div class="filter-row-label">─ TYPE</div>
+      <div class="filter-chip active red">전체</div>
+      <div class="filter-chip">컴퓨터 자수</div>
+      <div class="filter-chip">패치 자수</div>
+      <div class="filter-chip">아플리케 자수</div>
+      <div class="filter-chip">실사 패치</div>
+      <div class="filter-chip">벨크로 패치</div>
+      <div class="filter-chip">캐릭터 디자인</div>
+      <div class="filter-chip">실크 인쇄</div>
+    </div>
+
+    <div class="filter-row">
+      <div class="filter-row-label">─ INDUSTRY</div>
+      <div class="filter-chip active">전체</div>
+      <div class="filter-chip">건설 / 중공업</div>
+      <div class="filter-chip">제조 / 공장</div>
+      <div class="filter-chip">물류 / 택배</div>
+      <div class="filter-chip">F&B / 주방</div>
+      <div class="filter-chip">의료 / 위생</div>
+      <div class="filter-chip">환경미화</div>
+      <div class="filter-chip">스포츠 / 단체</div>
+    </div>
+
+    <div class="filter-row">
+      <div class="filter-row-label">─ POSITION</div>
+      <div class="filter-chip active">전체</div>
+      <div class="filter-chip">왼가슴</div>
+      <div class="filter-chip">등판 중앙</div>
+      <div class="filter-chip">등 상단</div>
+      <div class="filter-chip">팔 부위</div>
+      <div class="filter-chip">여러 곳</div>
+    </div>
+
+  </div>
+
+  <div class="filter-result-row">
+    <div class="result-text">전체 <strong>38,420</strong>건 중 <strong>1,284</strong>건 검색됨</div>
+    <select class="sort-dropdown">
+      <option>최신순</option>
+      <option>인기순</option>
+      <option>업종별</option>
+      <option>자수 종류별</option>
+    </select>
+  </div>
+</section>
+
+<!-- GALLERY GRID -->
+<section class="gallery-main">
+  <div class="gallery-grid">
+
+    <div class="gallery-card">
+      <div class="gallery-img-wrap" style="background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);">
+        <div class="gallery-num">CASE / 38420</div>
+        <div class="gallery-type-tag computer">COMPUTER</div>
+        <div class="gallery-tshirt">
+          <div class="gallery-tshirt-mark">SS</div>
+        </div>
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-meta-row">
+          <div class="gallery-client">에스에스건설</div>
+          <div class="gallery-date">2026.04.26</div>
+        </div>
+        <div class="gallery-name">동절기 작업복 / 전 직원 100벌</div>
+        <div class="gallery-detail">
+          <span class="gallery-detail-item">왼가슴</span>
+          <span class="gallery-detail-item">5×5cm</span>
+          <span class="gallery-detail-item">컴퓨터 자수</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-card">
+      <div class="gallery-img-wrap" style="background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);">
+        <div class="gallery-num">CASE / 38419</div>
+        <div class="gallery-type-tag patch">PATCH</div>
+        <div class="gallery-tshirt">
+          <div class="gallery-tshirt-mark black">A.B</div>
+        </div>
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-meta-row">
+          <div class="gallery-client">○○물류</div>
+          <div class="gallery-date">2026.04.24</div>
+        </div>
+        <div class="gallery-name">안전조끼 / 야간작업용 50벌</div>
+        <div class="gallery-detail">
+          <span class="gallery-detail-item">등판 중앙</span>
+          <span class="gallery-detail-item">15×15cm</span>
+          <span class="gallery-detail-item">패치 자수</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-card">
+      <div class="gallery-img-wrap" style="background: linear-gradient(135deg, #c8161d 0%, #9c0e15 100%);">
+        <div class="gallery-num">CASE / 38418</div>
+        <div class="gallery-type-tag character">CHARACTER</div>
+        <div class="gallery-tshirt">
+          <div class="gallery-tshirt-mark dark-red">★</div>
+        </div>
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-meta-row">
+          <div class="gallery-client">한일제조</div>
+          <div class="gallery-date">2026.04.22</div>
+        </div>
+        <div class="gallery-name">캐릭터 디자인 / 단체복 200벌</div>
+        <div class="gallery-detail">
+          <span class="gallery-detail-item">왼가슴</span>
+          <span class="gallery-detail-item">8×8cm</span>
+          <span class="gallery-detail-item">자체 캐릭터</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-card">
+      <div class="gallery-img-wrap" style="background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);">
+        <div class="gallery-num">CASE / 38417</div>
+        <div class="gallery-type-tag computer">COMPUTER</div>
+        <div class="gallery-tshirt">
+          <div class="gallery-tshirt-mark blue">한</div>
+        </div>
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-meta-row">
+          <div class="gallery-client">한솔건설</div>
+          <div class="gallery-date">2026.04.20</div>
+        </div>
+        <div class="gallery-name">춘추복 / 본사 직원 300벌</div>
+        <div class="gallery-detail">
+          <span class="gallery-detail-item">왼가슴</span>
+          <span class="gallery-detail-item">6×6cm</span>
+          <span class="gallery-detail-item">한글 자수</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-card">
+      <div class="gallery-img-wrap" style="background: linear-gradient(135deg, #f39c12 0%, #d68910 100%);">
+        <div class="gallery-num">CASE / 38416</div>
+        <div class="gallery-type-tag patch">PATCH</div>
+        <div class="gallery-tshirt">
+          <div class="gallery-tshirt-mark yellow">▣</div>
+        </div>
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-meta-row">
+          <div class="gallery-client">○○공업</div>
+          <div class="gallery-date">2026.04.18</div>
+        </div>
+        <div class="gallery-name">방염 작업복 / 공장 80벌</div>
+        <div class="gallery-detail">
+          <span class="gallery-detail-item">등판</span>
+          <span class="gallery-detail-item">12×12cm</span>
+          <span class="gallery-detail-item">실사 패치</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-card">
+      <div class="gallery-img-wrap" style="background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);">
+        <div class="gallery-num">CASE / 38415</div>
+        <div class="gallery-type-tag character">CHARACTER</div>
+        <div class="gallery-tshirt">
+          <div class="gallery-tshirt-mark green">G</div>
+        </div>
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-meta-row">
+          <div class="gallery-client">그린환경</div>
+          <div class="gallery-date">2026.04.16</div>
+        </div>
+        <div class="gallery-name">환경미화복 / 시청 발주 150벌</div>
+        <div class="gallery-detail">
+          <span class="gallery-detail-item">왼가슴 / 등판</span>
+          <span class="gallery-detail-item">캐릭터</span>
+          <span class="gallery-detail-item">2위치</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-card">
+      <div class="gallery-img-wrap" style="background: linear-gradient(135deg, #e0e0e0 0%, #bdbdbd 100%);">
+        <div class="gallery-num">CASE / 38414</div>
+        <div class="gallery-type-tag computer">COMPUTER</div>
+        <div class="gallery-tshirt">
+          <div class="gallery-tshirt-mark dark">M</div>
+        </div>
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-meta-row">
+          <div class="gallery-client">○○병원</div>
+          <div class="gallery-date">2026.04.14</div>
+        </div>
+        <div class="gallery-name">의료 가운 / 의료진 60벌</div>
+        <div class="gallery-detail">
+          <span class="gallery-detail-item">왼가슴</span>
+          <span class="gallery-detail-item">5×5cm</span>
+          <span class="gallery-detail-item">미니멀</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-card">
+      <div class="gallery-img-wrap" style="background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);">
+        <div class="gallery-num">CASE / 38413</div>
+        <div class="gallery-type-tag applique">APPLIQUE</div>
+        <div class="gallery-tshirt">
+          <div class="gallery-tshirt-mark blue">○○</div>
+        </div>
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-meta-row">
+          <div class="gallery-client">대한제철</div>
+          <div class="gallery-date">2026.04.12</div>
+        </div>
+        <div class="gallery-name">철강 작업복 / 협력사 120벌</div>
+        <div class="gallery-detail">
+          <span class="gallery-detail-item">등판</span>
+          <span class="gallery-detail-item">20×20cm</span>
+          <span class="gallery-detail-item">아플리케</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-card">
+      <div class="gallery-img-wrap" style="background: linear-gradient(135deg, #ffd400 0%, #f5c800 100%);">
+        <div class="gallery-num">CASE / 38412</div>
+        <div class="gallery-type-tag computer">COMPUTER</div>
+        <div class="gallery-tshirt">
+          <div class="gallery-tshirt-mark yellow">SS</div>
+        </div>
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-meta-row">
+          <div class="gallery-client">○○안전</div>
+          <div class="gallery-date">2026.04.10</div>
+        </div>
+        <div class="gallery-name">안전조끼 / 신호수 30벌</div>
+        <div class="gallery-detail">
+          <span class="gallery-detail-item">등판</span>
+          <span class="gallery-detail-item">15×15cm</span>
+          <span class="gallery-detail-item">고시인성</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-card">
+      <div class="gallery-img-wrap" style="background: linear-gradient(135deg, #6b5d4d 0%, #4a3f33 100%);">
+        <div class="gallery-num">CASE / 38411</div>
+        <div class="gallery-type-tag patch">PATCH</div>
+        <div class="gallery-tshirt">
+          <div class="gallery-tshirt-mark black">K9</div>
+        </div>
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-meta-row">
+          <div class="gallery-client">K9 농장</div>
+          <div class="gallery-date">2026.04.08</div>
+        </div>
+        <div class="gallery-name">농업용 작업복 / 직원 25벌</div>
+        <div class="gallery-detail">
+          <span class="gallery-detail-item">왼가슴</span>
+          <span class="gallery-detail-item">8×8cm</span>
+          <span class="gallery-detail-item">패치</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-card">
+      <div class="gallery-img-wrap" style="background: linear-gradient(135deg, #f5f5f5 0%, #d0d0d0 100%);">
+        <div class="gallery-num">CASE / 38410</div>
+        <div class="gallery-type-tag character">CHARACTER</div>
+        <div class="gallery-tshirt">
+          <div class="gallery-tshirt-mark dark">CHEF</div>
+        </div>
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-meta-row">
+          <div class="gallery-client">○○프랜차이즈</div>
+          <div class="gallery-date">2026.04.06</div>
+        </div>
+        <div class="gallery-name">셰프복 / 매장 50개 × 4명</div>
+        <div class="gallery-detail">
+          <span class="gallery-detail-item">왼가슴</span>
+          <span class="gallery-detail-item">캐릭터</span>
+          <span class="gallery-detail-item">200벌</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-card">
+      <div class="gallery-img-wrap" style="background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);">
+        <div class="gallery-num">CASE / 38409</div>
+        <div class="gallery-type-tag computer">COMPUTER</div>
+        <div class="gallery-tshirt">
+          <div class="gallery-tshirt-mark black">▶▶</div>
+        </div>
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-meta-row">
+          <div class="gallery-client">○○물류센터</div>
+          <div class="gallery-date">2026.04.04</div>
+        </div>
+        <div class="gallery-name">물류복 / 새벽 배송팀 80벌</div>
+        <div class="gallery-detail">
+          <span class="gallery-detail-item">왼가슴 / 등판</span>
+          <span class="gallery-detail-item">2위치</span>
+          <span class="gallery-detail-item">컴퓨터</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-card">
+      <div class="gallery-img-wrap" style="background: linear-gradient(135deg, #c8161d 0%, #6a0c10 100%);">
+        <div class="gallery-num">CASE / 38408</div>
+        <div class="gallery-type-tag patch">PATCH</div>
+        <div class="gallery-tshirt">
+          <div class="gallery-tshirt-mark dark-red">FIRE</div>
+        </div>
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-meta-row">
+          <div class="gallery-client">○○소방</div>
+          <div class="gallery-date">2026.04.02</div>
+        </div>
+        <div class="gallery-name">방염 작업복 / 소방 35벌</div>
+        <div class="gallery-detail">
+          <span class="gallery-detail-item">등판</span>
+          <span class="gallery-detail-item">대형 패치</span>
+          <span class="gallery-detail-item">방염</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-card">
+      <div class="gallery-img-wrap" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
+        <div class="gallery-num">CASE / 38407</div>
+        <div class="gallery-type-tag computer">COMPUTER</div>
+        <div class="gallery-tshirt">
+          <div class="gallery-tshirt-mark blue">EM</div>
+        </div>
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-meta-row">
+          <div class="gallery-client">EM테크</div>
+          <div class="gallery-date">2026.03.30</div>
+        </div>
+        <div class="gallery-name">엔지니어 점퍼 / 본사 60벌</div>
+        <div class="gallery-detail">
+          <span class="gallery-detail-item">왼가슴</span>
+          <span class="gallery-detail-item">5×5cm</span>
+          <span class="gallery-detail-item">영문</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-card">
+      <div class="gallery-img-wrap" style="background: linear-gradient(135deg, #f39c12 0%, #c17a0a 100%);">
+        <div class="gallery-num">CASE / 38406</div>
+        <div class="gallery-type-tag character">CHARACTER</div>
+        <div class="gallery-tshirt">
+          <div class="gallery-tshirt-mark yellow">★</div>
+        </div>
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-meta-row">
+          <div class="gallery-client">○○이벤트</div>
+          <div class="gallery-date">2026.03.28</div>
+        </div>
+        <div class="gallery-name">이벤트 단체복 / 행사 200벌</div>
+        <div class="gallery-detail">
+          <span class="gallery-detail-item">전면</span>
+          <span class="gallery-detail-item">캐릭터</span>
+          <span class="gallery-detail-item">대형</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-card">
+      <div class="gallery-img-wrap" style="background: linear-gradient(135deg, #4a4a4a 0%, #2a2a2a 100%);">
+        <div class="gallery-num">CASE / 38405</div>
+        <div class="gallery-type-tag computer">COMPUTER</div>
+        <div class="gallery-tshirt">
+          <div class="gallery-tshirt-mark dark">○○</div>
+        </div>
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-meta-row">
+          <div class="gallery-client">○○제약</div>
+          <div class="gallery-date">2026.03.26</div>
+        </div>
+        <div class="gallery-name">위생복 / 공장 정전기방지 100벌</div>
+        <div class="gallery-detail">
+          <span class="gallery-detail-item">왼가슴</span>
+          <span class="gallery-detail-item">정전기방지</span>
+          <span class="gallery-detail-item">KCs</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 페이지네이션 -->
+  <div class="pagination">
+    <div class="page-btn nav disabled">‹ PREV</div>
+    <div class="page-btn active">1</div>
+    <div class="page-btn">2</div>
+    <div class="page-btn">3</div>
+    <div class="page-btn">4</div>
+    <div class="page-btn">5</div>
+    <div class="page-btn">...</div>
+    <div class="page-btn">81</div>
+    <div class="page-btn nav">NEXT ›</div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-icon">EMB</div>
+    <div class="cta-text">
+      <div class="cta-title">우리 회사 자수도 <span class="accent">이렇게 만들 수 있습니다</span></div>
+      <div class="cta-desc">시뮬레이터로 직접 시안 만들기 / 단체주문 견적 신청 / 전화 상담 모두 가능합니다</div>
+    </div>
+    <div class="cta-buttons">
+      <a href="#" class="cta-btn primary">시뮬레이터 시작 →</a>
+      <a href="#" class="cta-btn secondary">단체주문 견적</a>
+    </div>
+  </div>
+</section>
+
+<!-- FLOATING CHAT -->
+<a href="#" class="float-chat">
+  <div class="float-chat-icon">1:1</div>
+  <div>
+    <div class="float-chat-text">전문 상담</div>
+    <div class="float-chat-sub">EMBROIDERY · BULK</div>
+  </div>
+</a>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo-main">에스에스<span class="accent">종합상사</span></div>
+        <div class="footer-logo-sub">SAFETY · WORKWEAR</div>
+        <h4>CUSTOMER CENTER</h4>
+        <div class="footer-cs-num">1588-0000</div>
+        <div style="margin-top: 8px;">평일 09:00 - 18:00 (점심 12:00-13:00)<br>주말 및 공휴일 휴무 / 카톡: @ssmart</div>
+      </div>
+      <div><h4>SHOP</h4><ul><li>신상품</li><li>베스트</li><li>오늘의 특가</li><li>자수/마킹</li><li>단체주문</li></ul></div>
+      <div><h4>SUPPORT</h4><ul><li>공지사항</li><li>1:1 문의</li><li>FAQ</li><li>리뷰 이벤트</li><li>적립금 안내</li></ul></div>
+      <div><h4>POLICY</h4><ul><li>이용약관</li><li>개인정보처리방침</li><li>배송/교환/환불</li><li>사업자정보확인</li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      ㈜에스에스종합상사 / 대표: ○○○ / 사업자등록번호: 000-00-00000 / 통신판매업신고: 제2026-인천○○-0000호<br>
+      인천광역시 ○○구 ○○로 000 / TEL. 430-0497 / FAX. 430-0498<br>
+      © 2026 SS TRADING CO. ALL RIGHTS RESERVED.
+    </div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.filter-row').forEach(row => {
+  row.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      row.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active', 'red'));
+      chip.classList.add('active');
+      if (chip.textContent.trim() === '전체' && row.querySelector('.filter-row-label').textContent.includes('TYPE')) {
+        chip.classList.add('red');
+      }
+    });
+  });
+});
+document.querySelectorAll('.page-btn').forEach(btn => {
+  if (btn.classList.contains('disabled') || btn.classList.contains('nav')) return;
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

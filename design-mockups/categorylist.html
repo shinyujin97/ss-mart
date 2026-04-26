@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>작업복 — 에스에스종합상사</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;900&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans KR', sans-serif; color: #1a1a1a; background: #fff; font-size: 13px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+:root {
+  --red: #c8161d;
+  --red-dark: #9c0e15;
+  --black: #111;
+  --gray-900: #1a1a1a;
+  --gray-700: #4a4a4a;
+  --gray-500: #8a8a8a;
+  --gray-300: #d8d8d8;
+  --gray-100: #f4f4f4;
+  --gray-50: #fafafa;
+  --line: #e5e5e5;
+  --yellow: #ffd400;
+}
+
+/* ===== TOP BAR ===== */
+.topbar { background: #f4f4f4; color: #555; font-size: 11px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+.topbar-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+.topbar-left { display: flex; align-items: center; gap: 16px; }
+.topbar-left .divider { color: #ccc; }
+.topbar a { margin-left: 16px; }
+.topbar a:hover { color: var(--red); }
+.topbar a.b2b { color: var(--red); font-weight: 600; }
+
+/* ===== HEADER ===== */
+.header { background: #fff; border-bottom: 1px solid var(--line); }
+.header-inner { max-width: 1340px; margin: 0 auto; padding: 26px 24px; display: flex; align-items: center; gap: 40px; }
+.logo { display: flex; flex-direction: column; line-height: 1; padding-right: 30px; border-right: 1px solid var(--line); }
+.logo-main { font-size: 24px; font-weight: 900; color: var(--black); letter-spacing: -0.8px; }
+.logo-main .accent { color: var(--red); }
+.logo-sub { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 3px; color: var(--gray-500); margin-top: 5px; }
+.search-box { flex: 1; max-width: 580px; position: relative; }
+.search-box input { width: 100%; padding: 13px 50px 13px 18px; border: 2px solid var(--black); background: #fff; font-size: 13px; outline: none; font-weight: 500; }
+.search-box button { position: absolute; right: 0; top: 0; bottom: 0; background: var(--black); color: #fff; border: none; width: 50px; cursor: pointer; font-size: 16px; }
+.header-icons { display: flex; gap: 0; margin-left: auto; align-items: center; }
+.header-icons a { padding: 10px 18px; font-size: 12px; font-weight: 500; color: var(--gray-700); border-left: 1px solid var(--line); display: flex; align-items: center; gap: 6px; }
+.header-icons a:first-child { border-left: none; }
+.header-icons a:hover { color: var(--red); }
+.header-icons a .num { color: var(--red); font-weight: 700; font-family: 'Bebas Neue', sans-serif; font-size: 14px; }
+
+/* ===== NAV ===== */
+.nav { background: var(--black); }
+.nav-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; display: flex; align-items: stretch; }
+.nav-cat-btn { background: var(--red); color: #fff; padding: 0 24px; font-weight: 700; display: flex; align-items: center; gap: 12px; font-size: 13px; min-width: 200px; letter-spacing: 0.3px; }
+.nav-menu { display: flex; flex: 1; align-items: center; }
+.nav-menu a { padding: 16px 18px; font-weight: 500; color: #fff; transition: all .15s; font-size: 13px; }
+.nav-menu a:hover { background: rgba(255,255,255,0.1); }
+.nav-menu a.hot { color: var(--yellow); font-weight: 600; }
+.nav-menu a.active { background: var(--red); }
+.nav-cs { margin-left: auto; padding: 0 22px; display: flex; align-items: center; gap: 10px; border-left: 1px solid #333; color: #fff; font-size: 12px; }
+.nav-cs .cs-num { font-family: 'Bebas Neue', sans-serif; color: var(--yellow); font-size: 18px; letter-spacing: 1px; }
+
+/* ===== BREADCRUMB ===== */
+.breadcrumb { max-width: 1340px; margin: 20px auto 0; padding: 0 24px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--gray-500); letter-spacing: 0.5px; }
+.breadcrumb a { color: var(--gray-500); }
+.breadcrumb a:hover { color: var(--red); }
+.breadcrumb .sep { margin: 0 8px; color: var(--gray-300); }
+.breadcrumb .current { color: var(--black); font-weight: 600; }
+
+/* ===== CATEGORY HERO ===== */
+.cat-hero { max-width: 1340px; margin: 24px auto; padding: 0 24px; }
+.cat-hero-box { background: var(--black); color: #fff; padding: 36px 50px; position: relative; overflow: hidden; min-height: 200px; display: flex; align-items: center; }
+.cat-hero-box::before { content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.cat-hero-box::after { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 50%;
+  background-image: linear-gradient(135deg, rgba(0,0,0,0.5) 0%, transparent 100%), url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=85&auto=format&fit=crop');
+  background-size: cover; background-position: center;
+  clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+}
+.cat-hero-content { position: relative; z-index: 2; max-width: 580px; }
+.cat-hero-tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 3px; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+.cat-hero-tag::before { content: ''; width: 28px; height: 1px; background: var(--red); }
+.cat-hero-title { font-size: 42px; font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 12px; }
+.cat-hero-title .accent { color: var(--red); }
+.cat-hero-desc { font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.6; margin-bottom: 16px; max-width: 520px; }
+.cat-hero-stats { display: flex; gap: 32px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.15); }
+.hero-stat-item { display: flex; flex-direction: column; gap: 2px; }
+.hero-stat-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 1.5px; }
+.hero-stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; color: var(--yellow); line-height: 1; }
+
+/* ===== SUB CATEGORY TABS ===== */
+.sub-cat-tabs { max-width: 1340px; margin: 0 auto 24px; padding: 0 24px; }
+.sub-cat-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 0; border: 1px solid var(--line); }
+.sub-cat-item { padding: 14px 12px; text-align: center; cursor: pointer; transition: all .15s; border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 4px; }
+.sub-cat-item:last-child { border-right: none; }
+.sub-cat-item:hover { background: var(--gray-50); }
+.sub-cat-item.active { background: var(--black); color: #fff; }
+.sub-cat-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--gray-500); letter-spacing: 0.5px; }
+.sub-cat-item.active .sub-cat-num { color: var(--yellow); }
+.sub-cat-name { font-size: 13px; font-weight: 700; }
+.sub-cat-count { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); }
+.sub-cat-item.active .sub-cat-count { color: rgba(255,255,255,0.7); }
+
+/* ===== MAIN LAYOUT ===== */
+.cat-main { max-width: 1340px; margin: 0 auto 50px; padding: 0 24px; display: grid; grid-template-columns: 240px 1fr; gap: 24px; align-items: flex-start; }
+
+/* ===== FILTER SIDEBAR ===== */
+.filter-sidebar { position: sticky; top: 24px; }
+.filter-header { background: var(--black); color: #fff; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; border: 1px solid var(--black); }
+.filter-header-title { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.5px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.filter-header-title::before { content: '▣'; color: var(--yellow); }
+.filter-reset { font-size: 11px; color: rgba(255,255,255,0.7); cursor: pointer; transition: color .15s; }
+.filter-reset:hover { color: var(--yellow); }
+
+.filter-applied { background: #fff5f5; border: 1px solid var(--line); border-top: none; padding: 12px 14px; }
+.filter-applied-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--red); letter-spacing: 1px; margin-bottom: 6px; font-weight: 700; }
+.filter-applied-list { display: flex; flex-wrap: wrap; gap: 4px; }
+.filter-chip { background: #fff; border: 1px solid var(--red); padding: 4px 8px; font-size: 11px; color: var(--red); display: inline-flex; align-items: center; gap: 4px; cursor: pointer; transition: all .15s; }
+.filter-chip:hover { background: var(--red); color: #fff; }
+.filter-chip .x { font-size: 10px; font-weight: 700; }
+
+.filter-section { background: #fff; border: 1px solid var(--line); border-top: none; }
+.filter-section-header { padding: 12px 16px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background .15s; user-select: none; }
+.filter-section-header:hover { background: var(--gray-50); }
+.filter-section-name { font-size: 13px; font-weight: 700; letter-spacing: -0.2px; display: flex; align-items: center; gap: 8px; }
+.filter-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--red); letter-spacing: 0.5px; font-weight: 600; }
+.filter-toggle { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--gray-500); transition: transform .2s; }
+.filter-section.collapsed .filter-toggle { transform: rotate(-90deg); }
+.filter-section-body { padding: 0 16px 14px; max-height: 240px; overflow-y: auto; }
+.filter-section.collapsed .filter-section-body { display: none; }
+
+/* 검색박스 (브랜드 안에) */
+.filter-search-input { width: 100%; padding: 7px 10px; border: 1px solid var(--line); font-size: 12px; outline: none; margin-bottom: 8px; }
+.filter-search-input:focus { border-color: var(--black); }
+
+/* 필터 옵션 (체크박스) */
+.filter-option { display: flex; align-items: center; gap: 8px; padding: 5px 0; cursor: pointer; transition: color .15s; }
+.filter-option:hover { color: var(--red); }
+.filter-checkbox { width: 14px; height: 14px; border: 1.5px solid var(--gray-300); display: flex; align-items: center; justify-content: center; transition: all .15s; flex-shrink: 0; background: #fff; }
+.filter-option:hover .filter-checkbox { border-color: var(--red); }
+.filter-option.checked .filter-checkbox { background: var(--red); border-color: var(--red); color: #fff; font-size: 9px; font-weight: 700; }
+.filter-option.checked .filter-checkbox::after { content: '✓'; }
+.filter-option-text { font-size: 12px; flex: 1; }
+.filter-option-count { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); }
+
+/* 가격 필터 */
+.price-range { display: flex; gap: 6px; align-items: center; margin-bottom: 10px; }
+.price-input { flex: 1; padding: 7px 8px; border: 1px solid var(--line); font-size: 11px; outline: none; font-family: 'IBM Plex Mono', monospace; text-align: right; }
+.price-input:focus { border-color: var(--black); }
+.price-dash { color: var(--gray-500); font-size: 12px; }
+.price-quick { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.price-quick-btn { padding: 6px 8px; font-size: 11px; border: 1px solid var(--line); background: #fff; cursor: pointer; transition: all .15s; }
+.price-quick-btn:hover { border-color: var(--red); color: var(--red); }
+.price-quick-btn.active { background: var(--red); color: #fff; border-color: var(--red); }
+
+/* 색상 필터 */
+.color-filter-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.color-filter-item { display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; }
+.color-filter-circle { width: 24px; height: 24px; border: 1.5px solid var(--gray-300); transition: all .15s; }
+.color-filter-item.active .color-filter-circle { border-color: var(--red); box-shadow: 0 0 0 1.5px #fff inset; }
+.color-filter-item:hover .color-filter-circle { border-color: var(--gray-700); }
+.color-filter-name { font-family: 'IBM Plex Mono', monospace; font-size: 8px; color: var(--gray-500); letter-spacing: 0.3px; }
+
+/* 사이즈 필터 */
+.size-filter-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.size-filter-btn { padding: 7px 0; text-align: center; border: 1px solid var(--line); font-size: 11px; font-weight: 700; cursor: pointer; transition: all .15s; }
+.size-filter-btn:hover { border-color: var(--gray-700); }
+.size-filter-btn.active { border-color: var(--red); background: var(--red); color: #fff; }
+
+/* ===== PRODUCT AREA ===== */
+.product-area {}
+
+/* 상단 바 (정렬 + 결과) */
+.product-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border: 1px solid var(--line); margin-bottom: 16px; background: var(--gray-50); }
+.toolbar-left { display: flex; align-items: center; gap: 18px; }
+.result-count { font-size: 13px; }
+.result-count strong { color: var(--red); font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 0.5px; vertical-align: -1px; }
+.toolbar-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); letter-spacing: 1px; padding-left: 18px; border-left: 1px solid var(--line); }
+
+.toolbar-right { display: flex; align-items: center; gap: 12px; }
+.sort-tabs { display: flex; gap: 0; border: 1px solid var(--line); background: #fff; }
+.sort-tab { padding: 8px 14px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all .15s; color: var(--gray-700); border-right: 1px solid var(--line); display: flex; align-items: center; gap: 6px; }
+.sort-tab:last-child { border-right: none; }
+.sort-tab:hover { color: var(--red); }
+.sort-tab.active { background: var(--black); color: #fff; }
+.sort-tab.active .sort-num { color: var(--yellow); }
+.sort-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--gray-500); letter-spacing: 0.3px; }
+
+.view-toggle { display: flex; gap: 0; border: 1px solid var(--line); background: #fff; }
+.view-btn { width: 36px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .15s; border-right: 1px solid var(--line); font-size: 14px; }
+.view-btn:last-child { border-right: none; }
+.view-btn:hover { background: var(--gray-50); }
+.view-btn.active { background: var(--black); color: #fff; }
+
+/* 상품 그리드 */
+.product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.product-card { cursor: pointer; transition: transform .2s; }
+.product-card:hover { transform: translateY(-3px); }
+.product-img { aspect-ratio: 1; background: var(--gray-100); overflow: hidden; margin-bottom: 12px; position: relative; }
+.product-img-inner { width: 100%; height: 100%; background-size: cover; background-position: center; transition: transform .4s; }
+.product-card:hover .product-img-inner { transform: scale(1.04); }
+.product-num { position: absolute; top: 10px; left: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; background: rgba(255,255,255,0.95); padding: 3px 6px; letter-spacing: 0.5px; font-weight: 600; }
+.product-badges { position: absolute; bottom: 10px; left: 10px; display: flex; gap: 4px; }
+.badge { padding: 3px 8px; font-size: 10px; font-weight: 700; color: #fff; letter-spacing: 0.3px; font-family: 'IBM Plex Mono', monospace; }
+.badge.new { background: var(--black); }
+.badge.sale { background: var(--red); }
+.badge.best { background: var(--yellow); color: var(--black); }
+.badge.kcs { background: #1565c0; }
+.product-wishlist { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; font-size: 13px; cursor: pointer; transition: all .15s; }
+.product-wishlist:hover { background: var(--red); color: #fff; }
+.product-quick-view { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.85); color: #fff; padding: 6px 10px; font-size: 10px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.5px; opacity: 0; transition: opacity .2s; cursor: pointer; }
+.product-card:hover .product-quick-view { opacity: 1; }
+.product-brand { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); margin-bottom: 4px; letter-spacing: 1px; font-weight: 600; }
+.product-name { font-size: 13px; line-height: 1.4; margin-bottom: 8px; height: 36px; overflow: hidden; color: var(--gray-900); font-weight: 500; }
+.product-price { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+.product-price .discount { color: var(--red); font-size: 16px; font-weight: 900; }
+.product-price .price { font-size: 16px; font-weight: 900; color: var(--black); }
+.product-price .original { color: var(--gray-300); font-size: 11px; text-decoration: line-through; }
+.product-tags { display: flex; gap: 4px; margin-bottom: 6px; flex-wrap: wrap; }
+.product-tag { font-size: 9px; padding: 2px 6px; border: 1px solid var(--line); color: var(--gray-700); font-weight: 600; letter-spacing: 0.3px; }
+.product-tag.embroidery { border-color: var(--red); color: var(--red); }
+.product-tag.kcs { border-color: var(--black); color: var(--black); }
+.product-tag.bulk { background: var(--yellow); border-color: var(--yellow); color: var(--black); }
+.product-meta { display: flex; align-items: center; gap: 8px; padding-top: 8px; border-top: 1px solid var(--line); font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); letter-spacing: 0.3px; }
+.product-meta .review { color: var(--red); font-weight: 700; }
+
+/* ===== PAGINATION ===== */
+.pagination { display: flex; justify-content: center; align-items: center; gap: 4px; margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--line); }
+.page-btn { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); cursor: pointer; transition: all .15s; font-size: 13px; font-family: 'IBM Plex Mono', monospace; font-weight: 600; background: #fff; }
+.page-btn:hover { border-color: var(--black); }
+.page-btn.active { background: var(--black); color: #fff; border-color: var(--black); }
+.page-btn.nav { padding: 0 12px; min-width: 36px; }
+.page-btn.disabled { color: var(--gray-300); cursor: not-allowed; }
+.page-btn.disabled:hover { border-color: var(--line); }
+
+/* ===== EMPTY / LOADING (예시용) ===== */
+
+/* ===== FLOATING CHAT ===== */
+.float-chat { position: fixed; bottom: 24px; right: 24px; background: var(--red); color: #fff; padding: 14px 22px; display: flex; align-items: center; gap: 12px; box-shadow: 0 8px 24px rgba(200, 22, 29, 0.3); cursor: pointer; z-index: 100; transition: all .15s; }
+.float-chat:hover { background: var(--black); }
+.float-chat-icon { width: 32px; height: 32px; background: #fff; color: var(--red); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 12px; font-family: 'IBM Plex Mono', monospace; }
+.float-chat-text { font-size: 13px; font-weight: 700; line-height: 1.2; }
+.float-chat-sub { font-size: 11px; opacity: .9; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+
+/* ===== FOOTER ===== */
+.footer { background: var(--black); color: #888; padding: 50px 0 28px; font-size: 12px; }
+.footer-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 36px; padding-bottom: 32px; border-bottom: 1px solid #333; }
+.footer-logo-main { font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 4px; letter-spacing: -0.8px; }
+.footer-logo-main .accent { color: var(--red); }
+.footer-logo-sub { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 3px; color: var(--gray-500); margin-bottom: 18px; }
+.footer-cs-num { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: #fff; letter-spacing: 1px; margin: 6px 0 4px; }
+.footer h4 { color: #fff; font-size: 12px; margin-bottom: 14px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 1.5px; font-weight: 600; }
+.footer ul { list-style: none; }
+.footer ul li { margin-bottom: 8px; }
+.footer-bottom { line-height: 1.8; opacity: .55; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.3px; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span>SS TRADING CO.</span>
+      <span class="divider">|</span>
+      <span>TEL. 1588-0000 / 평일 09:00 ─ 18:00</span>
+      <span class="divider">|</span>
+      <span>인천 본점 운영중</span>
+    </div>
+    <div>
+      <a href="#">로그인</a>
+      <a href="#">회원가입</a>
+      <a href="#">주문조회</a>
+      <a href="#">고객센터</a>
+      <a href="#" class="b2b">▶ 단체주문 견적</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-main">에스에스<span class="accent">종합상사</span></div>
+      <div class="logo-sub">SAFETY · WORKWEAR · SINCE</div>
+    </a>
+    <div class="search-box">
+      <input type="text" placeholder="브랜드, 상품명, 카테고리로 검색하세요">
+      <button>⌕</button>
+    </div>
+    <div class="header-icons">
+      <a href="#">찜 <span class="num">12</span></a>
+      <a href="#">장바구니 <span class="num">03</span></a>
+      <a href="#">마이페이지</a>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-cat-btn">▣ ALL CATEGORIES</div>
+    <div class="nav-menu">
+      <a href="#">신상품</a>
+      <a href="#" class="hot">▶ TODAY DEAL</a>
+      <a href="#">베스트</a>
+      <a href="#" class="active">작업복</a>
+      <a href="#">안전화</a>
+      <a href="#">안전용품</a>
+      <a href="#">자수/마킹</a>
+      <a href="#">브랜드관</a>
+    </div>
+    <div class="nav-cs">
+      <span style="opacity:.6">단체주문</span>
+      <span class="cs-num">1588-0000</span>
+    </div>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="#">HOME</a>
+  <span class="sep">/</span>
+  <span class="current">작업복</span>
+</div>
+
+<!-- CATEGORY HERO -->
+<section class="cat-hero">
+  <div class="cat-hero-box">
+    <div class="cat-hero-content">
+      <div class="cat-hero-tag">CATEGORY / 04 ─ WORKWEAR</div>
+      <h1 class="cat-hero-title"><span class="accent">작업복</span></h1>
+      <p class="cat-hero-desc">건설 / 제조 / 물류 / F&B 현장에서 검증된 작업복. 80여 개 브랜드의 풀라인업을 자수 / 마킹과 함께 만나보세요.</p>
+      <div class="cat-hero-stats">
+        <div class="hero-stat-item">
+          <div class="hero-stat-label">TOTAL ITEMS</div>
+          <div class="hero-stat-value">5,940+</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-label">BRANDS</div>
+          <div class="hero-stat-value">42</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-label">EMBROIDERY</div>
+          <div class="hero-stat-value">5,200+</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-label">REVIEWS</div>
+          <div class="hero-stat-value">38,420</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUB CATEGORY TABS -->
+<section class="sub-cat-tabs">
+  <div class="sub-cat-grid">
+    <div class="sub-cat-item active">
+      <div class="sub-cat-num">/ ALL</div>
+      <div class="sub-cat-name">전체</div>
+      <div class="sub-cat-count">5,940</div>
+    </div>
+    <div class="sub-cat-item">
+      <div class="sub-cat-num">/ 01</div>
+      <div class="sub-cat-name">상의</div>
+      <div class="sub-cat-count">2,140</div>
+    </div>
+    <div class="sub-cat-item">
+      <div class="sub-cat-num">/ 02</div>
+      <div class="sub-cat-name">하의</div>
+      <div class="sub-cat-count">1,820</div>
+    </div>
+    <div class="sub-cat-item">
+      <div class="sub-cat-num">/ 03</div>
+      <div class="sub-cat-name">상하세트</div>
+      <div class="sub-cat-count">980</div>
+    </div>
+    <div class="sub-cat-item">
+      <div class="sub-cat-num">/ 04</div>
+      <div class="sub-cat-name">조끼</div>
+      <div class="sub-cat-count">320</div>
+    </div>
+    <div class="sub-cat-item">
+      <div class="sub-cat-num">/ 05</div>
+      <div class="sub-cat-name">방한복</div>
+      <div class="sub-cat-count">760</div>
+    </div>
+    <div class="sub-cat-item">
+      <div class="sub-cat-num">/ 06</div>
+      <div class="sub-cat-name">F&B 유니폼</div>
+      <div class="sub-cat-count">890</div>
+    </div>
+    <div class="sub-cat-item">
+      <div class="sub-cat-num">/ 07</div>
+      <div class="sub-cat-name">의료/위생</div>
+      <div class="sub-cat-count">450</div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN: 필터 + 상품 -->
+<div class="cat-main">
+
+  <!-- ===== 좌측 필터 사이드바 ===== -->
+  <aside class="filter-sidebar">
+
+    <!-- 필터 헤더 -->
+    <div class="filter-header">
+      <div class="filter-header-title">FILTER</div>
+      <span class="filter-reset">초기화 ↺</span>
+    </div>
+
+    <!-- 적용된 필터 -->
+    <div class="filter-applied">
+      <div class="filter-applied-label">▶ 적용된 필터 / 3</div>
+      <div class="filter-applied-list">
+        <span class="filter-chip">PIOZEN <span class="x">×</span></span>
+        <span class="filter-chip">5만원 이하 <span class="x">×</span></span>
+        <span class="filter-chip">자수가능 <span class="x">×</span></span>
+      </div>
+    </div>
+
+    <!-- 1. 카테고리 -->
+    <div class="filter-section">
+      <div class="filter-section-header">
+        <div class="filter-section-name"><span class="filter-section-num">FILTER / 01</span>카테고리</div>
+        <div class="filter-toggle">▾</div>
+      </div>
+      <div class="filter-section-body">
+        <div class="filter-option checked">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">전체</div>
+          <div class="filter-option-count">5,940</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">상의</div>
+          <div class="filter-option-count">2,140</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">하의</div>
+          <div class="filter-option-count">1,820</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">상하세트</div>
+          <div class="filter-option-count">980</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">조끼</div>
+          <div class="filter-option-count">320</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. 브랜드 -->
+    <div class="filter-section">
+      <div class="filter-section-header">
+        <div class="filter-section-name"><span class="filter-section-num">FILTER / 02</span>브랜드</div>
+        <div class="filter-toggle">▾</div>
+      </div>
+      <div class="filter-section-body">
+        <input type="text" class="filter-search-input" placeholder="브랜드 검색...">
+        <div class="filter-option checked">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">PIOZEN</div>
+          <div class="filter-option-count">820</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">CARHARTT</div>
+          <div class="filter-option-count">142</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">DICKIES</div>
+          <div class="filter-option-count">98</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">LEVI'S</div>
+          <div class="filter-option-count">76</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">KOLON</div>
+          <div class="filter-option-count">320</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">BLAKLADER</div>
+          <div class="filter-option-count">54</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">한일</div>
+          <div class="filter-option-count">280</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">+ 35개 더보기</div>
+          <div class="filter-option-count">→</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 가격 -->
+    <div class="filter-section">
+      <div class="filter-section-header">
+        <div class="filter-section-name"><span class="filter-section-num">FILTER / 03</span>가격</div>
+        <div class="filter-toggle">▾</div>
+      </div>
+      <div class="filter-section-body">
+        <div class="price-range">
+          <input type="text" class="price-input" placeholder="0">
+          <span class="price-dash">─</span>
+          <input type="text" class="price-input" value="50,000">
+        </div>
+        <div class="price-quick">
+          <div class="price-quick-btn">~ 2만원</div>
+          <div class="price-quick-btn">2~5만원</div>
+          <div class="price-quick-btn active">5만원 이하</div>
+          <div class="price-quick-btn">5~10만원</div>
+          <div class="price-quick-btn">10~20만원</div>
+          <div class="price-quick-btn">20만원 이상</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. 자수 가능 (★ 핵심 필터) -->
+    <div class="filter-section">
+      <div class="filter-section-header">
+        <div class="filter-section-name"><span class="filter-section-num">FILTER / 04</span>★ 자수 가능</div>
+        <div class="filter-toggle">▾</div>
+      </div>
+      <div class="filter-section-body">
+        <div class="filter-option checked">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">자수 가능 상품만</div>
+          <div class="filter-option-count">5,200</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">캐릭터 디자인 가능</div>
+          <div class="filter-option-count">4,800</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">대량 자수 가능 (100벌+)</div>
+          <div class="filter-option-count">3,200</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. KCs 인증 (★ 안전용품 필수) -->
+    <div class="filter-section">
+      <div class="filter-section-header">
+        <div class="filter-section-name"><span class="filter-section-num">FILTER / 05</span>인증</div>
+        <div class="filter-toggle">▾</div>
+      </div>
+      <div class="filter-section-body">
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">KCs 인증</div>
+          <div class="filter-option-count">2,140</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">KS 인증</div>
+          <div class="filter-option-count">980</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">방염 인증</div>
+          <div class="filter-option-count">320</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">정전기 방지</div>
+          <div class="filter-option-count">180</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. 색상 -->
+    <div class="filter-section">
+      <div class="filter-section-header">
+        <div class="filter-section-name"><span class="filter-section-num">FILTER / 06</span>색상</div>
+        <div class="filter-toggle">▾</div>
+      </div>
+      <div class="filter-section-body">
+        <div class="color-filter-grid">
+          <div class="color-filter-item">
+            <div class="color-filter-circle" style="background: #1a1a1a;"></div>
+            <div class="color-filter-name">BLK</div>
+          </div>
+          <div class="color-filter-item active">
+            <div class="color-filter-circle" style="background: #2c3e50;"></div>
+            <div class="color-filter-name">NVY</div>
+          </div>
+          <div class="color-filter-item">
+            <div class="color-filter-circle" style="background: #4a4a4a;"></div>
+            <div class="color-filter-name">CHA</div>
+          </div>
+          <div class="color-filter-item">
+            <div class="color-filter-circle" style="background: #6b5d4d;"></div>
+            <div class="color-filter-name">KHA</div>
+          </div>
+          <div class="color-filter-item">
+            <div class="color-filter-circle" style="background: var(--red);"></div>
+            <div class="color-filter-name">RED</div>
+          </div>
+          <div class="color-filter-item">
+            <div class="color-filter-circle" style="background: #f39c12;"></div>
+            <div class="color-filter-name">ORG</div>
+          </div>
+          <div class="color-filter-item">
+            <div class="color-filter-circle" style="background: #ffd400;"></div>
+            <div class="color-filter-name">YEL</div>
+          </div>
+          <div class="color-filter-item">
+            <div class="color-filter-circle" style="background: #2e7d32;"></div>
+            <div class="color-filter-name">GRN</div>
+          </div>
+          <div class="color-filter-item">
+            <div class="color-filter-circle" style="background: #f5f5f5;"></div>
+            <div class="color-filter-name">WHT</div>
+          </div>
+          <div class="color-filter-item">
+            <div class="color-filter-circle" style="background: linear-gradient(135deg, #fff 50%, #ccc 50%);"></div>
+            <div class="color-filter-name">+ 5</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. 사이즈 -->
+    <div class="filter-section">
+      <div class="filter-section-header">
+        <div class="filter-section-name"><span class="filter-section-num">FILTER / 07</span>사이즈</div>
+        <div class="filter-toggle">▾</div>
+      </div>
+      <div class="filter-section-body">
+        <div class="size-filter-grid">
+          <div class="size-filter-btn">S</div>
+          <div class="size-filter-btn">M</div>
+          <div class="size-filter-btn active">L</div>
+          <div class="size-filter-btn active">XL</div>
+          <div class="size-filter-btn">2XL</div>
+          <div class="size-filter-btn">3XL</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. 시즌 -->
+    <div class="filter-section">
+      <div class="filter-section-header">
+        <div class="filter-section-name"><span class="filter-section-num">FILTER / 08</span>시즌</div>
+        <div class="filter-toggle">▾</div>
+      </div>
+      <div class="filter-section-body">
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">사계절</div>
+          <div class="filter-option-count">2,840</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">봄가을</div>
+          <div class="filter-option-count">1,420</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">여름</div>
+          <div class="filter-option-count">980</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">겨울 / 동절기</div>
+          <div class="filter-option-count">700</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. 직군 -->
+    <div class="filter-section">
+      <div class="filter-section-header">
+        <div class="filter-section-name"><span class="filter-section-num">FILTER / 09</span>직군 / 업종</div>
+        <div class="filter-toggle">▾</div>
+      </div>
+      <div class="filter-section-body">
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">건설 / 중공업</div>
+          <div class="filter-option-count">3,240</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">제조 / 공장</div>
+          <div class="filter-option-count">2,890</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">물류 / 택배</div>
+          <div class="filter-option-count">540</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">F&B / 주방</div>
+          <div class="filter-option-count">890</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">의료 / 위생</div>
+          <div class="filter-option-count">450</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">환경미화</div>
+          <div class="filter-option-count">240</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. 평점 -->
+    <div class="filter-section">
+      <div class="filter-section-header">
+        <div class="filter-section-name"><span class="filter-section-num">FILTER / 10</span>평점</div>
+        <div class="filter-toggle">▾</div>
+      </div>
+      <div class="filter-section-body">
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text" style="color: var(--yellow);">★★★★★ 4.5 이상</div>
+          <div class="filter-option-count">2,420</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text" style="color: var(--yellow);">★★★★ 4.0 이상</div>
+          <div class="filter-option-count">3,840</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text" style="color: var(--yellow);">★★★ 3.0 이상</div>
+          <div class="filter-option-count">5,200</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11. 혜택 -->
+    <div class="filter-section">
+      <div class="filter-section-header">
+        <div class="filter-section-name"><span class="filter-section-num">FILTER / 11</span>혜택</div>
+        <div class="filter-toggle">▾</div>
+      </div>
+      <div class="filter-section-body">
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">무료 배송</div>
+          <div class="filter-option-count">5,940</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">당일 출고</div>
+          <div class="filter-option-count">3,420</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">단체할인 (100벌+)</div>
+          <div class="filter-option-count">5,200</div>
+        </div>
+        <div class="filter-option">
+          <div class="filter-checkbox"></div>
+          <div class="filter-option-text">세금계산서 발행</div>
+          <div class="filter-option-count">5,940</div>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ===== 우측 상품 영역 ===== -->
+  <main class="product-area">
+
+    <!-- 정렬 / 결과 툴바 -->
+    <div class="product-toolbar">
+      <div class="toolbar-left">
+        <div class="result-count">전체 <strong>5,940</strong>건 중 <strong>1,283</strong>건</div>
+        <div class="toolbar-tag">FILTERED ─ PIOZEN · ~50,000원 · 자수가능</div>
+      </div>
+      <div class="toolbar-right">
+        <div class="sort-tabs">
+          <div class="sort-tab active">
+            <span class="sort-num">/01</span>
+            <span>인기순</span>
+          </div>
+          <div class="sort-tab">
+            <span class="sort-num">/02</span>
+            <span>신상순</span>
+          </div>
+          <div class="sort-tab">
+            <span class="sort-num">/03</span>
+            <span>낮은가격순</span>
+          </div>
+          <div class="sort-tab">
+            <span class="sort-num">/04</span>
+            <span>높은가격순</span>
+          </div>
+          <div class="sort-tab">
+            <span class="sort-num">/05</span>
+            <span>리뷰많은순</span>
+          </div>
+        </div>
+        <div class="view-toggle">
+          <div class="view-btn active" title="그리드 보기">▦</div>
+          <div class="view-btn" title="리스트 보기">☰</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 상품 그리드 -->
+    <div class="product-grid">
+
+      <!-- Row 1 -->
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-inner" style="background-image: url('https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=80&auto=format&fit=crop');"></div>
+          <div class="product-num">/ 001</div>
+          <div class="product-badges"><span class="badge sale">-52%</span></div>
+          <div class="product-wishlist">♡</div>
+          <div class="product-quick-view">QUICK VIEW →</div>
+        </div>
+        <div class="product-brand">PIOZEN ─ 피오젠</div>
+        <div class="product-name">동절기 보온 작업복 상하세트 방한 자켓</div>
+        <div class="product-price"><span class="discount">52%</span><span class="price">42,800원</span><span class="original">89,000원</span></div>
+        <div class="product-tags"><span class="product-tag embroidery">EMB</span><span class="product-tag bulk">BULK</span></div>
+        <div class="product-meta"><span>RV 1,283</span><span class="review">★ 4.8</span></div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-inner" style="background-image: url('https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=600&q=80&auto=format&fit=crop');"></div>
+          <div class="product-num">/ 002</div>
+          <div class="product-badges"><span class="badge best">BEST</span></div>
+          <div class="product-wishlist">♡</div>
+          <div class="product-quick-view">QUICK VIEW →</div>
+        </div>
+        <div class="product-brand">CARHARTT ─ 칼하트</div>
+        <div class="product-name">덕 캔버스 워크 자켓 빈티지 클래식</div>
+        <div class="product-price"><span class="price">189,000원</span></div>
+        <div class="product-tags"><span class="product-tag embroidery">EMB</span></div>
+        <div class="product-meta"><span>RV 2,103</span><span class="review">★ 4.8</span></div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-inner" style="background-image: url('https://images.unsplash.com/photo-1473966968600-fa801b80a8a8?w=600&q=80&auto=format&fit=crop');"></div>
+          <div class="product-num">/ 003</div>
+          <div class="product-badges"><span class="badge sale">-35%</span></div>
+          <div class="product-wishlist">♡</div>
+          <div class="product-quick-view">QUICK VIEW →</div>
+        </div>
+        <div class="product-brand">DICKIES ─ 디키즈</div>
+        <div class="product-name">874 오리지널 워크 팬츠 클래식핏</div>
+        <div class="product-price"><span class="discount">35%</span><span class="price">58,500원</span></div>
+        <div class="product-tags"><span class="product-tag embroidery">EMB</span></div>
+        <div class="product-meta"><span>RV 3,421</span><span class="review">★ 4.9</span></div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-inner" style="background-image: url('https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80&auto=format&fit=crop');"></div>
+          <div class="product-num">/ 004</div>
+          <div class="product-badges"><span class="badge new">NEW</span></div>
+          <div class="product-wishlist">♡</div>
+          <div class="product-quick-view">QUICK VIEW →</div>
+        </div>
+        <div class="product-brand">KOLON ─ 코오롱</div>
+        <div class="product-name">투습방수 작업 점퍼 봄가을 환경미화원</div>
+        <div class="product-price"><span class="discount">45%</span><span class="price">38,000원</span></div>
+        <div class="product-tags"><span class="product-tag embroidery">EMB</span><span class="product-tag bulk">BULK</span></div>
+        <div class="product-meta"><span>RV 1,047</span><span class="review">★ 4.6</span></div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-inner" style="background-image: url('https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&q=80&auto=format&fit=crop');"></div>
+          <div class="product-num">/ 005</div>
+          <div class="product-badges"><span class="badge best">BEST</span></div>
+          <div class="product-wishlist">♡</div>
+          <div class="product-quick-view">QUICK VIEW →</div>
+        </div>
+        <div class="product-brand">LEVI'S ─ 리바이스</div>
+        <div class="product-name">501 워크웨어 데님 진 빈티지 워싱</div>
+        <div class="product-price"><span class="price">98,000원</span></div>
+        <div class="product-meta"><span>RV 1,892</span><span class="review">★ 4.8</span></div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-inner" style="background-image: url('https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&q=80&auto=format&fit=crop');"></div>
+          <div class="product-num">/ 006</div>
+          <div class="product-badges"><span class="badge sale">-32%</span><span class="badge best">BEST</span></div>
+          <div class="product-wishlist">♡</div>
+          <div class="product-quick-view">QUICK VIEW →</div>
+        </div>
+        <div class="product-brand">PIOZEN ─ 피오젠</div>
+        <div class="product-name">사계절 캐주얼 작업복 점퍼 단체복</div>
+        <div class="product-price"><span class="discount">32%</span><span class="price">45,000원</span></div>
+        <div class="product-tags"><span class="product-tag embroidery">EMB</span><span class="product-tag bulk">BULK</span></div>
+        <div class="product-meta"><span>RV 5,832</span><span class="review">★ 4.9</span></div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-inner" style="background-image: url('https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&q=80&auto=format&fit=crop');"></div>
+          <div class="product-num">/ 007</div>
+          <div class="product-badges"><span class="badge new">NEW</span></div>
+          <div class="product-wishlist">♡</div>
+          <div class="product-quick-view">QUICK VIEW →</div>
+        </div>
+        <div class="product-brand">3M</div>
+        <div class="product-name">고시인성 안전조끼 형광 반사 야간작업</div>
+        <div class="product-price"><span class="discount">28%</span><span class="price">12,900원</span></div>
+        <div class="product-tags"><span class="product-tag embroidery">EMB</span><span class="product-tag kcs">KCs</span></div>
+        <div class="product-meta"><span>RV 567</span><span class="review">★ 4.7</span></div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-inner" style="background-image: url('https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&q=80&auto=format&fit=crop');"></div>
+          <div class="product-num">/ 008</div>
+          <div class="product-badges"><span class="badge sale">-22%</span></div>
+          <div class="product-wishlist">♡</div>
+          <div class="product-quick-view">QUICK VIEW →</div>
+        </div>
+        <div class="product-brand">한일</div>
+        <div class="product-name">F&B 주방 유니폼 셰프복 앞치마 세트</div>
+        <div class="product-price"><span class="discount">22%</span><span class="price">28,500원</span></div>
+        <div class="product-tags"><span class="product-tag embroidery">EMB</span></div>
+        <div class="product-meta"><span>RV 892</span><span class="review">★ 4.7</span></div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-inner" style="background-image: url('https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600&q=80&auto=format&fit=crop');"></div>
+          <div class="product-num">/ 009</div>
+          <div class="product-badges"><span class="badge sale">-40%</span></div>
+          <div class="product-wishlist">♡</div>
+          <div class="product-quick-view">QUICK VIEW →</div>
+        </div>
+        <div class="product-brand">BLAKLADER</div>
+        <div class="product-name">스웨덴 프리미엄 워크 팬츠 무릎패드</div>
+        <div class="product-price"><span class="discount">40%</span><span class="price">128,000원</span></div>
+        <div class="product-tags"><span class="product-tag embroidery">EMB</span></div>
+        <div class="product-meta"><span>RV 421</span><span class="review">★ 4.9</span></div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-inner" style="background-image: url('https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&q=80&auto=format&fit=crop');"></div>
+          <div class="product-num">/ 010</div>
+          <div class="product-badges"><span class="badge sale">-28%</span></div>
+          <div class="product-wishlist">♡</div>
+          <div class="product-quick-view">QUICK VIEW →</div>
+        </div>
+        <div class="product-brand">PIOZEN ─ 피오젠</div>
+        <div class="product-name">하절기 통기성 작업복 반팔 셔츠</div>
+        <div class="product-price"><span class="discount">28%</span><span class="price">19,800원</span></div>
+        <div class="product-tags"><span class="product-tag embroidery">EMB</span><span class="product-tag bulk">BULK</span></div>
+        <div class="product-meta"><span>RV 2,140</span><span class="review">★ 4.8</span></div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-inner" style="background-image: url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=80&auto=format&fit=crop');"></div>
+          <div class="product-num">/ 011</div>
+          <div class="product-badges"><span class="badge sale">-15%</span></div>
+          <div class="product-wishlist">♡</div>
+          <div class="product-quick-view">QUICK VIEW →</div>
+        </div>
+        <div class="product-brand">한일</div>
+        <div class="product-name">방염 작업복 상의 KS인증 정전기방지</div>
+        <div class="product-price"><span class="discount">15%</span><span class="price">68,000원</span></div>
+        <div class="product-tags"><span class="product-tag kcs">KCs</span><span class="product-tag embroidery">EMB</span></div>
+        <div class="product-meta"><span>RV 320</span><span class="review">★ 4.7</span></div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-inner" style="background-image: url('https://images.unsplash.com/photo-1635377090186-056ec4c0e0d0?w=600&q=80&auto=format&fit=crop');"></div>
+          <div class="product-num">/ 012</div>
+          <div class="product-badges"><span class="badge new">NEW</span></div>
+          <div class="product-wishlist">♡</div>
+          <div class="product-quick-view">QUICK VIEW →</div>
+        </div>
+        <div class="product-brand">KOLON ─ 코오롱</div>
+        <div class="product-name">반사 라인 작업 조끼 형광 시인성</div>
+        <div class="product-price"><span class="discount">20%</span><span class="price">15,800원</span></div>
+        <div class="product-tags"><span class="product-tag embroidery">EMB</span><span class="product-tag kcs">KCs</span></div>
+        <div class="product-meta"><span>RV 178</span><span class="review">★ 4.6</span></div>
+      </div>
+
+      <!-- Row 4 -->
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-inner" style="background-image: url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&q=80&auto=format&fit=crop');"></div>
+          <div class="product-num">/ 013</div>
+          <div class="product-badges"><span class="badge sale">-30%</span><span class="badge best">BEST</span></div>
+          <div class="product-wishlist">♡</div>
+          <div class="product-quick-view">QUICK VIEW →</div>
+        </div>
+        <div class="product-brand">PIOZEN ─ 피오젠</div>
+        <div class="product-name">건설현장 베이직 점퍼 사계절용</div>
+        <div class="product-price"><span class="discount">30%</span><span class="price">35,000원</span></div>
+        <div class="product-tags"><span class="product-tag embroidery">EMB</span><span class="product-tag bulk">BULK</span></div>
+        <div class="product-meta"><span>RV 4,210</span><span class="review">★ 4.9</span></div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-inner" style="background-image: url('https://images.unsplash.com/photo-1605812860427-4024433a70fd?w=600&q=80&auto=format&fit=crop');"></div>
+          <div class="product-num">/ 014</div>
+          <div class="product-badges"><span class="badge sale">-18%</span></div>
+          <div class="product-wishlist">♡</div>
+          <div class="product-quick-view">QUICK VIEW →</div>
+        </div>
+        <div class="product-brand">한일</div>
+        <div class="product-name">의료용 위생 가운 일회용 멸균 처리</div>
+        <div class="product-price"><span class="discount">18%</span><span class="price">9,800원</span></div>
+        <div class="product-tags"><span class="product-tag kcs">KS</span></div>
+        <div class="product-meta"><span>RV 1,247</span><span class="review">★ 4.8</span></div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-inner" style="background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&q=80&auto=format&fit=crop');"></div>
+          <div class="product-num">/ 015</div>
+          <div class="product-badges"><span class="badge sale">-25%</span></div>
+          <div class="product-wishlist">♡</div>
+          <div class="product-quick-view">QUICK VIEW →</div>
+        </div>
+        <div class="product-brand">DICKIES ─ 디키즈</div>
+        <div class="product-name">아이코닉 카고 워크 팬츠 멀티포켓</div>
+        <div class="product-price"><span class="discount">25%</span><span class="price">68,500원</span></div>
+        <div class="product-tags"><span class="product-tag embroidery">EMB</span></div>
+        <div class="product-meta"><span>RV 1,820</span><span class="review">★ 4.8</span></div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-inner" style="background-image: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=600&q=80&auto=format&fit=crop');"></div>
+          <div class="product-num">/ 016</div>
+          <div class="product-badges"><span class="badge sale">-12%</span></div>
+          <div class="product-wishlist">♡</div>
+          <div class="product-quick-view">QUICK VIEW →</div>
+        </div>
+        <div class="product-brand">CARHARTT ─ 칼하트</div>
+        <div class="product-name">미국식 헤리티지 워크 셔츠 두꺼운 원단</div>
+        <div class="product-price"><span class="discount">12%</span><span class="price">85,000원</span></div>
+        <div class="product-tags"><span class="product-tag embroidery">EMB</span></div>
+        <div class="product-meta"><span>RV 720</span><span class="review">★ 4.7</span></div>
+      </div>
+
+    </div>
+
+    <!-- 페이지네이션 -->
+    <div class="pagination">
+      <div class="page-btn nav disabled">‹ PREV</div>
+      <div class="page-btn active">1</div>
+      <div class="page-btn">2</div>
+      <div class="page-btn">3</div>
+      <div class="page-btn">4</div>
+      <div class="page-btn">5</div>
+      <div class="page-btn">...</div>
+      <div class="page-btn">81</div>
+      <div class="page-btn nav">NEXT ›</div>
+    </div>
+
+  </main>
+</div>
+
+<!-- FLOATING CHAT -->
+<a href="#" class="float-chat">
+  <div class="float-chat-icon">1:1</div>
+  <div>
+    <div class="float-chat-text">전문 상담</div>
+    <div class="float-chat-sub">EMBROIDERY · BULK</div>
+  </div>
+</a>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo-main">에스에스<span class="accent">종합상사</span></div>
+        <div class="footer-logo-sub">SAFETY · WORKWEAR</div>
+        <h4>CUSTOMER CENTER</h4>
+        <div class="footer-cs-num">1588-0000</div>
+        <div style="margin-top: 8px;">평일 09:00 - 18:00 (점심 12:00-13:00)<br>주말 및 공휴일 휴무 / 카톡: @ssmart</div>
+      </div>
+      <div>
+        <h4>SHOP</h4>
+        <ul><li>신상품</li><li>베스트</li><li>오늘의 특가</li><li>자수/마킹</li><li>단체주문</li></ul>
+      </div>
+      <div>
+        <h4>SUPPORT</h4>
+        <ul><li>공지사항</li><li>1:1 문의</li><li>FAQ</li><li>리뷰 이벤트</li><li>적립금 안내</li></ul>
+      </div>
+      <div>
+        <h4>POLICY</h4>
+        <ul><li>이용약관</li><li>개인정보처리방침</li><li>배송/교환/환불</li><li>사업자정보확인</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      ㈜에스에스종합상사 / 대표: ○○○ / 사업자등록번호: 000-00-00000 / 통신판매업신고: 제2026-인천○○-0000호<br>
+      인천광역시 ○○구 ○○로 000 / TEL. 430-0497 / FAX. 430-0498<br>
+      © 2026 SS TRADING CO. ALL RIGHTS RESERVED.
+    </div>
+  </div>
+</footer>
+
+<script>
+// 필터 섹션 토글
+document.querySelectorAll('.filter-section-header').forEach(header => {
+  header.addEventListener('click', () => {
+    header.parentElement.classList.toggle('collapsed');
+  });
+});
+
+// 필터 옵션 체크
+document.querySelectorAll('.filter-option').forEach(opt => {
+  opt.addEventListener('click', () => {
+    opt.classList.toggle('checked');
+  });
+});
+
+// 색상 필터
+document.querySelectorAll('.color-filter-item').forEach(item => {
+  item.addEventListener('click', () => {
+    item.classList.toggle('active');
+  });
+});
+
+// 사이즈 필터
+document.querySelectorAll('.size-filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.classList.toggle('active');
+  });
+});
+
+// 빠른 가격 선택
+document.querySelectorAll('.price-quick-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.price-quick-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// 정렬 탭
+document.querySelectorAll('.sort-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.sort-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+
+// 뷰 전환
+document.querySelectorAll('.view-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// 서브 카테고리 탭
+document.querySelectorAll('.sub-cat-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.sub-cat-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+  });
+});
+
+// 페이지 버튼
+document.querySelectorAll('.page-btn').forEach(btn => {
+  if (btn.classList.contains('disabled') || btn.classList.contains('nav')) return;
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// 적용된 필터 칩 제거
+document.querySelectorAll('.filter-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    chip.style.display = 'none';
+  });
+});
+</script>
+
+</body>
+</html>

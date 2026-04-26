@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>장바구니 — 에스에스종합상사</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;900&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans KR', sans-serif; color: #1a1a1a; background: #fff; font-size: 13px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+:root {
+  --red: #c8161d;
+  --red-dark: #9c0e15;
+  --black: #111;
+  --gray-900: #1a1a1a;
+  --gray-700: #4a4a4a;
+  --gray-500: #8a8a8a;
+  --gray-300: #d8d8d8;
+  --gray-100: #f4f4f4;
+  --gray-50: #fafafa;
+  --line: #e5e5e5;
+  --yellow: #ffd400;
+}
+
+/* ===== TOP BAR ===== */
+.topbar { background: #f4f4f4; color: #555; font-size: 11px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+.topbar-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+.topbar-left { display: flex; align-items: center; gap: 16px; }
+.topbar-left .divider { color: #ccc; }
+.topbar a { margin-left: 16px; }
+.topbar a:hover { color: var(--red); }
+.topbar a.b2b { color: var(--red); font-weight: 600; }
+
+/* ===== HEADER ===== */
+.header { background: #fff; border-bottom: 1px solid var(--line); }
+.header-inner { max-width: 1340px; margin: 0 auto; padding: 26px 24px; display: flex; align-items: center; gap: 40px; }
+.logo { display: flex; flex-direction: column; line-height: 1; padding-right: 30px; border-right: 1px solid var(--line); }
+.logo-main { font-size: 24px; font-weight: 900; color: var(--black); letter-spacing: -0.8px; }
+.logo-main .accent { color: var(--red); }
+.logo-sub { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 3px; color: var(--gray-500); margin-top: 5px; }
+.search-box { flex: 1; max-width: 580px; position: relative; }
+.search-box input { width: 100%; padding: 13px 50px 13px 18px; border: 2px solid var(--black); background: #fff; font-size: 13px; outline: none; font-weight: 500; }
+.search-box button { position: absolute; right: 0; top: 0; bottom: 0; background: var(--black); color: #fff; border: none; width: 50px; cursor: pointer; font-size: 16px; }
+.header-icons { display: flex; gap: 0; margin-left: auto; align-items: center; }
+.header-icons a { padding: 10px 18px; font-size: 12px; font-weight: 500; color: var(--gray-700); border-left: 1px solid var(--line); display: flex; align-items: center; gap: 6px; }
+.header-icons a:first-child { border-left: none; }
+.header-icons a.active { color: var(--red); font-weight: 700; }
+.header-icons a:hover { color: var(--red); }
+.header-icons a .num { color: var(--red); font-weight: 700; font-family: 'Bebas Neue', sans-serif; font-size: 14px; }
+
+/* ===== NAV ===== */
+.nav { background: var(--black); }
+.nav-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; display: flex; align-items: stretch; }
+.nav-cat-btn { background: var(--red); color: #fff; padding: 0 24px; font-weight: 700; display: flex; align-items: center; gap: 12px; font-size: 13px; min-width: 200px; letter-spacing: 0.3px; }
+.nav-menu { display: flex; flex: 1; align-items: center; }
+.nav-menu a { padding: 16px 18px; font-weight: 500; color: #fff; transition: all .15s; font-size: 13px; }
+.nav-menu a:hover { background: rgba(255,255,255,0.1); }
+.nav-menu a.hot { color: var(--yellow); font-weight: 600; }
+.nav-cs { margin-left: auto; padding: 0 22px; display: flex; align-items: center; gap: 10px; border-left: 1px solid #333; color: #fff; font-size: 12px; }
+.nav-cs .cs-num { font-family: 'Bebas Neue', sans-serif; color: var(--yellow); font-size: 18px; letter-spacing: 1px; }
+
+/* ===== BREADCRUMB ===== */
+.breadcrumb { max-width: 1340px; margin: 20px auto 0; padding: 0 24px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--gray-500); letter-spacing: 0.5px; }
+.breadcrumb a { color: var(--gray-500); }
+.breadcrumb a:hover { color: var(--red); }
+.breadcrumb .sep { margin: 0 8px; color: var(--gray-300); }
+.breadcrumb .current { color: var(--black); font-weight: 600; }
+
+/* ===== PAGE HEADER ===== */
+.page-header { max-width: 1340px; margin: 24px auto; padding: 0 24px; }
+.page-header-row { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 16px; border-bottom: 2px solid var(--black); }
+.page-header-left {}
+.page-header-tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 2px; margin-bottom: 8px; }
+.page-header-title { font-size: 32px; font-weight: 900; letter-spacing: -1px; }
+.page-header-title .count { color: var(--red); font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; margin-left: 12px; }
+
+/* ===== STEP PROGRESS ===== */
+.step-progress { display: flex; align-items: center; gap: 0; }
+.step-pg { display: flex; align-items: center; gap: 10px; padding: 10px 18px; background: var(--gray-50); border: 1px solid var(--line); }
+.step-pg.active { background: var(--black); border-color: var(--black); color: #fff; }
+.step-pg-num { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--gray-500); letter-spacing: 1px; line-height: 1; }
+.step-pg.active .step-pg-num { color: var(--yellow); }
+.step-pg-info {}
+.step-pg-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--gray-500); letter-spacing: 1px; }
+.step-pg.active .step-pg-label { color: rgba(255,255,255,0.6); }
+.step-pg-name { font-size: 12px; font-weight: 700; }
+.step-arrow { padding: 0 10px; color: var(--gray-300); font-size: 12px; font-family: 'IBM Plex Mono', monospace; }
+
+/* ===== MAIN LAYOUT ===== */
+.cart-main { max-width: 1340px; margin: 24px auto 50px; padding: 0 24px; display: grid; grid-template-columns: 1fr 380px; gap: 24px; align-items: flex-start; }
+
+/* ===== CART AREA ===== */
+.cart-area {}
+
+/* 전체 선택 바 */
+.cart-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border: 1px solid var(--line); background: var(--gray-50); margin-bottom: 12px; }
+.cart-select-all { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.checkbox { width: 18px; height: 18px; border: 1.5px solid var(--gray-300); display: flex; align-items: center; justify-content: center; transition: all .15s; flex-shrink: 0; background: #fff; }
+.checkbox.checked { background: var(--red); border-color: var(--red); color: #fff; font-size: 11px; font-weight: 700; }
+.checkbox.checked::after { content: '✓'; }
+.cart-select-all:hover .checkbox { border-color: var(--red); }
+.cart-select-text { font-size: 13px; font-weight: 700; }
+.cart-select-text .selected { color: var(--red); font-family: 'IBM Plex Mono', monospace; font-size: 11px; margin-left: 6px; letter-spacing: 0.5px; }
+.cart-toolbar-actions { display: flex; gap: 0; }
+.cart-action { padding: 8px 14px; font-size: 12px; font-weight: 600; cursor: pointer; transition: color .15s; border-left: 1px solid var(--line); color: var(--gray-700); }
+.cart-action:first-child { border-left: none; }
+.cart-action:hover { color: var(--red); }
+
+/* 카트 아이템 그룹 (브랜드별 묶음) */
+.cart-group { background: #fff; border: 1px solid var(--line); margin-bottom: 12px; }
+.cart-group-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; border-bottom: 1px solid var(--line); background: var(--gray-50); }
+.cart-group-title { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 700; }
+.cart-group-brand { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 1.5px; }
+.cart-group-shipping { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--gray-500); letter-spacing: 0.5px; }
+.cart-group-shipping .free { color: var(--red); font-weight: 700; }
+
+/* 카트 아이템 */
+.cart-item { padding: 18px; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: auto 100px 1fr auto; gap: 18px; align-items: flex-start; }
+.cart-item:last-child { border-bottom: none; }
+.cart-item-checkbox { padding-top: 4px; }
+.cart-item-img { width: 100px; height: 100px; background-size: cover; background-position: center; background-color: var(--gray-100); position: relative; }
+.cart-item-num { position: absolute; top: 6px; left: 6px; background: rgba(0,0,0,0.7); color: #fff; padding: 2px 5px; font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.3px; }
+
+.cart-item-info {}
+.cart-item-brand { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); letter-spacing: 1px; margin-bottom: 4px; font-weight: 600; }
+.cart-item-name { font-size: 14px; font-weight: 600; line-height: 1.4; margin-bottom: 8px; }
+.cart-item-options { font-size: 11px; color: var(--gray-500); margin-bottom: 10px; }
+.cart-item-options strong { color: var(--gray-700); font-weight: 600; }
+.cart-item-options .opt-divider { color: var(--gray-300); margin: 0 6px; }
+
+/* 자수 옵션 박스 (핵심) */
+.cart-emb-box { background: #fff5f5; border-left: 3px solid var(--red); padding: 12px 14px; margin-bottom: 10px; }
+.cart-emb-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.cart-emb-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 1.5px; font-weight: 700; }
+.cart-emb-edit { font-size: 11px; color: var(--gray-500); cursor: pointer; }
+.cart-emb-edit:hover { color: var(--red); }
+.cart-emb-content { display: flex; gap: 10px; align-items: flex-start; }
+.cart-emb-thumb { width: 40px; height: 40px; background: #fff; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--gray-500); flex-shrink: 0; }
+.cart-emb-info { flex: 1; }
+.cart-emb-text { font-size: 12px; font-weight: 700; margin-bottom: 2px; }
+.cart-emb-detail { font-size: 11px; color: var(--gray-700); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+
+/* 수량 + 액션 */
+.cart-item-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; min-width: 140px; }
+.qty-control { display: flex; align-items: center; border: 1px solid var(--line); }
+.qty-btn { width: 30px; height: 30px; background: #fff; border: none; cursor: pointer; font-size: 14px; transition: background .15s; }
+.qty-btn:hover { background: var(--gray-100); }
+.qty-input { width: 50px; height: 30px; border: none; border-left: 1px solid var(--line); border-right: 1px solid var(--line); text-align: center; font-size: 13px; font-weight: 700; outline: none; }
+
+.cart-item-prices { text-align: right; }
+.cart-item-original { font-size: 11px; color: var(--gray-500); text-decoration: line-through; margin-bottom: 2px; }
+.cart-item-price { font-size: 18px; font-weight: 900; color: var(--black); letter-spacing: -0.3px; }
+.cart-item-emb-add { font-size: 10px; color: var(--red); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; margin-top: 4px; }
+
+.cart-item-actions { display: flex; gap: 4px; margin-top: 4px; }
+.cart-item-btn { padding: 5px 10px; font-size: 10px; font-weight: 600; border: 1px solid var(--line); background: #fff; cursor: pointer; transition: all .15s; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+.cart-item-btn:hover { border-color: var(--black); }
+.cart-item-btn.delete:hover { border-color: var(--red); color: var(--red); }
+
+/* 단체주문 안내 (박스) */
+.bulk-banner { background: var(--black); color: #fff; padding: 18px 22px; margin: 16px 0; display: grid; grid-template-columns: auto 1fr auto; gap: 18px; align-items: center; border-left: 4px solid var(--yellow); }
+.bulk-banner-icon { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: var(--yellow); letter-spacing: 1px; line-height: 1; }
+.bulk-banner-text {}
+.bulk-banner-title { font-size: 14px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.3px; }
+.bulk-banner-desc { font-size: 11px; color: rgba(255,255,255,0.7); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; line-height: 1.5; }
+.bulk-banner-btn { background: var(--red); color: #fff; padding: 10px 18px; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; cursor: pointer; }
+.bulk-banner-btn:hover { background: #fff; color: var(--red); }
+
+/* 추천 상품 */
+.recommend-section { margin-top: 30px; }
+.recommend-header { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 14px; border-bottom: 2px solid var(--black); margin-bottom: 18px; }
+.recommend-title { font-size: 18px; font-weight: 900; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; }
+.recommend-title .num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 2px; }
+.recommend-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.recommend-card { cursor: pointer; transition: transform .2s; }
+.recommend-card:hover { transform: translateY(-2px); }
+.recommend-img { aspect-ratio: 1; background: var(--gray-100); margin-bottom: 8px; background-size: cover; background-position: center; }
+.recommend-brand { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--gray-500); letter-spacing: 1px; margin-bottom: 2px; font-weight: 600; }
+.recommend-name { font-size: 12px; line-height: 1.4; height: 32px; overflow: hidden; margin-bottom: 4px; }
+.recommend-price { font-size: 14px; font-weight: 900; }
+.recommend-price .discount { color: var(--red); margin-right: 4px; }
+
+/* ===== ORDER SUMMARY (우측 사이드바) ===== */
+.order-summary { position: sticky; top: 24px; background: #fff; border: 1px solid var(--line); }
+.summary-header { background: var(--black); color: #fff; padding: 14px 18px; }
+.summary-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--yellow); letter-spacing: 1.5px; margin-bottom: 4px; }
+.summary-title { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; }
+
+.summary-section { padding: 18px; border-bottom: 1px solid var(--line); }
+.summary-section-title { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); letter-spacing: 1.5px; margin-bottom: 12px; font-weight: 600; }
+
+/* 쿠폰 / 적립금 */
+.coupon-row { display: flex; gap: 6px; align-items: center; margin-bottom: 10px; }
+.coupon-input { flex: 1; padding: 9px 12px; border: 1px solid var(--line); font-size: 12px; outline: none; }
+.coupon-input:focus { border-color: var(--black); }
+.coupon-btn { padding: 0 14px; height: 33px; background: var(--black); color: #fff; border: none; cursor: pointer; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; }
+.coupon-btn:hover { background: var(--red); }
+.coupon-available { font-size: 11px; color: var(--red); font-weight: 600; cursor: pointer; }
+
+.point-row { display: flex; align-items: center; gap: 6px; padding-top: 10px; border-top: 1px dashed var(--line); }
+.point-input { flex: 1; padding: 9px 12px; border: 1px solid var(--line); font-size: 12px; outline: none; text-align: right; font-family: 'IBM Plex Mono', monospace; }
+.point-input:focus { border-color: var(--black); }
+.point-all { font-size: 11px; cursor: pointer; padding: 9px 12px; border: 1px solid var(--line); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; font-weight: 600; }
+.point-all:hover { border-color: var(--red); color: var(--red); }
+.point-info { font-size: 11px; color: var(--gray-500); margin-top: 6px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+.point-info strong { color: var(--red); }
+
+/* 가격 계산 */
+.price-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 13px; }
+.price-row.discount-row { color: var(--red); }
+.price-label { color: var(--gray-700); }
+.price-label small { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); margin-left: 6px; letter-spacing: 0.3px; }
+.price-value { font-weight: 700; }
+.price-value.plus::before { content: '+ '; color: var(--gray-500); font-weight: 400; }
+.price-value.minus { color: var(--red); }
+.price-value.minus::before { content: '- '; }
+.price-value.free { color: var(--red); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+
+/* 합계 */
+.total-section { padding: 22px 18px; background: var(--gray-50); border-top: 2px solid var(--black); }
+.total-row { display: flex; justify-content: space-between; align-items: baseline; }
+.total-label { font-size: 14px; font-weight: 800; letter-spacing: -0.3px; }
+.total-label small { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); margin-top: 2px; letter-spacing: 0.3px; font-weight: 400; }
+.total-price { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--red); letter-spacing: 1px; line-height: 1; }
+.total-price .unit { font-family: 'Noto Sans KR'; font-size: 18px; font-weight: 700; margin-left: 4px; }
+.total-earn { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--gray-500); letter-spacing: 0.3px; margin-top: 8px; padding-top: 10px; border-top: 1px dashed var(--line); display: flex; justify-content: space-between; }
+.total-earn strong { color: var(--red); }
+
+/* 결제 버튼 */
+.checkout-btns { padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
+.btn-checkout { background: var(--red); color: #fff; padding: 18px; font-size: 15px; font-weight: 800; letter-spacing: 0.5px; cursor: pointer; transition: all .15s; border: none; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.btn-checkout:hover { background: var(--red-dark); }
+.btn-checkout-sub { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.btn-sub { background: #fff; color: var(--black); border: 1px solid var(--line); padding: 11px; font-size: 11px; font-weight: 600; letter-spacing: 0.3px; cursor: pointer; transition: all .15s; }
+.btn-sub:hover { border-color: var(--black); }
+.btn-sub.b2b { background: var(--black); color: #fff; border-color: var(--black); }
+.btn-sub.b2b:hover { background: var(--red); border-color: var(--red); }
+
+/* 안내 */
+.summary-notice { padding: 14px 18px; background: #fff8e0; border-top: 1px solid var(--line); font-size: 11px; line-height: 1.7; color: var(--gray-700); }
+.summary-notice strong { color: var(--black); font-weight: 700; }
+
+/* ===== FLOATING CHAT ===== */
+.float-chat { position: fixed; bottom: 24px; right: 24px; background: var(--red); color: #fff; padding: 14px 22px; display: flex; align-items: center; gap: 12px; box-shadow: 0 8px 24px rgba(200, 22, 29, 0.3); cursor: pointer; z-index: 100; transition: all .15s; }
+.float-chat:hover { background: var(--black); }
+.float-chat-icon { width: 32px; height: 32px; background: #fff; color: var(--red); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 12px; font-family: 'IBM Plex Mono', monospace; }
+.float-chat-text { font-size: 13px; font-weight: 700; line-height: 1.2; }
+.float-chat-sub { font-size: 11px; opacity: .9; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+
+/* ===== FOOTER ===== */
+.footer { background: var(--black); color: #888; padding: 50px 0 28px; font-size: 12px; }
+.footer-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 36px; padding-bottom: 32px; border-bottom: 1px solid #333; }
+.footer-logo-main { font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 4px; letter-spacing: -0.8px; }
+.footer-logo-main .accent { color: var(--red); }
+.footer-logo-sub { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 3px; color: var(--gray-500); margin-bottom: 18px; }
+.footer-cs-num { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: #fff; letter-spacing: 1px; margin: 6px 0 4px; }
+.footer h4 { color: #fff; font-size: 12px; margin-bottom: 14px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 1.5px; font-weight: 600; }
+.footer ul { list-style: none; }
+.footer ul li { margin-bottom: 8px; }
+.footer-bottom { line-height: 1.8; opacity: .55; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.3px; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span>SS TRADING CO.</span>
+      <span class="divider">|</span>
+      <span>TEL. 1588-0000 / 평일 09:00 ─ 18:00</span>
+      <span class="divider">|</span>
+      <span>인천 본점 운영중</span>
+    </div>
+    <div>
+      <a href="#">로그인</a>
+      <a href="#">회원가입</a>
+      <a href="#">주문조회</a>
+      <a href="#">고객센터</a>
+      <a href="#" class="b2b">▶ 단체주문 견적</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-main">에스에스<span class="accent">종합상사</span></div>
+      <div class="logo-sub">SAFETY · WORKWEAR · SINCE</div>
+    </a>
+    <div class="search-box">
+      <input type="text" placeholder="브랜드, 상품명, 카테고리로 검색하세요">
+      <button>⌕</button>
+    </div>
+    <div class="header-icons">
+      <a href="#">찜 <span class="num">12</span></a>
+      <a href="#" class="active">장바구니 <span class="num">04</span></a>
+      <a href="#">마이페이지</a>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-cat-btn">▣ ALL CATEGORIES</div>
+    <div class="nav-menu">
+      <a href="#">신상품</a>
+      <a href="#" class="hot">▶ TODAY DEAL</a>
+      <a href="#">베스트</a>
+      <a href="#">작업복</a>
+      <a href="#">안전화</a>
+      <a href="#">안전용품</a>
+      <a href="#">자수/마킹</a>
+      <a href="#">브랜드관</a>
+    </div>
+    <div class="nav-cs">
+      <span style="opacity:.6">단체주문</span>
+      <span class="cs-num">1588-0000</span>
+    </div>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="#">HOME</a>
+  <span class="sep">/</span>
+  <span class="current">장바구니</span>
+</div>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="page-header-row">
+    <div class="page-header-left">
+      <div class="page-header-tag">SHOPPING CART</div>
+      <h1 class="page-header-title">장바구니<span class="count">04</span></h1>
+    </div>
+
+    <div class="step-progress">
+      <div class="step-pg active">
+        <div class="step-pg-num">01</div>
+        <div class="step-pg-info">
+          <div class="step-pg-label">STEP / 01</div>
+          <div class="step-pg-name">장바구니</div>
+        </div>
+      </div>
+      <div class="step-arrow">─</div>
+      <div class="step-pg">
+        <div class="step-pg-num">02</div>
+        <div class="step-pg-info">
+          <div class="step-pg-label">STEP / 02</div>
+          <div class="step-pg-name">주문서 / 결제</div>
+        </div>
+      </div>
+      <div class="step-arrow">─</div>
+      <div class="step-pg">
+        <div class="step-pg-num">03</div>
+        <div class="step-pg-info">
+          <div class="step-pg-label">STEP / 03</div>
+          <div class="step-pg-name">주문 완료</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<div class="cart-main">
+
+  <!-- ===== LEFT: CART AREA ===== -->
+  <main class="cart-area">
+
+    <!-- 전체 선택 / 액션 -->
+    <div class="cart-toolbar">
+      <div class="cart-select-all">
+        <div class="checkbox checked"></div>
+        <div class="cart-select-text">전체 선택<span class="selected">04 / 04</span></div>
+      </div>
+      <div class="cart-toolbar-actions">
+        <div class="cart-action">선택 삭제</div>
+        <div class="cart-action">품절 삭제</div>
+        <div class="cart-action">위시리스트 이동</div>
+      </div>
+    </div>
+
+    <!-- 그룹 1: PIOZEN 상품 -->
+    <div class="cart-group">
+      <div class="cart-group-header">
+        <div class="cart-group-title">
+          <div class="checkbox checked"></div>
+          <span class="cart-group-brand">PIOZEN ─ 피오젠</span>
+          <span style="color: var(--gray-500); font-size: 12px;">/ 2개 상품</span>
+        </div>
+        <div class="cart-group-shipping">SHIPPING ─ <span class="free">FREE</span></div>
+      </div>
+
+      <!-- 아이템 1: 자수 포함 -->
+      <div class="cart-item">
+        <div class="cart-item-checkbox"><div class="checkbox checked"></div></div>
+        <div class="cart-item-img" style="background-image: url('https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&q=80&auto=format&fit=crop');">
+          <div class="cart-item-num">/ 001</div>
+        </div>
+        <div class="cart-item-info">
+          <div class="cart-item-brand">PIOZEN ─ 피오젠</div>
+          <div class="cart-item-name">동절기 보온 작업복 상하세트 방한 자켓</div>
+          <div class="cart-item-options">
+            <strong>색상:</strong> BLACK <span class="opt-divider">/</span> <strong>사이즈:</strong> L <span class="opt-divider">/</span> <strong>수량:</strong> 1
+          </div>
+
+          <!-- 자수 옵션 박스 -->
+          <div class="cart-emb-box">
+            <div class="cart-emb-row">
+              <div class="cart-emb-tag">▶ EMBROIDERY ADDED</div>
+              <div class="cart-emb-edit">수정 ↗</div>
+            </div>
+            <div class="cart-emb-content">
+              <div class="cart-emb-thumb">▣</div>
+              <div class="cart-emb-info">
+                <div class="cart-emb-text">텍스트 자수 / "에스에스건설"</div>
+                <div class="cart-emb-detail">위치: 왼가슴 · 크기: 5×5cm · 컴퓨터 자수</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cart-item-controls">
+          <div class="qty-control">
+            <button class="qty-btn">−</button>
+            <input type="text" class="qty-input" value="1">
+            <button class="qty-btn">+</button>
+          </div>
+          <div class="cart-item-prices">
+            <div class="cart-item-original">89,000원</div>
+            <div class="cart-item-price">42,800원</div>
+            <div class="cart-item-emb-add">+ 자수 5,000원</div>
+          </div>
+          <div class="cart-item-actions">
+            <button class="cart-item-btn">SAVE</button>
+            <button class="cart-item-btn delete">DELETE</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 아이템 2: 자수 없음 -->
+      <div class="cart-item">
+        <div class="cart-item-checkbox"><div class="checkbox checked"></div></div>
+        <div class="cart-item-img" style="background-image: url('https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&q=80&auto=format&fit=crop');">
+          <div class="cart-item-num">/ 002</div>
+        </div>
+        <div class="cart-item-info">
+          <div class="cart-item-brand">PIOZEN ─ 피오젠</div>
+          <div class="cart-item-name">사계절 캐주얼 작업복 점퍼 단체복</div>
+          <div class="cart-item-options">
+            <strong>색상:</strong> NAVY <span class="opt-divider">/</span> <strong>사이즈:</strong> XL <span class="opt-divider">/</span> <strong>수량:</strong> 2
+          </div>
+          <div style="margin-top: 8px; display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; background: var(--gray-50); border: 1px dashed var(--gray-300); cursor: pointer; font-size: 11px; color: var(--gray-700);">
+            <span style="font-family: 'IBM Plex Mono', monospace; color: var(--red); font-weight: 700; letter-spacing: 1px;">+ EMB</span>
+            <span>자수 / 마킹 추가하기</span>
+          </div>
+        </div>
+        <div class="cart-item-controls">
+          <div class="qty-control">
+            <button class="qty-btn">−</button>
+            <input type="text" class="qty-input" value="2">
+            <button class="qty-btn">+</button>
+          </div>
+          <div class="cart-item-prices">
+            <div class="cart-item-original">66,000원</div>
+            <div class="cart-item-price">90,000원</div>
+          </div>
+          <div class="cart-item-actions">
+            <button class="cart-item-btn">SAVE</button>
+            <button class="cart-item-btn delete">DELETE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 단체주문 배너 -->
+    <div class="bulk-banner">
+      <div class="bulk-banner-icon">▶</div>
+      <div class="bulk-banner-text">
+        <div class="bulk-banner-title">100벌 이상 구매 시 단체주문 30% 추가 할인</div>
+        <div class="bulk-banner-desc">자수 / 마킹 무료 · 전담 매니저 1:1 배정 · 세금계산서 자동발행</div>
+      </div>
+      <div class="bulk-banner-btn">단체주문 견적 →</div>
+    </div>
+
+    <!-- 그룹 2: K2 SAFETY -->
+    <div class="cart-group">
+      <div class="cart-group-header">
+        <div class="cart-group-title">
+          <div class="checkbox checked"></div>
+          <span class="cart-group-brand">K2 SAFETY</span>
+          <span style="color: var(--gray-500); font-size: 12px;">/ 1개 상품</span>
+        </div>
+        <div class="cart-group-shipping">SHIPPING ─ <span class="free">FREE</span></div>
+      </div>
+
+      <div class="cart-item">
+        <div class="cart-item-checkbox"><div class="checkbox checked"></div></div>
+        <div class="cart-item-img" style="background-image: url('https://images.unsplash.com/photo-1542219550-37153d387c27?w=400&q=80&auto=format&fit=crop');">
+          <div class="cart-item-num">/ 003</div>
+        </div>
+        <div class="cart-item-info">
+          <div class="cart-item-brand">K2 SAFETY</div>
+          <div class="cart-item-name">방수 안전화 6인치 발등 보호 절연화 / KCs 인증</div>
+          <div class="cart-item-options">
+            <strong>색상:</strong> BLACK <span class="opt-divider">/</span> <strong>사이즈:</strong> 270mm <span class="opt-divider">/</span> <strong>수량:</strong> 1
+          </div>
+          <div style="margin-top: 8px; padding: 6px 10px; background: var(--gray-50); display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: var(--gray-700); border-left: 3px solid var(--black);">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-weight: 700; letter-spacing: 0.5px;">KCs 인증</span>
+            <span>제 17-AB-01234호</span>
+          </div>
+        </div>
+        <div class="cart-item-controls">
+          <div class="qty-control">
+            <button class="qty-btn">−</button>
+            <input type="text" class="qty-input" value="1">
+            <button class="qty-btn">+</button>
+          </div>
+          <div class="cart-item-prices">
+            <div class="cart-item-original">113,000원</div>
+            <div class="cart-item-price">68,000원</div>
+          </div>
+          <div class="cart-item-actions">
+            <button class="cart-item-btn">SAVE</button>
+            <button class="cart-item-btn delete">DELETE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 그룹 3: 3M -->
+    <div class="cart-group">
+      <div class="cart-group-header">
+        <div class="cart-group-title">
+          <div class="checkbox checked"></div>
+          <span class="cart-group-brand">3M</span>
+          <span style="color: var(--gray-500); font-size: 12px;">/ 1개 상품</span>
+        </div>
+        <div class="cart-group-shipping">SHIPPING ─ <span class="free">FREE</span></div>
+      </div>
+
+      <div class="cart-item">
+        <div class="cart-item-checkbox"><div class="checkbox checked"></div></div>
+        <div class="cart-item-img" style="background-image: url('https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&q=80&auto=format&fit=crop');">
+          <div class="cart-item-num">/ 004</div>
+        </div>
+        <div class="cart-item-info">
+          <div class="cart-item-brand">3M</div>
+          <div class="cart-item-name">고시인성 안전조끼 형광 반사 야간작업</div>
+          <div class="cart-item-options">
+            <strong>색상:</strong> 형광YELLOW <span class="opt-divider">/</span> <strong>사이즈:</strong> FREE <span class="opt-divider">/</span> <strong>수량:</strong> 5
+          </div>
+
+          <!-- 자수 옵션 박스 -->
+          <div class="cart-emb-box">
+            <div class="cart-emb-row">
+              <div class="cart-emb-tag">▶ EMBROIDERY ADDED</div>
+              <div class="cart-emb-edit">수정 ↗</div>
+            </div>
+            <div class="cart-emb-content">
+              <div class="cart-emb-thumb">▢</div>
+              <div class="cart-emb-info">
+                <div class="cart-emb-text">로고 자수 / 이미지 업로드</div>
+                <div class="cart-emb-detail">위치: 등판 중앙 · 크기: 15×15cm · 패치 자수</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cart-item-controls">
+          <div class="qty-control">
+            <button class="qty-btn">−</button>
+            <input type="text" class="qty-input" value="5">
+            <button class="qty-btn">+</button>
+          </div>
+          <div class="cart-item-prices">
+            <div class="cart-item-original">89,500원</div>
+            <div class="cart-item-price">64,500원</div>
+            <div class="cart-item-emb-add">+ 자수 40,000원</div>
+          </div>
+          <div class="cart-item-actions">
+            <button class="cart-item-btn">SAVE</button>
+            <button class="cart-item-btn delete">DELETE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 추천 상품 -->
+    <section class="recommend-section">
+      <div class="recommend-header">
+        <div class="recommend-title">
+          <span class="num">RECOMMEND / 01</span>
+          <span>함께 구매하면 좋은 상품</span>
+        </div>
+        <a href="#" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--gray-700); letter-spacing: 0.5px;">VIEW ALL ━</a>
+      </div>
+      <div class="recommend-grid">
+        <div class="recommend-card">
+          <div class="recommend-img" style="background-image: url('https://images.unsplash.com/photo-1635377090186-056ec4c0e0d0?w=400&q=80&auto=format&fit=crop');"></div>
+          <div class="recommend-brand">KOVEA SAFETY</div>
+          <div class="recommend-name">안전모 ABS 충격흡수 턱끈 포함</div>
+          <div class="recommend-price"><span class="discount">38%</span>19,800원</div>
+        </div>
+        <div class="recommend-card">
+          <div class="recommend-img" style="background-image: url('https://images.unsplash.com/photo-1605812860427-4024433a70fd?w=400&q=80&auto=format&fit=crop');"></div>
+          <div class="recommend-brand">3M / HANIL</div>
+          <div class="recommend-name">방진 마스크 KF94 산업용 50매</div>
+          <div class="recommend-price"><span class="discount">25%</span>28,500원</div>
+        </div>
+        <div class="recommend-card">
+          <div class="recommend-img" style="background-image: url('https://images.unsplash.com/photo-1473966968600-fa801b80a8a8?w=400&q=80&auto=format&fit=crop');"></div>
+          <div class="recommend-brand">DICKIES ─ 디키즈</div>
+          <div class="recommend-name">874 워크 팬츠 클래식핏</div>
+          <div class="recommend-price"><span class="discount">35%</span>58,500원</div>
+        </div>
+        <div class="recommend-card">
+          <div class="recommend-img" style="background-image: url('https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=400&q=80&auto=format&fit=crop');"></div>
+          <div class="recommend-brand">CARHARTT ─ 칼하트</div>
+          <div class="recommend-name">덕 캔버스 워크 자켓</div>
+          <div class="recommend-price">189,000원</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== RIGHT: ORDER SUMMARY ===== -->
+  <aside class="order-summary">
+    <div class="summary-header">
+      <div class="summary-tag">▶ ORDER SUMMARY</div>
+      <div class="summary-title">결제 예상 금액</div>
+    </div>
+
+    <!-- 쿠폰 / 적립금 -->
+    <div class="summary-section">
+      <div class="summary-section-title">─ COUPON & POINTS</div>
+      <div class="coupon-row">
+        <input type="text" class="coupon-input" placeholder="쿠폰 코드 입력">
+        <button class="coupon-btn">APPLY</button>
+      </div>
+      <div class="coupon-available">▶ 사용 가능한 쿠폰 3장 보기</div>
+
+      <div class="point-row">
+        <input type="text" class="point-input" placeholder="0">
+        <div class="point-all">전액사용</div>
+      </div>
+      <div class="point-info">보유 적립금 <strong>4,250P</strong> / 최소 1,000P부터 사용 가능</div>
+    </div>
+
+    <!-- 가격 계산 -->
+    <div class="summary-section">
+      <div class="summary-section-title">─ PRICE BREAKDOWN</div>
+      <div class="price-row">
+        <span class="price-label">상품 합계 <small>4건</small></span>
+        <span class="price-value">265,300원</span>
+      </div>
+      <div class="price-row discount-row">
+        <span class="price-label">상품 할인</span>
+        <span class="price-value minus">52,500원</span>
+      </div>
+      <div class="price-row">
+        <span class="price-label">자수 / 마킹 <small>2건</small></span>
+        <span class="price-value plus">45,000원</span>
+      </div>
+      <div class="price-row discount-row">
+        <span class="price-label">쿠폰 할인 <small>SS-WELCOME10</small></span>
+        <span class="price-value minus">5,000원</span>
+      </div>
+      <div class="price-row">
+        <span class="price-label">배송비</span>
+        <span class="price-value free">FREE</span>
+      </div>
+    </div>
+
+    <!-- 합계 -->
+    <div class="total-section">
+      <div class="total-row">
+        <div class="total-label">
+          TOTAL
+          <small>최종 결제 금액</small>
+        </div>
+        <div class="total-price">252,800<span class="unit">원</span></div>
+      </div>
+      <div class="total-earn">
+        <span>EARN POINT</span>
+        <strong>+ 2,528P</strong>
+      </div>
+    </div>
+
+    <!-- 결제 버튼 -->
+    <div class="checkout-btns">
+      <button class="btn-checkout">선택 상품 주문하기 →</button>
+      <div class="btn-checkout-sub">
+        <button class="btn-sub">전체 상품 주문</button>
+        <button class="btn-sub b2b">▶ 단체주문 견적</button>
+      </div>
+    </div>
+
+    <!-- 안내 -->
+    <div class="summary-notice">
+      <strong>● 자수 상품 안내</strong> ─ 자수 / 마킹 추가 상품은 시안 확정 후 5~7일 내 배송됩니다. 결제 후 디자이너가 카톡으로 시안을 보내드립니다.<br><br>
+      <strong>● 단체주문</strong> ─ 100벌 이상 30% 추가 할인이 적용되며, 1:1 매니저가 별도 견적을 안내합니다.
+    </div>
+  </aside>
+</div>
+
+<!-- FLOATING CHAT -->
+<a href="#" class="float-chat">
+  <div class="float-chat-icon">1:1</div>
+  <div>
+    <div class="float-chat-text">전문 상담</div>
+    <div class="float-chat-sub">EMBROIDERY · BULK</div>
+  </div>
+</a>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo-main">에스에스<span class="accent">종합상사</span></div>
+        <div class="footer-logo-sub">SAFETY · WORKWEAR</div>
+        <h4>CUSTOMER CENTER</h4>
+        <div class="footer-cs-num">1588-0000</div>
+        <div style="margin-top: 8px;">평일 09:00 - 18:00 (점심 12:00-13:00)<br>주말 및 공휴일 휴무 / 카톡: @ssmart</div>
+      </div>
+      <div>
+        <h4>SHOP</h4>
+        <ul><li>신상품</li><li>베스트</li><li>오늘의 특가</li><li>자수/마킹</li><li>단체주문</li></ul>
+      </div>
+      <div>
+        <h4>SUPPORT</h4>
+        <ul><li>공지사항</li><li>1:1 문의</li><li>FAQ</li><li>리뷰 이벤트</li><li>적립금 안내</li></ul>
+      </div>
+      <div>
+        <h4>POLICY</h4>
+        <ul><li>이용약관</li><li>개인정보처리방침</li><li>배송/교환/환불</li><li>사업자정보확인</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      ㈜에스에스종합상사 / 대표: ○○○ / 사업자등록번호: 000-00-00000 / 통신판매업신고: 제2026-인천○○-0000호<br>
+      인천광역시 ○○구 ○○로 000 / TEL. 430-0497 / FAX. 430-0498<br>
+      © 2026 SS TRADING CO. ALL RIGHTS RESERVED.
+    </div>
+  </div>
+</footer>
+
+<script>
+// 체크박스 토글
+document.querySelectorAll('.checkbox').forEach(cb => {
+  cb.addEventListener('click', (e) => {
+    e.stopPropagation();
+    cb.classList.toggle('checked');
+  });
+});
+
+// 수량 조절
+document.querySelectorAll('.qty-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const input = btn.parentElement.querySelector('.qty-input');
+    let val = parseInt(input.value) || 1;
+    if (btn.textContent.trim() === '+') val++;
+    else if (val > 1) val--;
+    input.value = val;
+  });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>고객 지원 — 에스에스종합상사</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;900&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans KR', sans-serif; color: #1a1a1a; background: #fff; font-size: 13px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+:root { --red: #c8161d; --red-dark: #9c0e15; --black: #111; --gray-900: #1a1a1a; --gray-700: #4a4a4a; --gray-500: #8a8a8a; --gray-300: #d8d8d8; --gray-100: #f4f4f4; --gray-50: #fafafa; --line: #e5e5e5; --yellow: #ffd400; }
+
+/* HEADER COMMON */
+.topbar { background: #f4f4f4; color: #555; font-size: 11px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+.topbar-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+.topbar-left { display: flex; align-items: center; gap: 16px; }
+.topbar-left .divider { color: #ccc; }
+.topbar a { margin-left: 16px; }
+.topbar a.b2b { color: var(--red); font-weight: 600; }
+.header { background: #fff; border-bottom: 1px solid var(--line); }
+.header-inner { max-width: 1340px; margin: 0 auto; padding: 26px 24px; display: flex; align-items: center; gap: 40px; }
+.logo { display: flex; flex-direction: column; line-height: 1; padding-right: 30px; border-right: 1px solid var(--line); }
+.logo-main { font-size: 24px; font-weight: 900; color: var(--black); letter-spacing: -0.8px; }
+.logo-main .accent { color: var(--red); }
+.logo-sub { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 3px; color: var(--gray-500); margin-top: 5px; }
+.search-box { flex: 1; max-width: 580px; position: relative; }
+.search-box input { width: 100%; padding: 13px 50px 13px 18px; border: 2px solid var(--black); background: #fff; font-size: 13px; outline: none; font-weight: 500; }
+.search-box button { position: absolute; right: 0; top: 0; bottom: 0; background: var(--black); color: #fff; border: none; width: 50px; cursor: pointer; font-size: 16px; }
+.header-icons { display: flex; gap: 0; margin-left: auto; align-items: center; }
+.header-icons a { padding: 10px 18px; font-size: 12px; font-weight: 500; color: var(--gray-700); border-left: 1px solid var(--line); display: flex; align-items: center; gap: 6px; }
+.header-icons a:first-child { border-left: none; }
+.header-icons a .num { color: var(--red); font-weight: 700; font-family: 'Bebas Neue', sans-serif; font-size: 14px; }
+.nav { background: var(--black); }
+.nav-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; display: flex; align-items: stretch; }
+.nav-cat-btn { background: var(--red); color: #fff; padding: 0 24px; font-weight: 700; display: flex; align-items: center; gap: 12px; font-size: 13px; min-width: 200px; letter-spacing: 0.3px; }
+.nav-menu { display: flex; flex: 1; align-items: center; }
+.nav-menu a { padding: 16px 18px; font-weight: 500; color: #fff; font-size: 13px; }
+.nav-menu a.hot { color: var(--yellow); font-weight: 600; }
+.nav-cs { margin-left: auto; padding: 0 22px; display: flex; align-items: center; gap: 10px; border-left: 1px solid #333; color: #fff; font-size: 12px; }
+.nav-cs .cs-num { font-family: 'Bebas Neue', sans-serif; color: var(--yellow); font-size: 18px; letter-spacing: 1px; }
+
+/* PAGE HEADER */
+.page-header { max-width: 1340px; margin: 24px auto; padding: 0 24px; }
+.page-header-row { padding-bottom: 16px; border-bottom: 2px solid var(--black); }
+.page-header-tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 2px; margin-bottom: 8px; }
+.page-header-title { font-size: 32px; font-weight: 900; letter-spacing: -1px; }
+
+/* ===== CS BANNER (3 cards) ===== */
+.cs-banner { max-width: 1340px; margin: 0 auto 24px; padding: 0 24px; }
+.cs-banner-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.cs-banner-card { padding: 28px; border: 1px solid var(--line); display: flex; gap: 18px; align-items: center; cursor: pointer; transition: all .15s; }
+.cs-banner-card:hover { border-color: var(--red); }
+.cs-banner-card.dark { background: var(--black); color: #fff; border-color: var(--black); }
+.cs-banner-card.dark:hover { background: var(--red); border-color: var(--red); }
+.cs-icon { width: 56px; height: 56px; background: var(--red); color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 800; letter-spacing: 0.5px; flex-shrink: 0; }
+.cs-banner-card.dark .cs-icon { background: var(--yellow); color: var(--black); }
+.cs-content {}
+.cs-card-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 1.5px; margin-bottom: 6px; }
+.cs-banner-card.dark .cs-card-tag { color: var(--yellow); }
+.cs-card-title { font-size: 18px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.3px; }
+.cs-banner-card.dark .cs-card-title { color: #fff; }
+.cs-card-num { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: var(--red); letter-spacing: 1px; line-height: 1; }
+.cs-banner-card.dark .cs-card-num { color: var(--yellow); }
+.cs-card-desc { font-size: 11px; color: var(--gray-500); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; margin-top: 4px; }
+.cs-banner-card.dark .cs-card-desc { color: rgba(255,255,255,0.6); }
+
+/* ===== TABS ===== */
+.cs-tabs-wrap { max-width: 1340px; margin: 0 auto; padding: 0 24px; }
+.cs-tabs { display: flex; border-bottom: 2px solid var(--black); }
+.cs-tab { padding: 16px 30px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all .15s; color: var(--gray-500); position: relative; display: flex; align-items: center; gap: 10px; }
+.cs-tab:hover { color: var(--black); }
+.cs-tab.active { color: var(--black); }
+.cs-tab.active::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 4px; background: var(--red); }
+.cs-tab-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-300); letter-spacing: 0.5px; }
+.cs-tab.active .cs-tab-num { color: var(--red); }
+.cs-tab-count { background: var(--gray-100); padding: 2px 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.3px; }
+.cs-tab.active .cs-tab-count { background: var(--red); color: #fff; }
+
+/* ===== MAIN ===== */
+.cs-main { max-width: 1340px; margin: 24px auto 50px; padding: 0 24px; display: grid; grid-template-columns: 1fr 320px; gap: 24px; align-items: flex-start; }
+
+/* ===== NOTICE ===== */
+.notice-list { background: #fff; border: 1px solid var(--line); }
+.notice-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--line); background: var(--gray-50); }
+.notice-search { display: flex; gap: 6px; align-items: center; }
+.notice-search input { padding: 8px 12px; border: 1px solid var(--line); font-size: 12px; outline: none; min-width: 240px; }
+.notice-search button { padding: 8px 14px; background: var(--black); color: #fff; border: none; cursor: pointer; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; }
+.notice-cat-tabs { display: flex; gap: 4px; }
+.notice-cat-tab { padding: 6px 12px; font-size: 11px; font-weight: 600; cursor: pointer; border: 1px solid var(--line); background: #fff; transition: all .15s; }
+.notice-cat-tab:hover { border-color: var(--gray-700); }
+.notice-cat-tab.active { background: var(--red); color: #fff; border-color: var(--red); }
+
+.notice-table-header { display: grid; grid-template-columns: 60px 90px 1fr 110px 80px; gap: 14px; padding: 12px 20px; border-bottom: 1px solid var(--line); background: var(--gray-50); font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-700); letter-spacing: 1px; font-weight: 700; }
+
+.notice-row { display: grid; grid-template-columns: 60px 90px 1fr 110px 80px; gap: 14px; padding: 16px 20px; border-bottom: 1px solid var(--line); align-items: center; cursor: pointer; transition: background .15s; }
+.notice-row:hover { background: var(--gray-50); }
+.notice-row:last-child { border-bottom: none; }
+.notice-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--gray-500); letter-spacing: 0.3px; font-weight: 600; }
+.notice-cat { font-family: 'IBM Plex Mono', monospace; font-size: 10px; padding: 4px 8px; letter-spacing: 0.5px; font-weight: 700; text-align: center; }
+.notice-cat.notice { background: var(--red); color: #fff; }
+.notice-cat.event { background: var(--yellow); color: var(--black); }
+.notice-cat.update { background: var(--black); color: #fff; }
+.notice-cat.info { background: var(--gray-100); color: var(--gray-700); }
+.notice-title { font-size: 13px; font-weight: 600; line-height: 1.4; }
+.notice-title strong { color: var(--red); margin-right: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.5px; padding: 2px 6px; border: 1px solid var(--red); font-weight: 700; }
+.notice-date { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--gray-500); letter-spacing: 0.3px; }
+.notice-views { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--gray-500); text-align: right; letter-spacing: 0.3px; }
+
+/* PINNED NOTICE */
+.notice-row.pinned { background: #fff8e0; }
+.notice-row.pinned:hover { background: #fff3c4; }
+
+/* ===== FAQ ===== */
+.faq-section { background: #fff; border: 1px solid var(--line); padding: 28px 32px; }
+.faq-section-title { font-size: 20px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 6px; }
+.faq-section-tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 1.5px; margin-bottom: 22px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+
+.faq-cat-tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
+.faq-cat-tab { padding: 9px 16px; border: 1px solid var(--line); cursor: pointer; transition: all .15s; font-size: 12px; font-weight: 600; background: #fff; }
+.faq-cat-tab:hover { border-color: var(--gray-700); }
+.faq-cat-tab.active { background: var(--black); color: #fff; border-color: var(--black); }
+
+.faq-list { display: flex; flex-direction: column; gap: 6px; }
+.faq-item { border: 1px solid var(--line); }
+.faq-question { padding: 16px 20px; cursor: pointer; display: grid; grid-template-columns: 36px 1fr 16px; gap: 14px; align-items: center; transition: background .15s; }
+.faq-question:hover { background: var(--gray-50); }
+.faq-q-mark { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--red); letter-spacing: 1px; line-height: 1; text-align: center; }
+.faq-q-content {}
+.faq-q-cat { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--gray-500); letter-spacing: 1px; margin-bottom: 4px; font-weight: 600; }
+.faq-q-text { font-size: 13px; font-weight: 600; line-height: 1.4; }
+.faq-toggle { font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: var(--gray-500); transition: transform .2s; text-align: center; }
+.faq-item.open .faq-toggle { transform: rotate(45deg); color: var(--red); }
+
+.faq-answer { padding: 0 20px 18px 70px; display: none; border-top: 1px solid var(--line); }
+.faq-item.open .faq-answer { display: block; padding-top: 18px; }
+.faq-a-content { display: grid; grid-template-columns: 36px 1fr; gap: 14px; align-items: flex-start; }
+.faq-a-mark { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--black); letter-spacing: 1px; line-height: 1; text-align: center; }
+.faq-a-text { font-size: 13px; line-height: 1.7; color: var(--gray-700); }
+.faq-a-text strong { color: var(--black); font-weight: 700; }
+.faq-a-text ul { padding-left: 18px; margin: 8px 0; }
+.faq-a-text li { margin-bottom: 4px; }
+
+/* ===== INQUIRY FORM ===== */
+.inquiry-section { background: #fff; border: 1px solid var(--line); padding: 28px 32px; display: none; }
+.inquiry-section.active { display: block; }
+.inquiry-row { display: grid; grid-template-columns: 130px 1fr; gap: 14px; align-items: center; padding: 8px 0; }
+.inquiry-label { font-size: 12px; color: var(--gray-700); font-weight: 600; }
+.inquiry-label .required { color: var(--red); }
+.inquiry-input, .inquiry-textarea, .inquiry-select { width: 100%; padding: 10px 12px; border: 1px solid var(--line); font-size: 13px; outline: none; font-family: 'Noto Sans KR'; }
+.inquiry-input:focus, .inquiry-textarea:focus, .inquiry-select:focus { border-color: var(--black); }
+.inquiry-textarea { resize: vertical; min-height: 140px; line-height: 1.6; }
+.inquiry-submit-btns { display: grid; grid-template-columns: 1fr 2fr; gap: 8px; margin-top: 16px; }
+.btn-cancel { padding: 16px; background: #fff; color: var(--black); border: 1px solid var(--line); font-size: 13px; font-weight: 700; cursor: pointer; }
+.btn-submit { padding: 16px; background: var(--red); color: #fff; border: none; font-size: 14px; font-weight: 800; letter-spacing: 0.5px; cursor: pointer; }
+.btn-submit:hover { background: var(--red-dark); }
+
+/* ===== ASIDE ===== */
+.cs-aside {}
+.aside-card { background: #fff; border: 1px solid var(--line); margin-bottom: 12px; padding: 22px 24px; }
+.aside-card.dark { background: var(--black); color: #fff; border-color: var(--black); }
+.aside-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 1.5px; margin-bottom: 6px; }
+.aside-card.dark .aside-tag { color: var(--yellow); }
+.aside-title { font-size: 14px; font-weight: 800; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.aside-card.dark .aside-title { border-bottom-color: rgba(255,255,255,0.15); }
+
+.popular-faq-list { display: flex; flex-direction: column; gap: 0; }
+.popular-faq-item { padding: 10px 0; border-bottom: 1px dashed var(--line); cursor: pointer; transition: color .15s; display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: center; }
+.popular-faq-item:last-child { border-bottom: none; }
+.popular-faq-item:hover { color: var(--red); }
+.popular-faq-rank { font-family: 'Bebas Neue', sans-serif; font-size: 16px; color: var(--red); letter-spacing: 0.5px; line-height: 1; }
+.popular-faq-text { font-size: 12px; line-height: 1.4; }
+
+.cs-direct-num { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--yellow); letter-spacing: 1px; line-height: 1; margin: 6px 0 8px; }
+.cs-direct-time { font-size: 11px; color: rgba(255,255,255,0.7); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; line-height: 1.7; margin-bottom: 16px; }
+.cs-direct-btn { width: 100%; background: var(--yellow); color: var(--black); padding: 12px; font-size: 13px; font-weight: 800; cursor: pointer; transition: all .15s; border: none; }
+.cs-direct-btn:hover { background: #fff; }
+
+/* FOOTER */
+.footer { background: var(--black); color: #888; padding: 50px 0 28px; font-size: 12px; }
+.footer-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 36px; padding-bottom: 32px; border-bottom: 1px solid #333; }
+.footer-logo-main { font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 4px; letter-spacing: -0.8px; }
+.footer-logo-main .accent { color: var(--red); }
+.footer-logo-sub { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 3px; color: var(--gray-500); margin-bottom: 18px; }
+.footer-cs-num { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: #fff; letter-spacing: 1px; margin: 6px 0 4px; }
+.footer h4 { color: #fff; font-size: 12px; margin-bottom: 14px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 1.5px; font-weight: 600; }
+.footer ul { list-style: none; }
+.footer ul li { margin-bottom: 8px; }
+.footer-bottom { line-height: 1.8; opacity: .55; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.3px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span>SS TRADING CO.</span><span class="divider">|</span>
+      <span>TEL. 1588-0000 / 평일 09:00 ─ 18:00</span><span class="divider">|</span>
+      <span>인천 본점 운영중</span>
+    </div>
+    <div>
+      <a href="#">로그인</a><a href="#">회원가입</a><a href="#">주문조회</a><a href="#">고객센터</a>
+      <a href="#" class="b2b">▶ 단체주문 견적</a>
+    </div>
+  </div>
+</div>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-main">에스에스<span class="accent">종합상사</span></div>
+      <div class="logo-sub">SAFETY · WORKWEAR · SINCE</div>
+    </a>
+    <div class="search-box"><input type="text" placeholder="브랜드, 상품명, 카테고리로 검색하세요"><button>⌕</button></div>
+    <div class="header-icons">
+      <a href="#">찜 <span class="num">12</span></a>
+      <a href="#">장바구니 <span class="num">02</span></a>
+      <a href="#">마이페이지</a>
+    </div>
+  </div>
+</header>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-cat-btn">▣ ALL CATEGORIES</div>
+    <div class="nav-menu">
+      <a href="#">신상품</a><a href="#" class="hot">▶ TODAY DEAL</a><a href="#">베스트</a>
+      <a href="#">작업복</a><a href="#">안전화</a><a href="#">안전용품</a><a href="#">자수/마킹</a><a href="#">브랜드관</a>
+    </div>
+    <div class="nav-cs"><span style="opacity:.6">단체주문</span><span class="cs-num">1588-0000</span></div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="page-header-row">
+    <div class="page-header-tag">CUSTOMER SUPPORT / 고객 지원</div>
+    <h1 class="page-header-title">고객 센터</h1>
+  </div>
+</section>
+
+<!-- CS BANNER -->
+<section class="cs-banner">
+  <div class="cs-banner-grid">
+    <div class="cs-banner-card dark">
+      <div class="cs-icon">CS</div>
+      <div class="cs-content">
+        <div class="cs-card-tag">▶ DIRECT CALL</div>
+        <div class="cs-card-num">1588-0000</div>
+        <div class="cs-card-desc">평일 09:00 - 18:00 / 점심 12-13시</div>
+      </div>
+    </div>
+    <div class="cs-banner-card">
+      <div class="cs-icon">KA</div>
+      <div class="cs-content">
+        <div class="cs-card-tag">─ KAKAO TALK</div>
+        <div class="cs-card-title">@ssmart 채널</div>
+        <div class="cs-card-desc">카톡으로 빠른 상담 / 시안 전송</div>
+      </div>
+    </div>
+    <div class="cs-banner-card">
+      <div class="cs-icon">@</div>
+      <div class="cs-content">
+        <div class="cs-card-tag">─ EMAIL</div>
+        <div class="cs-card-title">contact@ssmart.kr</div>
+        <div class="cs-card-desc">상세 견적 / 협력 제안 이메일</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TABS -->
+<div class="cs-tabs-wrap">
+  <div class="cs-tabs">
+    <div class="cs-tab active" data-tab="notice">
+      <span class="cs-tab-num">/01</span>
+      <span>공지사항</span>
+      <span class="cs-tab-count">128</span>
+    </div>
+    <div class="cs-tab" data-tab="faq">
+      <span class="cs-tab-num">/02</span>
+      <span>자주 묻는 질문</span>
+      <span class="cs-tab-count">42</span>
+    </div>
+    <div class="cs-tab" data-tab="inquiry">
+      <span class="cs-tab-num">/03</span>
+      <span>1:1 문의</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="cs-main">
+
+  <main>
+
+    <!-- 1. 공지사항 -->
+    <section class="notice-list" id="tab-notice">
+
+      <div class="notice-toolbar">
+        <div class="notice-cat-tabs">
+          <div class="notice-cat-tab active">전체</div>
+          <div class="notice-cat-tab">공지</div>
+          <div class="notice-cat-tab">이벤트</div>
+          <div class="notice-cat-tab">업데이트</div>
+          <div class="notice-cat-tab">안내</div>
+        </div>
+        <div class="notice-search">
+          <input type="text" placeholder="공지사항 검색...">
+          <button>SEARCH ↗</button>
+        </div>
+      </div>
+
+      <div class="notice-table-header">
+        <div>NO.</div>
+        <div>분류</div>
+        <div>제목</div>
+        <div>등록일</div>
+        <div>조회수</div>
+      </div>
+
+      <!-- 고정 공지 -->
+      <div class="notice-row pinned">
+        <div class="notice-num">★</div>
+        <div><span class="notice-cat notice">NOTICE</span></div>
+        <div class="notice-title"><strong>FIXED</strong>2026년 5월 황금연휴 배송 안내 (5/3 ~ 5/6)</div>
+        <div class="notice-date">2026.04.25</div>
+        <div class="notice-views">3,245</div>
+      </div>
+
+      <div class="notice-row pinned">
+        <div class="notice-num">★</div>
+        <div><span class="notice-cat event">EVENT</span></div>
+        <div class="notice-title"><strong>HOT</strong>신규 가입 시 2,000P + 10% 첫 구매 쿠폰 지급</div>
+        <div class="notice-date">2026.04.01</div>
+        <div class="notice-views">8,420</div>
+      </div>
+
+      <!-- 일반 공지 -->
+      <div class="notice-row">
+        <div class="notice-num">128</div>
+        <div><span class="notice-cat update">UPDATE</span></div>
+        <div class="notice-title">자수 시뮬레이터 v2.0 업데이트 / 4면 뷰 + 실시간 가격 반영</div>
+        <div class="notice-date">2026.04.20</div>
+        <div class="notice-views">1,283</div>
+      </div>
+
+      <div class="notice-row">
+        <div class="notice-num">127</div>
+        <div><span class="notice-cat notice">NOTICE</span></div>
+        <div class="notice-title">신규 입점 브랜드 안내 / RED WING, BLAKLADER 정품 라인업 확대</div>
+        <div class="notice-date">2026.04.15</div>
+        <div class="notice-views">894</div>
+      </div>
+
+      <div class="notice-row">
+        <div class="notice-num">126</div>
+        <div><span class="notice-cat event">EVENT</span></div>
+        <div class="notice-title">봄맞이 특가 / 작업복 전 품목 최대 50% 할인 (4/10 ~ 4/30)</div>
+        <div class="notice-date">2026.04.10</div>
+        <div class="notice-views">5,124</div>
+      </div>
+
+      <div class="notice-row">
+        <div class="notice-num">125</div>
+        <div><span class="notice-cat info">INFO</span></div>
+        <div class="notice-title">법인 / 사업자 회원 가입 절차 변경 안내</div>
+        <div class="notice-date">2026.04.05</div>
+        <div class="notice-views">412</div>
+      </div>
+
+      <div class="notice-row">
+        <div class="notice-num">124</div>
+        <div><span class="notice-cat update">UPDATE</span></div>
+        <div class="notice-title">단체주문 견적 시스템 개편 / 사이즈별 수량 자동 계산</div>
+        <div class="notice-date">2026.04.01</div>
+        <div class="notice-views">728</div>
+      </div>
+
+      <div class="notice-row">
+        <div class="notice-num">123</div>
+        <div><span class="notice-cat notice">NOTICE</span></div>
+        <div class="notice-title">자수 / 마킹 작업 일정 안내 (4월 발주 → 5월 초 납품)</div>
+        <div class="notice-date">2026.03.28</div>
+        <div class="notice-views">1,047</div>
+      </div>
+
+      <div class="notice-row">
+        <div class="notice-num">122</div>
+        <div><span class="notice-cat info">INFO</span></div>
+        <div class="notice-title">KCs 인증 안전화 라인업 확대 / 21개 모델 추가</div>
+        <div class="notice-date">2026.03.25</div>
+        <div class="notice-views">623</div>
+      </div>
+
+      <div class="notice-row">
+        <div class="notice-num">121</div>
+        <div><span class="notice-cat event">EVENT</span></div>
+        <div class="notice-title">리뷰 작성 이벤트 / 사진 리뷰 작성 시 1,000P 적립</div>
+        <div class="notice-date">2026.03.20</div>
+        <div class="notice-views">2,148</div>
+      </div>
+
+      <div class="notice-row">
+        <div class="notice-num">120</div>
+        <div><span class="notice-cat notice">NOTICE</span></div>
+        <div class="notice-title">개인정보 처리방침 개정 안내 (시행일 2026.04.01)</div>
+        <div class="notice-date">2026.03.15</div>
+        <div class="notice-views">385</div>
+      </div>
+
+    </section>
+
+    <!-- 2. FAQ -->
+    <section class="faq-section" id="tab-faq" style="display:none;">
+      <div class="faq-section-tag">SECTION / 02 ─ FAQ</div>
+      <h2 class="faq-section-title">자주 묻는 <span style="color: var(--red);">질문</span></h2>
+
+      <div class="faq-cat-tabs">
+        <div class="faq-cat-tab active">전체 / 42</div>
+        <div class="faq-cat-tab">자수 · 마킹 / 12</div>
+        <div class="faq-cat-tab">단체주문 / 8</div>
+        <div class="faq-cat-tab">주문 · 결제 / 9</div>
+        <div class="faq-cat-tab">배송 / 6</div>
+        <div class="faq-cat-tab">교환 · 환불 / 4</div>
+        <div class="faq-cat-tab">계정 · 멤버십 / 3</div>
+      </div>
+
+      <div class="faq-list">
+
+        <div class="faq-item open">
+          <div class="faq-question">
+            <div class="faq-q-mark">Q</div>
+            <div class="faq-q-content">
+              <div class="faq-q-cat">자수 · 마킹</div>
+              <div class="faq-q-text">자수 작업은 얼마나 걸리나요?</div>
+            </div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-a-content">
+              <div class="faq-a-mark">A</div>
+              <div class="faq-a-text">
+                자수 작업 일정은 다음과 같습니다.
+                <ul>
+                  <li><strong>1~10벌 (개인 주문)</strong> ─ 결제 후 디자이너 시안 검수 (24시간 내) → 시안 확정 후 <strong>3~5영업일</strong> 내 작업 완료 / 배송</li>
+                  <li><strong>10~99벌</strong> ─ 시안 확정 후 <strong>5~7영업일</strong></li>
+                  <li><strong>100벌 이상 (단체주문)</strong> ─ 시안 확정 후 <strong>7~14영업일</strong> / 사이즈 / 색상 다양성에 따라 변동</li>
+                </ul>
+                긴급 작업이 필요하시면 <strong>1588-0000</strong>으로 연락 주시면 협의 가능합니다.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <div class="faq-q-mark">Q</div>
+            <div class="faq-q-content">
+              <div class="faq-q-cat">자수 · 마킹</div>
+              <div class="faq-q-text">자수 시안은 결제 전에 확인 가능한가요?</div>
+            </div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-a-content">
+              <div class="faq-a-mark">A</div>
+              <div class="faq-a-text">
+                네, 두 가지 방법으로 확인 가능합니다. <strong>시뮬레이터</strong>에서 직접 시안을 만들어 결제 전에 미리 보실 수 있고, 결제 후에는 <strong>전문 디자이너가 카톡(@ssmart)으로 시안을 전송</strong>해 드립니다. 시안 확정 전까지 <strong>무료로 무제한 수정</strong>이 가능합니다.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <div class="faq-q-mark">Q</div>
+            <div class="faq-q-content">
+              <div class="faq-q-cat">자수 · 마킹</div>
+              <div class="faq-q-text">캐릭터 디자인도 가능한가요? 저작권 문제는 없나요?</div>
+            </div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-a-content">
+              <div class="faq-a-mark">A</div>
+              <div class="faq-a-text">
+                네, 가능합니다. 다만 <strong>저작권 안전을 위해</strong> 디즈니, 마블, 인기 캐릭터 등 기존 IP는 사용할 수 없고, <strong>고객사 자체 캐릭터 또는 저희가 새로 디자인하는 오리지널 캐릭터</strong>로 진행됩니다. 자체 캐릭터가 없는 경우, 저희 디자이너가 컨셉 설명을 듣고 <strong>오리지널 디자인을 무료 제공</strong>해드립니다.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <div class="faq-q-mark">Q</div>
+            <div class="faq-q-content">
+              <div class="faq-q-cat">단체주문</div>
+              <div class="faq-q-text">100벌 단체주문 가능한가요? 가격 견적은 어떻게 받나요?</div>
+            </div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-a-content">
+              <div class="faq-a-mark">A</div>
+              <div class="faq-a-text">
+                네, 100벌 이상 단체주문 시 <strong>최대 30% 추가 할인</strong>이 적용됩니다. 자수 / 마킹 작업도 <strong>무료로 포함</strong>됩니다. 견적 신청은 두 가지 방법으로 가능합니다.
+                <ul>
+                  <li><strong>웹사이트 단체주문 견적 페이지</strong>에서 폼 작성 → 1~2영업일 내 회신</li>
+                  <li><strong>전화 1588-0000</strong>으로 직접 상담 → 2시간 이내 매니저 배정</li>
+                </ul>
+                전담 매니저가 시안부터 납품까지 1:1로 책임집니다.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <div class="faq-q-mark">Q</div>
+            <div class="faq-q-content">
+              <div class="faq-q-cat">주문 · 결제</div>
+              <div class="faq-q-text">세금계산서 발행 가능한가요?</div>
+            </div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-a-content">
+              <div class="faq-a-mark">A</div>
+              <div class="faq-a-text">
+                네, <strong>법인 / 개인사업자 회원</strong>은 결제 시 "법인 / 세금계산서" 결제 수단을 선택하시면 자동으로 발행됩니다. 일반 회원도 <strong>마이페이지 → 세금계산서 메뉴</strong>에서 별도 신청 가능합니다. 발행 후에는 이메일로 즉시 전송되며, 출력본도 별도 요청 가능합니다.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <div class="faq-q-mark">Q</div>
+            <div class="faq-q-content">
+              <div class="faq-q-cat">배송</div>
+              <div class="faq-q-text">배송비는 얼마이고, 언제 도착하나요?</div>
+            </div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-a-content">
+              <div class="faq-a-mark">A</div>
+              <div class="faq-a-text">
+                <strong>전 상품 무료 배송</strong>입니다 (제주 / 도서산간 추가비 없음). 일반 상품은 평일 14시 이전 결제 시 <strong>당일 출고 → 1~2일 내 도착</strong>이며, 자수 / 마킹 추가 상품은 <strong>시안 확정 후 5~7일</strong>이 소요됩니다.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <div class="faq-q-mark">Q</div>
+            <div class="faq-q-content">
+              <div class="faq-q-cat">교환 · 환불</div>
+              <div class="faq-q-text">자수 작업된 상품도 교환 / 환불 가능한가요?</div>
+            </div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-a-content">
+              <div class="faq-a-mark">A</div>
+              <div class="faq-a-text">
+                <strong>자수 / 맞춤 제작 상품</strong>은 단순 변심에 의한 교환 / 환불이 어렵습니다 (전자상거래법상 맞춤 제작 상품 제외 조항). 단, <strong>제품 불량, 오배송, 자수 작업 불량</strong>의 경우 100% 무료 교환 / 환불이 가능합니다. 사진 첨부하여 1:1 문의로 접수해주세요.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <div class="faq-q-mark">Q</div>
+            <div class="faq-q-content">
+              <div class="faq-q-cat">계정 · 멤버십</div>
+              <div class="faq-q-text">신규 가입 시 어떤 혜택이 있나요?</div>
+            </div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-a-content">
+              <div class="faq-a-mark">A</div>
+              <div class="faq-a-text">
+                신규 가입 시 다음 혜택이 즉시 지급됩니다.
+                <ul>
+                  <li><strong>2,000P 즉시 적립</strong> ─ 가입 완료 즉시</li>
+                  <li><strong>10% 첫 구매 쿠폰</strong> ─ 최대 5만원 할인</li>
+                  <li><strong>무료 자수 시안 1회</strong> ─ 디자이너 직접 작업</li>
+                  <li><strong>생일 축하 쿠폰 5,000원</strong> ─ 매년 자동 발급</li>
+                  <li><strong>단체주문 30% 할인</strong> ─ 100벌 이상 시</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. 1:1 문의 -->
+    <section class="inquiry-section" id="tab-inquiry">
+      <div class="faq-section-tag">SECTION / 03 ─ 1:1 INQUIRY</div>
+      <h2 class="faq-section-title">1:1 <span style="color: var(--red);">문의</span></h2>
+
+      <div style="margin-bottom: 22px; padding: 16px 18px; background: #fff8e0; border-left: 3px solid var(--yellow); font-size: 12px; line-height: 1.7;">
+        <strong>● 문의 답변 안내</strong> ─ 평일 영업시간 내 접수된 문의는 <strong>2시간 이내</strong>, 영업시간 외 접수 문의는 <strong>다음 영업일 오전</strong>까지 답변드립니다. 긴급 건은 <strong>1588-0000</strong>으로 직접 연락 주세요.
+      </div>
+
+      <div class="inquiry-row">
+        <div class="inquiry-label">문의 유형 <span class="required">*</span></div>
+        <select class="inquiry-select">
+          <option>문의 유형 선택</option>
+          <option>주문 / 결제 문의</option>
+          <option>배송 / 추적 문의</option>
+          <option selected>자수 / 마킹 문의</option>
+          <option>단체주문 / 견적 문의</option>
+          <option>교환 / 환불 문의</option>
+          <option>회원 / 계정 문의</option>
+          <option>세금계산서 / 정산 문의</option>
+          <option>기타 / 제휴 문의</option>
+        </select>
+      </div>
+
+      <div class="inquiry-row">
+        <div class="inquiry-label">관련 주문번호</div>
+        <input type="text" class="inquiry-input" placeholder="(선택) SS-2026-XX-XXXXXX 형식">
+      </div>
+
+      <div class="inquiry-row">
+        <div class="inquiry-label">제목 <span class="required">*</span></div>
+        <input type="text" class="inquiry-input" placeholder="문의 제목 입력">
+      </div>
+
+      <div class="inquiry-row" style="align-items: flex-start;">
+        <div class="inquiry-label" style="padding-top: 10px;">내용 <span class="required">*</span></div>
+        <textarea class="inquiry-textarea" placeholder="문의 내용을 자세히 입력해주세요&#10;&#10;자수 관련 문의 시 다음 정보를 함께 적어주시면 빠른 답변이 가능합니다:&#10;- 자수 종류 (텍스트 / 로고 / 캐릭터)&#10;- 자수 위치 / 크기&#10;- 수량&#10;- 희망 납기"></textarea>
+      </div>
+
+      <div class="inquiry-row">
+        <div class="inquiry-label">파일 첨부</div>
+        <input type="text" class="inquiry-input" placeholder="(선택) 로고 / 시안 / 사진 첨부 가능 (최대 20MB)" readonly>
+      </div>
+
+      <div class="inquiry-row">
+        <div class="inquiry-label">답변 알림</div>
+        <select class="inquiry-select">
+          <option selected>이메일 + 카톡</option>
+          <option>이메일만</option>
+          <option>카톡만</option>
+          <option>SMS</option>
+        </select>
+      </div>
+
+      <div class="inquiry-submit-btns">
+        <button class="btn-cancel">취소</button>
+        <button class="btn-submit">문의 등록 →</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ASIDE -->
+  <aside class="cs-aside">
+
+    <!-- 인기 FAQ -->
+    <div class="aside-card">
+      <div class="aside-tag">▶ POPULAR FAQ</div>
+      <div class="aside-title">가장 많이 본 질문</div>
+      <div class="popular-faq-list">
+        <div class="popular-faq-item">
+          <div class="popular-faq-rank">01</div>
+          <div class="popular-faq-text">자수 작업은 얼마나 걸리나요?</div>
+        </div>
+        <div class="popular-faq-item">
+          <div class="popular-faq-rank">02</div>
+          <div class="popular-faq-text">100벌 단체주문 가격 견적은?</div>
+        </div>
+        <div class="popular-faq-item">
+          <div class="popular-faq-rank">03</div>
+          <div class="popular-faq-text">자수 시안 결제 전 확인 가능?</div>
+        </div>
+        <div class="popular-faq-item">
+          <div class="popular-faq-rank">04</div>
+          <div class="popular-faq-text">세금계산서 발행 가능한가요?</div>
+        </div>
+        <div class="popular-faq-item">
+          <div class="popular-faq-rank">05</div>
+          <div class="popular-faq-text">자수 상품 교환 / 환불 가능?</div>
+        </div>
+        <div class="popular-faq-item">
+          <div class="popular-faq-rank">06</div>
+          <div class="popular-faq-text">신규 가입 혜택은?</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 다이렉트 CS -->
+    <div class="aside-card dark">
+      <div class="aside-tag">─ DIRECT CONTACT</div>
+      <div class="aside-title" style="color: #fff;">전화가 가장 빠릅니다</div>
+      <div class="cs-direct-num">1588-0000</div>
+      <div class="cs-direct-time">평일 09:00 - 18:00<br>점심 12:00 - 13:00<br>주말 · 공휴일 휴무</div>
+      <button class="cs-direct-btn">▶ 카톡 상담 @ssmart</button>
+    </div>
+
+    <!-- B2B 안내 -->
+    <div class="aside-card">
+      <div class="aside-tag">▶ B2B SPECIAL</div>
+      <div class="aside-title">법인 / 단체주문</div>
+      <div style="font-size: 12px; line-height: 1.7; color: var(--gray-700); margin-bottom: 14px;">
+        100벌 이상 주문은 <strong>전담 매니저</strong>가 견적부터 납품까지 책임집니다. 자수 / 마킹 무료, 세금계산서 자동발행.
+      </div>
+      <a href="#" style="display: block; padding: 12px; background: var(--red); color: #fff; text-align: center; font-size: 12px; font-weight: 700; letter-spacing: 0.5px;">단체주문 견적 신청 →</a>
+    </div>
+
+  </aside>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo-main">에스에스<span class="accent">종합상사</span></div>
+        <div class="footer-logo-sub">SAFETY · WORKWEAR</div>
+        <h4>CUSTOMER CENTER</h4>
+        <div class="footer-cs-num">1588-0000</div>
+        <div style="margin-top: 8px;">평일 09:00 - 18:00 (점심 12:00-13:00)<br>주말 및 공휴일 휴무 / 카톡: @ssmart</div>
+      </div>
+      <div><h4>SHOP</h4><ul><li>신상품</li><li>베스트</li><li>오늘의 특가</li><li>자수/마킹</li><li>단체주문</li></ul></div>
+      <div><h4>SUPPORT</h4><ul><li>공지사항</li><li>1:1 문의</li><li>FAQ</li><li>리뷰 이벤트</li><li>적립금 안내</li></ul></div>
+      <div><h4>POLICY</h4><ul><li>이용약관</li><li>개인정보처리방침</li><li>배송/교환/환불</li><li>사업자정보확인</li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      ㈜에스에스종합상사 / 대표: ○○○ / 사업자등록번호: 000-00-00000 / 통신판매업신고: 제2026-인천○○-0000호<br>
+      인천광역시 ○○구 ○○로 000 / TEL. 430-0497 / FAX. 430-0498<br>
+      © 2026 SS TRADING CO. ALL RIGHTS RESERVED.
+    </div>
+  </div>
+</footer>
+
+<script>
+// 메인 탭 전환
+const tabContents = {
+  notice: document.getElementById('tab-notice'),
+  faq: document.getElementById('tab-faq'),
+  inquiry: document.getElementById('tab-inquiry')
+};
+document.querySelectorAll('.cs-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.cs-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const target = tab.dataset.tab;
+    Object.keys(tabContents).forEach(key => {
+      tabContents[key].style.display = key === target ? 'block' : 'none';
+    });
+  });
+});
+
+// FAQ 토글
+document.querySelectorAll('.faq-question').forEach(q => {
+  q.addEventListener('click', () => q.parentElement.classList.toggle('open'));
+});
+
+// 카테고리 탭
+document.querySelectorAll('.notice-cat-tab, .faq-cat-tab').forEach(t => {
+  t.addEventListener('click', () => {
+    [...t.parentElement.children].forEach(c => c.classList.remove('active'));
+    t.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

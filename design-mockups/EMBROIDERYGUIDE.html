@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>자수 / 펀칭 안내 — 에스에스종합상사</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;900&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans KR', sans-serif; color: #1a1a1a; background: #fff; font-size: 13px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+:root {
+  --red: #c8161d;
+  --red-dark: #9c0e15;
+  --black: #111;
+  --gray-900: #1a1a1a;
+  --gray-700: #4a4a4a;
+  --gray-500: #8a8a8a;
+  --gray-300: #d8d8d8;
+  --gray-100: #f4f4f4;
+  --gray-50: #fafafa;
+  --line: #e5e5e5;
+  --yellow: #ffd400;
+}
+
+/* ===== TOP BAR ===== */
+.topbar { background: #f4f4f4; color: #555; font-size: 11px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+.topbar-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+.topbar-left { display: flex; align-items: center; gap: 16px; }
+.topbar-left .divider { color: #ccc; }
+.topbar a { margin-left: 16px; transition: color .15s; }
+.topbar a:hover { color: var(--red); }
+.topbar a.b2b { color: var(--red); font-weight: 600; }
+
+/* ===== HEADER ===== */
+.header { background: #fff; border-bottom: 1px solid var(--line); }
+.header-inner { max-width: 1340px; margin: 0 auto; padding: 26px 24px; display: flex; align-items: center; gap: 40px; }
+.logo { display: flex; flex-direction: column; line-height: 1; padding-right: 30px; border-right: 1px solid var(--line); }
+.logo-main { font-size: 24px; font-weight: 900; color: var(--black); letter-spacing: -0.8px; }
+.logo-main .accent { color: var(--red); }
+.logo-sub { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 3px; color: var(--gray-500); margin-top: 5px; }
+.search-box { flex: 1; max-width: 580px; position: relative; }
+.search-box input { width: 100%; padding: 13px 50px 13px 18px; border: 2px solid var(--black); background: #fff; font-size: 13px; outline: none; font-weight: 500; }
+.search-box input::placeholder { color: var(--gray-500); font-weight: 400; }
+.search-box button { position: absolute; right: 0; top: 0; bottom: 0; background: var(--black); color: #fff; border: none; width: 50px; cursor: pointer; font-size: 16px; }
+.search-box button:hover { background: var(--red); }
+.header-icons { display: flex; gap: 0; margin-left: auto; align-items: center; }
+.header-icons a { padding: 10px 18px; font-size: 12px; font-weight: 500; color: var(--gray-700); transition: color .15s; border-left: 1px solid var(--line); display: flex; align-items: center; gap: 6px; }
+.header-icons a:first-child { border-left: none; }
+.header-icons a:hover { color: var(--red); }
+.header-icons a .num { color: var(--red); font-weight: 700; font-family: 'Bebas Neue', sans-serif; font-size: 14px; }
+
+/* ===== NAV ===== */
+.nav { background: var(--black); }
+.nav-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; display: flex; align-items: stretch; }
+.nav-cat-btn { background: var(--red); color: #fff; padding: 0 24px; font-weight: 700; display: flex; align-items: center; gap: 12px; font-size: 13px; min-width: 200px; letter-spacing: 0.3px; }
+.nav-menu { display: flex; flex: 1; align-items: center; }
+.nav-menu a { padding: 16px 18px; font-weight: 500; color: #fff; transition: all .15s; font-size: 13px; letter-spacing: 0.2px; }
+.nav-menu a:hover { background: rgba(255,255,255,0.1); }
+.nav-menu a.hot { color: var(--yellow); font-weight: 600; }
+.nav-menu a.active { background: var(--red); }
+.nav-cs { margin-left: auto; padding: 0 22px; display: flex; align-items: center; gap: 10px; border-left: 1px solid #333; color: #fff; font-size: 12px; }
+.nav-cs .cs-num { font-family: 'Bebas Neue', sans-serif; color: var(--yellow); font-size: 18px; letter-spacing: 1px; }
+
+/* ===== BREADCRUMB ===== */
+.breadcrumb { max-width: 1340px; margin: 20px auto 0; padding: 0 24px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--gray-500); letter-spacing: 0.5px; }
+.breadcrumb a { color: var(--gray-500); }
+.breadcrumb a:hover { color: var(--red); }
+.breadcrumb .sep { margin: 0 8px; color: var(--gray-300); }
+.breadcrumb .current { color: var(--black); font-weight: 600; }
+
+/* ===== PAGE HEADER ===== */
+.page-header { max-width: 1340px; margin: 24px auto; padding: 0 24px; }
+.page-header-box { background: var(--black); color: #fff; padding: 40px 50px; position: relative; overflow: hidden; }
+.page-header-box::before { content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.page-header-box::after { content: ''; position: absolute; right: -100px; top: -50px; width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(200, 22, 29, 0.3), transparent 70%);
+}
+.page-header-content { position: relative; z-index: 2; }
+.page-header-tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 3px; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+.page-header-tag::before { content: ''; width: 28px; height: 1px; background: var(--red); }
+.page-header-title { font-size: 18px; opacity: .8; margin-bottom: 8px; }
+.page-header-main { font-size: 44px; font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 24px; }
+.page-header-main .accent { color: var(--red); }
+.page-header-rate { display: flex; gap: 32px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.15); }
+.rate-item { display: flex; align-items: center; gap: 12px; font-size: 13px; }
+.rate-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.6); letter-spacing: 1.5px; min-width: 70px; }
+.rate-stars { color: var(--yellow); letter-spacing: 1px; font-size: 14px; }
+.rate-stars .empty { color: rgba(255,255,255,0.2); }
+
+/* ===== SECTION ===== */
+.section { max-width: 1340px; margin: 50px auto; padding: 0 24px; }
+.section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 28px; padding-bottom: 14px; border-bottom: 2px solid var(--black); }
+.section-header-left { display: flex; align-items: end; gap: 18px; }
+.section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 2px; padding-bottom: 4px; }
+.section-title { font-size: 26px; font-weight: 900; letter-spacing: -0.8px; color: var(--black); }
+.section-title .accent { color: var(--red); }
+.section-sub { font-size: 13px; color: var(--gray-500); margin-top: 6px; }
+
+/* ===== DIY SIMULATOR CTA (인쇄 위치 섹션 대체) ===== */
+.simulator-cta-section { background: var(--gray-50); padding: 70px 0; margin: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); position: relative; overflow: hidden; }
+.simulator-cta-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: repeating-linear-gradient(90deg, var(--red) 0 16px, var(--gray-50) 16px 32px);
+}
+.simulator-cta-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; }
+.simulator-cta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+
+/* 좌측 텍스트 영역 */
+.simulator-cta-left {}
+.simulator-cta-tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 2px; margin-bottom: 16px; }
+.simulator-cta-title { font-size: 38px; font-weight: 900; line-height: 1.15; letter-spacing: -1.2px; margin-bottom: 16px; }
+.simulator-cta-title .accent { color: var(--red); }
+.simulator-cta-desc { font-size: 14px; line-height: 1.7; color: var(--gray-700); margin-bottom: 28px; }
+
+.simulator-cta-features { display: grid; grid-template-columns: 1fr; gap: 0; margin-bottom: 28px; border: 1px solid var(--line); background: #fff; }
+.cta-feature { padding: 16px 18px; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 130px 1fr 1.2fr; gap: 18px; align-items: center; }
+.cta-feature:last-child { border-bottom: none; }
+.cta-feature-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 1.5px; }
+.cta-feature-name { font-size: 14px; font-weight: 800; letter-spacing: -0.3px; }
+.cta-feature-desc { font-size: 12px; color: var(--gray-500); line-height: 1.5; }
+
+.simulator-cta-buttons { display: flex; gap: 8px; }
+.simulator-cta-btn { padding: 16px 28px; font-size: 14px; font-weight: 700; letter-spacing: 0.5px; transition: all .15s; cursor: pointer; }
+.simulator-cta-btn.primary { background: var(--red); color: #fff; flex: 1; text-align: center; }
+.simulator-cta-btn.primary:hover { background: var(--black); }
+.simulator-cta-btn.secondary { background: transparent; color: var(--black); border: 1px solid var(--black); }
+.simulator-cta-btn.secondary:hover { background: var(--black); color: #fff; }
+
+/* 우측 시뮬레이터 미리보기 */
+.simulator-cta-right { display: flex; justify-content: center; }
+.simulator-preview { background: #fff; border: 1px solid var(--line); width: 100%; max-width: 480px; aspect-ratio: 4/5; position: relative; overflow: hidden; }
+.simulator-preview-corner { position: absolute; top: 16px; left: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); letter-spacing: 1.5px; z-index: 5; }
+.simulator-preview-stage { position: absolute; inset: 0; padding: 50px 30px 60px; display: flex; align-items: center; justify-content: center; }
+.preview-tshirt { width: 100%; max-width: 360px; height: auto; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.06)); }
+
+.preview-zone { position: absolute; border: 2px dashed var(--red); background: rgba(200, 22, 29, 0.05); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+.preview-zone-1 { top: 32%; left: 32%; width: 60px; height: 60px; }
+.preview-zone-2 { top: 36%; left: 50%; transform: translateX(-50%); width: 88px; height: 88px; opacity: 0.5; border-style: dotted; border-color: var(--gray-500); background: rgba(0,0,0,0.03); }
+.preview-zone-num { position: absolute; top: -10px; left: -10px; background: var(--red); color: #fff; padding: 2px 6px; font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.5px; font-weight: 600; }
+.preview-zone-2 .preview-zone-num { background: var(--gray-500); }
+.preview-zone-text { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--red); letter-spacing: 0.3px; font-weight: 600; }
+.preview-zone-2 .preview-zone-text { color: var(--gray-500); }
+
+.simulator-preview-tabs { position: absolute; bottom: 16px; left: 16px; right: 16px; display: flex; gap: 1px; background: var(--gray-50); border: 1px solid var(--line); }
+.preview-tab { flex: 1; padding: 8px; text-align: center; font-size: 11px; font-weight: 600; color: var(--gray-500); border-right: 1px solid var(--line); transition: all .15s; }
+.preview-tab:last-child { border-right: none; }
+.preview-tab.active { background: var(--black); color: #fff; }
+
+/* ===== TRUST QUOTE (믿음직한 멘트) ===== */
+.trust-quote { background: var(--gray-900); color: #fff; padding: 60px 0; text-align: center; }
+.trust-quote-inner { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+.trust-quote-tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 3px; margin-bottom: 20px; }
+.trust-quote-title { font-size: 32px; font-weight: 900; letter-spacing: -1px; line-height: 1.3; margin-bottom: 24px; }
+.trust-quote-divider { width: 40px; height: 2px; background: var(--red); margin: 0 auto 24px; }
+.trust-quote-text { font-size: 18px; line-height: 1.7; font-weight: 500; color: rgba(255,255,255,0.9); }
+.trust-quote-text strong { color: var(--yellow); font-weight: 700; }
+
+/* ===== FACTORY GALLERY ===== */
+.factory-section { padding: 60px 0; }
+.factory-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; }
+.factory-header { text-align: center; margin-bottom: 36px; }
+.factory-tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 2px; margin-bottom: 12px; }
+.factory-title { font-size: 28px; font-weight: 900; letter-spacing: -0.5px; }
+.factory-title .accent { color: var(--red); }
+.factory-desc { font-size: 13px; color: var(--gray-500); margin-top: 8px; }
+.factory-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.factory-item { aspect-ratio: 4/3; overflow: hidden; position: relative; cursor: pointer; }
+.factory-item-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform .5s; }
+.factory-item:hover .factory-item-bg { transform: scale(1.06); }
+.factory-item-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent 60%); opacity: 0; transition: opacity .3s; }
+.factory-item:hover .factory-item-overlay { opacity: 1; }
+.factory-item-label { position: absolute; bottom: 16px; left: 16px; color: #fff; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 1px; }
+
+/* ===== EMB vs PUNCHING (자수와 펀칭 차이) ===== */
+.compare-section { background: var(--gray-50); padding: 60px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.compare-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; }
+.compare-header { text-align: center; margin-bottom: 40px; }
+.compare-tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 2px; margin-bottom: 12px; }
+.compare-title { font-size: 30px; font-weight: 900; letter-spacing: -0.8px; }
+.compare-title .accent { color: var(--red); }
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.compare-card { background: #fff; border: 1px solid var(--line); padding: 32px; }
+.compare-card-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 2px; margin-bottom: 12px; }
+.compare-card-title { font-size: 28px; font-weight: 900; letter-spacing: -0.8px; margin-bottom: 6px; padding-bottom: 16px; border-bottom: 2px solid var(--black); margin-bottom: 20px; }
+.compare-card-title .accent { color: var(--red); }
+.compare-card-text { font-size: 13.5px; line-height: 1.8; color: var(--gray-700); }
+.compare-card-text strong { color: var(--black); font-weight: 700; }
+.compare-card-text .highlight { background: var(--yellow); padding: 1px 4px; font-weight: 700; color: var(--black); }
+
+/* ===== EMBROIDERY TYPES (자수 종류) ===== */
+.types-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.type-card { border: 1px solid var(--line); background: #fff; transition: all .15s; cursor: pointer; }
+.type-card:hover { border-color: var(--red); transform: translateY(-3px); }
+.type-card-img { aspect-ratio: 1; background-size: cover; background-position: center; position: relative; overflow: hidden; }
+.type-card-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.3), transparent 50%); }
+.type-card-num { position: absolute; top: 10px; left: 10px; background: var(--black); color: #fff; padding: 3px 8px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.5px; z-index: 2; }
+.type-card-body { padding: 18px; }
+.type-card-title { font-size: 16px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.3px; display: flex; align-items: center; gap: 8px; }
+.type-card-title::before { content: '◆'; color: var(--red); font-size: 12px; }
+.type-card-desc { font-size: 12px; line-height: 1.6; color: var(--gray-700); }
+
+/* ===== RECOMMEND ===== */
+.recommend-section { padding: 60px 0; }
+.recommend-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; }
+.recommend-header { text-align: center; margin-bottom: 36px; }
+.recommend-tag { display: inline-block; background: var(--yellow); color: var(--black); padding: 4px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 14px; }
+.recommend-title { font-size: 30px; font-weight: 900; letter-spacing: -0.8px; }
+.recommend-title .accent { color: var(--red); }
+.recommend-list { display: flex; flex-direction: column; gap: 8px; max-width: 1100px; margin: 0 auto; }
+.recommend-item { background: #fff; border: 1px solid var(--line); display: grid; grid-template-columns: 130px 1fr; gap: 0; transition: all .15s; }
+.recommend-item:hover { border-color: var(--red); }
+.recommend-num { background: var(--black); color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 56px; letter-spacing: 1px; line-height: 1; padding: 28px 0; }
+.recommend-num .label { font-family: 'Noto Sans KR'; font-size: 10px; letter-spacing: 2px; color: var(--yellow); margin-top: 4px; }
+.recommend-body { padding: 24px 28px; }
+.recommend-name { font-size: 18px; font-weight: 900; margin-bottom: 8px; letter-spacing: -0.3px; }
+.recommend-desc { font-size: 13px; line-height: 1.7; color: var(--gray-700); margin-bottom: 12px; }
+.recommend-warn { background: #fff5f5; border-left: 3px solid var(--red); padding: 10px 14px; font-size: 12px; line-height: 1.6; color: var(--gray-700); }
+.recommend-warn strong { color: var(--red); font-weight: 700; }
+
+/* ===== CTA SECTION ===== */
+.cta-section { background: var(--black); color: #fff; padding: 70px 0; position: relative; overflow: hidden; margin-top: 60px; }
+.cta-section::before, .cta-section::after { content: ''; position: absolute; left: 0; right: 0; height: 4px;
+  background: repeating-linear-gradient(90deg, var(--red) 0 16px, var(--black) 16px 32px);
+}
+.cta-section::before { top: 0; }
+.cta-section::after { bottom: 0; }
+.cta-inner { max-width: 900px; margin: 0 auto; padding: 0 24px; text-align: center; }
+.cta-tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 3px; margin-bottom: 18px; }
+.cta-title { font-size: 38px; font-weight: 900; letter-spacing: -1.2px; line-height: 1.2; margin-bottom: 16px; }
+.cta-title .accent { color: var(--yellow); }
+.cta-desc { font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.7); margin-bottom: 32px; }
+.cta-buttons { display: flex; gap: 12px; justify-content: center; }
+.cta-btn { padding: 16px 36px; font-size: 14px; font-weight: 700; letter-spacing: 0.5px; transition: all .15s; cursor: pointer; }
+.cta-btn.primary { background: var(--red); color: #fff; }
+.cta-btn.primary:hover { background: #fff; color: var(--red); }
+.cta-btn.secondary { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+.cta-btn.secondary:hover { border-color: #fff; background: rgba(255,255,255,0.05); }
+.cta-meta { display: flex; gap: 32px; justify-content: center; margin-top: 32px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.15); font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.7); letter-spacing: 1px; }
+.cta-meta-item { display: flex; gap: 8px; }
+.cta-meta-label { color: rgba(255,255,255,0.4); }
+
+/* ===== FLOATING CHAT ===== */
+.float-chat { position: fixed; bottom: 24px; right: 24px; background: var(--red); color: #fff; padding: 14px 22px; display: flex; align-items: center; gap: 12px; box-shadow: 0 8px 24px rgba(200, 22, 29, 0.3); cursor: pointer; z-index: 100; transition: all .15s; }
+.float-chat:hover { background: var(--black); }
+.float-chat-icon { width: 32px; height: 32px; background: #fff; color: var(--red); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 12px; font-family: 'IBM Plex Mono', monospace; }
+.float-chat-text { font-size: 13px; font-weight: 700; line-height: 1.2; }
+.float-chat-sub { font-size: 11px; opacity: .9; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+
+/* ===== FOOTER ===== */
+.footer { background: var(--black); color: #888; padding: 50px 0 28px; font-size: 12px; }
+.footer-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 36px; padding-bottom: 32px; border-bottom: 1px solid #333; }
+.footer-logo-main { font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 4px; letter-spacing: -0.8px; }
+.footer-logo-main .accent { color: var(--red); }
+.footer-logo-sub { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 3px; color: var(--gray-500); margin-bottom: 18px; }
+.footer-cs-num { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: #fff; letter-spacing: 1px; margin: 6px 0 4px; }
+.footer h4 { color: #fff; font-size: 12px; margin-bottom: 14px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 1.5px; font-weight: 600; }
+.footer ul { list-style: none; }
+.footer ul li { margin-bottom: 8px; transition: color .15s; cursor: pointer; }
+.footer ul li:hover { color: #fff; }
+.footer-bottom { line-height: 1.8; opacity: .55; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.3px; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span>SS TRADING CO.</span>
+      <span class="divider">|</span>
+      <span>TEL. 1588-0000 / 평일 09:00 ─ 18:00</span>
+      <span class="divider">|</span>
+      <span>인천 본점 운영중</span>
+    </div>
+    <div>
+      <a href="#">로그인</a>
+      <a href="#">회원가입</a>
+      <a href="#">주문조회</a>
+      <a href="#">고객센터</a>
+      <a href="#" class="b2b">▶ 단체주문 견적</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-main">에스에스<span class="accent">종합상사</span></div>
+      <div class="logo-sub">SAFETY · WORKWEAR · SINCE</div>
+    </a>
+    <div class="search-box">
+      <input type="text" placeholder="브랜드, 상품명, 카테고리로 검색하세요">
+      <button>⌕</button>
+    </div>
+    <div class="header-icons">
+      <a href="#">찜 <span class="num">12</span></a>
+      <a href="#">장바구니 <span class="num">03</span></a>
+      <a href="#">마이페이지</a>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-cat-btn">▣ ALL CATEGORIES</div>
+    <div class="nav-menu">
+      <a href="#">신상품</a>
+      <a href="#" class="hot">▶ TODAY DEAL</a>
+      <a href="#">베스트</a>
+      <a href="#">작업복</a>
+      <a href="#">안전화</a>
+      <a href="#">안전용품</a>
+      <a href="#" class="active">자수/마킹</a>
+      <a href="#">브랜드관</a>
+    </div>
+    <div class="nav-cs">
+      <span style="opacity:.6">단체주문</span>
+      <span class="cs-num">1588-0000</span>
+    </div>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="#">HOME</a>
+  <span class="sep">/</span>
+  <a href="#">자수 / 마킹</a>
+  <span class="sep">/</span>
+  <span class="current">인쇄 방법 알아보기</span>
+</div>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="page-header-box">
+    <div class="page-header-content">
+      <div class="page-header-tag">EMBROIDERY GUIDE / VOL.01</div>
+      <div class="page-header-title">에스에스종합상사 인쇄방법 알아보기</div>
+      <div class="page-header-main"><span class="accent">컴퓨터 자수</span> / 펀칭</div>
+      <div class="page-header-rate">
+        <div class="rate-item">
+          <div class="rate-label">견뢰도</div>
+          <div class="rate-stars">★★★★★</div>
+        </div>
+        <div class="rate-item">
+          <div class="rate-label">선명도</div>
+          <div class="rate-stars">★★★★★</div>
+        </div>
+        <div class="rate-item">
+          <div class="rate-label">가격</div>
+          <div class="rate-stars">★★★<span class="empty">★★</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIY SIMULATOR CTA (인쇄 위치 섹션 대체) -->
+<section class="simulator-cta-section">
+  <div class="simulator-cta-inner">
+    <div class="simulator-cta-grid">
+      <!-- 좌측: 텍스트 -->
+      <div class="simulator-cta-left">
+        <div class="simulator-cta-tag">─ SECTION 01 / DIY EMBROIDERY SIMULATOR</div>
+        <h2 class="simulator-cta-title">시안을 직접 만들고<br><span class="accent">바로 결제</span>하세요</h2>
+        <p class="simulator-cta-desc">로고 이미지를 업로드하고 위치 / 크기를 직접 조정하세요. 자수 종류 선택 후 가격이 자동 계산되며, 그대로 결제까지 진행할 수 있습니다.</p>
+
+        <div class="simulator-cta-features">
+          <div class="cta-feature">
+            <div class="cta-feature-num">FEATURE / 01</div>
+            <div class="cta-feature-name">4면 시뮬레이터</div>
+            <div class="cta-feature-desc">정면 / 뒷면 / 양팔 자수 위치 직접 확인</div>
+          </div>
+          <div class="cta-feature">
+            <div class="cta-feature-num">FEATURE / 02</div>
+            <div class="cta-feature-name">자동 가격 계산</div>
+            <div class="cta-feature-desc">자수 종류 / 크기에 따라 실시간 가격 산출</div>
+          </div>
+          <div class="cta-feature">
+            <div class="cta-feature-num">FEATURE / 03</div>
+            <div class="cta-feature-name">바로 결제</div>
+            <div class="cta-feature-desc">시안 확정 후 카톡으로 디자이너 검수 안내</div>
+          </div>
+        </div>
+
+        <div class="simulator-cta-buttons">
+          <a href="#" class="simulator-cta-btn primary">시뮬레이터 시작하기 →</a>
+          <a href="tel:1588-0000" class="simulator-cta-btn secondary">전화 견적 ─ 1588-0000</a>
+        </div>
+      </div>
+
+      <!-- 우측: 시뮬레이터 미리보기 -->
+      <div class="simulator-cta-right">
+        <div class="simulator-preview">
+          <div class="simulator-preview-corner">SS-CANVAS / DIY MODE</div>
+          <div class="simulator-preview-stage">
+            <svg class="preview-tshirt" viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 120 60 L 80 90 L 50 130 L 70 180 L 100 165 L 100 440 L 300 440 L 300 165 L 330 180 L 350 130 L 320 90 L 280 60 L 250 60 Q 230 90 200 90 Q 170 90 150 60 Z"
+                    fill="#ffffff" stroke="#d8d8d8" stroke-width="1.5"/>
+              <path d="M 150 60 Q 200 100 250 60" fill="none" stroke="#d8d8d8" stroke-width="1.5"/>
+              <line x1="100" y1="165" x2="100" y2="440" stroke="#ececec" stroke-width="1" stroke-dasharray="2,3"/>
+              <line x1="300" y1="165" x2="300" y2="440" stroke="#ececec" stroke-width="1" stroke-dasharray="2,3"/>
+            </svg>
+            <!-- 자수 영역 표시 -->
+            <div class="preview-zone preview-zone-1">
+              <span class="preview-zone-num">01</span>
+              <span class="preview-zone-text">왼가슴</span>
+            </div>
+            <div class="preview-zone preview-zone-2">
+              <span class="preview-zone-num">02</span>
+              <span class="preview-zone-text">가슴 중앙</span>
+            </div>
+          </div>
+          <div class="simulator-preview-tabs">
+            <span class="preview-tab active">정면</span>
+            <span class="preview-tab">뒷면</span>
+            <span class="preview-tab">왼쪽</span>
+            <span class="preview-tab">오른쪽</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST QUOTE -->
+<section class="trust-quote">
+  <div class="trust-quote-inner">
+    <div class="trust-quote-tag">─ TRUST & QUALITY ─</div>
+    <h2 class="trust-quote-title">믿음직한 에스에스 퀄리티</h2>
+    <div class="trust-quote-divider"></div>
+    <p class="trust-quote-text">
+      숙련된 기술, 자수에 관한 <strong>전문적인 지식</strong>이 겸비된<br>
+      전문가가 있는 <strong>자수 공장</strong>에서 직접 납품됩니다.
+    </p>
+  </div>
+</section>
+
+<!-- FACTORY GALLERY -->
+<section class="factory-section">
+  <div class="factory-inner">
+    <div class="factory-header">
+      <div class="factory-tag">─ SECTION 02 / EMBROIDERY FACTORY ─</div>
+      <h2 class="factory-title">자수 공장 <span class="accent">맛보기</span></h2>
+      <p class="factory-desc">실제 작업 현장의 모습을 확인해보세요</p>
+    </div>
+    <div class="factory-grid">
+      <div class="factory-item">
+        <div class="factory-item-bg" style="background-image: url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop');"></div>
+        <div class="factory-item-overlay"></div>
+        <div class="factory-item-label">/ 01 ─ MACHINE WORK</div>
+      </div>
+      <div class="factory-item">
+        <div class="factory-item-bg" style="background-image: url('https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80&auto=format&fit=crop');"></div>
+        <div class="factory-item-overlay"></div>
+        <div class="factory-item-label">/ 02 ─ FINE STITCH</div>
+      </div>
+      <div class="factory-item">
+        <div class="factory-item-bg" style="background-image: url('https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=800&q=80&auto=format&fit=crop');"></div>
+        <div class="factory-item-overlay"></div>
+        <div class="factory-item-label">/ 03 ─ DETAIL CHECK</div>
+      </div>
+      <div class="factory-item">
+        <div class="factory-item-bg" style="background-image: url('https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=800&q=80&auto=format&fit=crop');"></div>
+        <div class="factory-item-overlay"></div>
+        <div class="factory-item-label">/ 04 ─ DESIGN PROOF</div>
+      </div>
+      <div class="factory-item">
+        <div class="factory-item-bg" style="background-image: url('https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&q=80&auto=format&fit=crop');"></div>
+        <div class="factory-item-overlay"></div>
+        <div class="factory-item-label">/ 05 ─ FINAL OUTPUT</div>
+      </div>
+      <div class="factory-item">
+        <div class="factory-item-bg" style="background-image: url('https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80&auto=format&fit=crop');"></div>
+        <div class="factory-item-overlay"></div>
+        <div class="factory-item-label">/ 06 ─ FINISHED PRODUCT</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE: 자수 vs 펀칭 -->
+<section class="compare-section">
+  <div class="compare-inner">
+    <div class="compare-header">
+      <div class="compare-tag">─ SECTION 03 / EMBROIDERY VS PUNCHING ─</div>
+      <h2 class="compare-title">자수 / <span class="accent">펀칭</span> 차이가 무엇일까?</h2>
+    </div>
+
+    <div class="compare-grid">
+      <div class="compare-card">
+        <div class="compare-card-num">DEFINITION / 01</div>
+        <h3 class="compare-card-title"><span class="accent">자수</span></h3>
+        <p class="compare-card-text">
+          컴퓨터 자수란 원하는 이미지를 <span class="highlight">캐드프로그램으로 펀칭작업(실선을 짓는 과정)</span>을 한 뒤 컴퓨터자수기계에 <strong>옷에 직접 새기는 과정</strong>을 말합니다.<br><br>
+          캐드프로그램 좌표에 입력된 이미지를 컴퓨터자수기계가 인식하여 <strong>mm이내의 차이까지 초정밀로 구현</strong>해 냅니다. 대량생산에 적합하며 가장 <strong>내구성이 뛰어난 고품질 인쇄방식</strong>입니다.
+        </p>
+      </div>
+
+      <div class="compare-card">
+        <div class="compare-card-num">DEFINITION / 02</div>
+        <h3 class="compare-card-title"><span class="accent">펀칭</span></h3>
+        <p class="compare-card-text">
+          컴퓨터 자수 작업을 할 때, <strong>작업하고자 하는 이미지나 로고 디자인의 실 색상, 침수</strong>를 컴퓨터자수기계에 입력시켜야 하는 과정이 있습니다.<br><br>
+          컴퓨터캐드프로그램을 이용해 위 과정들이 이루어지며 이를 <span class="highlight">"펀칭"</span>이라 합니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMBROIDERY TYPES -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-header-left">
+      <div class="section-num">SECTION / 04</div>
+      <div>
+        <div class="section-title">자수 / 마킹 <span class="accent">종류</span></div>
+        <div class="section-sub">에스에스종합상사에서 가능한 자수 / 마킹 방식 7가지</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="types-grid">
+    <div class="type-card">
+      <div class="type-card-img" style="background-image: url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=80&auto=format&fit=crop');">
+        <div class="type-card-num">TYPE / 01</div>
+      </div>
+      <div class="type-card-body">
+        <div class="type-card-title">컴퓨터 자수</div>
+        <div class="type-card-desc">원단에 직접 자수를 놓는 방식으로 입체적이고 견뢰도가 높아 많은 분들이 선호하는 자수방식입니다.</div>
+      </div>
+    </div>
+
+    <div class="type-card">
+      <div class="type-card-img" style="background-image: url('https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&q=80&auto=format&fit=crop');">
+        <div class="type-card-num">TYPE / 02</div>
+      </div>
+      <div class="type-card-body">
+        <div class="type-card-title">패치 자수</div>
+        <div class="type-card-desc">원단에 직접 자수를 놓는 방식이 아닌 다른 원단에 자수를 새긴 후 오버로크로 부착하는 방식으로 거짐원에 적합합니다.</div>
+      </div>
+    </div>
+
+    <div class="type-card">
+      <div class="type-card-img" style="background-image: url('https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600&q=80&auto=format&fit=crop');">
+        <div class="type-card-num">TYPE / 03</div>
+      </div>
+      <div class="type-card-body">
+        <div class="type-card-title">아플리케 자수</div>
+        <div class="type-card-desc">원단에 실로 박음질을 하여 퀄리티가 높고 선명한 인쇄방식입니다. 디자인의 입체감을 표현하기에 좋습니다.</div>
+      </div>
+    </div>
+
+    <div class="type-card">
+      <div class="type-card-img" style="background-image: url('https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=600&q=80&auto=format&fit=crop');">
+        <div class="type-card-num">TYPE / 04</div>
+      </div>
+      <div class="type-card-body">
+        <div class="type-card-title">보풀 자수</div>
+        <div class="type-card-desc">보풀로 입체감을 주는 방식으로 주로 학교/유니폼에 많이 사용되는 자수방식입니다. <strong>(세탁 횟수 한정)</strong></div>
+      </div>
+    </div>
+
+    <div class="type-card">
+      <div class="type-card-img" style="background-image: url('https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80&auto=format&fit=crop');">
+        <div class="type-card-num">TYPE / 05</div>
+      </div>
+      <div class="type-card-body">
+        <div class="type-card-title">손 자수</div>
+        <div class="type-card-desc">미싱기로 직접 수를 놓는 방식으로 견뢰도가 높고 단순한 이름 또는 별명 인쇄가 가능합니다.</div>
+      </div>
+    </div>
+
+    <div class="type-card">
+      <div class="type-card-img" style="background-image: url('https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&q=80&auto=format&fit=crop');">
+        <div class="type-card-num">TYPE / 06</div>
+      </div>
+      <div class="type-card-body">
+        <div class="type-card-title">실사 패치 자수</div>
+        <div class="type-card-desc">와펜대두리만 컴퓨터자수로 제작되며 실사 출력을 하여 와펜형태에 열기계로 누르는 방식으로 제작됩니다.</div>
+      </div>
+    </div>
+
+    <div class="type-card">
+      <div class="type-card-img" style="background-image: url('https://images.unsplash.com/photo-1542219550-37153d387c27?w=600&q=80&auto=format&fit=crop');">
+        <div class="type-card-num">TYPE / 07</div>
+      </div>
+      <div class="type-card-body">
+        <div class="type-card-title">벨크로 패치 자수</div>
+        <div class="type-card-desc">컴퓨터 자수가 된 원단에 벨크로(찍찍이) 처리하여 탈부착 가능한 자수인쇄방식입니다.</div>
+      </div>
+    </div>
+
+    <div class="type-card">
+      <div class="type-card-img" style="background: linear-gradient(135deg, var(--red), var(--red-dark)); display: flex; align-items: center; justify-content: center; color: #fff;">
+        <div style="text-align: center; padding: 20px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px; opacity: .8; margin-bottom: 8px;">TYPE / 08</div>
+          <div style="font-size: 22px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 8px;">캐릭터<br>맞춤 디자인</div>
+          <div style="font-size: 11px; opacity: .9; line-height: 1.5;">로고 없어도 OK<br>저작권 안전 보장</div>
+        </div>
+      </div>
+      <div class="type-card-body">
+        <div class="type-card-title">캐릭터 디자인 (★ NEW)</div>
+        <div class="type-card-desc">로고가 없어도 전문 디자이너가 <strong>저작권에 안전한 맞춤 캐릭터</strong>를 제작해드립니다. 회사 정체성을 살린 유니크한 자수 디자인.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOMMEND -->
+<section class="recommend-section">
+  <div class="recommend-inner">
+    <div class="recommend-header">
+      <div class="recommend-tag">▲ RECOMMENDED</div>
+      <h2 class="recommend-title">에스에스종합상사 추천 <span class="accent">자수 인쇄 방법</span></h2>
+    </div>
+
+    <div class="recommend-list">
+      <div class="recommend-item">
+        <div class="recommend-num">
+          01
+          <span class="label">RANK</span>
+        </div>
+        <div class="recommend-body">
+          <div class="recommend-name">컴퓨터 자수</div>
+          <div class="recommend-desc">직자수로도 불리며 가장 많이 사용하는 자수인쇄방법입니다. 원단에 직접 자수를 놓는 방식으로 깔끔하며 고급스럽습니다. 결과물이 입체적이고 견뢰도가 높아 오래 입어도 떨어지지 않습니다.</div>
+          <div class="recommend-warn">
+            <strong>주의 / </strong>레이어링되어 있는 펀칭작업이 있어 비용 면에서 대량작업에 적합하며 스판재질의 옷에는 추가가 불가능합니다.
+          </div>
+        </div>
+      </div>
+
+      <div class="recommend-item">
+        <div class="recommend-num">
+          02
+          <span class="label">RANK</span>
+        </div>
+        <div class="recommend-body">
+          <div class="recommend-name">패치 자수</div>
+          <div class="recommend-desc">옷에 직접적으로 인쇄하는 방식이 아닌 다른원단에 자수를 새긴 후 이를 오버로크로 부착하는 인쇄방법으로 주로 거울원에 많이 사용됩니다.</div>
+          <div class="recommend-warn">
+            <strong>주의 / </strong>옷에 부착하는 공정 때문에 컴퓨터자수 대비 추가 요금이 발생합니다.
+          </div>
+        </div>
+      </div>
+
+      <div class="recommend-item">
+        <div class="recommend-num">
+          03
+          <span class="label">RANK</span>
+        </div>
+        <div class="recommend-body">
+          <div class="recommend-name">캐릭터 맞춤 디자인 ★ NEW</div>
+          <div class="recommend-desc">로고가 없는 회사도 전문 디자이너가 <strong>저작권에 안전한 캐릭터</strong>를 제작해드립니다. 회사의 분위기, 직군, 컬러를 반영한 유니크한 디자인으로 차별화된 작업복을 만들어드립니다.</div>
+          <div class="recommend-warn">
+            <strong>주의 / </strong>디자인 시안 제작에 1~2일이 소요되며, 시안 확정 후 자수 작업이 진행됩니다.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-tag">─ READY TO START ─</div>
+    <h2 class="cta-title">우리 회사 로고로<br><span class="accent">맞춤 작업복</span> 제작해보세요</h2>
+    <p class="cta-desc">로고만 보내주시면 전문 디자이너가 무료 시안을 제작해드립니다.<br>견적 상담부터 납품까지 1:1 매니저가 책임집니다.</p>
+    <div class="cta-buttons">
+      <a href="#" class="cta-btn primary">견적 문의하기 →</a>
+      <a href="tel:1588-0000" class="cta-btn secondary">전화 상담 ─ 1588-0000</a>
+    </div>
+    <div class="cta-meta">
+      <div class="cta-meta-item"><span class="cta-meta-label">DESIGN /</span> FREE</div>
+      <div class="cta-meta-item"><span class="cta-meta-label">DELIVERY /</span> 5~7 DAYS</div>
+      <div class="cta-meta-item"><span class="cta-meta-label">PROJECTS /</span> 12,000+</div>
+      <div class="cta-meta-item"><span class="cta-meta-label">RATING /</span> ★ 4.9</div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOATING CHAT -->
+<a href="#" class="float-chat">
+  <div class="float-chat-icon">1:1</div>
+  <div>
+    <div class="float-chat-text">전문 상담</div>
+    <div class="float-chat-sub">EMBROIDERY · BULK</div>
+  </div>
+</a>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo-main">에스에스<span class="accent">종합상사</span></div>
+        <div class="footer-logo-sub">SAFETY · WORKWEAR</div>
+        <h4>CUSTOMER CENTER</h4>
+        <div class="footer-cs-num">1588-0000</div>
+        <div style="margin-top: 8px;">평일 09:00 - 18:00 (점심 12:00-13:00)<br>주말 및 공휴일 휴무 / 카톡: @ssmart</div>
+      </div>
+      <div>
+        <h4>SHOP</h4>
+        <ul><li>신상품</li><li>베스트</li><li>오늘의 특가</li><li>자수/마킹</li><li>단체주문</li></ul>
+      </div>
+      <div>
+        <h4>SUPPORT</h4>
+        <ul><li>공지사항</li><li>1:1 문의</li><li>FAQ</li><li>리뷰 이벤트</li><li>적립금 안내</li></ul>
+      </div>
+      <div>
+        <h4>POLICY</h4>
+        <ul><li>이용약관</li><li>개인정보처리방침</li><li>배송/교환/환불</li><li>사업자정보확인</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      ㈜에스에스종합상사 / 대표: ○○○ / 사업자등록번호: 000-00-00000 / 통신판매업신고: 제2026-인천○○-0000호<br>
+      인천광역시 ○○구 ○○로 000 / TEL. 430-0497 / FAX. 430-0498<br>
+      © 2026 SS TRADING CO. ALL RIGHTS RESERVED.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>자수 시뮬레이터 — 에스에스종합상사</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;900&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans KR', sans-serif; color: #1a1a1a; background: #fff; font-size: 13px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+:root {
+  --red: #c8161d;
+  --red-dark: #9c0e15;
+  --black: #111;
+  --gray-900: #1a1a1a;
+  --gray-700: #4a4a4a;
+  --gray-500: #8a8a8a;
+  --gray-300: #d8d8d8;
+  --gray-100: #f4f4f4;
+  --gray-50: #fafafa;
+  --line: #e5e5e5;
+  --yellow: #ffd400;
+}
+
+/* ===== TOP BAR ===== */
+.topbar { background: #f4f4f4; color: #555; font-size: 11px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+.topbar-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+.topbar-left { display: flex; align-items: center; gap: 16px; }
+.topbar-left .divider { color: #ccc; }
+.topbar a { margin-left: 16px; }
+.topbar a:hover { color: var(--red); }
+.topbar a.b2b { color: var(--red); font-weight: 600; }
+
+/* ===== HEADER ===== */
+.header { background: #fff; border-bottom: 1px solid var(--line); }
+.header-inner { max-width: 1340px; margin: 0 auto; padding: 26px 24px; display: flex; align-items: center; gap: 40px; }
+.logo { display: flex; flex-direction: column; line-height: 1; padding-right: 30px; border-right: 1px solid var(--line); }
+.logo-main { font-size: 24px; font-weight: 900; color: var(--black); letter-spacing: -0.8px; }
+.logo-main .accent { color: var(--red); }
+.logo-sub { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 3px; color: var(--gray-500); margin-top: 5px; }
+.search-box { flex: 1; max-width: 580px; position: relative; }
+.search-box input { width: 100%; padding: 13px 50px 13px 18px; border: 2px solid var(--black); background: #fff; font-size: 13px; outline: none; font-weight: 500; }
+.search-box button { position: absolute; right: 0; top: 0; bottom: 0; background: var(--black); color: #fff; border: none; width: 50px; cursor: pointer; font-size: 16px; }
+.header-icons { display: flex; gap: 0; margin-left: auto; align-items: center; }
+.header-icons a { padding: 10px 18px; font-size: 12px; font-weight: 500; color: var(--gray-700); border-left: 1px solid var(--line); display: flex; align-items: center; gap: 6px; }
+.header-icons a:first-child { border-left: none; }
+.header-icons a:hover { color: var(--red); }
+.header-icons a .num { color: var(--red); font-weight: 700; font-family: 'Bebas Neue', sans-serif; font-size: 14px; }
+
+/* ===== NAV ===== */
+.nav { background: var(--black); }
+.nav-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; display: flex; align-items: stretch; }
+.nav-cat-btn { background: var(--red); color: #fff; padding: 0 24px; font-weight: 700; display: flex; align-items: center; gap: 12px; font-size: 13px; min-width: 200px; letter-spacing: 0.3px; }
+.nav-menu { display: flex; flex: 1; align-items: center; }
+.nav-menu a { padding: 16px 18px; font-weight: 500; color: #fff; transition: all .15s; font-size: 13px; }
+.nav-menu a:hover { background: rgba(255,255,255,0.1); }
+.nav-menu a.hot { color: var(--yellow); font-weight: 600; }
+.nav-menu a.active { background: var(--red); }
+.nav-cs { margin-left: auto; padding: 0 22px; display: flex; align-items: center; gap: 10px; border-left: 1px solid #333; color: #fff; font-size: 12px; }
+.nav-cs .cs-num { font-family: 'Bebas Neue', sans-serif; color: var(--yellow); font-size: 18px; letter-spacing: 1px; }
+
+/* ===== BREADCRUMB ===== */
+.breadcrumb { max-width: 1340px; margin: 20px auto 0; padding: 0 24px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--gray-500); letter-spacing: 0.5px; }
+.breadcrumb a { color: var(--gray-500); }
+.breadcrumb a:hover { color: var(--red); }
+.breadcrumb .sep { margin: 0 8px; color: var(--gray-300); }
+.breadcrumb .current { color: var(--black); font-weight: 600; }
+
+/* ===== PAGE HEADER ===== */
+.page-header { max-width: 1340px; margin: 24px auto; padding: 0 24px; }
+.page-header-box { background: var(--black); color: #fff; padding: 36px 50px; position: relative; overflow: hidden; }
+.page-header-box::before { content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.page-header-box::after { content: ''; position: absolute; right: -100px; top: -50px; width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(200, 22, 29, 0.3), transparent 70%);
+}
+.page-header-content { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; }
+.page-header-left {}
+.page-header-tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 3px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; }
+.page-header-tag::before { content: ''; width: 28px; height: 1px; background: var(--red); }
+.page-header-main { font-size: 36px; font-weight: 900; letter-spacing: -1.2px; line-height: 1.1; margin-bottom: 8px; }
+.page-header-main .accent { color: var(--red); }
+.page-header-sub { font-size: 14px; color: rgba(255,255,255,0.7); }
+.page-header-link { display: inline-flex; align-items: center; gap: 8px; padding: 11px 22px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; transition: all .15s; }
+.page-header-link:hover { background: var(--red); border-color: var(--red); }
+
+/* ===== STEP INDICATOR ===== */
+.steps { max-width: 1340px; margin: 24px auto; padding: 0 24px; }
+.steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--line); }
+.step { padding: 18px 22px; display: flex; align-items: center; gap: 14px; border-right: 1px solid var(--line); transition: all .15s; }
+.step:last-child { border-right: none; }
+.step.active { background: var(--gray-50); }
+.step.done { background: #fff; }
+.step-num { width: 36px; height: 36px; background: var(--gray-100); color: var(--gray-500); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; flex-shrink: 0; }
+.step.active .step-num { background: var(--red); color: #fff; }
+.step.done .step-num { background: var(--black); color: #fff; }
+.step-info {}
+.step-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); letter-spacing: 1px; }
+.step-name { font-size: 14px; font-weight: 700; color: var(--black); margin-top: 2px; }
+.step.active .step-name { color: var(--red); }
+
+/* ===== SIMULATOR LAYOUT ===== */
+.simulator { max-width: 1340px; margin: 0 auto 50px; padding: 0 24px; display: grid; grid-template-columns: 1fr 380px; gap: 16px; }
+
+/* ===== CANVAS (3D-like 시뮬레이터) ===== */
+.canvas-wrap { background: var(--gray-50); border: 1px solid var(--line); position: relative; height: 660px; }
+.canvas-tabs { position: absolute; top: 16px; left: 16px; display: flex; gap: 1px; z-index: 10; }
+.canvas-tab { padding: 8px 16px; background: #fff; border: 1px solid var(--line); font-size: 12px; font-weight: 600; cursor: pointer; transition: all .15s; color: var(--gray-700); display: flex; align-items: center; gap: 8px; }
+.canvas-tab:hover { background: var(--gray-100); }
+.canvas-tab.active { background: var(--black); color: #fff; border-color: var(--black); }
+.canvas-tab .tab-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; opacity: .6; }
+.canvas-tab.active .tab-num { color: var(--yellow); opacity: 1; }
+
+.canvas-tools { position: absolute; top: 16px; right: 16px; display: flex; gap: 6px; z-index: 10; }
+.tool-btn { width: 36px; height: 36px; background: #fff; border: 1px solid var(--line); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all .15s; }
+.tool-btn:hover { background: var(--black); color: #fff; border-color: var(--black); }
+.tool-btn.danger:hover { background: var(--red); border-color: var(--red); color: #fff; }
+
+.canvas-corner { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); letter-spacing: 2px; z-index: 5; }
+
+.canvas-stage { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 70px 30px 60px; }
+.tshirt-view { position: relative; width: 100%; max-width: 480px; aspect-ratio: 1/1.2; transition: opacity .4s; }
+.tshirt-view:not(.active) { display: none; }
+
+/* SVG 티셔츠 */
+.tshirt-svg { width: 100%; height: 100%; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.08)); }
+
+/* 이미지 배치 영역 */
+.tshirt-zone { position: absolute; cursor: move; touch-action: none; user-select: none; }
+.tshirt-zone.empty { border: 2px dashed var(--gray-300); background: rgba(255,255,255,0.5); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; transition: all .15s; }
+.tshirt-zone.empty:hover { border-color: var(--red); background: rgba(200, 22, 29, 0.05); }
+.tshirt-zone.empty .zone-icon { width: 28px; height: 28px; border: 1.5px solid var(--gray-500); display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.tshirt-zone.empty:hover .zone-icon { border-color: var(--red); color: var(--red); }
+.tshirt-zone.empty .zone-text { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--gray-500); letter-spacing: 0.5px; text-align: center; }
+.tshirt-zone.empty:hover .zone-text { color: var(--red); }
+.tshirt-zone.empty .zone-num { position: absolute; top: -10px; left: -10px; background: var(--black); color: #fff; padding: 2px 6px; font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.5px; }
+
+.tshirt-zone.has-image { border: 2px solid var(--red); background: transparent; }
+.tshirt-zone.has-image .zone-image { width: 100%; height: 100%; object-fit: contain; }
+.tshirt-zone.has-image .zone-handles { position: absolute; inset: -2px; pointer-events: none; }
+.tshirt-zone.has-image .zone-handle { position: absolute; width: 10px; height: 10px; background: var(--red); border: 1px solid #fff; pointer-events: auto; }
+.tshirt-zone.has-image .zone-handle.tl { top: -5px; left: -5px; cursor: nwse-resize; }
+.tshirt-zone.has-image .zone-handle.tr { top: -5px; right: -5px; cursor: nesw-resize; }
+.tshirt-zone.has-image .zone-handle.bl { bottom: -5px; left: -5px; cursor: nesw-resize; }
+.tshirt-zone.has-image .zone-handle.br { bottom: -5px; right: -5px; cursor: nwse-resize; }
+.tshirt-zone.has-image .zone-rotate { position: absolute; top: -28px; left: 50%; transform: translateX(-50%); width: 22px; height: 22px; background: var(--black); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: grab; pointer-events: auto; font-size: 12px; }
+.tshirt-zone.has-image .zone-delete { position: absolute; top: -28px; right: -8px; width: 22px; height: 22px; background: var(--red); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; pointer-events: auto; font-size: 12px; font-weight: 700; }
+
+/* 줌 컨트롤 */
+.canvas-zoom { position: absolute; bottom: 16px; right: 16px; display: flex; gap: 0; background: #fff; border: 1px solid var(--line); }
+.zoom-btn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .15s; font-size: 14px; }
+.zoom-btn:hover { background: var(--gray-100); }
+.zoom-display { padding: 0 14px; display: flex; align-items: center; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--gray-700); border-left: 1px solid var(--line); border-right: 1px solid var(--line); min-width: 60px; justify-content: center; }
+
+/* 색상 선택 */
+.canvas-bottom { position: absolute; bottom: 16px; left: 16px; display: flex; gap: 8px; align-items: center; background: #fff; border: 1px solid var(--line); padding: 6px 12px; }
+.color-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); letter-spacing: 1px; padding-right: 8px; border-right: 1px solid var(--line); }
+.color-swatches { display: flex; gap: 6px; }
+.color-swatch { width: 22px; height: 22px; border: 1.5px solid var(--gray-300); cursor: pointer; transition: all .15s; }
+.color-swatch.active { border-color: var(--red); box-shadow: inset 0 0 0 1.5px #fff; }
+.color-swatch.white { background: #f5f5f5; }
+.color-swatch.gray { background: #888; }
+.color-swatch.black { background: #1a1a1a; }
+.color-swatch.navy { background: #1e3a5f; }
+.color-swatch.red { background: var(--red); }
+
+/* ===== SIDEBAR ===== */
+.sidebar { background: #fff; border: 1px solid var(--line); display: flex; flex-direction: column; max-height: 660px; overflow-y: auto; }
+
+.side-section { padding: 22px 22px 18px; border-bottom: 1px solid var(--line); }
+.side-section-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 1.5px; margin-bottom: 8px; }
+.side-section-title { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; margin-bottom: 16px; }
+
+/* 업로드 */
+.upload-box { border: 2px dashed var(--gray-300); padding: 22px; text-align: center; cursor: pointer; transition: all .15s; }
+.upload-box:hover { border-color: var(--red); background: var(--gray-50); }
+.upload-icon { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--gray-500); letter-spacing: 1px; margin-bottom: 8px; }
+.upload-box:hover .upload-icon { color: var(--red); }
+.upload-text { font-size: 13px; font-weight: 600; color: var(--black); margin-bottom: 4px; }
+.upload-sub { font-size: 11px; color: var(--gray-500); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+.upload-formats { display: flex; gap: 4px; justify-content: center; margin-top: 8px; }
+.format-tag { font-size: 9px; padding: 2px 6px; background: var(--gray-100); color: var(--gray-700); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.5px; }
+
+/* 업로드된 이미지 리스트 */
+.uploaded-list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+.uploaded-item { display: flex; gap: 10px; padding: 10px; border: 1px solid var(--line); align-items: center; cursor: pointer; transition: all .15s; }
+.uploaded-item:hover { border-color: var(--red); }
+.uploaded-item.placed { border-color: var(--red); background: #fff5f5; }
+.uploaded-thumb { width: 40px; height: 40px; background: var(--gray-100); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--gray-500); }
+.uploaded-info { flex: 1; min-width: 0; }
+.uploaded-name { font-size: 12px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.uploaded-status { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); margin-top: 2px; letter-spacing: 0.3px; }
+.uploaded-item.placed .uploaded-status { color: var(--red); }
+
+/* 텍스트 입력 (자수 텍스트) */
+.text-input-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+.text-input { flex: 1; padding: 10px 12px; border: 1px solid var(--line); font-size: 13px; outline: none; font-family: 'Noto Sans KR'; }
+.text-input:focus { border-color: var(--black); }
+.text-add-btn { background: var(--black); color: #fff; border: none; padding: 0 16px; cursor: pointer; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; }
+.text-add-btn:hover { background: var(--red); }
+
+.font-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 10px; }
+.font-select { padding: 8px 10px; border: 1px solid var(--line); font-size: 12px; cursor: pointer; background: #fff; }
+
+/* 자수 종류 */
+.emb-types { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.emb-type { padding: 12px 10px; border: 1.5px solid var(--line); cursor: pointer; transition: all .15s; text-align: center; position: relative; }
+.emb-type:hover { border-color: var(--gray-700); }
+.emb-type.active { border-color: var(--red); background: #fff5f5; }
+.emb-type-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--gray-500); letter-spacing: 0.5px; margin-bottom: 6px; }
+.emb-type.active .emb-type-num { color: var(--red); }
+.emb-type-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.emb-type-price { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--gray-700); letter-spacing: 0.3px; }
+.emb-type.active .emb-type-price { color: var(--red); font-weight: 700; }
+.emb-type.recommended::after { content: '★'; position: absolute; top: 6px; right: 8px; color: var(--yellow); font-size: 12px; }
+
+/* 옵션 셀렉트 */
+.option-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 10px; }
+.option-row:last-child { margin-bottom: 0; }
+.option-label { font-size: 11px; color: var(--gray-700); margin-bottom: 4px; font-weight: 600; }
+.option-select { padding: 9px 10px; border: 1px solid var(--line); font-size: 12px; cursor: pointer; background: #fff; outline: none; }
+
+/* 수량 */
+.qty-control { display: flex; align-items: center; gap: 0; border: 1px solid var(--line); width: fit-content; }
+.qty-btn { width: 32px; height: 32px; background: #fff; border: none; cursor: pointer; font-size: 14px; transition: background .15s; }
+.qty-btn:hover { background: var(--gray-100); }
+.qty-input { width: 56px; height: 32px; border: none; border-left: 1px solid var(--line); border-right: 1px solid var(--line); text-align: center; font-size: 13px; font-weight: 700; outline: none; }
+
+/* 가격 요약 */
+.price-summary { padding: 22px; background: var(--gray-50); border-top: 2px solid var(--black); }
+.price-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; }
+.price-row.total { font-size: 18px; font-weight: 900; padding-top: 14px; margin-top: 8px; border-top: 1px solid var(--line); }
+.price-row.total .price-label { letter-spacing: -0.3px; }
+.price-row.total .price-value { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--red); letter-spacing: 1px; line-height: 1; }
+.price-row .price-label { color: var(--gray-700); }
+.price-row .price-value { font-weight: 700; }
+.price-row.discount .price-value { color: var(--red); }
+
+.price-warn { background: #fff8e0; border-left: 3px solid var(--yellow); padding: 10px 14px; font-size: 11px; line-height: 1.6; color: var(--gray-700); margin-top: 14px; }
+.price-warn strong { color: var(--black); font-weight: 700; }
+
+/* 결제 버튼 */
+.checkout-btns { padding: 18px 22px; display: flex; flex-direction: column; gap: 8px; }
+.btn-primary { background: var(--red); color: #fff; padding: 16px; font-size: 14px; font-weight: 700; letter-spacing: 0.5px; cursor: pointer; transition: all .15s; border: none; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.btn-primary:hover { background: var(--red-dark); }
+.btn-secondary { background: var(--black); color: #fff; padding: 13px; font-size: 12px; font-weight: 600; letter-spacing: 0.3px; cursor: pointer; transition: all .15s; border: none; }
+.btn-secondary:hover { background: var(--gray-700); }
+.btn-ghost { background: transparent; color: var(--gray-700); padding: 11px; font-size: 12px; font-weight: 500; cursor: pointer; transition: all .15s; border: 1px solid var(--line); }
+.btn-ghost:hover { border-color: var(--black); color: var(--black); }
+
+/* ===== INFO BANNER ===== */
+.info-banner { max-width: 1340px; margin: 0 auto; padding: 0 24px 50px; }
+.info-banner-grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); }
+.info-item { padding: 22px 18px; border-right: 1px solid var(--line); display: flex; gap: 14px; align-items: flex-start; }
+.info-item:last-child { border-right: none; }
+.info-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 1.5px; flex-shrink: 0; padding-top: 2px; }
+.info-content {}
+.info-title { font-size: 13px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.2px; }
+.info-desc { font-size: 11px; color: var(--gray-500); line-height: 1.5; }
+
+/* ===== FLOATING CHAT ===== */
+.float-chat { position: fixed; bottom: 24px; right: 24px; background: var(--red); color: #fff; padding: 14px 22px; display: flex; align-items: center; gap: 12px; box-shadow: 0 8px 24px rgba(200, 22, 29, 0.3); cursor: pointer; z-index: 100; transition: all .15s; }
+.float-chat:hover { background: var(--black); }
+.float-chat-icon { width: 32px; height: 32px; background: #fff; color: var(--red); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 12px; font-family: 'IBM Plex Mono', monospace; }
+.float-chat-text { font-size: 13px; font-weight: 700; line-height: 1.2; }
+.float-chat-sub { font-size: 11px; opacity: .9; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+
+/* ===== FOOTER ===== */
+.footer { background: var(--black); color: #888; padding: 50px 0 28px; font-size: 12px; }
+.footer-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 36px; padding-bottom: 32px; border-bottom: 1px solid #333; }
+.footer-logo-main { font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 4px; letter-spacing: -0.8px; }
+.footer-logo-main .accent { color: var(--red); }
+.footer-logo-sub { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 3px; color: var(--gray-500); margin-bottom: 18px; }
+.footer-cs-num { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: #fff; letter-spacing: 1px; margin: 6px 0 4px; }
+.footer h4 { color: #fff; font-size: 12px; margin-bottom: 14px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 1.5px; font-weight: 600; }
+.footer ul { list-style: none; }
+.footer ul li { margin-bottom: 8px; }
+.footer ul li:hover { color: #fff; }
+.footer-bottom { line-height: 1.8; opacity: .55; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.3px; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span>SS TRADING CO.</span>
+      <span class="divider">|</span>
+      <span>TEL. 1588-0000 / 평일 09:00 ─ 18:00</span>
+      <span class="divider">|</span>
+      <span>인천 본점 운영중</span>
+    </div>
+    <div>
+      <a href="#">로그인</a>
+      <a href="#">회원가입</a>
+      <a href="#">주문조회</a>
+      <a href="#">고객센터</a>
+      <a href="#" class="b2b">▶ 단체주문 견적</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-main">에스에스<span class="accent">종합상사</span></div>
+      <div class="logo-sub">SAFETY · WORKWEAR · SINCE</div>
+    </a>
+    <div class="search-box">
+      <input type="text" placeholder="브랜드, 상품명, 카테고리로 검색하세요">
+      <button>⌕</button>
+    </div>
+    <div class="header-icons">
+      <a href="#">찜 <span class="num">12</span></a>
+      <a href="#">장바구니 <span class="num">03</span></a>
+      <a href="#">마이페이지</a>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-cat-btn">▣ ALL CATEGORIES</div>
+    <div class="nav-menu">
+      <a href="#">신상품</a>
+      <a href="#" class="hot">▶ TODAY DEAL</a>
+      <a href="#">베스트</a>
+      <a href="#">작업복</a>
+      <a href="#">안전화</a>
+      <a href="#">안전용품</a>
+      <a href="#" class="active">자수/마킹</a>
+      <a href="#">브랜드관</a>
+    </div>
+    <div class="nav-cs">
+      <span style="opacity:.6">단체주문</span>
+      <span class="cs-num">1588-0000</span>
+    </div>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="#">HOME</a>
+  <span class="sep">/</span>
+  <a href="#">자수 / 마킹</a>
+  <span class="sep">/</span>
+  <span class="current">DIY 자수 시뮬레이터</span>
+</div>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="page-header-box">
+    <div class="page-header-content">
+      <div class="page-header-left">
+        <div class="page-header-tag">DIY EMBROIDERY SIMULATOR</div>
+        <div class="page-header-main">시안을 직접 만들고 <span class="accent">바로 결제</span></div>
+        <div class="page-header-sub">로고를 업로드하고 위치를 정하면, 가격이 자동으로 계산됩니다</div>
+      </div>
+      <a href="#" class="page-header-link">자수 안내 보기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- STEP INDICATOR -->
+<section class="steps">
+  <div class="steps-grid">
+    <div class="step done">
+      <div class="step-num">01</div>
+      <div class="step-info">
+        <div class="step-label">STEP / 01</div>
+        <div class="step-name">의류 선택</div>
+      </div>
+    </div>
+    <div class="step active">
+      <div class="step-num">02</div>
+      <div class="step-info">
+        <div class="step-label">STEP / 02</div>
+        <div class="step-name">시안 디자인</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-info">
+        <div class="step-label">STEP / 03</div>
+        <div class="step-name">자수 종류 선택</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-info">
+        <div class="step-label">STEP / 04</div>
+        <div class="step-name">결제</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIMULATOR -->
+<section class="simulator">
+
+  <!-- LEFT: CANVAS (티셔츠 시뮬레이터) -->
+  <div class="canvas-wrap">
+
+    <!-- 4면 탭 -->
+    <div class="canvas-tabs">
+      <div class="canvas-tab active" data-view="front">
+        <span class="tab-num">/01</span>
+        <span>정면</span>
+      </div>
+      <div class="canvas-tab" data-view="back">
+        <span class="tab-num">/02</span>
+        <span>뒷면</span>
+      </div>
+      <div class="canvas-tab" data-view="left">
+        <span class="tab-num">/03</span>
+        <span>왼쪽</span>
+      </div>
+      <div class="canvas-tab" data-view="right">
+        <span class="tab-num">/04</span>
+        <span>오른쪽</span>
+      </div>
+    </div>
+
+    <div class="canvas-corner">SS-CANVAS / WHITE T-SHIRT</div>
+
+    <div class="canvas-tools">
+      <button class="tool-btn" title="실행 취소">↶</button>
+      <button class="tool-btn" title="다시 실행">↷</button>
+      <button class="tool-btn danger" title="모두 지우기">✕</button>
+    </div>
+
+    <!-- 시뮬레이터 스테이지 -->
+    <div class="canvas-stage">
+
+      <!-- 정면 뷰 -->
+      <div class="tshirt-view active" id="view-front">
+        <svg class="tshirt-svg" viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg">
+          <!-- 티셔츠 정면 -->
+          <path d="M 120 60 L 80 90 L 50 130 L 70 180 L 100 165 L 100 440 L 300 440 L 300 165 L 330 180 L 350 130 L 320 90 L 280 60 L 250 60 Q 230 90 200 90 Q 170 90 150 60 Z" 
+                fill="#ffffff" stroke="#d8d8d8" stroke-width="1.5" id="tshirt-body-front"/>
+          <!-- 목 라인 -->
+          <path d="M 150 60 Q 200 100 250 60" fill="none" stroke="#d8d8d8" stroke-width="1.5"/>
+          <!-- 봉제선 -->
+          <line x1="100" y1="165" x2="100" y2="440" stroke="#ececec" stroke-width="1" stroke-dasharray="2,3"/>
+          <line x1="300" y1="165" x2="300" y2="440" stroke="#ececec" stroke-width="1" stroke-dasharray="2,3"/>
+        </svg>
+
+        <!-- 자수 영역 (정면): 왼가슴 -->
+        <div class="tshirt-zone empty" style="top: 26%; left: 30%; width: 70px; height: 70px;" data-zone="front-chest-left">
+          <span class="zone-num">01</span>
+          <div class="zone-icon">+</div>
+          <div class="zone-text">왼가슴<br>10×10cm</div>
+        </div>
+
+        <!-- 자수 영역 (정면): 가슴 중앙 -->
+        <div class="tshirt-zone empty" style="top: 30%; left: 50%; transform: translateX(-50%); width: 100px; height: 100px;" data-zone="front-chest-center">
+          <span class="zone-num">02</span>
+          <div class="zone-icon">+</div>
+          <div class="zone-text">가슴 중앙<br>15×15cm</div>
+        </div>
+      </div>
+
+      <!-- 뒷면 뷰 -->
+      <div class="tshirt-view" id="view-back">
+        <svg class="tshirt-svg" viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 120 60 L 80 90 L 50 130 L 70 180 L 100 165 L 100 440 L 300 440 L 300 165 L 330 180 L 350 130 L 320 90 L 280 60 L 250 60 Q 230 75 200 75 Q 170 75 150 60 Z" 
+                fill="#ffffff" stroke="#d8d8d8" stroke-width="1.5"/>
+          <path d="M 150 60 Q 200 75 250 60" fill="none" stroke="#d8d8d8" stroke-width="1.5"/>
+          <line x1="100" y1="165" x2="100" y2="440" stroke="#ececec" stroke-width="1" stroke-dasharray="2,3"/>
+          <line x1="300" y1="165" x2="300" y2="440" stroke="#ececec" stroke-width="1" stroke-dasharray="2,3"/>
+        </svg>
+
+        <!-- 자수 영역 (뒷면): 등 상단 -->
+        <div class="tshirt-zone empty" style="top: 22%; left: 50%; transform: translateX(-50%); width: 90px; height: 50px;" data-zone="back-top">
+          <span class="zone-num">03</span>
+          <div class="zone-icon">+</div>
+          <div class="zone-text">등 상단<br>회사명</div>
+        </div>
+
+        <!-- 자수 영역 (뒷면): 등 중앙 -->
+        <div class="tshirt-zone empty" style="top: 40%; left: 50%; transform: translateX(-50%); width: 200px; height: 200px;" data-zone="back-center">
+          <span class="zone-num">04</span>
+          <div class="zone-icon">+</div>
+          <div class="zone-text">등 중앙<br>30×30cm 대형 로고</div>
+        </div>
+      </div>
+
+      <!-- 왼쪽 뷰 -->
+      <div class="tshirt-view" id="view-left">
+        <svg class="tshirt-svg" viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 150 60 L 110 90 L 90 130 L 110 180 L 130 165 L 130 440 L 270 440 L 270 165 L 290 180 L 310 130 L 290 90 L 250 60 Q 230 90 200 90 Q 170 90 150 60 Z" 
+                fill="#ffffff" stroke="#d8d8d8" stroke-width="1.5"/>
+          <line x1="130" y1="165" x2="130" y2="440" stroke="#ececec" stroke-width="1" stroke-dasharray="2,3"/>
+          <line x1="270" y1="165" x2="270" y2="440" stroke="#ececec" stroke-width="1" stroke-dasharray="2,3"/>
+        </svg>
+
+        <div class="tshirt-zone empty" style="top: 32%; left: 30%; width: 60px; height: 60px;" data-zone="left-arm">
+          <span class="zone-num">05</span>
+          <div class="zone-icon">+</div>
+          <div class="zone-text">왼팔<br>로고</div>
+        </div>
+      </div>
+
+      <!-- 오른쪽 뷰 -->
+      <div class="tshirt-view" id="view-right">
+        <svg class="tshirt-svg" viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 150 60 L 110 90 L 90 130 L 110 180 L 130 165 L 130 440 L 270 440 L 270 165 L 290 180 L 310 130 L 290 90 L 250 60 Q 230 90 200 90 Q 170 90 150 60 Z" 
+                fill="#ffffff" stroke="#d8d8d8" stroke-width="1.5"/>
+          <line x1="130" y1="165" x2="130" y2="440" stroke="#ececec" stroke-width="1" stroke-dasharray="2,3"/>
+          <line x1="270" y1="165" x2="270" y2="440" stroke="#ececec" stroke-width="1" stroke-dasharray="2,3"/>
+        </svg>
+
+        <div class="tshirt-zone empty" style="top: 32%; right: 30%; width: 60px; height: 60px;" data-zone="right-arm">
+          <span class="zone-num">06</span>
+          <div class="zone-icon">+</div>
+          <div class="zone-text">오른팔<br>로고</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 색상 선택 -->
+    <div class="canvas-bottom">
+      <div class="color-label">COLOR</div>
+      <div class="color-swatches">
+        <div class="color-swatch white active" data-color="#ffffff"></div>
+        <div class="color-swatch gray" data-color="#888888"></div>
+        <div class="color-swatch black" data-color="#1a1a1a"></div>
+        <div class="color-swatch navy" data-color="#1e3a5f"></div>
+        <div class="color-swatch red" data-color="#c8161d"></div>
+      </div>
+    </div>
+
+    <!-- 줌 컨트롤 -->
+    <div class="canvas-zoom">
+      <div class="zoom-btn">−</div>
+      <div class="zoom-display">100%</div>
+      <div class="zoom-btn">+</div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT: SIDEBAR (옵션 + 가격) -->
+  <aside class="sidebar">
+
+    <!-- 1. 이미지 업로드 -->
+    <div class="side-section">
+      <div class="side-section-tag">SECTION / 01</div>
+      <div class="side-section-title">로고 / 이미지 업로드</div>
+      <div class="upload-box" id="uploadBox">
+        <div class="upload-icon">↑</div>
+        <div class="upload-text">파일을 드래그하거나 클릭</div>
+        <div class="upload-sub">PNG · JPG · SVG (최대 10MB)</div>
+        <div class="upload-formats">
+          <span class="format-tag">PNG</span>
+          <span class="format-tag">JPG</span>
+          <span class="format-tag">SVG</span>
+          <span class="format-tag">AI</span>
+        </div>
+      </div>
+
+      <div class="uploaded-list">
+        <div class="uploaded-item placed">
+          <div class="uploaded-thumb">▣</div>
+          <div class="uploaded-info">
+            <div class="uploaded-name">company-logo.png</div>
+            <div class="uploaded-status">▶ 왼가슴 배치됨</div>
+          </div>
+        </div>
+        <div class="uploaded-item">
+          <div class="uploaded-thumb">▢</div>
+          <div class="uploaded-info">
+            <div class="uploaded-name">slogan-text.svg</div>
+            <div class="uploaded-status">미배치 / 클릭하여 배치</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. 텍스트 자수 -->
+    <div class="side-section">
+      <div class="side-section-tag">SECTION / 02</div>
+      <div class="side-section-title">텍스트 자수 추가</div>
+      <div class="text-input-row">
+        <input type="text" class="text-input" placeholder="자수할 텍스트 입력 (예: 홍길동)">
+        <button class="text-add-btn">ADD</button>
+      </div>
+      <div class="font-row">
+        <select class="font-select">
+          <option>고딕체 (기본)</option>
+          <option>명조체</option>
+          <option>손글씨체</option>
+          <option>영문 Bebas</option>
+        </select>
+        <select class="font-select">
+          <option>크기 - 보통 (3cm)</option>
+          <option>크기 - 작게 (2cm)</option>
+          <option>크기 - 크게 (5cm)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 3. 자수 종류 -->
+    <div class="side-section">
+      <div class="side-section-tag">SECTION / 03</div>
+      <div class="side-section-title">자수 종류 선택</div>
+      <div class="emb-types">
+        <div class="emb-type active recommended">
+          <div class="emb-type-num">TYPE / 01</div>
+          <div class="emb-type-name">컴퓨터 자수</div>
+          <div class="emb-type-price">+ 5,000원~</div>
+        </div>
+        <div class="emb-type">
+          <div class="emb-type-num">TYPE / 02</div>
+          <div class="emb-type-name">패치 자수</div>
+          <div class="emb-type-price">+ 8,000원~</div>
+        </div>
+        <div class="emb-type">
+          <div class="emb-type-num">TYPE / 03</div>
+          <div class="emb-type-name">아플리케</div>
+          <div class="emb-type-price">+ 7,000원~</div>
+        </div>
+        <div class="emb-type">
+          <div class="emb-type-num">TYPE / 04</div>
+          <div class="emb-type-name">실사 패치</div>
+          <div class="emb-type-price">+ 10,000원~</div>
+        </div>
+        <div class="emb-type">
+          <div class="emb-type-num">TYPE / 05</div>
+          <div class="emb-type-name">벨크로 패치</div>
+          <div class="emb-type-price">+ 12,000원~</div>
+        </div>
+        <div class="emb-type">
+          <div class="emb-type-num">TYPE / 06</div>
+          <div class="emb-type-name">캐릭터 디자인</div>
+          <div class="emb-type-price">+ 30,000원~</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. 의류 옵션 -->
+    <div class="side-section">
+      <div class="side-section-tag">SECTION / 04</div>
+      <div class="side-section-title">의류 옵션</div>
+      <div class="option-row">
+        <div>
+          <div class="option-label">사이즈</div>
+          <select class="option-select" style="width: 100%;">
+            <option>S (90)</option>
+            <option>M (95)</option>
+            <option selected>L (100)</option>
+            <option>XL (105)</option>
+            <option>XXL (110)</option>
+          </select>
+        </div>
+        <div>
+          <div class="option-label">수량</div>
+          <div class="qty-control">
+            <button class="qty-btn">−</button>
+            <input type="text" class="qty-input" value="1">
+            <button class="qty-btn">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. 가격 요약 -->
+    <div class="price-summary">
+      <div class="price-row">
+        <span class="price-label">티셔츠 (L · 1장)</span>
+        <span class="price-value">12,000원</span>
+      </div>
+      <div class="price-row">
+        <span class="price-label">컴퓨터 자수 × 1</span>
+        <span class="price-value">5,000원</span>
+      </div>
+      <div class="price-row discount">
+        <span class="price-label">5장 이상 단체할인</span>
+        <span class="price-value">- 0원</span>
+      </div>
+      <div class="price-row total">
+        <span class="price-label">합계</span>
+        <span class="price-value">17,000원</span>
+      </div>
+
+      <div class="price-warn">
+        <strong>안내 / </strong>이미지가 복잡하거나 색상이 많은 경우 펀칭 작업 추가 비용이 발생할 수 있습니다. 결제 후 디자이너 검수 단계에서 안내드립니다.
+      </div>
+    </div>
+
+    <!-- 6. 결제 버튼 -->
+    <div class="checkout-btns">
+      <button class="btn-primary">바로 결제하기 →</button>
+      <button class="btn-secondary">장바구니 담기</button>
+      <button class="btn-ghost">시안 저장 / 나중에 결제</button>
+    </div>
+
+  </aside>
+
+</section>
+
+<!-- INFO BANNER (시뮬레이터 사용 안내) -->
+<section class="info-banner">
+  <div class="info-banner-grid">
+    <div class="info-item">
+      <div class="info-num">01 /</div>
+      <div class="info-content">
+        <div class="info-title">의류 선택</div>
+        <div class="info-desc">티셔츠 색상과 사이즈를 먼저 선택해주세요</div>
+      </div>
+    </div>
+    <div class="info-item">
+      <div class="info-num">02 /</div>
+      <div class="info-content">
+        <div class="info-title">로고 / 이미지 업로드</div>
+        <div class="info-desc">PNG / JPG / SVG / AI 파일을 업로드하세요</div>
+      </div>
+    </div>
+    <div class="info-item">
+      <div class="info-num">03 /</div>
+      <div class="info-content">
+        <div class="info-title">위치 / 크기 조정</div>
+        <div class="info-desc">자수 영역에 드래그하여 자유롭게 배치</div>
+      </div>
+    </div>
+    <div class="info-item">
+      <div class="info-num">04 /</div>
+      <div class="info-content">
+        <div class="info-title">자수 종류 / 결제</div>
+        <div class="info-desc">자수 종류 선택 후 바로 결제 가능</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOATING CHAT -->
+<a href="#" class="float-chat">
+  <div class="float-chat-icon">1:1</div>
+  <div>
+    <div class="float-chat-text">전문 상담</div>
+    <div class="float-chat-sub">EMBROIDERY · BULK</div>
+  </div>
+</a>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo-main">에스에스<span class="accent">종합상사</span></div>
+        <div class="footer-logo-sub">SAFETY · WORKWEAR</div>
+        <h4>CUSTOMER CENTER</h4>
+        <div class="footer-cs-num">1588-0000</div>
+        <div style="margin-top: 8px;">평일 09:00 - 18:00 (점심 12:00-13:00)<br>주말 및 공휴일 휴무 / 카톡: @ssmart</div>
+      </div>
+      <div>
+        <h4>SHOP</h4>
+        <ul><li>신상품</li><li>베스트</li><li>오늘의 특가</li><li>자수/마킹</li><li>단체주문</li></ul>
+      </div>
+      <div>
+        <h4>SUPPORT</h4>
+        <ul><li>공지사항</li><li>1:1 문의</li><li>FAQ</li><li>리뷰 이벤트</li><li>적립금 안내</li></ul>
+      </div>
+      <div>
+        <h4>POLICY</h4>
+        <ul><li>이용약관</li><li>개인정보처리방침</li><li>배송/교환/환불</li><li>사업자정보확인</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      ㈜에스에스종합상사 / 대표: ○○○ / 사업자등록번호: 000-00-00000 / 통신판매업신고: 제2026-인천○○-0000호<br>
+      인천광역시 ○○구 ○○로 000 / TEL. 430-0497 / FAX. 430-0498<br>
+      © 2026 SS TRADING CO. ALL RIGHTS RESERVED.
+    </div>
+  </div>
+</footer>
+
+<script>
+// 4면 탭 전환
+document.querySelectorAll('.canvas-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.canvas-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tshirt-view').forEach(v => v.classList.remove('active'));
+    tab.classList.add('active');
+    const view = tab.dataset.view;
+    document.getElementById('view-' + view).classList.add('active');
+  });
+});
+
+// 색상 변경
+document.querySelectorAll('.color-swatch').forEach(swatch => {
+  swatch.addEventListener('click', () => {
+    document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+    swatch.classList.add('active');
+    const color = swatch.dataset.color;
+    document.querySelectorAll('.tshirt-svg path').forEach(path => {
+      if (path.parentNode.parentNode.tagName !== 'DIV' || path.getAttribute('fill') === '#ffffff' || path.getAttribute('fill') === color) {
+        // 티셔츠 본체 색상만 변경
+        if (!path.getAttribute('fill') || path.getAttribute('fill') === 'none') return;
+        path.setAttribute('fill', color);
+      }
+    });
+  });
+});
+
+// 자수 종류 선택
+document.querySelectorAll('.emb-type').forEach(type => {
+  type.addEventListener('click', () => {
+    document.querySelectorAll('.emb-type').forEach(t => t.classList.remove('active'));
+    type.classList.add('active');
+  });
+});
+
+// 업로드 박스 클릭 시뮬레이션 (실제로는 파일 업로드 다이얼로그)
+document.getElementById('uploadBox').addEventListener('click', () => {
+  alert('실제 운영 시: 파일 업로드 다이얼로그가 열립니다.\n\n현재는 시안 단계라 업로드된 파일 2개가 미리 표시되어 있습니다.');
+});
+
+// 자수 영역 클릭 시 배치 시뮬레이션
+document.querySelectorAll('.tshirt-zone.empty').forEach(zone => {
+  zone.addEventListener('click', () => {
+    alert('실제 운영 시: 업로드한 이미지를 이 영역에 자동 배치하고\n드래그/리사이즈/회전이 가능합니다.\n\n예시 영역: ' + zone.dataset.zone);
+  });
+});
+
+// 수량 조절
+document.querySelectorAll('.qty-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const input = btn.parentElement.querySelector('.qty-input');
+    let val = parseInt(input.value) || 1;
+    if (btn.textContent.trim() === '+') val++;
+    else if (val > 1) val--;
+    input.value = val;
+  });
+});
+</script>
+
+</body>
+</html>

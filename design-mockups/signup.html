@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회원가입 — 에스에스종합상사</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;900&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans KR', sans-serif; color: #1a1a1a; background: #fff; font-size: 13px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+:root {
+  --red: #c8161d;
+  --red-dark: #9c0e15;
+  --black: #111;
+  --gray-900: #1a1a1a;
+  --gray-700: #4a4a4a;
+  --gray-500: #8a8a8a;
+  --gray-300: #d8d8d8;
+  --gray-100: #f4f4f4;
+  --gray-50: #fafafa;
+  --line: #e5e5e5;
+  --yellow: #ffd400;
+}
+
+/* TOP BAR / HEADER / NAV (공통) */
+.topbar { background: #f4f4f4; color: #555; font-size: 11px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+.topbar-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+.topbar-left { display: flex; align-items: center; gap: 16px; }
+.topbar-left .divider { color: #ccc; }
+.topbar a { margin-left: 16px; }
+.topbar a.b2b { color: var(--red); font-weight: 600; }
+
+.header { background: #fff; border-bottom: 1px solid var(--line); }
+.header-inner { max-width: 1340px; margin: 0 auto; padding: 26px 24px; display: flex; align-items: center; gap: 40px; }
+.logo { display: flex; flex-direction: column; line-height: 1; padding-right: 30px; border-right: 1px solid var(--line); }
+.logo-main { font-size: 24px; font-weight: 900; color: var(--black); letter-spacing: -0.8px; }
+.logo-main .accent { color: var(--red); }
+.logo-sub { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 3px; color: var(--gray-500); margin-top: 5px; }
+.search-box { flex: 1; max-width: 580px; position: relative; }
+.search-box input { width: 100%; padding: 13px 50px 13px 18px; border: 2px solid var(--black); background: #fff; font-size: 13px; outline: none; font-weight: 500; }
+.search-box button { position: absolute; right: 0; top: 0; bottom: 0; background: var(--black); color: #fff; border: none; width: 50px; cursor: pointer; font-size: 16px; }
+.header-icons { display: flex; gap: 0; margin-left: auto; align-items: center; }
+.header-icons a { padding: 10px 18px; font-size: 12px; font-weight: 500; color: var(--gray-700); border-left: 1px solid var(--line); display: flex; align-items: center; gap: 6px; }
+.header-icons a:first-child { border-left: none; }
+.header-icons a .num { color: var(--red); font-weight: 700; font-family: 'Bebas Neue', sans-serif; font-size: 14px; }
+
+.nav { background: var(--black); }
+.nav-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; display: flex; align-items: stretch; }
+.nav-cat-btn { background: var(--red); color: #fff; padding: 0 24px; font-weight: 700; display: flex; align-items: center; gap: 12px; font-size: 13px; min-width: 200px; letter-spacing: 0.3px; }
+.nav-menu { display: flex; flex: 1; align-items: center; }
+.nav-menu a { padding: 16px 18px; font-weight: 500; color: #fff; font-size: 13px; }
+.nav-menu a.hot { color: var(--yellow); font-weight: 600; }
+.nav-cs { margin-left: auto; padding: 0 22px; display: flex; align-items: center; gap: 10px; border-left: 1px solid #333; color: #fff; font-size: 12px; }
+.nav-cs .cs-num { font-family: 'Bebas Neue', sans-serif; color: var(--yellow); font-size: 18px; letter-spacing: 1px; }
+
+/* PAGE HEADER */
+.page-header { max-width: 900px; margin: 30px auto 24px; padding: 0 24px; }
+.page-header-inner { padding-bottom: 16px; border-bottom: 2px solid var(--black); }
+.page-header-tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 2px; margin-bottom: 8px; }
+.page-header-title { font-size: 32px; font-weight: 900; letter-spacing: -1px; }
+
+/* STEP PROGRESS */
+.step-progress { max-width: 900px; margin: 0 auto 30px; padding: 0 24px; }
+.step-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; border: 1px solid var(--line); }
+.step-pg { padding: 14px 16px; border-right: 1px solid var(--line); display: flex; align-items: center; gap: 12px; background: var(--gray-50); }
+.step-pg:last-child { border-right: none; }
+.step-pg.done { background: #fff; }
+.step-pg.active { background: var(--black); color: #fff; }
+.step-pg-num { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--gray-300); letter-spacing: 1px; line-height: 1; }
+.step-pg.done .step-pg-num { color: var(--gray-500); }
+.step-pg.active .step-pg-num { color: var(--yellow); }
+.step-pg-info {}
+.step-pg-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--gray-500); letter-spacing: 1px; }
+.step-pg.active .step-pg-label { color: rgba(255,255,255,0.6); }
+.step-pg-name { font-size: 12px; font-weight: 700; }
+
+/* SIGNUP MAIN */
+.signup-main { max-width: 900px; margin: 0 auto 50px; padding: 0 24px; display: grid; grid-template-columns: 1fr 280px; gap: 24px; align-items: flex-start; }
+
+/* FORM */
+.signup-form {}
+.form-section { background: #fff; border: 1px solid var(--line); margin-bottom: 12px; }
+.form-section-header { padding: 14px 20px; border-bottom: 1px solid var(--line); background: var(--gray-50); }
+.form-section-title { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 800; letter-spacing: -0.3px; }
+.form-section-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 1.5px; padding: 3px 8px; border: 1px solid var(--red); font-weight: 700; }
+.form-section-body { padding: 22px 24px; }
+
+/* 입력 필드 */
+.input-row { display: grid; grid-template-columns: 130px 1fr; gap: 14px; align-items: center; padding: 8px 0; }
+.input-label { font-size: 12px; color: var(--gray-700); font-weight: 600; display: flex; align-items: center; gap: 4px; }
+.input-label .required { color: var(--red); font-size: 11px; }
+.input-text { padding: 10px 12px; border: 1px solid var(--line); font-size: 13px; outline: none; font-family: 'Noto Sans KR'; width: 100%; }
+.input-text:focus { border-color: var(--black); }
+.input-with-btn { display: flex; gap: 6px; align-items: stretch; }
+.input-with-btn .input-text { flex: 1; }
+.input-side-btn { padding: 0 16px; background: var(--black); color: #fff; border: none; cursor: pointer; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; flex-shrink: 0; font-family: 'IBM Plex Mono', monospace; }
+.input-side-btn:hover { background: var(--red); }
+.input-side-btn.success { background: var(--gray-100); color: var(--red); border: 1px solid var(--red); }
+.input-helper { font-size: 11px; margin-top: 4px; padding-left: 144px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+.input-helper.success { color: var(--red); font-weight: 600; }
+.input-helper.info { color: var(--gray-500); }
+
+.input-double { display: grid; grid-template-columns: 1fr auto 1fr; gap: 6px; align-items: center; }
+.input-double .at { color: var(--gray-500); font-family: 'IBM Plex Mono', monospace; font-weight: 600; }
+.input-double select { padding: 10px 12px; border: 1px solid var(--line); font-size: 13px; cursor: pointer; background: #fff; outline: none; }
+
+/* 비밀번호 강도 */
+.pw-strength { display: flex; gap: 4px; margin-top: 8px; padding-left: 144px; }
+.pw-bar { flex: 1; height: 4px; background: var(--line); transition: background .15s; }
+.pw-bar.weak { background: #ff6b6b; }
+.pw-bar.medium { background: var(--yellow); }
+.pw-bar.strong { background: #2e7d32; }
+.pw-strength-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); margin-top: 4px; padding-left: 144px; letter-spacing: 0.5px; }
+.pw-strength-label .strong-label { color: #2e7d32; font-weight: 700; }
+
+/* 주소 */
+.address-block { display: flex; flex-direction: column; gap: 6px; }
+.address-search-row { display: flex; gap: 6px; align-items: center; max-width: 240px; }
+
+/* 약관 */
+.agreement-section { background: #fff; border: 1px solid var(--line); padding: 22px 24px; }
+.agreement-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; }
+.agreement-row.all { padding: 12px 0 14px; margin-bottom: 8px; border-bottom: 1px solid var(--line); }
+.agreement-label { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 13px; }
+.agreement-label.required { font-weight: 700; }
+.agreement-label.required .req-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 0.5px; }
+.agreement-label.optional .req-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); letter-spacing: 0.5px; }
+.checkbox { width: 18px; height: 18px; border: 1.5px solid var(--gray-300); display: flex; align-items: center; justify-content: center; transition: all .15s; flex-shrink: 0; background: #fff; cursor: pointer; }
+.checkbox.checked { background: var(--red); border-color: var(--red); color: #fff; font-size: 11px; font-weight: 700; }
+.checkbox.checked::after { content: '✓'; }
+.agreement-view { font-size: 11px; color: var(--gray-500); cursor: pointer; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+.agreement-view:hover { color: var(--red); }
+
+/* 제출 버튼 */
+.submit-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
+.btn-cancel { padding: 18px; background: #fff; color: var(--black); border: 1px solid var(--line); font-size: 14px; font-weight: 700; letter-spacing: 0.5px; cursor: pointer; transition: all .15s; }
+.btn-cancel:hover { border-color: var(--black); }
+.btn-submit { padding: 18px; background: var(--red); color: #fff; border: none; font-size: 14px; font-weight: 800; letter-spacing: 0.5px; cursor: pointer; transition: all .15s; }
+.btn-submit:hover { background: var(--red-dark); }
+
+/* RIGHT: 가입 혜택 안내 */
+.signup-benefit { position: sticky; top: 24px; background: #fff; border: 1px solid var(--line); }
+.benefit-header { background: var(--black); color: #fff; padding: 16px 20px; }
+.benefit-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--yellow); letter-spacing: 1.5px; margin-bottom: 4px; }
+.benefit-title { font-size: 15px; font-weight: 800; letter-spacing: -0.3px; }
+
+.benefit-list { padding: 0; }
+.benefit-item { padding: 14px 18px; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 36px 1fr; gap: 12px; align-items: center; }
+.benefit-item:last-child { border-bottom: none; }
+.benefit-item-num { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--red); letter-spacing: 1px; line-height: 1; text-align: center; }
+.benefit-item-text {}
+.benefit-item-name { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+.benefit-item-desc { font-size: 11px; color: var(--gray-500); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+
+.benefit-cs { padding: 18px 20px; background: var(--gray-50); border-top: 1px solid var(--line); }
+.benefit-cs-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 1.5px; margin-bottom: 6px; }
+.benefit-cs-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.benefit-cs-num { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--red); letter-spacing: 1px; line-height: 1; margin-top: 6px; }
+.benefit-cs-time { font-size: 11px; color: var(--gray-500); margin-top: 6px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+
+/* FOOTER */
+.footer { background: var(--black); color: #888; padding: 50px 0 28px; font-size: 12px; }
+.footer-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 36px; padding-bottom: 32px; border-bottom: 1px solid #333; }
+.footer-logo-main { font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 4px; letter-spacing: -0.8px; }
+.footer-logo-main .accent { color: var(--red); }
+.footer-logo-sub { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 3px; color: var(--gray-500); margin-bottom: 18px; }
+.footer-cs-num { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: #fff; letter-spacing: 1px; margin: 6px 0 4px; }
+.footer h4 { color: #fff; font-size: 12px; margin-bottom: 14px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 1.5px; font-weight: 600; }
+.footer ul { list-style: none; }
+.footer ul li { margin-bottom: 8px; }
+.footer-bottom { line-height: 1.8; opacity: .55; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.3px; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span>SS TRADING CO.</span>
+      <span class="divider">|</span>
+      <span>TEL. 1588-0000 / 평일 09:00 ─ 18:00</span>
+      <span class="divider">|</span>
+      <span>인천 본점 운영중</span>
+    </div>
+    <div>
+      <a href="#">로그인</a>
+      <a href="#">회원가입</a>
+      <a href="#">주문조회</a>
+      <a href="#">고객센터</a>
+      <a href="#" class="b2b">▶ 단체주문 견적</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-main">에스에스<span class="accent">종합상사</span></div>
+      <div class="logo-sub">SAFETY · WORKWEAR · SINCE</div>
+    </a>
+    <div class="search-box">
+      <input type="text" placeholder="브랜드, 상품명, 카테고리로 검색하세요">
+      <button>⌕</button>
+    </div>
+    <div class="header-icons">
+      <a href="#">찜 <span class="num">0</span></a>
+      <a href="#">장바구니 <span class="num">0</span></a>
+      <a href="#">마이페이지</a>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-cat-btn">▣ ALL CATEGORIES</div>
+    <div class="nav-menu">
+      <a href="#">신상품</a>
+      <a href="#" class="hot">▶ TODAY DEAL</a>
+      <a href="#">베스트</a>
+      <a href="#">작업복</a>
+      <a href="#">안전화</a>
+      <a href="#">안전용품</a>
+      <a href="#">자수/마킹</a>
+      <a href="#">브랜드관</a>
+    </div>
+    <div class="nav-cs">
+      <span style="opacity:.6">단체주문</span>
+      <span class="cs-num">1588-0000</span>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="page-header-inner">
+    <div class="page-header-tag">SIGNUP / NEW MEMBER</div>
+    <h1 class="page-header-title">회원가입</h1>
+  </div>
+</section>
+
+<!-- STEP PROGRESS -->
+<div class="step-progress">
+  <div class="step-grid">
+    <div class="step-pg done">
+      <div class="step-pg-num">01</div>
+      <div class="step-pg-info">
+        <div class="step-pg-label">STEP / 01</div>
+        <div class="step-pg-name">약관 동의</div>
+      </div>
+    </div>
+    <div class="step-pg active">
+      <div class="step-pg-num">02</div>
+      <div class="step-pg-info">
+        <div class="step-pg-label">STEP / 02</div>
+        <div class="step-pg-name">정보 입력</div>
+      </div>
+    </div>
+    <div class="step-pg">
+      <div class="step-pg-num">03</div>
+      <div class="step-pg-info">
+        <div class="step-pg-label">STEP / 03</div>
+        <div class="step-pg-name">본인 인증</div>
+      </div>
+    </div>
+    <div class="step-pg">
+      <div class="step-pg-num">04</div>
+      <div class="step-pg-info">
+        <div class="step-pg-label">STEP / 04</div>
+        <div class="step-pg-name">가입 완료</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="signup-main">
+
+  <main class="signup-form">
+
+    <!-- 1. 계정 정보 -->
+    <section class="form-section">
+      <div class="form-section-header">
+        <div class="form-section-title">
+          <span class="form-section-num">01 / ACCOUNT</span>
+          계정 정보
+        </div>
+      </div>
+      <div class="form-section-body">
+
+        <div class="input-row">
+          <div class="input-label">이메일 <span class="required">*</span></div>
+          <div>
+            <div class="input-with-btn">
+              <input type="email" class="input-text" value="hong@example.com" placeholder="이메일 주소">
+              <button class="input-side-btn success">CHECKED ✓</button>
+            </div>
+          </div>
+        </div>
+        <div class="input-helper success">▶ 사용 가능한 이메일입니다</div>
+
+        <div class="input-row">
+          <div class="input-label">비밀번호 <span class="required">*</span></div>
+          <input type="password" class="input-text" placeholder="영문, 숫자, 특수문자 조합 8자 이상">
+        </div>
+        <div class="pw-strength">
+          <div class="pw-bar strong"></div>
+          <div class="pw-bar strong"></div>
+          <div class="pw-bar strong"></div>
+          <div class="pw-bar"></div>
+        </div>
+        <div class="pw-strength-label">PASSWORD STRENGTH ─ <span class="strong-label">STRONG</span></div>
+
+        <div class="input-row">
+          <div class="input-label">비밀번호 확인 <span class="required">*</span></div>
+          <input type="password" class="input-text" placeholder="비밀번호 재입력">
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. 회원 정보 -->
+    <section class="form-section">
+      <div class="form-section-header">
+        <div class="form-section-title">
+          <span class="form-section-num">02 / MEMBER INFO</span>
+          회원 정보
+        </div>
+      </div>
+      <div class="form-section-body">
+
+        <div class="input-row">
+          <div class="input-label">이름 <span class="required">*</span></div>
+          <input type="text" class="input-text" value="홍길동">
+        </div>
+
+        <div class="input-row">
+          <div class="input-label">휴대폰 <span class="required">*</span></div>
+          <div>
+            <div class="input-with-btn">
+              <input type="text" class="input-text" value="010-1234-5678" placeholder="휴대폰 번호">
+              <button class="input-side-btn">SEND CODE</button>
+            </div>
+          </div>
+        </div>
+        <div class="input-helper info">▶ 본인 인증을 위해 인증번호가 발송됩니다</div>
+
+        <div class="input-row">
+          <div class="input-label">생년월일</div>
+          <div class="input-double" style="max-width: 320px;">
+            <select>
+              <option>1990</option>
+              <option>1991</option>
+              <option>1992</option>
+            </select>
+            <select>
+              <option>01월</option>
+              <option>02월</option>
+            </select>
+            <select>
+              <option>15일</option>
+              <option>16일</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <div class="input-label">성별</div>
+          <div style="display: flex; gap: 6px;">
+            <label style="flex: 1; padding: 10px; border: 1px solid var(--line); cursor: pointer; text-align: center; font-size: 13px; font-weight: 600; max-width: 120px;">남자</label>
+            <label style="flex: 1; padding: 10px; border: 1px solid var(--line); cursor: pointer; text-align: center; font-size: 13px; font-weight: 600; max-width: 120px;">여자</label>
+            <label style="flex: 1; padding: 10px; border: 1px solid var(--line); cursor: pointer; text-align: center; font-size: 13px; font-weight: 600; max-width: 120px; color: var(--gray-500);">선택안함</label>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. 주소 -->
+    <section class="form-section">
+      <div class="form-section-header">
+        <div class="form-section-title">
+          <span class="form-section-num">03 / ADDRESS</span>
+          기본 배송지
+        </div>
+      </div>
+      <div class="form-section-body">
+
+        <div class="input-row" style="align-items: flex-start;">
+          <div class="input-label" style="padding-top: 10px;">우편번호 <span class="required">*</span></div>
+          <div class="address-block">
+            <div class="address-search-row">
+              <input type="text" class="input-text" placeholder="우편번호" readonly>
+              <button class="input-side-btn">SEARCH ↗</button>
+            </div>
+            <input type="text" class="input-text" placeholder="기본 주소 (자동 입력)" readonly>
+            <input type="text" class="input-text" placeholder="상세 주소 입력">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. 마케팅 / 추가 옵션 -->
+    <section class="form-section">
+      <div class="form-section-header">
+        <div class="form-section-title">
+          <span class="form-section-num">04 / OPTIONAL</span>
+          추가 정보 / 선택
+        </div>
+      </div>
+      <div class="form-section-body">
+
+        <div class="input-row">
+          <div class="input-label">소속 / 회사</div>
+          <input type="text" class="input-text" placeholder="(선택) 회사명 입력 시 단체주문 안내">
+        </div>
+
+        <div class="input-row">
+          <div class="input-label">관심 카테고리</div>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            <label style="padding: 8px 14px; border: 1px solid var(--red); color: var(--red); cursor: pointer; font-size: 12px; font-weight: 600; background: #fff5f5;">작업복</label>
+            <label style="padding: 8px 14px; border: 1px solid var(--line); cursor: pointer; font-size: 12px; font-weight: 600;">안전화</label>
+            <label style="padding: 8px 14px; border: 1px solid var(--line); cursor: pointer; font-size: 12px; font-weight: 600;">안전용품</label>
+            <label style="padding: 8px 14px; border: 1px solid var(--red); color: var(--red); cursor: pointer; font-size: 12px; font-weight: 600; background: #fff5f5;">자수 / 마킹</label>
+            <label style="padding: 8px 14px; border: 1px solid var(--line); cursor: pointer; font-size: 12px; font-weight: 600;">F&B 유니폼</label>
+            <label style="padding: 8px 14px; border: 1px solid var(--line); cursor: pointer; font-size: 12px; font-weight: 600;">의료 / 위생</label>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <div class="input-label">추천인 코드</div>
+          <input type="text" class="input-text" placeholder="(선택) 추천인 코드 입력 시 1,000P 추가 적립" style="max-width: 320px;">
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. 약관 동의 -->
+    <section class="agreement-section">
+      <div class="agreement-row all">
+        <div class="agreement-label" style="font-weight: 700; font-size: 14px;">
+          <div class="checkbox checked"></div>
+          전체 동의 <span style="color: var(--gray-500); font-weight: 400; font-size: 11px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; margin-left: 6px;">/ 필수 및 선택 정보 모두 동의</span>
+        </div>
+      </div>
+      <div class="agreement-row">
+        <div class="agreement-label required">
+          <div class="checkbox checked"></div>
+          <span class="req-tag">[필수]</span>
+          만 14세 이상입니다
+        </div>
+      </div>
+      <div class="agreement-row">
+        <div class="agreement-label required">
+          <div class="checkbox checked"></div>
+          <span class="req-tag">[필수]</span>
+          이용약관 동의
+        </div>
+        <span class="agreement-view">VIEW ↗</span>
+      </div>
+      <div class="agreement-row">
+        <div class="agreement-label required">
+          <div class="checkbox checked"></div>
+          <span class="req-tag">[필수]</span>
+          개인정보 수집 및 이용 동의
+        </div>
+        <span class="agreement-view">VIEW ↗</span>
+      </div>
+      <div class="agreement-row">
+        <div class="agreement-label optional">
+          <div class="checkbox checked"></div>
+          <span class="req-tag">[선택]</span>
+          마케팅 정보 수신 동의 (이메일)
+        </div>
+        <span class="agreement-view">VIEW ↗</span>
+      </div>
+      <div class="agreement-row">
+        <div class="agreement-label optional">
+          <div class="checkbox"></div>
+          <span class="req-tag">[선택]</span>
+          마케팅 정보 수신 동의 (SMS / 카톡)
+        </div>
+        <span class="agreement-view">VIEW ↗</span>
+      </div>
+    </section>
+
+    <!-- 제출 버튼 -->
+    <div class="submit-btns">
+      <button class="btn-cancel">취소</button>
+      <button class="btn-submit">가입 완료 →</button>
+    </div>
+
+  </main>
+
+  <!-- 가입 혜택 안내 -->
+  <aside class="signup-benefit">
+    <div class="benefit-header">
+      <div class="benefit-tag">▶ SIGNUP BENEFITS</div>
+      <div class="benefit-title">가입 즉시 받는 혜택</div>
+    </div>
+
+    <div class="benefit-list">
+      <div class="benefit-item">
+        <div class="benefit-item-num">01</div>
+        <div class="benefit-item-text">
+          <div class="benefit-item-name">2,000P 즉시 적립</div>
+          <div class="benefit-item-desc">SIGNUP REWARD</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-item-num">02</div>
+        <div class="benefit-item-text">
+          <div class="benefit-item-name">10% 첫 구매 쿠폰</div>
+          <div class="benefit-item-desc">FIRST ORDER COUPON</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-item-num">03</div>
+        <div class="benefit-item-text">
+          <div class="benefit-item-name">무료 자수 시안</div>
+          <div class="benefit-item-desc">FREE EMBROIDERY DESIGN</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-item-num">04</div>
+        <div class="benefit-item-text">
+          <div class="benefit-item-name">생일 축하 쿠폰</div>
+          <div class="benefit-item-desc">BIRTHDAY 5,000원</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-item-num">05</div>
+        <div class="benefit-item-text">
+          <div class="benefit-item-name">무료 배송 / 단체할인</div>
+          <div class="benefit-item-desc">전 상품 무료 / 100벌 30%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="benefit-cs">
+      <div class="benefit-cs-tag">─ NEED HELP?</div>
+      <div class="benefit-cs-title">가입 관련 문의</div>
+      <div class="benefit-cs-num">1588-0000</div>
+      <div class="benefit-cs-time">평일 09:00 - 18:00<br>카톡: @ssmart</div>
+    </div>
+  </aside>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo-main">에스에스<span class="accent">종합상사</span></div>
+        <div class="footer-logo-sub">SAFETY · WORKWEAR</div>
+        <h4>CUSTOMER CENTER</h4>
+        <div class="footer-cs-num">1588-0000</div>
+        <div style="margin-top: 8px;">평일 09:00 - 18:00 (점심 12:00-13:00)<br>주말 및 공휴일 휴무 / 카톡: @ssmart</div>
+      </div>
+      <div>
+        <h4>SHOP</h4>
+        <ul><li>신상품</li><li>베스트</li><li>오늘의 특가</li><li>자수/마킹</li><li>단체주문</li></ul>
+      </div>
+      <div>
+        <h4>SUPPORT</h4>
+        <ul><li>공지사항</li><li>1:1 문의</li><li>FAQ</li><li>리뷰 이벤트</li><li>적립금 안내</li></ul>
+      </div>
+      <div>
+        <h4>POLICY</h4>
+        <ul><li>이용약관</li><li>개인정보처리방침</li><li>배송/교환/환불</li><li>사업자정보확인</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      ㈜에스에스종합상사 / 대표: ○○○ / 사업자등록번호: 000-00-00000 / 통신판매업신고: 제2026-인천○○-0000호<br>
+      인천광역시 ○○구 ○○로 000 / TEL. 430-0497 / FAX. 430-0498<br>
+      © 2026 SS TRADING CO. ALL RIGHTS RESERVED.
+    </div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.checkbox').forEach(cb => {
+  cb.addEventListener('click', (e) => {
+    e.stopPropagation();
+    cb.classList.toggle('checked');
+  });
+});
+</script>
+
+</body>
+</html>

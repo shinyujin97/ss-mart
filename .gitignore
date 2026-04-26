@@ -1,0 +1,12 @@
+node_modules
+.next
+.env
+.env.local
+.env.*.local
+
+/src/generated/prisma
+
+# Misc
+.DS_Store
+*.pem
+.vercel

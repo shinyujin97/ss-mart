@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+
+  "permissions": {
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(npx prisma generate)",
+      "Bash(npx prisma format)",
+      "Bash(npx prisma validate)",
+      "Bash(npx prisma migrate dev:*)",
+      "Bash(npx tsc:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git branch:*)",
+      "Bash(git checkout:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(find:*)",
+      "Bash(pwd)",
+      "Bash(echo:*)"
+    ],
+    "ask": [
+      "Edit",
+      "Write",
+      "Bash(npx prisma migrate deploy:*)",
+      "Bash(npx prisma db push:*)",
+      "Bash(npx prisma db seed:*)",
+      "Bash(git push:*)",
+      "Bash(git merge:*)",
+      "Bash(git rebase:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(npx prisma migrate reset:*)",
+      "Bash(curl * | sh)",
+      "Bash(curl * | bash)",
+      "Bash(sudo:*)",
+      "Read(.env)",
+      "Read(.env.production)",
+      "Read(.env.local)",
+      "Read(.env.staging)",
+      "Read(*.pem)",
+      "Read(*.key)",
+      "Read(credentials.json)",
+      "Read(secrets.json)"
+    ]
+  },
+
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/session-start.sh"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/inject-skill-hints.sh"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/block-dangerous-commands.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Read|Edit|Write|Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/block-secret-files.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/auto-format.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/prisma-auto-generate.sh"
+          }
+        ]
+      }
+    ]
+  },
+
+  "model": "sonnet",
+
+  "env": {
+    "PROJECT_NAME": "ss-mart",
+    "BUSINESS_NAME": "에스에스종합상사"
+  }
+}

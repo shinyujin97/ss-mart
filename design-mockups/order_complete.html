@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>주문 완료 — 에스에스종합상사</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;900&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans KR', sans-serif; color: #1a1a1a; background: #fff; font-size: 13px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+:root {
+  --red: #c8161d;
+  --red-dark: #9c0e15;
+  --black: #111;
+  --gray-900: #1a1a1a;
+  --gray-700: #4a4a4a;
+  --gray-500: #8a8a8a;
+  --gray-300: #d8d8d8;
+  --gray-100: #f4f4f4;
+  --gray-50: #fafafa;
+  --line: #e5e5e5;
+  --yellow: #ffd400;
+}
+
+/* ===== TOP BAR ===== */
+.topbar { background: #f4f4f4; color: #555; font-size: 11px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+.topbar-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+.topbar-left { display: flex; align-items: center; gap: 16px; }
+.topbar-left .divider { color: #ccc; }
+.topbar a { margin-left: 16px; }
+.topbar a:hover { color: var(--red); }
+.topbar a.b2b { color: var(--red); font-weight: 600; }
+
+/* ===== HEADER ===== */
+.header { background: #fff; border-bottom: 1px solid var(--line); }
+.header-inner { max-width: 1340px; margin: 0 auto; padding: 26px 24px; display: flex; align-items: center; gap: 40px; }
+.logo { display: flex; flex-direction: column; line-height: 1; padding-right: 30px; border-right: 1px solid var(--line); }
+.logo-main { font-size: 24px; font-weight: 900; color: var(--black); letter-spacing: -0.8px; }
+.logo-main .accent { color: var(--red); }
+.logo-sub { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 3px; color: var(--gray-500); margin-top: 5px; }
+.search-box { flex: 1; max-width: 580px; position: relative; }
+.search-box input { width: 100%; padding: 13px 50px 13px 18px; border: 2px solid var(--black); background: #fff; font-size: 13px; outline: none; font-weight: 500; }
+.search-box button { position: absolute; right: 0; top: 0; bottom: 0; background: var(--black); color: #fff; border: none; width: 50px; cursor: pointer; font-size: 16px; }
+.header-icons { display: flex; gap: 0; margin-left: auto; align-items: center; }
+.header-icons a { padding: 10px 18px; font-size: 12px; font-weight: 500; color: var(--gray-700); border-left: 1px solid var(--line); display: flex; align-items: center; gap: 6px; }
+.header-icons a:first-child { border-left: none; }
+.header-icons a:hover { color: var(--red); }
+.header-icons a .num { color: var(--red); font-weight: 700; font-family: 'Bebas Neue', sans-serif; font-size: 14px; }
+
+/* ===== NAV ===== */
+.nav { background: var(--black); }
+.nav-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; display: flex; align-items: stretch; }
+.nav-cat-btn { background: var(--red); color: #fff; padding: 0 24px; font-weight: 700; display: flex; align-items: center; gap: 12px; font-size: 13px; min-width: 200px; letter-spacing: 0.3px; }
+.nav-menu { display: flex; flex: 1; align-items: center; }
+.nav-menu a { padding: 16px 18px; font-weight: 500; color: #fff; transition: all .15s; font-size: 13px; }
+.nav-menu a:hover { background: rgba(255,255,255,0.1); }
+.nav-menu a.hot { color: var(--yellow); font-weight: 600; }
+.nav-cs { margin-left: auto; padding: 0 22px; display: flex; align-items: center; gap: 10px; border-left: 1px solid #333; color: #fff; font-size: 12px; }
+.nav-cs .cs-num { font-family: 'Bebas Neue', sans-serif; color: var(--yellow); font-size: 18px; letter-spacing: 1px; }
+
+/* ===== SUCCESS HERO ===== */
+.success-hero { max-width: 1340px; margin: 24px auto; padding: 0 24px; }
+.success-hero-box { background: var(--black); color: #fff; padding: 50px; position: relative; overflow: hidden; }
+.success-hero-box::before { content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.success-hero-box::after { content: ''; position: absolute; right: -100px; top: -50px; width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(200, 22, 29, 0.4), transparent 70%);
+}
+.success-content { position: relative; z-index: 2; display: grid; grid-template-columns: auto 1fr auto; gap: 40px; align-items: center; }
+.success-icon-wrap { width: 90px; height: 90px; background: var(--red); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.success-icon { font-family: 'Bebas Neue', sans-serif; font-size: 56px; color: #fff; line-height: 1; }
+.success-text {}
+.success-tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 3px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; }
+.success-tag::before { content: ''; width: 28px; height: 1px; background: var(--red); }
+.success-title { font-size: 36px; font-weight: 900; letter-spacing: -1.2px; line-height: 1.15; margin-bottom: 10px; }
+.success-title .accent { color: var(--yellow); }
+.success-sub { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 16px; }
+.success-order-num { display: inline-flex; align-items: center; gap: 12px; padding: 12px 18px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); }
+.order-num-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 1.5px; }
+.order-num-value { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--yellow); letter-spacing: 1.5px; line-height: 1; }
+.success-actions { display: flex; flex-direction: column; gap: 8px; }
+.success-action { padding: 14px 24px; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; cursor: pointer; transition: all .15s; text-align: center; }
+.success-action.primary { background: var(--red); color: #fff; }
+.success-action.primary:hover { background: var(--yellow); color: var(--black); }
+.success-action.secondary { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+.success-action.secondary:hover { background: rgba(255,255,255,0.05); }
+
+/* ===== STEP TIMELINE ===== */
+.timeline-section { max-width: 1340px; margin: 24px auto; padding: 0 24px; }
+.timeline-box { background: #fff; border: 1px solid var(--line); padding: 24px; }
+.timeline-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; margin-bottom: 22px; border-bottom: 2px solid var(--black); }
+.timeline-tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 2px; margin-bottom: 4px; }
+.timeline-title { font-size: 18px; font-weight: 800; letter-spacing: -0.3px; }
+.timeline-meta { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--gray-500); letter-spacing: 0.3px; }
+
+.timeline-grid { display: grid; grid-template-columns: repeat(5, 1fr); position: relative; gap: 0; }
+.timeline-grid::before { content: ''; position: absolute; top: 25px; left: 10%; right: 10%; height: 2px; background: var(--line); z-index: 0; }
+.timeline-step { position: relative; z-index: 1; text-align: center; padding: 0 10px; }
+.timeline-step-circle { width: 50px; height: 50px; margin: 0 auto 12px; background: #fff; border: 2px solid var(--line); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; line-height: 1; color: var(--gray-500); position: relative; }
+.timeline-step.done .timeline-step-circle { background: var(--black); border-color: var(--black); color: var(--yellow); }
+.timeline-step.active .timeline-step-circle { background: var(--red); border-color: var(--red); color: #fff; box-shadow: 0 0 0 4px rgba(200, 22, 29, 0.15); }
+.timeline-step-circle::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 0; height: 0; }
+.timeline-step.active .timeline-step-circle::after { border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid var(--red); }
+.timeline-step-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--gray-500); letter-spacing: 1px; margin-bottom: 4px; }
+.timeline-step.active .timeline-step-label { color: var(--red); }
+.timeline-step-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.timeline-step.done .timeline-step-name { color: var(--gray-500); }
+.timeline-step-time { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); letter-spacing: 0.3px; }
+.timeline-step.active .timeline-step-time { color: var(--red); font-weight: 700; }
+
+/* ===== MAIN GRID ===== */
+.complete-main { max-width: 1340px; margin: 24px auto 50px; padding: 0 24px; display: grid; grid-template-columns: 1fr 380px; gap: 24px; align-items: flex-start; }
+
+/* ===== ORDER INFO LEFT ===== */
+.complete-left {}
+
+/* 자수 안내 알림 박스 (★ 핵심) */
+.emb-notice-box { background: linear-gradient(135deg, #fff8e0, #ffeec0); border: 2px solid var(--yellow); padding: 22px 26px; margin-bottom: 16px; display: grid; grid-template-columns: auto 1fr auto; gap: 20px; align-items: center; }
+.emb-notice-icon { width: 56px; height: 56px; background: var(--red); color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 1px; flex-shrink: 0; }
+.emb-notice-text {}
+.emb-notice-title { font-size: 15px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.3px; }
+.emb-notice-desc { font-size: 12px; color: var(--gray-700); line-height: 1.6; }
+.emb-notice-desc strong { color: var(--red); font-weight: 700; }
+.emb-notice-action { padding: 11px 18px; background: var(--black); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; cursor: pointer; flex-shrink: 0; }
+.emb-notice-action:hover { background: var(--red); }
+
+/* 정보 카드 */
+.info-card { background: #fff; border: 1px solid var(--line); margin-bottom: 12px; }
+.info-card-header { padding: 14px 20px; border-bottom: 1px solid var(--line); background: var(--gray-50); display: flex; justify-content: space-between; align-items: center; }
+.info-card-title { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 800; letter-spacing: -0.3px; }
+.info-card-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 1.5px; padding: 3px 8px; border: 1px solid var(--red); font-weight: 700; }
+.info-card-action { font-size: 11px; color: var(--gray-700); cursor: pointer; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+.info-card-action:hover { color: var(--red); }
+.info-card-body { padding: 20px 24px; }
+
+/* 정보 줄 */
+.info-line-grid { display: grid; grid-template-columns: 130px 1fr; gap: 14px; padding: 6px 0; align-items: baseline; font-size: 13px; }
+.info-line-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); letter-spacing: 1px; font-weight: 600; }
+.info-line-value { color: var(--gray-700); line-height: 1.6; }
+.info-line-value strong { color: var(--black); font-weight: 700; }
+.info-line-value .sep { color: var(--gray-300); margin: 0 6px; }
+
+/* 주문 상품 (간소화) */
+.order-items {}
+.order-item { padding: 12px 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 60px 1fr auto; gap: 14px; align-items: flex-start; }
+.order-item:last-child { border-bottom: none; }
+.order-item-img { width: 60px; height: 60px; background-size: cover; background-position: center; background-color: var(--gray-100); }
+.order-item-info {}
+.order-item-brand { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); letter-spacing: 1px; margin-bottom: 3px; font-weight: 600; }
+.order-item-name { font-size: 13px; font-weight: 600; line-height: 1.4; margin-bottom: 4px; }
+.order-item-options { font-size: 11px; color: var(--gray-700); }
+.order-item-emb { display: inline-flex; gap: 6px; align-items: center; margin-top: 4px; padding: 3px 8px; background: #fff5f5; border-left: 2px solid var(--red); font-size: 11px; }
+.order-item-emb-tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--red); letter-spacing: 0.5px; font-weight: 700; }
+.order-item-prices { text-align: right; }
+.order-item-qty { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); margin-bottom: 3px; }
+.order-item-price { font-size: 13px; font-weight: 800; }
+
+/* 결제 정보 */
+.payment-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; }
+.payment-row.discount { color: var(--red); }
+.payment-label { color: var(--gray-700); }
+.payment-label small { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); margin-left: 6px; letter-spacing: 0.3px; }
+.payment-value { font-weight: 700; }
+.payment-value.minus::before { content: '- '; }
+.payment-total-row { display: flex; justify-content: space-between; align-items: baseline; padding-top: 14px; margin-top: 8px; border-top: 2px solid var(--black); }
+.payment-total-label { font-size: 14px; font-weight: 800; }
+.payment-total-value { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--red); letter-spacing: 1px; line-height: 1; }
+.payment-total-value .unit { font-family: 'Noto Sans KR'; font-size: 16px; font-weight: 700; margin-left: 4px; }
+
+/* ===== RIGHT: NEXT STEPS ===== */
+.next-steps { position: sticky; top: 24px; }
+
+.next-card { background: #fff; border: 1px solid var(--line); margin-bottom: 12px; }
+.next-card-header { padding: 16px 20px; background: var(--black); color: #fff; }
+.next-card-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--yellow); letter-spacing: 1.5px; margin-bottom: 4px; }
+.next-card-title { font-size: 15px; font-weight: 800; letter-spacing: -0.3px; }
+
+.action-list {}
+.action-item { padding: 16px 20px; border-bottom: 1px solid var(--line); cursor: pointer; transition: all .15s; display: grid; grid-template-columns: 32px 1fr auto; gap: 14px; align-items: center; }
+.action-item:last-child { border-bottom: none; }
+.action-item:hover { background: var(--gray-50); }
+.action-item-icon { width: 32px; height: 32px; background: var(--gray-100); display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; flex-shrink: 0; }
+.action-item:hover .action-item-icon { background: var(--red); color: #fff; }
+.action-item-text {}
+.action-item-name { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+.action-item-desc { font-size: 11px; color: var(--gray-500); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+.action-item-arrow { color: var(--gray-300); font-size: 14px; }
+.action-item:hover .action-item-arrow { color: var(--red); }
+
+/* CS 안내 */
+.cs-notice { background: #fff; border: 1px solid var(--line); padding: 22px 24px; }
+.cs-notice-header { padding-bottom: 14px; margin-bottom: 14px; border-bottom: 1px solid var(--line); }
+.cs-notice-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 1.5px; margin-bottom: 4px; }
+.cs-notice-title { font-size: 14px; font-weight: 800; letter-spacing: -0.3px; }
+.cs-notice-num { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--red); letter-spacing: 1px; line-height: 1; margin: 8px 0; }
+.cs-notice-time { font-size: 11px; color: var(--gray-500); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; line-height: 1.7; }
+.cs-notice-divider { height: 1px; background: var(--line); margin: 14px 0; }
+.cs-kakao-btn { width: 100%; background: var(--yellow); color: var(--black); padding: 12px; font-size: 13px; font-weight: 800; letter-spacing: 0.3px; cursor: pointer; transition: all .15s; border: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.cs-kakao-btn:hover { background: var(--black); color: var(--yellow); }
+
+/* ===== RECOMMEND ===== */
+.recommend-section { max-width: 1340px; margin: 50px auto 30px; padding: 0 24px; }
+.recommend-header { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 14px; border-bottom: 2px solid var(--black); margin-bottom: 18px; }
+.recommend-title { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; display: flex; align-items: center; gap: 14px; }
+.recommend-title .num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 2px; padding-bottom: 4px; }
+.recommend-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
+.recommend-card { cursor: pointer; transition: transform .2s; }
+.recommend-card:hover { transform: translateY(-3px); }
+.recommend-img { aspect-ratio: 1; background: var(--gray-100); margin-bottom: 12px; background-size: cover; background-position: center; position: relative; overflow: hidden; }
+.recommend-num { position: absolute; top: 8px; left: 8px; background: rgba(255,255,255,0.95); padding: 3px 6px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.5px; font-weight: 600; }
+.recommend-brand { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-500); letter-spacing: 1px; margin-bottom: 4px; font-weight: 600; }
+.recommend-name { font-size: 13px; line-height: 1.4; height: 36px; overflow: hidden; margin-bottom: 6px; }
+.recommend-price { font-size: 16px; font-weight: 900; }
+.recommend-price .discount { color: var(--red); margin-right: 6px; }
+
+/* ===== FLOATING CHAT ===== */
+.float-chat { position: fixed; bottom: 24px; right: 24px; background: var(--red); color: #fff; padding: 14px 22px; display: flex; align-items: center; gap: 12px; box-shadow: 0 8px 24px rgba(200, 22, 29, 0.3); cursor: pointer; z-index: 100; transition: all .15s; }
+.float-chat:hover { background: var(--black); }
+.float-chat-icon { width: 32px; height: 32px; background: #fff; color: var(--red); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 12px; font-family: 'IBM Plex Mono', monospace; }
+.float-chat-text { font-size: 13px; font-weight: 700; line-height: 1.2; }
+.float-chat-sub { font-size: 11px; opacity: .9; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; }
+
+/* ===== FOOTER ===== */
+.footer { background: var(--black); color: #888; padding: 50px 0 28px; font-size: 12px; }
+.footer-inner { max-width: 1340px; margin: 0 auto; padding: 0 24px; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 36px; padding-bottom: 32px; border-bottom: 1px solid #333; }
+.footer-logo-main { font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 4px; letter-spacing: -0.8px; }
+.footer-logo-main .accent { color: var(--red); }
+.footer-logo-sub { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 3px; color: var(--gray-500); margin-bottom: 18px; }
+.footer-cs-num { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: #fff; letter-spacing: 1px; margin: 6px 0 4px; }
+.footer h4 { color: #fff; font-size: 12px; margin-bottom: 14px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 1.5px; font-weight: 600; }
+.footer ul { list-style: none; }
+.footer ul li { margin-bottom: 8px; }
+.footer-bottom { line-height: 1.8; opacity: .55; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.3px; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span>SS TRADING CO.</span>
+      <span class="divider">|</span>
+      <span>TEL. 1588-0000 / 평일 09:00 ─ 18:00</span>
+      <span class="divider">|</span>
+      <span>인천 본점 운영중</span>
+    </div>
+    <div>
+      <a href="#">로그인</a>
+      <a href="#">회원가입</a>
+      <a href="#">주문조회</a>
+      <a href="#">고객센터</a>
+      <a href="#" class="b2b">▶ 단체주문 견적</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-main">에스에스<span class="accent">종합상사</span></div>
+      <div class="logo-sub">SAFETY · WORKWEAR · SINCE</div>
+    </a>
+    <div class="search-box">
+      <input type="text" placeholder="브랜드, 상품명, 카테고리로 검색하세요">
+      <button>⌕</button>
+    </div>
+    <div class="header-icons">
+      <a href="#">찜 <span class="num">12</span></a>
+      <a href="#">장바구니 <span class="num">0</span></a>
+      <a href="#">마이페이지</a>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-cat-btn">▣ ALL CATEGORIES</div>
+    <div class="nav-menu">
+      <a href="#">신상품</a>
+      <a href="#" class="hot">▶ TODAY DEAL</a>
+      <a href="#">베스트</a>
+      <a href="#">작업복</a>
+      <a href="#">안전화</a>
+      <a href="#">안전용품</a>
+      <a href="#">자수/마킹</a>
+      <a href="#">브랜드관</a>
+    </div>
+    <div class="nav-cs">
+      <span style="opacity:.6">단체주문</span>
+      <span class="cs-num">1588-0000</span>
+    </div>
+  </div>
+</nav>
+
+<!-- SUCCESS HERO -->
+<section class="success-hero">
+  <div class="success-hero-box">
+    <div class="success-content">
+      <div class="success-icon-wrap">
+        <div class="success-icon">✓</div>
+      </div>
+      <div class="success-text">
+        <div class="success-tag">ORDER COMPLETED / 결제 완료</div>
+        <h1 class="success-title">주문이 정상적으로<br><span class="accent">접수되었습니다</span></h1>
+        <p class="success-sub">홍길동 고객님, 주문해주셔서 감사합니다. 주문 내역은 마이페이지에서 확인하실 수 있습니다.</p>
+        <div class="success-order-num">
+          <span class="order-num-label">ORDER NUMBER</span>
+          <span class="order-num-value">SS-2026-04-260784</span>
+        </div>
+      </div>
+      <div class="success-actions">
+        <a href="#" class="success-action primary">주문 상세 보기 →</a>
+        <a href="#" class="success-action secondary">계속 쇼핑하기</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="timeline-box">
+    <div class="timeline-header">
+      <div>
+        <div class="timeline-tag">ORDER STATUS / TIMELINE</div>
+        <div class="timeline-title">주문 진행 단계</div>
+      </div>
+      <div class="timeline-meta">UPDATED ─ 2026.04.26 14:32</div>
+    </div>
+
+    <div class="timeline-grid">
+      <div class="timeline-step done">
+        <div class="timeline-step-circle">01</div>
+        <div class="timeline-step-label">STEP / 01</div>
+        <div class="timeline-step-name">결제 완료</div>
+        <div class="timeline-step-time">04.26 14:32</div>
+      </div>
+      <div class="timeline-step active">
+        <div class="timeline-step-circle">02</div>
+        <div class="timeline-step-label">STEP / 02</div>
+        <div class="timeline-step-name">자수 시안 작업</div>
+        <div class="timeline-step-time">▶ 진행중</div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-step-circle">03</div>
+        <div class="timeline-step-label">STEP / 03</div>
+        <div class="timeline-step-name">상품 준비</div>
+        <div class="timeline-step-time">예정</div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-step-circle">04</div>
+        <div class="timeline-step-label">STEP / 04</div>
+        <div class="timeline-step-name">배송 시작</div>
+        <div class="timeline-step-time">예정</div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-step-circle">05</div>
+        <div class="timeline-step-label">STEP / 05</div>
+        <div class="timeline-step-name">배송 완료</div>
+        <div class="timeline-step-time">04.30 ~ 05.03</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<div class="complete-main">
+
+  <!-- LEFT -->
+  <main class="complete-left">
+
+    <!-- ★ 자수 안내 알림 박스 -->
+    <div class="emb-notice-box">
+      <div class="emb-notice-icon">EMB</div>
+      <div class="emb-notice-text">
+        <div class="emb-notice-title">자수 / 마킹 시안이 24시간 내에 카톡으로 전송됩니다</div>
+        <div class="emb-notice-desc">자수가 추가된 상품 <strong>2건</strong>은 디자이너 시안 검수를 거쳐 작업이 진행됩니다. 카톡 채널 <strong>@ssmart</strong>으로 시안이 전송되며, 시안 확정 후 작업이 시작됩니다.</div>
+      </div>
+      <a href="#" class="emb-notice-action">카톡 채널 추가 →</a>
+    </div>
+
+    <!-- 주문 정보 -->
+    <div class="info-card">
+      <div class="info-card-header">
+        <div class="info-card-title">
+          <span class="info-card-num">01 / ORDER</span>
+          주문 정보
+        </div>
+      </div>
+      <div class="info-card-body">
+        <div class="info-line-grid">
+          <div class="info-line-label">ORDER NO.</div>
+          <div class="info-line-value"><strong>SS-2026-04-260784</strong></div>
+        </div>
+        <div class="info-line-grid">
+          <div class="info-line-label">ORDER DATE</div>
+          <div class="info-line-value">2026.04.26 14:32</div>
+        </div>
+        <div class="info-line-grid">
+          <div class="info-line-label">ORDERER</div>
+          <div class="info-line-value">홍길동 <span class="sep">/</span> 010-1234-5678 <span class="sep">/</span> hong@example.com</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 배송지 정보 -->
+    <div class="info-card">
+      <div class="info-card-header">
+        <div class="info-card-title">
+          <span class="info-card-num">02 / DELIVERY</span>
+          배송지 정보
+        </div>
+        <span class="info-card-action">배송 추적 ↗</span>
+      </div>
+      <div class="info-card-body">
+        <div class="info-line-grid">
+          <div class="info-line-label">RECIPIENT</div>
+          <div class="info-line-value"><strong>홍길동</strong> <span class="sep">/</span> 010-1234-5678</div>
+        </div>
+        <div class="info-line-grid">
+          <div class="info-line-label">ADDRESS</div>
+          <div class="info-line-value">[12345] 서울특별시 강남구 테헤란로 000<br>101동 1001호</div>
+        </div>
+        <div class="info-line-grid">
+          <div class="info-line-label">SHIPPING</div>
+          <div class="info-line-value"><strong>일반 배송 / FREE</strong></div>
+        </div>
+        <div class="info-line-grid">
+          <div class="info-line-label">MEMO</div>
+          <div class="info-line-value">경비실에 맡겨주세요</div>
+        </div>
+        <div class="info-line-grid">
+          <div class="info-line-label">EXPECTED</div>
+          <div class="info-line-value" style="color: var(--red); font-weight: 700;">2026.04.30 ~ 05.03 도착 예정</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 주문 상품 -->
+    <div class="info-card">
+      <div class="info-card-header">
+        <div class="info-card-title">
+          <span class="info-card-num">03 / ITEMS</span>
+          주문 상품 / 4개
+        </div>
+      </div>
+      <div class="info-card-body" style="padding: 12px 24px;">
+        <div class="order-items">
+
+          <div class="order-item">
+            <div class="order-item-img" style="background-image: url('https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&q=80&auto=format&fit=crop');"></div>
+            <div class="order-item-info">
+              <div class="order-item-brand">PIOZEN ─ 피오젠</div>
+              <div class="order-item-name">동절기 보온 작업복 상하세트 방한 자켓</div>
+              <div class="order-item-options">색상: BLACK / 사이즈: L</div>
+              <div class="order-item-emb">
+                <span class="order-item-emb-tag">EMB</span>
+                <span>텍스트 자수 "에스에스건설" / 왼가슴</span>
+              </div>
+            </div>
+            <div class="order-item-prices">
+              <div class="order-item-qty">QTY × 1</div>
+              <div class="order-item-price">47,800원</div>
+            </div>
+          </div>
+
+          <div class="order-item">
+            <div class="order-item-img" style="background-image: url('https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&q=80&auto=format&fit=crop');"></div>
+            <div class="order-item-info">
+              <div class="order-item-brand">PIOZEN ─ 피오젠</div>
+              <div class="order-item-name">사계절 캐주얼 작업복 점퍼 단체복</div>
+              <div class="order-item-options">색상: NAVY / 사이즈: XL</div>
+            </div>
+            <div class="order-item-prices">
+              <div class="order-item-qty">QTY × 2</div>
+              <div class="order-item-price">90,000원</div>
+            </div>
+          </div>
+
+          <div class="order-item">
+            <div class="order-item-img" style="background-image: url('https://images.unsplash.com/photo-1542219550-37153d387c27?w=400&q=80&auto=format&fit=crop');"></div>
+            <div class="order-item-info">
+              <div class="order-item-brand">K2 SAFETY</div>
+              <div class="order-item-name">방수 안전화 6인치 발등 보호 절연화</div>
+              <div class="order-item-options">색상: BLACK / 사이즈: 270mm</div>
+            </div>
+            <div class="order-item-prices">
+              <div class="order-item-qty">QTY × 1</div>
+              <div class="order-item-price">68,000원</div>
+            </div>
+          </div>
+
+          <div class="order-item">
+            <div class="order-item-img" style="background-image: url('https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&q=80&auto=format&fit=crop');"></div>
+            <div class="order-item-info">
+              <div class="order-item-brand">3M</div>
+              <div class="order-item-name">고시인성 안전조끼 형광 반사 야간작업</div>
+              <div class="order-item-options">색상: 형광 YELLOW / 사이즈: FREE</div>
+              <div class="order-item-emb">
+                <span class="order-item-emb-tag">EMB</span>
+                <span>로고 자수 / 등판 중앙 / 패치 자수</span>
+              </div>
+            </div>
+            <div class="order-item-prices">
+              <div class="order-item-qty">QTY × 5</div>
+              <div class="order-item-price">104,500원</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- 결제 정보 -->
+    <div class="info-card">
+      <div class="info-card-header">
+        <div class="info-card-title">
+          <span class="info-card-num">04 / PAYMENT</span>
+          결제 정보
+        </div>
+        <span class="info-card-action">영수증 출력 ↗</span>
+      </div>
+      <div class="info-card-body">
+        <div class="info-line-grid">
+          <div class="info-line-label">METHOD</div>
+          <div class="info-line-value"><strong>신용카드 / 신한카드 일시불</strong></div>
+        </div>
+        <div class="info-line-grid">
+          <div class="info-line-label">APPROVAL</div>
+          <div class="info-line-value">2026.04.26 14:32:18 / 승인번호 38291045</div>
+        </div>
+
+        <div style="margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--line);">
+          <div class="payment-row">
+            <span class="payment-label">상품 합계 <small>4건</small></span>
+            <span class="payment-value">265,300원</span>
+          </div>
+          <div class="payment-row discount">
+            <span class="payment-label">상품 할인</span>
+            <span class="payment-value minus">52,500원</span>
+          </div>
+          <div class="payment-row">
+            <span class="payment-label">자수 / 마킹 <small>2건</small></span>
+            <span class="payment-value">+ 45,000원</span>
+          </div>
+          <div class="payment-row discount">
+            <span class="payment-label">쿠폰 할인 <small>SS-WELCOME10</small></span>
+            <span class="payment-value minus">5,000원</span>
+          </div>
+          <div class="payment-row">
+            <span class="payment-label">배송비</span>
+            <span class="payment-value" style="color: var(--red); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px;">FREE</span>
+          </div>
+          <div class="payment-total-row">
+            <div class="payment-total-label">최종 결제 금액</div>
+            <div class="payment-total-value">252,800<span class="unit">원</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- RIGHT: 다음 단계 안내 -->
+  <aside class="next-steps">
+
+    <!-- 다음 액션 -->
+    <div class="next-card">
+      <div class="next-card-header">
+        <div class="next-card-tag">▶ NEXT STEPS</div>
+        <div class="next-card-title">다음 단계로 이동</div>
+      </div>
+      <div class="action-list">
+        <div class="action-item">
+          <div class="action-item-icon">01</div>
+          <div class="action-item-text">
+            <div class="action-item-name">주문 상세 보기</div>
+            <div class="action-item-desc">VIEW ORDER DETAIL</div>
+          </div>
+          <div class="action-item-arrow">→</div>
+        </div>
+        <div class="action-item">
+          <div class="action-item-icon">02</div>
+          <div class="action-item-text">
+            <div class="action-item-name">자수 시안 확인</div>
+            <div class="action-item-desc">CHECK EMBROIDERY DESIGN</div>
+          </div>
+          <div class="action-item-arrow">→</div>
+        </div>
+        <div class="action-item">
+          <div class="action-item-icon">03</div>
+          <div class="action-item-text">
+            <div class="action-item-name">배송 추적</div>
+            <div class="action-item-desc">TRACK SHIPPING</div>
+          </div>
+          <div class="action-item-arrow">→</div>
+        </div>
+        <div class="action-item">
+          <div class="action-item-icon">04</div>
+          <div class="action-item-text">
+            <div class="action-item-name">세금계산서 발행</div>
+            <div class="action-item-desc">REQUEST TAX INVOICE</div>
+          </div>
+          <div class="action-item-arrow">→</div>
+        </div>
+        <div class="action-item">
+          <div class="action-item-icon">05</div>
+          <div class="action-item-text">
+            <div class="action-item-name">계속 쇼핑</div>
+            <div class="action-item-desc">CONTINUE SHOPPING</div>
+          </div>
+          <div class="action-item-arrow">→</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CS 안내 -->
+    <div class="cs-notice">
+      <div class="cs-notice-header">
+        <div class="cs-notice-tag">─ CUSTOMER SUPPORT</div>
+        <div class="cs-notice-title">궁금한 점이 있으신가요?</div>
+        <div class="cs-notice-num">1588-0000</div>
+        <div class="cs-notice-time">평일 09:00 - 18:00<br>점심 12:00 - 13:00 / 주말·공휴일 휴무</div>
+      </div>
+      <button class="cs-kakao-btn">▶ 카톡 상담 @ssmart</button>
+    </div>
+
+  </aside>
+</div>
+
+<!-- RECOMMEND -->
+<section class="recommend-section">
+  <div class="recommend-header">
+    <div class="recommend-title">
+      <span class="num">RECOMMEND / 01</span>
+      <span>이런 상품도 함께 구매해보세요</span>
+    </div>
+    <a href="#" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--gray-700); letter-spacing: 0.5px;">VIEW ALL ━</a>
+  </div>
+  <div class="recommend-grid">
+    <div class="recommend-card">
+      <div class="recommend-img" style="background-image: url('https://images.unsplash.com/photo-1635377090186-056ec4c0e0d0?w=600&q=80&auto=format&fit=crop');">
+        <div class="recommend-num">/ 001</div>
+      </div>
+      <div class="recommend-brand">KOVEA SAFETY</div>
+      <div class="recommend-name">고급 안전모 ABS 충격흡수 턱끈 포함</div>
+      <div class="recommend-price"><span class="discount">38%</span>19,800원</div>
+    </div>
+    <div class="recommend-card">
+      <div class="recommend-img" style="background-image: url('https://images.unsplash.com/photo-1605812860427-4024433a70fd?w=600&q=80&auto=format&fit=crop');">
+        <div class="recommend-num">/ 002</div>
+      </div>
+      <div class="recommend-brand">3M / HANIL</div>
+      <div class="recommend-name">방진 마스크 KF94 산업용 50매 세트</div>
+      <div class="recommend-price"><span class="discount">25%</span>28,500원</div>
+    </div>
+    <div class="recommend-card">
+      <div class="recommend-img" style="background-image: url('https://images.unsplash.com/photo-1473966968600-fa801b80a8a8?w=600&q=80&auto=format&fit=crop');">
+        <div class="recommend-num">/ 003</div>
+      </div>
+      <div class="recommend-brand">DICKIES ─ 디키즈</div>
+      <div class="recommend-name">874 오리지널 워크 팬츠 클래식핏</div>
+      <div class="recommend-price"><span class="discount">35%</span>58,500원</div>
+    </div>
+    <div class="recommend-card">
+      <div class="recommend-img" style="background-image: url('https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=600&q=80&auto=format&fit=crop');">
+        <div class="recommend-num">/ 004</div>
+      </div>
+      <div class="recommend-brand">CARHARTT ─ 칼하트</div>
+      <div class="recommend-name">덕 캔버스 워크 자켓 빈티지 클래식</div>
+      <div class="recommend-price">189,000원</div>
+    </div>
+    <div class="recommend-card">
+      <div class="recommend-img" style="background-image: url('https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600&q=80&auto=format&fit=crop');">
+        <div class="recommend-num">/ 005</div>
+      </div>
+      <div class="recommend-brand">BLAKLADER</div>
+      <div class="recommend-name">스웨덴 프리미엄 워크 팬츠 무릎패드</div>
+      <div class="recommend-price"><span class="discount">40%</span>128,000원</div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOATING CHAT -->
+<a href="#" class="float-chat">
+  <div class="float-chat-icon">1:1</div>
+  <div>
+    <div class="float-chat-text">전문 상담</div>
+    <div class="float-chat-sub">EMBROIDERY · BULK</div>
+  </div>
+</a>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo-main">에스에스<span class="accent">종합상사</span></div>
+        <div class="footer-logo-sub">SAFETY · WORKWEAR</div>
+        <h4>CUSTOMER CENTER</h4>
+        <div class="footer-cs-num">1588-0000</div>
+        <div style="margin-top: 8px;">평일 09:00 - 18:00 (점심 12:00-13:00)<br>주말 및 공휴일 휴무 / 카톡: @ssmart</div>
+      </div>
+      <div>
+        <h4>SHOP</h4>
+        <ul><li>신상품</li><li>베스트</li><li>오늘의 특가</li><li>자수/마킹</li><li>단체주문</li></ul>
+      </div>
+      <div>
+        <h4>SUPPORT</h4>
+        <ul><li>공지사항</li><li>1:1 문의</li><li>FAQ</li><li>리뷰 이벤트</li><li>적립금 안내</li></ul>
+      </div>
+      <div>
+        <h4>POLICY</h4>
+        <ul><li>이용약관</li><li>개인정보처리방침</li><li>배송/교환/환불</li><li>사업자정보확인</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      ㈜에스에스종합상사 / 대표: ○○○ / 사업자등록번호: 000-00-00000 / 통신판매업신고: 제2026-인천○○-0000호<br>
+      인천광역시 ○○구 ○○로 000 / TEL. 430-0497 / FAX. 430-0498<br>
+      © 2026 SS TRADING CO. ALL RIGHTS RESERVED.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
