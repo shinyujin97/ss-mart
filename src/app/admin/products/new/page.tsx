@@ -15,8 +15,8 @@ export default async function NewProductPage() {
   return (
     <div className="space-y-5">
       <div>
-        <div className="font-[var(--font-mono)] text-[10px] text-[#555] tracking-[2px] mb-1">ADMIN / PRODUCTS / NEW</div>
-        <h1 className="text-xl font-black text-white">상품 등록</h1>
+        <div className="font-[var(--font-mono)] text-[10px] text-[#aaa] tracking-[2px] mb-1">ADMIN / PRODUCTS / NEW</div>
+        <h1 className="text-xl font-black text-[#111]">상품 등록</h1>
       </div>
       <ProductForm brands={brands} categories={categories} />
     </div>

@@ -30,11 +30,11 @@ export default function AdminSidebar() {
   }
 
   return (
-    <aside className="w-[220px] flex-shrink-0 bg-[#0a0a0a] border-r border-[#222] flex flex-col">
+    <aside className="w-[220px] flex-shrink-0 bg-white border-r border-[#e5e5e5] flex flex-col shadow-sm">
       {/* 로고 */}
-      <div className="px-5 py-5 border-b border-[#222]">
+      <div className="px-5 py-5 border-b border-[#e5e5e5]">
         <Link href="/admin">
-          <div className="font-[var(--font-display)] text-lg text-white tracking-[2px]">SS MART</div>
+          <div className="font-[var(--font-display)] text-lg text-[#111] tracking-[2px]">SS MART</div>
           <div className="font-[var(--font-mono)] text-[9px] text-[#c8161d] tracking-[3px] mt-0.5">ADMIN PANEL</div>
         </Link>
       </div>
@@ -43,7 +43,7 @@ export default function AdminSidebar() {
       <nav className="flex-1 py-4 overflow-y-auto">
         {MENU.map((group) => (
           <div key={group.group} className="mb-5">
-            <div className="font-[var(--font-mono)] text-[9px] text-[#444] tracking-[2px] px-5 mb-2">
+            <div className="font-[var(--font-mono)] text-[9px] text-[#aaa] tracking-[2px] px-5 mb-2">
               {group.group}
             </div>
             {group.items.map((item) => {
@@ -55,7 +55,7 @@ export default function AdminSidebar() {
                   className={`flex items-center gap-3 px-5 py-2.5 text-sm transition-all ${
                     active
                       ? "bg-[#c8161d] text-white font-bold"
-                      : "text-[#888] hover:text-white hover:bg-[#1a1a1a]"
+                      : "text-[#555] hover:text-[#111] hover:bg-[#f5f5f5]"
                   }`}
                 >
                   <span className="text-[13px] w-4 text-center flex-shrink-0">{item.icon}</span>
@@ -68,8 +68,8 @@ export default function AdminSidebar() {
       </nav>
 
       {/* 하단 */}
-      <div className="px-5 py-4 border-t border-[#222]">
-        <Link href="/" className="text-[11px] text-[#555] hover:text-white transition-colors font-[var(--font-mono)] flex items-center gap-2">
+      <div className="px-5 py-4 border-t border-[#e5e5e5]">
+        <Link href="/" className="text-[11px] text-[#aaa] hover:text-[#c8161d] transition-colors font-[var(--font-mono)] flex items-center gap-2">
           ← 쇼핑몰로 돌아가기
         </Link>
       </div>

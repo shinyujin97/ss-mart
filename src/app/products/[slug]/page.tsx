@@ -153,6 +153,9 @@ export default async function ProductDetailPage({ params }: Props) {
 
   if (!product || product.status === "HIDDEN") notFound();
 
+  const ADMIN_EMAILS = (process.env.ADMIN_EMAILS ?? "").split(",").map((e) => e.trim()).filter(Boolean);
+  const isAdmin = ADMIN_EMAILS.includes(session?.user?.email ?? "");
+
   // 로그인 시 찜 여부 확인
   const wishlisted = session?.user?.id
     ? !!(await prisma.wishlist.findUnique({
@@ -212,6 +215,18 @@ export default async function ProductDetailPage({ params }: Props) {
 
           {/* 우측: 상품 정보 */}
           <div>
+            {/* 관리자 수정 버튼 */}
+            {isAdmin && (
+              <div className="flex justify-end mb-3">
+                <Link
+                  href={`/admin/products/${product.id}`}
+                  className="flex items-center gap-1.5 bg-[#c8161d] text-white text-[11px] font-bold px-3 py-1.5 hover:bg-[#9c0e15] transition-colors font-[var(--font-mono)] tracking-[0.5px]"
+                >
+                  ▣ 상품 수정
+                </Link>
+              </div>
+            )}
+
             {/* 브랜드 */}
             <Link
               href={`/brands/${product.brand.slug}`}

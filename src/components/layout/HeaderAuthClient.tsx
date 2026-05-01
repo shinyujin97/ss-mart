@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
+import { useCartStore } from "@/lib/cartStore";
 
-export default function HeaderAuthClient({ name }: { name: string }) {
+export default function HeaderAuthClient({ name, isAdmin }: { name: string; isAdmin?: boolean }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -22,6 +23,15 @@ export default function HeaderAuthClient({ name }: { name: string }) {
           {/* 배경 클릭 닫기 */}
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
           <div className="absolute right-0 top-full mt-px w-[160px] bg-white border border-[var(--line)] shadow-lg z-50">
+            {isAdmin && (
+              <Link
+                href="/admin"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-2 px-4 py-3 text-xs font-bold text-[var(--red)] hover:bg-[var(--red)] hover:text-white transition-colors border-b border-[var(--line)]"
+              >
+                ▣ 관리자 페이지
+              </Link>
+            )}
             <Link
               href="/mypage"
               onClick={() => setOpen(false)}
@@ -44,7 +54,10 @@ export default function HeaderAuthClient({ name }: { name: string }) {
               자수 시안 보관함
             </Link>
             <button
-              onClick={() => signOut({ callbackUrl: "/" })}
+              onClick={() => {
+                useCartStore.getState().clearCart();
+                signOut({ callbackUrl: "/" });
+              }}
               className="w-full text-left flex items-center gap-2 px-4 py-3 text-xs font-medium text-[var(--gray-500)] hover:bg-[var(--gray-50)] hover:text-[var(--red)] transition-colors"
             >
               로그아웃

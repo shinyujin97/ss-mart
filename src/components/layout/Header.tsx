@@ -2,6 +2,7 @@ import Link from "next/link";
 import CartIcon from "./CartIcon";
 import WishlistIcon from "./WishlistIcon";
 import HeaderAuth from "./HeaderAuth";
+import SearchBar from "./SearchBar";
 
 export default function Header() {
   return (
@@ -21,16 +22,7 @@ export default function Header() {
         </Link>
 
         {/* Search */}
-        <div className="flex-1 relative flex items-center border border-[var(--line)] h-[46px]">
-          <input
-            type="text"
-            placeholder="브랜드, 상품명, 카테고리로 검색하세요"
-            className="flex-1 px-4 text-sm outline-none bg-transparent"
-          />
-          <button className="px-4 text-xl text-[var(--gray-500)] hover:text-[var(--red)] transition-colors">
-            ⌕
-          </button>
-        </div>
+        <SearchBar />
 
         {/* Icons */}
         <div className="flex items-center ml-auto">

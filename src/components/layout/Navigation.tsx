@@ -53,10 +53,10 @@ export default async function Navigation() {
         </div>
 
         {/* CS */}
-        <div className="w-[190px] flex-shrink-0 px-[22px] flex items-center gap-[10px] border-l border-[#333] text-white text-xs">
-          <span className="opacity-60">단체주문</span>
-          <span className="font-[var(--font-display)] text-[var(--yellow)] text-lg tracking-wide">
-            1588-0000
+        <div className="w-[200px] flex-shrink-0 px-[18px] flex flex-col justify-center border-l border-[#333] text-white">
+          <span className="font-[var(--font-mono)] text-[9px] text-white/50 tracking-[1.5px] mb-0.5">단체주문 문의</span>
+          <span className="font-[var(--font-display)] text-[var(--yellow)] text-[19px] leading-none tracking-wide">
+            031-430-0497
           </span>
         </div>
       </div>

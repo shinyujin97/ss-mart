@@ -26,7 +26,7 @@ export default function BulkOrderPage() {
       <section
         className="text-white py-16 relative overflow-hidden"
         style={{
-          backgroundImage: "linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 60%, transparent 100%), url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1600&q=85&auto=format&fit=crop')",
+          backgroundImage: "linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 60%, transparent 100%), url('https://images.unsplash.com/photo-1520399636535-24741e71b160?w=1600&q=85&auto=format&fit=crop')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -112,7 +112,7 @@ export default function BulkOrderPage() {
             {/* 직접 문의 */}
             <div className="border border-[var(--line)] bg-white p-5">
               <div className="font-[var(--font-mono)] text-[10px] text-[var(--gray-500)] tracking-[1px] mb-2">DIRECT CONTACT</div>
-              <div className="font-[var(--font-display)] text-[32px] text-[var(--black)] leading-none mb-1">1588-0000</div>
+              <div className="font-[var(--font-display)] text-[32px] text-[var(--black)] leading-none mb-1">031-430-0497</div>
               <div className="text-xs text-[var(--gray-500)] mb-3">평일 09:00 - 18:00 (점심 12-13시)</div>
               <a
                 href="https://pf.kakao.com/_ssmart"

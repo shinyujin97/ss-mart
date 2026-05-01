@@ -28,7 +28,7 @@ const INFO_ITEMS = [
   { label: "사업자등록번호", value: "000-00-00000" },
   { label: "통신판매업", value: "제2026-인천○○-0000호" },
   { label: "소재지", value: "인천광역시 ○○구 ○○로 000" },
-  { label: "전화", value: "1588-0000" },
+  { label: "전화", value: "031-430-0497" },
   { label: "이메일", value: "contact@ssmart.kr" },
   { label: "카카오 채널", value: "@ssmart" },
 ];

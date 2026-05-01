@@ -61,11 +61,6 @@ export default function CategoryDropdown({ categories }: { categories: Category[
                   <span className="text-[15px] font-black text-[var(--black)] group-hover:text-[var(--red)] transition-colors truncate">
                     {cat.name}
                   </span>
-                  {cat._count.products > 0 && (
-                    <span className="ml-auto font-[var(--font-mono)] text-[11px] text-[var(--gray-400)] flex-shrink-0">
-                      {cat._count.products.toLocaleString()}
-                    </span>
-                  )}
                 </Link>
 
                 {/* 소분류 */}
@@ -79,11 +74,6 @@ export default function CategoryDropdown({ categories }: { categories: Category[
                     >
                       <span className="w-1 h-1 bg-[var(--gray-300)] group-hover:bg-[var(--red)] transition-colors flex-shrink-0 rounded-full" />
                       <span className="truncate">{child.name}</span>
-                      {child._count.products > 0 && (
-                        <span className="ml-auto font-[var(--font-mono)] text-[11px] text-[var(--gray-400)] group-hover:text-[var(--red)] transition-colors flex-shrink-0">
-                          {child._count.products.toLocaleString()}
-                        </span>
-                      )}
                     </Link>
                   ))}
                   {cat.children.length === 0 && (

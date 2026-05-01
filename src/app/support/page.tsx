@@ -20,7 +20,7 @@ export default function SupportPage() {
           {/* CS 연락처 */}
           <div className="flex gap-6">
             {[
-              { label: "전화 상담", value: "1588-0000", sub: "평일 09:00~18:00" },
+              { label: "전화 상담", value: "031-430-0497", sub: "평일 09:00~18:00" },
               { label: "카카오 채널", value: "@ssmart", sub: "30분 내 답변" },
               { label: "이메일", value: "contact@ssmart.kr", sub: "1영업일 내" },
             ].map((c) => (

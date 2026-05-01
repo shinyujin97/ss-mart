@@ -5,7 +5,7 @@ import EmbroideryBanner from "@/components/home/EmbroideryBanner";
 import BrandSection from "@/components/home/BrandSection";
 
 const INFO_BAR = [
-  { num: "CONTACT / 01", label: "CUSTOMER CENTER", value: "1588-0000", big: true },
+  { num: "CONTACT / 01", label: "CUSTOMER CENTER", value: "031-430-0497", big: true },
   { num: "CONTACT / 02", label: "LOCATION", value: "인천광역시 ○○구" },
   { num: "CONTACT / 03", label: "BUSINESS HOURS", value: "평일 09:00 - 18:00" },
   { num: "CONTACT / 04", label: "KAKAO TALK", value: "@ssmart" },

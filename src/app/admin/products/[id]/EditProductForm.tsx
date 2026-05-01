@@ -6,13 +6,37 @@ import Image from "next/image";
 
 interface Brand { id: string; name: string; nameKr: string; }
 interface Category { id: string; name: string; children: { id: string; name: string }[]; }
-interface Props { brands: Brand[]; categories: Category[]; }
+interface ProductOption { id: string; color: string; colorHex: string | null; size: string; stockQuantity: number; isActive: boolean; }
+interface ProductImage { id: string; url: string; altText: string | null; isMain: boolean; }
+
+interface Product {
+  id: string;
+  name: string;
+  slug: string;
+  brandId: string;
+  shortDescription: string | null;
+  basePrice: number;
+  salePrice: number;
+  status: string;
+  isNew: boolean;
+  isBest: boolean;
+  isFeatured: boolean;
+  embroideryAvailable: boolean;
+  bulkOrderAvailable: boolean;
+  categories: { categoryId: string }[];
+  options: ProductOption[];
+  images: ProductImage[];
+}
+
+interface ParsedOptions { colors: { color: string; colorHex: string }[]; sizes: string[]; }
+interface Props { product: Product; brands: Brand[]; categories: Category[]; parsedOptions?: ParsedOptions | null; }
 
 const SIZES = ["S", "M", "L", "XL", "2XL", "3XL", "240mm", "250mm", "260mm", "270mm", "280mm", "290mm"];
 const STATUS_OPTIONS = [
   { value: "ACTIVE", label: "판매중" },
   { value: "HIDDEN", label: "숨김" },
   { value: "OUT_OF_STOCK", label: "품절" },
+  { value: "DISCONTINUED", label: "단종" },
 ];
 
 const Label = ({ children, required }: { children: React.ReactNode; required?: boolean }) => (
@@ -33,26 +57,55 @@ const Section = ({ title, children }: { title: string; children: React.ReactNode
   </div>
 );
 
-export default function ProductForm({ brands, categories }: Props) {
+// 기존 옵션에서 색상별로 그룹화
+function groupOptions(options: ProductOption[]) {
+  const map = new Map<string, { color: string; colorHex: string; sizes: string[] }>();
+  for (const opt of options) {
+    const key = opt.color;
+    if (!map.has(key)) map.set(key, { color: opt.color, colorHex: opt.colorHex ?? "#000000", sizes: [] });
+    map.get(key)!.sizes.push(opt.size);
+  }
+  return Array.from(map.values());
+}
+
+export default function EditProductForm({ product, brands, categories, parsedOptions }: Props) {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState("");
-
+  const [detailInput, setDetailInput] = useState("");
 
   const [form, setForm] = useState({
-    slug: "", brandId: "", name: "", shortDescription: "",
-    basePrice: "", salePrice: "",
-    categoryIds: [] as string[],
-    status: "ACTIVE",
-    isNew: false, isBest: false, isFeatured: false,
-    embroideryAvailable: true, bulkOrderAvailable: true,
+    name: product.name,
+    slug: product.slug,
+    brandId: product.brandId,
+    shortDescription: product.shortDescription ?? "",
+    basePrice: String(product.basePrice),
+    salePrice: String(product.salePrice),
+    status: product.status,
+    isNew: product.isNew,
+    isBest: product.isBest,
+    isFeatured: product.isFeatured,
+    embroideryAvailable: product.embroideryAvailable,
+    bulkOrderAvailable: product.bulkOrderAvailable,
+    categoryIds: product.categories.map((c) => c.categoryId),
   });
 
-  const [colors, setColors] = useState([{ color: "", colorHex: "#000000" }]);
-  const [sizes, setSizes] = useState<string[]>([]);
-  const [mainImage, setMainImage] = useState("");
-  const [detailImages, setDetailImages] = useState<string[]>([]);
-  const [detailInput, setDetailInput] = useState("");
+  const [colors, setColors] = useState<{ color: string; colorHex: string }[]>(() => {
+    const dbOptions = groupOptions(product.options);
+    if (dbOptions.length > 0) return dbOptions.map((o) => ({ color: o.color, colorHex: o.colorHex }));
+    if (parsedOptions?.colors.length) return parsedOptions.colors;
+    return [{ color: "", colorHex: "#000000" }];
+  });
+
+  const [sizes, setSizes] = useState<string[]>(() => {
+    const dbOptions = groupOptions(product.options);
+    if (dbOptions.length > 0) return [...new Set(dbOptions.flatMap((o) => o.sizes))];
+    if (parsedOptions?.sizes.length) return parsedOptions.sizes;
+    return [];
+  });
+  const [mainImage, setMainImage] = useState(product.images.find((img) => img.isMain)?.url ?? "");
+  const [detailImages, setDetailImages] = useState(product.images.filter((img) => !img.isMain).map((img) => img.url));
 
   function update(key: string, value: unknown) {
     setForm((f) => ({ ...f, [key]: value }));
@@ -104,20 +157,7 @@ export default function ProductForm({ brands, categories }: Props) {
     });
   }
 
-  // 슬러그 자동 생성
-  function autoSlug() {
-    if (form.name && !form.slug) {
-      const slug = form.name.toLowerCase()
-        .replace(/[가-힣]/g, "")
-        .replace(/\s+/g, "-")
-        .replace(/[^a-z0-9-]/g, "")
-        .replace(/-+/g, "-")
-        .trim();
-      if (slug) update("slug", slug);
-    }
-  }
-
-  async function handleSubmit() {
+  async function handleSave() {
     setError("");
     if (!form.name || !form.slug || !form.brandId || !form.basePrice || !form.salePrice) {
       setError("상품명, 슬러그, 브랜드, 가격은 필수입니다.");
@@ -126,8 +166,8 @@ export default function ProductForm({ brands, categories }: Props) {
 
     setSaving(true);
     try {
-      const res = await fetch("/api/admin/products", {
-        method: "POST",
+      const res = await fetch(`/api/admin/products/${product.id}`, {
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...form,
@@ -154,6 +194,26 @@ export default function ProductForm({ brands, categories }: Props) {
     }
   }
 
+  async function handleDelete() {
+    if (!confirm(`"${product.name}" 상품을 삭제하시겠습니까?\n\n주문 이력이 있으면 단종 처리됩니다.`)) return;
+
+    setDeleting(true);
+    try {
+      const res = await fetch(`/api/admin/products/${product.id}`, { method: "DELETE" });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error ?? "삭제 실패");
+        return;
+      }
+      router.push("/admin/products");
+      router.refresh();
+    } catch {
+      setError("네트워크 오류가 발생했습니다.");
+    } finally {
+      setDeleting(false);
+    }
+  }
+
   return (
     <div className="space-y-4 max-w-3xl mx-auto">
       {error && (
@@ -167,17 +227,11 @@ export default function ProductForm({ brands, categories }: Props) {
         <div className="space-y-3">
           <div className="grid grid-cols-[120px_1fr] gap-3 items-center">
             <Label required>상품명</Label>
-            <Input value={form.name} onChange={(v) => update("name", v)} placeholder="피오젠 하계 작업복 상의" />
+            <Input value={form.name} onChange={(v) => update("name", v)} placeholder="상품명" />
           </div>
           <div className="grid grid-cols-[120px_1fr] gap-3 items-center">
             <Label required>슬러그</Label>
-            <div className="flex gap-2">
-              <Input value={form.slug} onChange={(v) => update("slug", v)} placeholder="piozen-ws-001" />
-              <button type="button" onClick={autoSlug}
-                className="px-3 text-xs text-[#555] border border-[#333] hover:border-[#555] whitespace-nowrap font-[var(--font-mono)]">
-                자동생성
-              </button>
-            </div>
+            <Input value={form.slug} onChange={(v) => update("slug", v)} placeholder="piozen-ws-001" />
           </div>
           <div className="grid grid-cols-[120px_1fr] gap-3 items-center">
             <Label required>브랜드</Label>
@@ -404,15 +458,19 @@ export default function ProductForm({ brands, categories }: Props) {
         </div>
       </Section>
 
-      {/* 제출 */}
+      {/* 버튼 */}
       <div className="flex gap-3">
+        <button type="button" onClick={handleDelete} disabled={deleting}
+          className="px-6 py-3 border border-[#c8161d]/40 text-[#c8161d] text-sm hover:bg-[#c8161d]/10 transition-colors disabled:opacity-60">
+          {deleting ? "삭제 중..." : "삭제"}
+        </button>
         <button type="button" onClick={() => router.back()}
           className="px-6 py-3 border border-[#ddd] text-[#888] text-sm hover:border-[#111] hover:text-[#111] transition-colors">
           취소
         </button>
-        <button type="button" onClick={handleSubmit} disabled={saving}
+        <button type="button" onClick={handleSave} disabled={saving}
           className="flex-1 bg-[#c8161d] text-white py-3 font-bold text-sm hover:bg-[#9c0e15] transition-colors disabled:opacity-60">
-          {saving ? "저장 중..." : "상품 등록하기"}
+          {saving ? "저장 중..." : "저장하기"}
         </button>
       </div>
     </div>

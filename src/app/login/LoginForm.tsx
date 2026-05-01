@@ -93,10 +93,10 @@ export default function LoginForm() {
             @
           </span>
           <input
-            type="email"
+            type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="이메일 입력"
+            placeholder="이메일 또는 아이디 입력"
             required
             className="w-full pl-11 pr-4 py-[14px] border border-[1.5px] border-[var(--line)] text-sm outline-none transition-colors focus:border-[var(--black)] font-[var(--font-sans)]"
           />

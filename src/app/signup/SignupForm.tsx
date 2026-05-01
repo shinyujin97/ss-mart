@@ -61,7 +61,7 @@ export default function SignupForm() {
   function canProceedStep2() {
     const base =
       form.email && form.password && form.password === form.passwordConfirm &&
-      form.name && form.phone && form.password.length >= 8;
+      form.name && form.phone && form.password.length >= 6;
     if (memberType === "BUSINESS") {
       return base && form.companyName && form.businessNumber;
     }
@@ -320,14 +320,14 @@ export default function SignupForm() {
                 <div>
                   <input
                     type="password"
-                    placeholder="8자 이상"
+                    placeholder="6자 이상"
                     value={form.password}
                     onChange={(e) => updateForm("password", e.target.value)}
                     className="px-3 py-2.5 border border-[var(--line)] text-sm outline-none focus:border-[var(--black)] w-full"
                   />
-                  {form.password && form.password.length < 8 && (
+                  {form.password && form.password.length < 6 && (
                     <p className="font-[var(--font-mono)] text-[11px] text-[var(--red)] mt-1">
-                      비밀번호는 8자 이상이어야 합니다.
+                      비밀번호는 6자 이상이어야 합니다.
                     </p>
                   )}
                 </div>

@@ -16,10 +16,19 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 비밀번호 길이
-    if (password.length < 8) {
+    // 이메일 형식 검증
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
       return NextResponse.json(
-        { error: "비밀번호는 8자 이상이어야 합니다." },
+        { error: "올바른 이메일 형식을 입력해주세요." },
+        { status: 400 }
+      );
+    }
+
+    // 비밀번호 길이
+    if (password.length < 6) {
+      return NextResponse.json(
+        { error: "비밀번호는 6자 이상이어야 합니다." },
         { status: 400 }
       );
     }

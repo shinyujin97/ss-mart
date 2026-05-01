@@ -50,7 +50,8 @@
       "WebFetch(domain:www.pexels.com)",
       "WebFetch(domain:pixabay.com)",
       "WebFetch(domain:images.pexels.com)",
-      "Bash(git rm *)"
+      "Bash(git rm *)",
+      "Bash(xargs -I {} bash -c 'echo \"=== {} ===\" && head -5 {}')"
     ]
   }
 }
