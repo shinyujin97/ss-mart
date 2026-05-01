@@ -28,7 +28,28 @@
       "Bash(curl *)",
       "Bash(grep -rn 'queryRaw\\\\|executeRaw\\\\|$queryRaw\\\\|$executeRaw' /home/boss/projects/ss-mart/src '--include=*.ts' '--include=*.tsx')",
       "Bash(grep -rn 'rollbackStock\\\\|transaction\\\\|$transaction' /home/boss/projects/ss-mart/src/app/api '--include=*.ts')",
-      "Bash(pnpm build *)"
+      "Bash(pnpm build *)",
+      "Bash(git remote *)",
+      "Bash(pip3 install *)",
+      "Bash(mkdir -p /home/boss/projects/ss-mart/public/products)",
+      "Bash(rsync -a --info=progress2 /mnt/c/React/piozen_output/images/ /home/boss/projects/ss-mart/public/products/)",
+      "Bash(jobs -l)",
+      "Bash(npx tsx *)",
+      "Bash(grep -oE 'src=\"[^\"]{10,200}\"')",
+      "Bash(pkill -f \"next\")",
+      "Bash(npx next *)",
+      "Bash(cp \"/mnt/c/React/자수사진/배터리.jpg\" /home/boss/projects/ss-mart/public/embroidery/)",
+      "Bash(cp \"/mnt/c/React/자수사진/황금빛사자.jpg\" /home/boss/projects/ss-mart/public/embroidery/)",
+      "Bash(cp \"/mnt/c/React/자수사진/고양이.jpg\" /home/boss/projects/ss-mart/public/embroidery/)",
+      "Bash(python3 -c \"import requests\")",
+      "Bash(python3 -m pip install requests -q)",
+      "Bash(python3 *)",
+      "WebFetch(domain:images.unsplash.com)",
+      "WebSearch",
+      "WebFetch(domain:unsplash.com)",
+      "WebFetch(domain:www.pexels.com)",
+      "WebFetch(domain:pixabay.com)",
+      "WebFetch(domain:images.pexels.com)"
     ]
   }
 }

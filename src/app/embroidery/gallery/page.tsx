@@ -10,22 +10,14 @@ const FILTER_TYPES = ["전체", "컴퓨터 자수", "패치 자수", "아플리�
 const FILTER_INDUSTRIES = ["전체", "건설/중공업", "제조/공장", "물류/배송", "F&B/주방", "의료/위생", "환경미화", "스포츠/레저"];
 const FILTER_POSITIONS = ["전체", "왼가슴", "등판", "소매", "여러 곳"];
 
-// 샘플 갤러리 아이템
-const GALLERY_ITEMS = Array.from({ length: 24 }, (_, i) => ({
-  id: i + 1,
-  caseNum: `CASE/${String(i + 1).padStart(3, "0")}`,
-  type: FILTER_TYPES[1 + (i % (FILTER_TYPES.length - 1))],
-  industry: FILTER_INDUSTRIES[1 + (i % (FILTER_INDUSTRIES.length - 1))],
-  position: FILTER_POSITIONS[1 + (i % (FILTER_POSITIONS.length - 1))],
-  client: `${["건설", "물류", "병원", "식당", "공장", "경비"][i % 6]}사 ○○○`,
-  rating: 4.8 + (i % 3) * 0.1,
-  imageUrl: [
-    "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=400&q=80",
-    "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400&q=80",
-    "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&q=80",
-    "https://images.unsplash.com/photo-1542219550-37153d387c27?w=400&q=80",
-  ][i % 4],
-}));
+// 실제 자수 사진
+const REAL_ITEMS = [
+  { id: 1, caseNum: "CASE/001", type: "컴퓨터 자수", industry: "전체", position: "왼가슴", client: "고객사 의뢰", rating: 5.0, imageUrl: "/embroidery/배터리.jpg" },
+  { id: 2, caseNum: "CASE/002", type: "패치 자수",   industry: "전체", position: "등판",   client: "고객사 의뢰", rating: 5.0, imageUrl: "/embroidery/황금빛사자.jpg" },
+  { id: 3, caseNum: "CASE/003", type: "컴퓨터 자수", industry: "전체", position: "소매",   client: "고객사 의뢰", rating: 5.0, imageUrl: "/embroidery/고양이.jpg" },
+];
+
+const GALLERY_ITEMS = REAL_ITEMS;
 
 export default function GalleryPage() {
   return (
@@ -94,7 +86,7 @@ export default function GalleryPage() {
         {/* 결과 수 */}
         <div className="flex items-center justify-between mb-4">
           <div className="font-[var(--font-mono)] text-sm">
-            총 <span className="text-[var(--red)] font-bold">38,420</span>건
+            총 <span className="text-[var(--red)] font-bold">{GALLERY_ITEMS.length}</span>건
           </div>
           <select className="px-3 py-2 border border-[var(--line)] text-xs outline-none focus:border-[var(--black)] bg-white">
             <option>최신순</option>

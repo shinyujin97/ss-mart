@@ -1,84 +1,69 @@
 import Link from "next/link";
 
-const FOOTER_LINKS = {
-  SHOP: [
-    { href: "/new", label: "신상품" },
-    { href: "/best", label: "베스트" },
-    { href: "/deal", label: "오늘의 특가" },
-    { href: "/embroidery", label: "자수/마킹" },
-    { href: "/bulk-order", label: "단체주문" },
-  ],
-  SUPPORT: [
-    { href: "/support/notice", label: "공지사항" },
-    { href: "/support/inquiry", label: "1:1 문의" },
-    { href: "/support/faq", label: "FAQ" },
-    { href: "/support/review-event", label: "리뷰 이벤트" },
-    { href: "/support/points", label: "적립금 안내" },
-  ],
-  POLICY: [
-    { href: "/terms", label: "이용약관" },
-    { href: "/privacy", label: "개인정보처리방침" },
-    { href: "/shipping-policy", label: "배송/교환/환불" },
-    { href: "/business-info", label: "사업자정보확인" },
-  ],
-};
+const BOTTOM_LINKS = [
+  { href: "/about", label: "회사소개" },
+  { href: "/terms", label: "이용약관" },
+  { href: "/privacy", label: "개인정보처리방침" },
+  { href: "/support", label: "고객종합센터" },
+  { href: "/mypage/orders", label: "주문배송조회" },
+];
 
 export default function Footer() {
   return (
-    <footer className="bg-[var(--black)] text-[#888] pt-[50px] pb-7 text-xs">
-      <div className="max-w-[1340px] mx-auto px-6">
-        {/* Top grid */}
-        <div className="grid grid-cols-[2fr_1fr_1fr_1fr] gap-10 mb-9 pb-8 border-b border-[#333]">
-          {/* Brand info */}
+    <footer className="bg-[var(--black)] text-[#888] text-xs">
+      <div className="max-w-[1340px] mx-auto px-6 py-8">
+        <div className="grid grid-cols-3 gap-10 pb-7 border-b border-[#333]">
+
+          {/* 고객센터 */}
           <div>
-            <div className="text-[22px] font-black text-white mb-1 tracking-tight">
-              에스에스<span className="text-[var(--red)]">종합상사</span>
+            <div className="text-white font-bold text-sm mb-2">고객센터</div>
+            <div className="font-[var(--font-display)] text-[28px] text-white tracking-wide mb-1">
+              031-430-0497
             </div>
-            <div className="font-[var(--font-display)] text-[10px] tracking-[3px] text-[var(--gray-500)] mb-[18px]">
-              SAFETY · WORKWEAR
-            </div>
-            <h4 className="text-white text-xs mb-3 font-[var(--font-mono)] tracking-[1.5px] font-semibold">
-              CUSTOMER CENTER
-            </h4>
-            <div className="font-[var(--font-display)] text-[30px] text-white tracking-wide my-1.5">
-              1588-0000
-            </div>
-            <div className="mt-2 leading-relaxed">
-              평일 09:00 - 18:00 (점심 12:00-13:00)
-              <br />
-              주말 및 공휴일 휴무 / 카톡: @ssmart
+            <div className="leading-relaxed">
+              평 일 : 09:00 ~ 18:00<br />
+              토요일 : 09:00 ~ 12:00<br />
+              일요일 및 공휴일 휴무
             </div>
           </div>
 
-          {/* Link columns */}
-          {Object.entries(FOOTER_LINKS).map(([title, links]) => (
-            <div key={title}>
-              <h4 className="text-white text-xs mb-3.5 font-[var(--font-mono)] tracking-[1.5px] font-semibold">
-                {title}
-              </h4>
-              <ul className="space-y-2">
-                {links.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="hover:text-white transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+          {/* 계좌 정보 */}
+          <div>
+            <div className="text-white font-bold text-sm mb-2 font-[var(--font-mono)] tracking-[1px]">BANK ACCOUNT</div>
+            <div className="leading-relaxed">
+              · 기업은행&nbsp;&nbsp;000-000000-000-00<br />
+              <span className="ml-12">(예금주 : 계좌주명)</span>
             </div>
-          ))}
+          </div>
+
+          {/* 사업자 정보 */}
+          <div>
+            <div className="leading-relaxed">
+              상호 : 에스에스종합상사&nbsp;&nbsp;&nbsp;대표 : 신상영&nbsp;&nbsp;&nbsp;주소 : 경기도 시흥시 공단1대로 204 공구상가 31동 111~112호
+              <br />
+              사업자등록번호 : 134-09-17919&nbsp;&nbsp;
+              <Link href="/business-info" className="border border-[#666] px-1.5 py-0.5 text-[10px] hover:text-white transition-colors">
+                사업자번호조회
+              </Link>
+              &nbsp;&nbsp;통신판매업신고 : 제 2020-경기시흥-0317 호
+              <br />
+              개인정보보호책임자 : 에스에스종합상사 운영팀장
+              <br />
+              <span className="text-[#666]">copyright iuniform.net rights reserved.</span>
+            </div>
+          </div>
         </div>
 
-        {/* Bottom */}
-        <div className="leading-[1.8] opacity-55 font-[var(--font-mono)] text-[11px] tracking-[0.3px]">
-          ㈜에스에스종합상사 / 대표: ○○○ / 사업자등록번호: 000-00-00000 /
-          통신판매업신고: 제2026-인천○○-0000호
-          <br />
-          인천광역시 ○○구 ○○로 000 / TEL. 430-0497 / FAX. 430-0498
-          <br />© 2026 SS TRADING CO. ALL RIGHTS RESERVED.
+        {/* 하단 링크 */}
+        <div className="pt-5 flex items-center gap-5 text-[#666]">
+          {BOTTOM_LINKS.map((link, i) => (
+            <span key={link.href} className="flex items-center gap-5">
+              <Link href={link.href} className="hover:text-white transition-colors">
+                {link.label}
+              </Link>
+              {i < BOTTOM_LINKS.length - 1 && <span className="text-[#444]">|</span>}
+            </span>
+          ))}
         </div>
       </div>
     </footer>

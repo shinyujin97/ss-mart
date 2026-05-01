@@ -41,9 +41,18 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   // 카테고리 조회
   const cat = await prisma.category.findUnique({
     where: { slug: category },
-    include: { children: { orderBy: { sortOrder: "asc" } } },
+    include: {
+      children: { orderBy: { sortOrder: "asc" } },
+      parent: { include: { children: { orderBy: { sortOrder: "asc" } } } },
+    },
   });
   if (!cat) notFound();
+
+  // 탭에 표시할 형제 카테고리: 현재 카테고리가 하위면 부모의 children, 아니면 자기 children
+  const tabParentSlug = cat.parent?.slug ?? cat.slug;
+  const tabChildren = cat.children.length > 0
+    ? cat.children
+    : (cat.parent?.children ?? []);
 
   // 하위 카테고리 슬러그 포함해서 상품 조회
   const childIds = cat.children.map((c) => c.id);
@@ -114,22 +123,30 @@ export default async function CategoryPage({ params, searchParams }: Props) {
         </div>
       </div>
 
-      {/* 하위 카테고리 탭 */}
-      {cat.children.length > 0 && (
+      {/* 하위 카테고리 탭 — 스크롤 시 상단 고정 */}
+      {tabChildren.length > 0 && (
         <div className="bg-white border-b border-[var(--line)]">
           <div className="max-w-[1340px] mx-auto px-6">
             <div className="flex overflow-x-auto">
               <Link
-                href={`/categories/${category}`}
-                className="px-5 py-3.5 font-bold text-sm border-b-2 border-[var(--black)] text-[var(--black)] whitespace-nowrap"
+                href={`/categories/${tabParentSlug}`}
+                className={`px-5 py-3.5 text-sm border-b-2 whitespace-nowrap font-bold transition-colors ${
+                  cat.slug === tabParentSlug
+                    ? "border-[var(--black)] text-[var(--black)]"
+                    : "border-transparent text-[var(--gray-500)] hover:text-[var(--black)] hover:border-[var(--gray-300)]"
+                }`}
               >
                 전체
               </Link>
-              {cat.children.map((child) => (
+              {tabChildren.map((child) => (
                 <Link
                   key={child.slug}
                   href={`/categories/${child.slug}`}
-                  className="px-5 py-3.5 text-sm text-[var(--gray-500)] hover:text-[var(--black)] border-b-2 border-transparent hover:border-[var(--gray-300)] transition-colors whitespace-nowrap"
+                  className={`px-5 py-3.5 text-sm border-b-2 whitespace-nowrap transition-colors ${
+                    cat.slug === child.slug
+                      ? "border-[var(--black)] text-[var(--black)] font-bold"
+                      : "border-transparent text-[var(--gray-500)] hover:text-[var(--black)] hover:border-[var(--gray-300)]"
+                  }`}
                 >
                   {child.name}
                 </Link>
@@ -141,8 +158,10 @@ export default async function CategoryPage({ params, searchParams }: Props) {
 
       <div className="max-w-[1340px] mx-auto px-6 py-6">
         <div className="grid grid-cols-[240px_1fr] gap-6 items-start">
-          {/* 좌측 필터 */}
-          <CategoryFilter brands={brands} currentBrands={brandFilter} />
+          {/* 좌측 필터 — 스크롤 시 고정 */}
+          <div className="sticky top-4">
+            <CategoryFilter brands={brands} currentBrands={brandFilter} />
+          </div>
 
           {/* 우측 상품 목록 */}
           <div>
@@ -204,23 +223,48 @@ export default async function CategoryPage({ params, searchParams }: Props) {
             )}
 
             {/* 페이지네이션 */}
-            {totalPages > 1 && (
-              <div className="flex justify-center gap-1 mt-10">
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-                  <Link
-                    key={p}
-                    href={`?sort=${sort}&page=${p}`}
-                    className={`w-9 h-9 flex items-center justify-center text-sm font-[var(--font-mono)] border transition-colors ${
-                      p === page
-                        ? "bg-[var(--black)] text-white border-[var(--black)]"
-                        : "border-[var(--line)] text-[var(--gray-700)] hover:border-[var(--black)]"
-                    }`}
-                  >
-                    {p}
-                  </Link>
-                ))}
-              </div>
-            )}
+            {totalPages > 1 && (() => {
+              const GROUP = 10;
+              const groupStart = Math.floor((page - 1) / GROUP) * GROUP + 1;
+              const groupEnd = Math.min(groupStart + GROUP - 1, totalPages);
+              const buildHref = (p: number) => `?sort=${sort}&page=${p}`;
+
+              const btnClass = (active: boolean) =>
+                `w-9 h-9 flex items-center justify-center border font-[var(--font-mono)] text-sm transition-colors ${
+                  active
+                    ? "border-[var(--line)] text-[var(--gray-700)] hover:border-[var(--black)] hover:text-[var(--black)]"
+                    : "border-[var(--gray-100)] text-[var(--gray-300)] cursor-not-allowed pointer-events-none"
+                }`;
+
+              return (
+                <div className="flex justify-center items-center gap-1 mt-10">
+                  {/* << 맨 처음 */}
+                  <Link href={page > 1 ? buildHref(1) : "#"} aria-disabled={page <= 1} className={btnClass(page > 1)}>{"<<"}</Link>
+                  {/* < 이전 페이지 */}
+                  <Link href={page > 1 ? buildHref(page - 1) : "#"} aria-disabled={page <= 1} className={btnClass(page > 1)}>{"<"}</Link>
+
+                  {/* 페이지 번호 (10개씩) */}
+                  {Array.from({ length: groupEnd - groupStart + 1 }, (_, i) => groupStart + i).map((p) => (
+                    <Link
+                      key={p}
+                      href={buildHref(p)}
+                      className={`w-9 h-9 flex items-center justify-center text-sm font-[var(--font-mono)] border transition-colors ${
+                        p === page
+                          ? "bg-[var(--black)] text-white border-[var(--black)]"
+                          : "border-[var(--line)] text-[var(--gray-700)] hover:border-[var(--black)]"
+                      }`}
+                    >
+                      {p}
+                    </Link>
+                  ))}
+
+                  {/* > 다음 페이지 */}
+                  <Link href={page < totalPages ? buildHref(page + 1) : "#"} aria-disabled={page >= totalPages} className={btnClass(page < totalPages)}>{">"}</Link>
+                  {/* >> 맨 끝 */}
+                  <Link href={page < totalPages ? buildHref(totalPages) : "#"} aria-disabled={page >= totalPages} className={btnClass(page < totalPages)}>{">>"}</Link>
+                </div>
+              );
+            })()}
           </div>
         </div>
       </div>

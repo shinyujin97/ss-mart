@@ -1,13 +1,17 @@
 import Link from "next/link";
+import Image from "next/image";
+// Link는 VIEW ALL 버튼에만 사용
 import { prisma } from "@/lib/prisma";
 
 export default async function BrandSection() {
   const brands = await prisma.brand.findMany({
-    where: { isActive: true },
-    orderBy: { sortOrder: "asc" },
-    take: 16,
-    select: { slug: true, name: true },
+    where: { isActive: true, logoUrl: { not: null }, slug: { not: "etc-brand" } },
+    include: { _count: { select: { products: true } } },
+    orderBy: { products: { _count: "desc" } },
+    take: 25,
   });
+
+  const total = await prisma.brand.count({ where: { isActive: true, slug: { not: "etc-brand" } } });
 
   return (
     <section className="max-w-[1340px] mx-auto px-6 my-14">
@@ -20,7 +24,7 @@ export default async function BrandSection() {
             <h2 className="text-2xl font-black tracking-tight">
               입점 <span className="text-[var(--red)]">브랜드</span>
             </h2>
-            <p className="text-xs text-[var(--gray-500)] mt-1">80여 개 프리미엄 브랜드 공식 입점</p>
+            <p className="text-xs text-[var(--gray-500)] mt-1">{total}개 프리미엄 브랜드 공식 입점</p>
           </div>
         </div>
         <Link
@@ -31,22 +35,24 @@ export default async function BrandSection() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-8 border-l border-t border-[var(--line)]">
+      <div className="grid grid-cols-5 border-l border-t border-[var(--line)]">
         {brands.map((b) => (
-          <Link
+          <div
             key={b.slug}
-            href={`/brands/${b.slug}`}
-            className="flex items-center justify-center h-16 border-r border-b border-[var(--line)] font-[var(--font-display)] text-sm tracking-[1px] text-[var(--gray-500)] hover:text-[var(--black)] hover:bg-[var(--gray-50)] transition-colors px-2 text-center"
+            className="bg-white border-r border-b border-[var(--line)] flex items-center justify-center py-5 px-4"
           >
-            {b.name}
-          </Link>
+            <div className="h-12 flex items-center justify-center">
+              <Image
+                src={b.logoUrl!}
+                alt={b.name}
+                width={120}
+                height={48}
+                className="object-contain max-h-12"
+                unoptimized
+              />
+            </div>
+          </div>
         ))}
-        <Link
-          href="/brands"
-          className="flex items-center justify-center h-16 border-r border-b border-[var(--line)] font-[var(--font-display)] text-sm tracking-[1px] text-[var(--red)] hover:bg-[var(--red)] hover:text-white transition-colors"
-        >
-          + 64 MORE
-        </Link>
       </div>
     </section>
   );

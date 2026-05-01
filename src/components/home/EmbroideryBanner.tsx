@@ -9,45 +9,49 @@ const FEATURES = [
 
 export default function EmbroideryBanner() {
   return (
-    <section className="bg-[var(--gray-900)] text-white py-16 my-12 relative overflow-hidden">
+    <section className="text-white py-16 my-12 relative overflow-hidden">
+      {/* 배경 이미지 */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('/embroidery/machine.jpg')" }}
+      />
+      {/* 어두운 오버레이 */}
+      <div className="absolute inset-0 bg-[var(--black)]/55" />
       {/* 상단 라인 */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-[var(--red)]" />
 
-      <div className="max-w-[1340px] mx-auto px-6">
+      <div className="max-w-[1340px] mx-auto px-6 relative z-10">
         {/* 헤더 */}
-        <div className="flex items-end justify-between mb-10 pb-5 border-b border-[#333]">
+        <div className="flex items-end justify-between mb-10 pb-5 border-b border-white/20">
           <div>
-            <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[2px] mb-2">
+            <div className="font-[var(--font-mono)] text-[11px] text-[var(--yellow)] tracking-[2px] mb-2">
               SECTION / 03 ─ EMBROIDERY & MARKING
             </div>
-            <h2 className="text-[32px] font-black leading-tight tracking-tight">
+            <h2 className="text-[32px] font-black leading-tight tracking-tight text-white">
               우리 회사 로고가 박힌
               <br />
               <span className="text-[var(--red)]">맞춤 작업복</span> 제작
             </h2>
           </div>
-          <div className="text-right">
-            <div className="font-[var(--font-display)] text-[60px] text-white/10 leading-none">
-              12,000+
-            </div>
-            <div className="font-[var(--font-mono)] text-[10px] text-white/40 tracking-[2px]">
-              COMPLETED PROJECTS
-            </div>
-          </div>
         </div>
 
         {/* 피처 그리드 */}
-        <div className="grid grid-cols-4 gap-0 border border-[#333] mb-10">
-          {FEATURES.map((f, i) => (
+        <div className="grid grid-cols-4 gap-4 mb-10">
+          {FEATURES.map((f) => (
             <div
               key={f.num}
-              className={`p-6 ${i < 3 ? "border-r border-[#333]" : ""}`}
+              className="p-6 bg-[var(--black)]/70 border border-[var(--yellow)]/30 backdrop-blur-sm
+                cursor-default transition-all duration-300 ease-out
+                hover:-translate-y-3 hover:scale-[1.03]
+                hover:border-[var(--yellow)]/80 hover:bg-[var(--black)]/85
+                hover:shadow-[0_20px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(255,212,0,0.15)]"
+              style={{ transformStyle: "preserve-3d" }}
             >
-              <div className="font-[var(--font-display)] text-[40px] text-white/10 leading-none mb-3">
+              <div className="font-[var(--font-display)] text-[40px] text-[var(--yellow)] leading-none mb-3 transition-transform duration-300 group-hover:scale-110">
                 {f.num}
               </div>
-              <div className="text-sm font-bold mb-2">{f.title}</div>
-              <div className="text-[11px] text-white/50 leading-relaxed whitespace-pre-line">
+              <div className="text-sm font-black mb-2 text-[var(--yellow)]">{f.title}</div>
+              <div className="text-[12px] text-white leading-relaxed whitespace-pre-line">
                 {f.desc}
               </div>
             </div>
@@ -64,7 +68,7 @@ export default function EmbroideryBanner() {
           </Link>
           <Link
             href="/bulk-order"
-            className="border border-white/30 text-white px-8 py-4 font-bold text-sm tracking-[0.5px] hover:border-white transition-colors"
+            className="bg-white/15 border border-white/50 text-white px-8 py-4 font-bold text-sm tracking-[0.5px] hover:bg-white/25 hover:border-white transition-all backdrop-blur-sm"
           >
             단체주문 견적 →
           </Link>

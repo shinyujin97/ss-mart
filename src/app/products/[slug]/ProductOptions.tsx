@@ -76,19 +76,19 @@ export default function ProductOptions({
   }
 
   function handleAddToCart() {
-    if (!selectedOption) return;
+    if (!canAddToCart) return;
     addItem({
-      id: selectedOption.id,
-      productId: selectedOption.id,
+      id: selectedOption?.id ?? `${productSlug}-${selectedColor}-${selectedSize}`,
+      productId: selectedOption?.id ?? productSlug,
       productSlug,
       productName,
       brandName,
       imageUrl,
-      color: selectedOption.color,
-      colorHex: selectedOption.colorHex,
-      size: selectedOption.size,
-      sku: selectedOption.sku,
-      unitPrice: salePrice + selectedOption.priceAdjust,
+      color: selectedOption?.color ?? selectedColor ?? "",
+      colorHex: selectedOption?.colorHex ?? null,
+      size: selectedOption?.size ?? selectedSize ?? "",
+      sku: selectedOption?.sku ?? `${productSlug}-${selectedColor}-${selectedSize}`.toUpperCase(),
+      unitPrice: salePrice + (selectedOption?.priceAdjust ?? 0),
       quantity,
     });
     setAdded(true);
@@ -100,19 +100,27 @@ export default function ProductOptions({
     router.push("/cart");
   }
 
+  const hasDbOptions = options.length > 0;
   const selectedOption = options.find(
     (o) => o.color === selectedColor && o.size === selectedSize
   );
-  const stock = selectedOption
-    ? selectedOption.stockQuantity - selectedOption.reservedQuantity
-    : null;
+  // DB 옵션 없으면 재고 체크 생략, 선택만 가능하게
+  const stock = hasDbOptions
+    ? (selectedOption ? selectedOption.stockQuantity - selectedOption.reservedQuantity : null)
+    : (selectedColor && selectedSize ? 99 : null);
   const totalPrice = (salePrice + (selectedOption?.priceAdjust ?? 0)) * quantity;
 
   const isSizeAvailable = (size: string) => {
+    if (!hasDbOptions) return true;
     if (!selectedColor) return true;
     const opt = options.find((o) => o.color === selectedColor && o.size === size);
     return opt ? opt.stockQuantity - opt.reservedQuantity > 0 : false;
   };
+
+  // 선택 완료 여부 (DB 옵션 없으면 색상+사이즈만 선택돼도 OK)
+  const canAddToCart = hasDbOptions
+    ? (!!selectedOption && stock !== null && stock > 0)
+    : (!!selectedColor && !!selectedSize);
 
   return (
     <div>
@@ -126,19 +134,19 @@ export default function ProductOptions({
             <button
               key={c.color}
               onClick={() => { setSelectedColor(c.color); setSelectedSize(null); }}
-              className={`group flex items-center gap-2 px-3 py-2 border text-xs font-semibold transition-all ${
+              title={c.color}
+              className={`relative w-9 h-9 flex-shrink-0 transition-all ${
                 selectedColor === c.color
-                  ? "border-[var(--black)] bg-[var(--black)] text-white"
-                  : "border-[var(--line)] hover:border-[var(--black)]"
+                  ? "ring-2 ring-offset-2 ring-[var(--black)]"
+                  : "ring-1 ring-[var(--line)] hover:ring-[var(--gray-500)]"
               }`}
+              style={{ background: c.colorHex ?? "#ccc" }}
             >
-              {c.colorHex && (
-                <span
-                  className="w-3 h-3 flex-shrink-0"
-                  style={{ background: c.colorHex, border: "1px solid rgba(0,0,0,0.1)" }}
-                />
+              {selectedColor === c.color && (
+                <span className="absolute inset-0 flex items-center justify-center text-white text-[10px] font-bold drop-shadow">
+                  ✓
+                </span>
               )}
-              {c.color}
             </button>
           ))}
         </div>
@@ -222,14 +230,14 @@ export default function ProductOptions({
       <div className="flex gap-2">
         <button
           onClick={handleAddToCart}
-          disabled={!selectedColor || !selectedSize || stock === 0}
+          disabled={!canAddToCart}
           className="flex-1 bg-[var(--black)] text-white py-4 font-bold text-sm tracking-[0.5px] hover:bg-[var(--gray-900)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {added ? "담겼습니다 ✓" : "장바구니 담기"}
         </button>
         <button
           onClick={handleBuyNow}
-          disabled={!selectedColor || !selectedSize || stock === 0}
+          disabled={!canAddToCart}
           className="flex-1 bg-[var(--red)] text-white py-4 font-bold text-sm tracking-[0.5px] hover:bg-[var(--red-dark)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
           바로 구매
