@@ -48,7 +48,8 @@ export async function POST(req: NextRequest) {
     });
 
     // TODO: 이메일 발송 서비스 연동 후 tempPassword를 이메일로 전송
-    return NextResponse.json({ message: "임시 비밀번호가 발급되었습니다.", tempPassword });
+    console.info(`[reset-password] member=${member.id} temp=${tempPassword}`);
+    return NextResponse.json({ message: "임시 비밀번호가 발급되었습니다." });
   } catch {
     return NextResponse.json({ error: "서버 오류가 발생했습니다." }, { status: 500 });
   }

@@ -1,6 +1,7 @@
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/generated/prisma/client";
 import ProductCard from "@/components/home/ProductCard";
 import CategoryFilter from "./CategoryFilter";
 
@@ -100,24 +101,26 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   const useCategorySort = childIds.length > 0 && sort === "newest";
 
   type RawRow = { id: string };
-  const catIdList = catIds.join("','");
+  const skip = (page - 1) * PAGE_SIZE;
 
   const sortedIds: string[] = useCategorySort
-    ? await prisma.$queryRawUnsafe<RawRow[]>(`
-        WITH cat_priorities AS (
-          SELECT pc."productId", MIN(c."sortOrder") AS priority
-          FROM product_categories pc
-          JOIN categories c ON pc."categoryId" = c.id
-          WHERE c.id IN ('${catIdList}')
-          GROUP BY pc."productId"
-        )
-        SELECT p.id
-        FROM products p
-        JOIN cat_priorities cp ON p.id = cp."productId"
-        WHERE p.status = 'ACTIVE'
-        ORDER BY cp.priority ASC, p."createdAt" DESC
-        LIMIT ${PAGE_SIZE} OFFSET ${(page - 1) * PAGE_SIZE}
-      `).then((rows) => rows.map((r) => r.id))
+    ? await prisma.$queryRaw<RawRow[]>(
+        Prisma.sql`
+          WITH cat_priorities AS (
+            SELECT pc."productId", MIN(c."sortOrder") AS priority
+            FROM product_categories pc
+            JOIN categories c ON pc."categoryId" = c.id
+            WHERE c.id IN (${Prisma.join(catIds)})
+            GROUP BY pc."productId"
+          )
+          SELECT p.id
+          FROM products p
+          JOIN cat_priorities cp ON p.id = cp."productId"
+          WHERE p.status = 'ACTIVE'
+          ORDER BY cp.priority ASC, p."createdAt" DESC
+          LIMIT ${PAGE_SIZE} OFFSET ${skip}
+        `
+      ).then((rows) => rows.map((r) => r.id))
     : [];
 
   const productInclude = {

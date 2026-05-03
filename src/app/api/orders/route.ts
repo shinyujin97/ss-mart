@@ -56,10 +56,11 @@ export async function POST(req: NextRequest) {
         // [CRITICAL FIX 1] 자수비는 DB에 저장된 서버 계산값 조회 (클라이언트 값 무시)
         if (item.embroideryDesignId) {
           const design = await tx.embroideryDesign.findUnique({
-            where: { id: item.embroideryDesignId },
+            where: { id: item.embroideryDesignId, memberId: session.user!.id as string },
             select: { totalPrice: true },
           });
-          embroideryFeeTotal += design?.totalPrice ?? 0;
+          if (!design) throw new Error("자수 시안을 찾을 수 없거나 권한이 없습니다.");
+          embroideryFeeTotal += design.totalPrice ?? 0;
         }
 
         await tx.productOption.update({
