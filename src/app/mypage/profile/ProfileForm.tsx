@@ -4,8 +4,9 @@ import { useState } from "react";
 
 interface Props {
   member: {
+    loginId?: string;
     name: string;
-    email: string;
+    email: string | null;
     phone: string;
     birthDate: Date | null;
     gender: string | null;

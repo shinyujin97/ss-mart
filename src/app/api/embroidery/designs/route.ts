@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
   const session = await auth();
   const body = await req.json();
 
-  const { type, size, position, textContent, notes, quantity = 1, isBulkOrder = false } = body;
+  const { type, size, position, positions: positionsArr, textContent, notes, quantity = 1, designImageUrl, designPositions } = body;
 
   // 저작권 검증
   if (textContent) {
@@ -26,8 +26,11 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  // 서버에서 가격 계산
-  const positions: EmbroideryPositionKey[] = position ? [position] : ["LEFT_CHEST"];
+  // 서버에서 가격 계산 — positions 배열에서 첫 번째를 대표 위치로 사용
+  const positions: EmbroideryPositionKey[] = positionsArr?.length ? positionsArr : position ? [position] : [];
+  if (!positions.length) {
+    return NextResponse.json({ error: "자수 위치를 선택해 주세요." }, { status: 400 });
+  }
   const unitPrice = calculateUnitPrice({
     type: type as EmbroideryTypeKey,
     size: size as EmbroiderySizeKey,
@@ -35,12 +38,11 @@ export async function POST(req: NextRequest) {
   });
   const totalPrice = unitPrice * quantity;
 
-  // 시안 번호 생성
-  const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
-  const count = await prisma.embroideryDesign.count({
-    where: { createdAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) } },
-  });
-  const designNumber = `DESIGN-${today}-${String(count + 1).padStart(5, "0")}`;
+  // 시안 번호 생성 — 날짜 + 밀리초 + 랜덤 4자리로 중복 방지
+  const now = new Date();
+  const today = now.toISOString().slice(0, 10).replace(/-/g, "");
+  const suffix = `${now.getTime().toString(36).toUpperCase().slice(-5)}${Math.random().toString(36).slice(2, 4).toUpperCase()}`;
+  const designNumber = `DESIGN-${today}-${suffix}`;
 
   const design = await prisma.embroideryDesign.create({
     data: {
@@ -51,7 +53,9 @@ export async function POST(req: NextRequest) {
       position: positions[0],
       size,
       textContent: textContent ?? null,
+      designImageUrl: designImageUrl ?? null,
       notes: notes ?? null,
+      customPositions: designPositions ?? null,
       unitPrice,
       quantity,
       totalPrice,

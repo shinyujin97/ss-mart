@@ -13,7 +13,9 @@ datasource db {
 
 model Member {
   id           String      @id @default(cuid())
-  email        String      @unique
+  loginId      String      @unique
+  role         MemberRole  @default(USER)
+  email        String?     @unique
   passwordHash String
   name         String
   phone        String      @unique
@@ -47,10 +49,12 @@ model Member {
   embroideryDesigns EmbroideryDesign[]
   pointHistory      PointHistory[]
   coupons           MemberCoupon[]
+  notifications     Notification[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@index([loginId])
   @@index([email])
   @@index([phone])
   @@index([status])
@@ -98,6 +102,11 @@ model Address {
 
   @@index([memberId])
   @@map("addresses")
+}
+
+enum MemberRole {
+  USER
+  ADMIN
 }
 
 enum MemberType {
@@ -230,6 +239,7 @@ model ProductCategory {
   product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  sortOrder  Int      @default(0)
 
   @@id([productId, categoryId])
   @@map("product_categories")
@@ -351,14 +361,20 @@ model EmbroideryDesign {
   position       EmbroideryPosition
   size           EmbroiderySize
 
-  textContent    String?
-  logoImageUrl   String?
-  designImageUrl String?
-  notes          String? @db.Text
+  textContent     String?
+  logoImageUrl    String?
+  designImageUrl  String?
+  notes           String? @db.Text
+  customPositions Json? // { "RIGHT_CHEST": { "x": 270, "y": 165 }, ... }
 
   unitPrice  Int
   quantity   Int @default(1)
   totalPrice Int
+
+  quotePrice        Int? // 관리자 확정 견적 금액
+  quoteColorCount   Int? // 자수 컬러 수
+  quoteDeliveryDays Int? // 예상 납기 (일)
+  quoteMessage      String? @db.Text // 견적 안내 메시지
 
   isCharacterDesign Boolean @default(false)
   copyrightApproved Boolean @default(false)
@@ -370,7 +386,18 @@ model EmbroideryDesign {
   productionStartedAt DateTime?
   completedAt         DateTime?
 
-  revisionCount Int @default(0)
+  revisionCount       Int  @default(0)
+  confirmedRevisionNo Int? // 고객이 확정한 시안 차수
+
+  // 배송지 (견적 승인 시 입력)
+  shippingName          String?
+  shippingPhone         String?
+  shippingZipCode       String?
+  shippingAddress       String?
+  shippingAddressDetail String?
+  shippingRequest       String? @db.Text // 배송 요청사항
+
+  draftImages EmbroideryDraftImage[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -382,6 +409,20 @@ model EmbroideryDesign {
   @@map("embroidery_designs")
 }
 
+model EmbroideryDraftImage {
+  id         String           @id @default(cuid())
+  designId   String
+  design     EmbroideryDesign @relation(fields: [designId], references: [id], onDelete: Cascade)
+  revisionNo Int // 1차=1, 2차=2 ...
+  imageUrl   String           @db.Text
+  message    String?          @db.Text
+
+  createdAt DateTime @default(now())
+
+  @@index([designId])
+  @@map("embroidery_draft_images")
+}
+
 enum EmbroideryDesignSource {
   SIMULATOR
   DESIGNER
@@ -391,6 +432,9 @@ enum EmbroideryDesignSource {
 enum EmbroideryStatus {
   DRAFT
   REVIEW_PENDING
+  QUOTE_SENT
+  QUOTE_APPROVED
+  QUOTE_REJECTED
   REVIEW_IN_PROGRESS
   CUSTOMER_REVIEW
   REVISION_REQUESTED
@@ -505,6 +549,10 @@ model Order {
   bulkOrderId String?
   bulkOrder   BulkOrder? @relation(fields: [bulkOrderId], references: [id])
 
+  // 무통장입금
+  bankTransferDeadline DateTime? // 입금 기한
+  bankTransferHolder   String? // 입금자명
+
   paidAt      DateTime?
   shippedAt   DateTime?
   deliveredAt DateTime?
@@ -555,6 +603,7 @@ model OrderItem {
 
 enum OrderStatus {
   PENDING
+  PENDING_PAYMENT // 무통장 입금 대기
   PAID
   DESIGN_REVIEW
   IN_PRODUCTION
@@ -958,4 +1007,28 @@ enum DiscountType {
   PERCENTAGE
   FREE_SHIPPING
   FREE_EMBROIDERY
+}
+
+// ============================================================================
+// 알림
+// ============================================================================
+
+model Notification {
+  id       String  @id @default(cuid())
+  memberId String? // null = 관리자 전체 공지
+  member   Member? @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  type  String // ADMIN_NEW_REQUEST | USER_EMBROIDERY_STATUS | ADMIN_NEW_ORDER
+  title String
+  body  String
+  link  String?
+
+  isRead Boolean   @default(false)
+  readAt DateTime?
+
+  createdAt DateTime @default(now())
+
+  @@index([memberId, isRead])
+  @@index([memberId, createdAt])
+  @@map("notifications")
 }

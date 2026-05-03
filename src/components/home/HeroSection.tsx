@@ -10,7 +10,7 @@ const CATEGORY_LIST = [
   { label: "안전모", href: "/categories/safety-helmet", slug: "safety-helmet" },
   { label: "안전장갑", href: "/categories/gloves", slug: "gloves" },
   { label: "마스크 / 보호구", href: "/categories/mask", slug: "mask" },
-  { label: "안전조끼", href: "/categories/safety-vest", slug: "safety-vest" },
+  { label: "조끼", href: "/categories/workwear-vest", slug: "workwear-vest" },
   { label: "F&B 유니폼", href: "/categories/fnb-uniform", slug: "fnb-uniform" },
   { label: "의료 / 위생", href: "/categories/medical-uniform", slug: "medical-uniform" },
   { label: "방한 / 동절기", href: "/categories/workwear-winter", slug: "workwear-winter" },
@@ -63,7 +63,7 @@ export default async function HeroSection() {
             로고 자수
           </div>
           <div className="text-xs text-white/75 leading-relaxed mb-4">
-            전문 디자이너 시안 무료 제작
+            고객 디자인 기반 시안 무료 제작
             <br />
             저작권 안전 보장
           </div>

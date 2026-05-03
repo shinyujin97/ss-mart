@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import CategoryDropdown from "./CategoryDropdown";
 
 const NAV_LINKS = [
+  { href: "/categories/all-products", label: "전체 보기" },
   { href: "/embroidery", label: "자수/마킹" },
   { href: "/embroidery/gallery", label: "자수 갤러리" },
   { href: "/best", label: "베스트" },

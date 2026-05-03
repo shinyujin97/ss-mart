@@ -16,10 +16,17 @@ export default async function MypageLayout({ children }: { children: React.React
         select: {
           coupons: { where: { usedAt: null } },
           wishlist: true,
-          embroideryDesigns: true,
+          embroideryDesigns: { where: { status: "DRAFT" } },
           quoteRequests: true,
         },
       },
+    },
+  });
+
+  const embroideryRequestsCount = await prisma.embroideryDesign.count({
+    where: {
+      memberId: session.user.id as string,
+      status: { not: "DRAFT" },
     },
   });
 
@@ -104,6 +111,7 @@ export default async function MypageLayout({ children }: { children: React.React
               coupons: member._count.coupons,
               wishlist: member._count.wishlist,
               embroidery: member._count.embroideryDesigns,
+              embroideryRequests: embroideryRequestsCount,
               quotes: member._count.quoteRequests,
               points: member.points,
             }}

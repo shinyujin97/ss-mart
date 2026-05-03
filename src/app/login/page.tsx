@@ -1,11 +1,12 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 import LoginForm from "./LoginForm";
 
 const BENEFITS = [
   { num: "BENEFIT / 01", name: "2,000P 즉시 적립", desc: "신규 가입 즉시" },
   { num: "BENEFIT / 02", name: "10% 첫 구매 쿠폰", desc: "최대 5만원" },
-  { num: "BENEFIT / 03", name: "무료 자수 시안", desc: "전문 디자이너" },
+  { num: "BENEFIT / 03", name: "무료 자수 시안", desc: "고객 디자인 기반" },
   { num: "BENEFIT / 04", name: "단체주문 30%", desc: "100벌 이상" },
 ];
 
@@ -81,7 +82,9 @@ export default async function LoginPage() {
         </div>
 
         {/* 우측: 폼 */}
-        <LoginForm />
+        <Suspense fallback={<div className="bg-white border border-[var(--line)] border-l-0" />}>
+          <LoginForm />
+        </Suspense>
       </div>
     </div>
   );

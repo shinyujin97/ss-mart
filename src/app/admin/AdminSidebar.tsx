@@ -13,7 +13,7 @@ const MENU = [
   ]},
   { group: "OPERATIONS", items: [
     { href: "/admin/orders", label: "주문 관리", icon: "▷" },
-    { href: "/admin/embroidery", label: "자수 시안 관리", icon: "✦" },
+    { href: "/admin/embroidery", label: "자수 시안 요청", icon: "✦" },
     { href: "/admin/bulk-orders", label: "단체주문 견적", icon: "◆" },
   ]},
   { group: "MARKETING", items: [

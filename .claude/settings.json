@@ -4,6 +4,8 @@
   "permissions": {
     "allow": [
       "Read",
+      "Edit",
+      "Write",
       "Glob",
       "Grep",
       "Bash(npm install:*)",
@@ -24,11 +26,10 @@
       "Bash(cat:*)",
       "Bash(find:*)",
       "Bash(pwd)",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "Bash(pnpm typecheck)"
     ],
     "ask": [
-      "Edit",
-      "Write",
       "Bash(npx prisma migrate deploy:*)",
       "Bash(npx prisma db push:*)",
       "Bash(npx prisma db seed:*)",

@@ -35,7 +35,6 @@ export async function seedCategories(prisma: PrismaClient) {
       children: [
         { slug: "safety-helmet", name: "안전모" },
         { slug: "mask", name: "마스크" },
-        { slug: "safety-vest", name: "안전조끼" },
         { slug: "gloves", name: "장갑 / 보호구" },
       ],
     },

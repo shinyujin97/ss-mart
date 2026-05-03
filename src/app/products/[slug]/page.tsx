@@ -153,8 +153,7 @@ export default async function ProductDetailPage({ params }: Props) {
 
   if (!product || product.status === "HIDDEN") notFound();
 
-  const ADMIN_EMAILS = (process.env.ADMIN_EMAILS ?? "").split(",").map((e) => e.trim()).filter(Boolean);
-  const isAdmin = ADMIN_EMAILS.includes(session?.user?.email ?? "");
+  const isAdmin = (session?.user as any)?.role === "ADMIN";
 
   // 로그인 시 찜 여부 확인
   const wishlisted = session?.user?.id

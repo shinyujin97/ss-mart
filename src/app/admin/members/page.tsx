@@ -32,7 +32,7 @@ export default async function AdminMembersPage() {
       <div className="flex items-center justify-between">
         <div>
           <div className="font-[var(--font-mono)] text-[10px] text-[#555] tracking-[2px] mb-1">ADMIN / MEMBERS</div>
-          <h1 className="text-xl font-black text-white">회원 관리</h1>
+          <h1 className="text-xl font-black text-[#111]">회원 관리</h1>
         </div>
         <div className="font-[var(--font-mono)] text-xs text-[#555]">총 {members.length.toLocaleString()}명</div>
       </div>

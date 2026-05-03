@@ -1,5 +1,6 @@
 import CheckoutClient from "./CheckoutClient";
 import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 
 export const metadata = { title: "주문 / 결제 | 에스에스종합상사" };
@@ -7,6 +8,16 @@ export const metadata = { title: "주문 / 결제 | 에스에스종합상사" };
 export default async function CheckoutPage() {
   const session = await auth();
   if (!session) redirect("/login?next=/checkout");
+
+  const savedAddresses = await prisma.address.findMany({
+    where: { memberId: (session.user?.id ?? "") as string },
+    orderBy: [{ isDefault: "desc" }, { createdAt: "desc" }],
+    select: {
+      id: true, label: true, isDefault: true,
+      recipientName: true, recipientPhone: true,
+      zipCode: true, address: true, addressDetail: true,
+    },
+  });
 
   return (
     <div className="bg-[var(--gray-50)] min-h-screen">
@@ -30,7 +41,7 @@ export default async function CheckoutPage() {
           </div>
         </div>
       </div>
-      <CheckoutClient />
+      <CheckoutClient savedAddresses={savedAddresses} />
     </div>
   );
 }

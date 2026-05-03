@@ -1,8 +1,8 @@
 import { auth } from "@/lib/auth";
 import Link from "next/link";
+import { prisma } from "@/lib/prisma";
 import HeaderAuthClient from "./HeaderAuthClient";
-
-const ADMIN_EMAILS = (process.env.ADMIN_EMAILS ?? "").split(",").map((e) => e.trim()).filter(Boolean);
+import NotificationBell from "./NotificationBell";
 
 export default async function HeaderAuth() {
   const session = await auth();
@@ -26,9 +26,20 @@ export default async function HeaderAuth() {
     );
   }
 
-  const isAdmin = ADMIN_EMAILS.includes(session.user.email ?? "");
+  const isAdmin = (session.user as any).role === "ADMIN";
+
+  const unreadCount = await prisma.notification.count({
+    where: isAdmin
+      ? { memberId: null, isRead: false }
+      : { memberId: session.user.id as string, isRead: false },
+  });
 
   return (
-    <HeaderAuthClient name={session.user.name ?? "회원"} isAdmin={isAdmin} />
+    <div className="flex items-center border-l border-[var(--line)]">
+      <div className="px-2 border-r border-[var(--line)]">
+        <NotificationBell initialCount={unreadCount} />
+      </div>
+      <HeaderAuthClient name={session.user.name ?? "회원"} isAdmin={isAdmin} />
+    </div>
   );
 }

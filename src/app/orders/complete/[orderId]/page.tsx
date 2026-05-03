@@ -130,7 +130,7 @@ export default async function OrderCompletePage({ params, searchParams }: Props)
               ▶ 자수 / 마킹 안내
             </div>
             <p className="text-sm text-[var(--gray-700)] leading-relaxed">
-              담당 디자이너가 24시간 내에 카카오 채널{" "}
+              담당자가 24시간 내에 카카오 채널{" "}
               <strong>@ssmart</strong>으로 시안을 보내드립니다.
               <br />
               시안 확정 후 자수 작업이 시작됩니다.

@@ -1,11 +1,12 @@
 import { requireAdmin } from "@/lib/admin-auth";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import ConfirmPaymentButton from "./ConfirmPaymentButton";
 
 export const metadata = { title: "주문 관리" };
 
 const STATUS_LABELS: Record<string, string> = {
-  PENDING: "결제대기", PAID: "결제완료", DESIGN_REVIEW: "시안검토",
+  PENDING: "결제대기", PENDING_PAYMENT: "입금대기", PAID: "결제완료", DESIGN_REVIEW: "시안검토",
   IN_PRODUCTION: "제작중", PREPARING: "출고준비", SHIPPING: "배송중",
   DELIVERED: "배송완료", CONFIRMED: "구매확정", CANCELLED: "취소",
   REFUND_REQUESTED: "환불요청", REFUNDED: "환불완료",
@@ -13,6 +14,7 @@ const STATUS_LABELS: Record<string, string> = {
 
 const STATUS_COLORS: Record<string, string> = {
   PENDING: "text-[#888] bg-[#222]",
+  PENDING_PAYMENT: "text-[#92400e] bg-yellow-100",
   PAID: "text-[#ffd400] bg-yellow-900/30",
   SHIPPING: "text-blue-400 bg-blue-900/30",
   DELIVERED: "text-green-400 bg-green-900/30",
@@ -33,6 +35,7 @@ export default async function AdminOrdersPage() {
       items: { take: 1, include: { product: { select: { name: true } } } },
       payment: { select: { method: true } },
     },
+    // bankTransferDeadline 포함됨 (findMany는 기본적으로 모든 scalar 포함)
   });
 
   return (
@@ -40,7 +43,7 @@ export default async function AdminOrdersPage() {
       <div className="flex items-center justify-between">
         <div>
           <div className="font-[var(--font-mono)] text-[10px] text-[#555] tracking-[2px] mb-1">ADMIN / ORDERS</div>
-          <h1 className="text-xl font-black text-white">주문 관리</h1>
+          <h1 className="text-xl font-black text-[#111]">주문 관리</h1>
         </div>
         <div className="font-[var(--font-mono)] text-xs text-[#555]">총 {orders.length.toLocaleString()}건</div>
       </div>
@@ -61,12 +64,12 @@ export default async function AdminOrdersPage() {
       {/* 테이블 */}
       <div className="bg-[#1a1a1a] border border-[#2a2a2a]">
         <div className="grid font-[var(--font-mono)] text-[10px] text-[#555] tracking-[0.5px] px-5 py-3 bg-[#111] border-b border-[#2a2a2a]"
-          style={{ gridTemplateColumns: "160px 1fr 120px 100px 120px 120px" }}>
-          <div>주문번호</div><div>상품</div><div>회원</div><div>결제수단</div><div>금액</div><div>상태</div>
+          style={{ gridTemplateColumns: "160px 1fr 100px 80px 110px 140px" }}>
+          <div>주문번호</div><div>상품</div><div>회원</div><div>금액</div><div>상태</div><div>처리</div>
         </div>
         {orders.map((o) => (
           <div key={o.id} className="grid items-center px-5 py-3.5 border-b border-[#222] hover:bg-[#1f1f1f] transition-colors"
-            style={{ gridTemplateColumns: "160px 1fr 120px 100px 120px 120px" }}>
+            style={{ gridTemplateColumns: "160px 1fr 100px 80px 110px 140px" }}>
             <div>
               <Link href={`/admin/orders/${o.id}`} className="font-[var(--font-mono)] text-[11px] text-[#c8161d] hover:text-white transition-colors">
                 {o.orderNumber}
@@ -80,12 +83,16 @@ export default async function AdminOrdersPage() {
               {o.items.length > 1 && <span className="text-[#555]"> 외 {o.items.length - 1}건</span>}
             </div>
             <div className="text-xs text-[#888] truncate">{o.member.name}</div>
-            <div className="font-[var(--font-mono)] text-[11px] text-[#666]">{o.payment?.method ?? "—"}</div>
             <div className="font-bold text-sm text-white">{o.totalAmount.toLocaleString()}원</div>
             <div>
               <span className={`font-[var(--font-mono)] text-[10px] px-2 py-1 font-bold ${STATUS_COLORS[o.status] ?? "text-[#888] bg-[#222]"}`}>
                 {STATUS_LABELS[o.status] ?? o.status}
               </span>
+            </div>
+            <div>
+              {o.status === "PENDING_PAYMENT" && (
+                <ConfirmPaymentButton orderId={o.id} deadline={o.bankTransferDeadline} />
+              )}
             </div>
           </div>
         ))}

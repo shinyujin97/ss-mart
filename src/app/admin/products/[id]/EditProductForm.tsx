@@ -73,6 +73,8 @@ export default function EditProductForm({ product, brands, categories, parsedOpt
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState("");
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [detailInput, setDetailInput] = useState("");
 
   const [form, setForm] = useState({
@@ -157,13 +159,17 @@ export default function EditProductForm({ product, brands, categories, parsedOpt
     });
   }
 
-  async function handleSave() {
-    setError("");
+  function handleSaveClick() {
     if (!form.name || !form.slug || !form.brandId || !form.basePrice || !form.salePrice) {
       setError("상품명, 슬러그, 브랜드, 가격은 필수입니다.");
       return;
     }
+    setError("");
+    setShowConfirm(true);
+  }
 
+  async function handleSaveConfirm() {
+    setShowConfirm(false);
     setSaving(true);
     try {
       const res = await fetch(`/api/admin/products/${product.id}`, {
@@ -185,8 +191,11 @@ export default function EditProductForm({ product, brands, categories, parsedOpt
         return;
       }
 
-      router.push("/admin/products");
-      router.refresh();
+      setShowSuccess(true);
+      setTimeout(() => {
+        router.push(`/products/${form.slug}`);
+        router.refresh();
+      }, 1500);
     } catch {
       setError("네트워크 오류가 발생했습니다.");
     } finally {
@@ -468,11 +477,51 @@ export default function EditProductForm({ product, brands, categories, parsedOpt
           className="px-6 py-3 border border-[#ddd] text-[#888] text-sm hover:border-[#111] hover:text-[#111] transition-colors">
           취소
         </button>
-        <button type="button" onClick={handleSave} disabled={saving}
+        <button type="button" onClick={handleSaveClick} disabled={saving}
           className="flex-1 bg-[#c8161d] text-white py-3 font-bold text-sm hover:bg-[#9c0e15] transition-colors disabled:opacity-60">
           {saving ? "저장 중..." : "저장하기"}
         </button>
       </div>
+
+      {/* 수정 확인 모달 */}
+      {showConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white border border-[#e5e5e5] shadow-xl w-[360px]">
+            <div className="font-[var(--font-mono)] text-[10px] tracking-[2px] text-[#aaa] px-6 pt-5 pb-1">CONFIRM</div>
+            <div className="px-6 py-4">
+              <p className="text-[#111] font-bold text-base">수정하시겠습니까?</p>
+              <p className="text-[#888] text-sm mt-1 font-[var(--font-mono)]">{product.name}</p>
+            </div>
+            <div className="flex border-t border-[#e5e5e5]">
+              <button
+                onClick={() => setShowConfirm(false)}
+                className="flex-1 py-3 text-sm text-[#888] hover:bg-[#f4f4f4] transition-colors border-r border-[#e5e5e5]"
+              >
+                취소
+              </button>
+              <button
+                onClick={handleSaveConfirm}
+                className="flex-1 py-3 text-sm font-bold text-white bg-[#c8161d] hover:bg-[#9c0e15] transition-colors"
+              >
+                수정
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 수정 완료 메시지 박스 */}
+      {showSuccess && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white border border-[#e5e5e5] shadow-xl w-[320px] flex flex-col items-center px-8 py-10 gap-4">
+            <div className="w-12 h-12 bg-[#c8161d] flex items-center justify-center">
+              <span className="text-white text-xl font-bold">✓</span>
+            </div>
+            <p className="text-[#111] font-bold text-base text-center">수정완료 하였습니다</p>
+            <p className="font-[var(--font-mono)] text-[11px] text-[#aaa] text-center">상품 페이지로 이동합니다...</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

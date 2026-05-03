@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import ProductCard from "@/components/home/ProductCard";
@@ -12,6 +12,9 @@ interface Props {
     brand?: string | string[];
     minPrice?: string;
     maxPrice?: string;
+    cert?: string | string[];
+    season?: string | string[];
+    size?: string | string[];
   }>;
 }
 
@@ -26,33 +29,42 @@ const PAGE_SIZE = 24;
 
 export default async function CategoryPage({ params, searchParams }: Props) {
   const { category } = await params;
+  if (category === "all-products") redirect("/categories/workwear");
   const sp = await searchParams;
 
   const sort = sp.sort ?? "newest";
   const page = Number(sp.page ?? 1);
-  const brandFilter = sp.brand
-    ? Array.isArray(sp.brand)
-      ? sp.brand
-      : [sp.brand]
-    : [];
+  const brandFilter = sp.brand ? (Array.isArray(sp.brand) ? sp.brand : [sp.brand]) : [];
+  const certFilter = sp.cert ? (Array.isArray(sp.cert) ? sp.cert : [sp.cert]) : [];
+  const seasonFilter = sp.season ? (Array.isArray(sp.season) ? sp.season : [sp.season]) : [];
+  const sizeFilter = sp.size ? (Array.isArray(sp.size) ? sp.size : [sp.size]) : [];
   const minPrice = sp.minPrice ? Number(sp.minPrice) : undefined;
   const maxPrice = sp.maxPrice ? Number(sp.maxPrice) : undefined;
 
   // 카테고리 조회
-  const cat = await prisma.category.findUnique({
-    where: { slug: category },
-    include: {
-      children: { orderBy: { sortOrder: "asc" } },
-      parent: { include: { children: { orderBy: { sortOrder: "asc" } } } },
-    },
-  });
+  const [cat, topLevelCats] = await Promise.all([
+    prisma.category.findUnique({
+      where: { slug: category },
+      include: {
+        children: { orderBy: { sortOrder: "asc" } },
+        parent: { include: { children: { orderBy: { sortOrder: "asc" } } } },
+      },
+    }),
+    // 상위 카테고리 전체 (level 0) — 탭 바용
+    prisma.category.findMany({
+      where: { level: 0, isActive: true, NOT: { slug: "all-products" } },
+      orderBy: { sortOrder: "asc" },
+      select: { slug: true, name: true },
+    }),
+  ]);
   if (!cat) notFound();
 
-  // 탭에 표시할 형제 카테고리: 현재 카테고리가 하위면 부모의 children, 아니면 자기 children
+  // 탭 구성
+  const isTopLevel = cat.level === 0;
   const tabParentSlug = cat.parent?.slug ?? cat.slug;
-  const tabChildren = cat.children.length > 0
-    ? cat.children
-    : (cat.parent?.children ?? []);
+  const tabChildren = isTopLevel
+    ? []
+    : (cat.children.length > 0 ? cat.children : (cat.parent?.children ?? []));
 
   // 하위 카테고리 슬러그 포함해서 상품 조회
   const childIds = cat.children.map((c) => c.id);
@@ -70,47 +82,93 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   const where = {
     status: "ACTIVE" as const,
     categories: { some: { categoryId: { in: catIds } } },
-    ...(brandFilter.length > 0
-      ? { brand: { slug: { in: brandFilter } } }
-      : {}),
+    ...(brandFilter.length > 0 ? { brand: { slug: { in: brandFilter } } } : {}),
+    ...(certFilter.length > 0 ? { certifications: { some: { type: { in: certFilter as any[] } } } } : {}),
+    ...(seasonFilter.length > 0 ? { season: { hasSome: seasonFilter as any[] } } : {}),
+    ...(sizeFilter.length > 0 ? { options: { some: { size: { in: sizeFilter } } } } : {}),
     ...(minPrice !== undefined || maxPrice !== undefined
-      ? {
-          salePrice: {
-            ...(minPrice !== undefined ? { gte: minPrice } : {}),
-            ...(maxPrice !== undefined ? { lte: maxPrice } : {}),
-          },
-        }
+      ? { salePrice: { ...(minPrice !== undefined ? { gte: minPrice } : {}), ...(maxPrice !== undefined ? { lte: maxPrice } : {}) } }
       : {}),
   };
 
-  const [products, total, brands] = await Promise.all([
-    prisma.product.findMany({
-      where,
-      take: PAGE_SIZE,
-      skip: (page - 1) * PAGE_SIZE,
-      orderBy,
-      include: {
-        brand: { select: { name: true, slug: true } },
-        images: { where: { isMain: true }, take: 1 },
-      },
-    }),
+  const catBaseWhere = {
+    status: "ACTIVE" as const,
+    categories: { some: { categoryId: { in: catIds } } },
+  };
+
+  // 하위 카테고리 있고 기본 정렬일 때: 카테고리 sortOrder 기준으로 그룹 정렬
+  const useCategorySort = childIds.length > 0 && sort === "newest";
+
+  type RawRow = { id: string };
+  const catIdList = catIds.join("','");
+
+  const sortedIds: string[] = useCategorySort
+    ? await prisma.$queryRawUnsafe<RawRow[]>(`
+        WITH cat_priorities AS (
+          SELECT pc."productId", MIN(c."sortOrder") AS priority
+          FROM product_categories pc
+          JOIN categories c ON pc."categoryId" = c.id
+          WHERE c.id IN ('${catIdList}')
+          GROUP BY pc."productId"
+        )
+        SELECT p.id
+        FROM products p
+        JOIN cat_priorities cp ON p.id = cp."productId"
+        WHERE p.status = 'ACTIVE'
+        ORDER BY cp.priority ASC, p."createdAt" DESC
+        LIMIT ${PAGE_SIZE} OFFSET ${(page - 1) * PAGE_SIZE}
+      `).then((rows) => rows.map((r) => r.id))
+    : [];
+
+  const productInclude = {
+    brand: { select: { name: true, slug: true } },
+    images: { where: { isMain: true }, take: 1 },
+  } as const;
+
+  const [products, total, brands, availableSizes, availableCerts, availableSeasons] = await Promise.all([
+    useCategorySort
+      ? prisma.product.findMany({ where: { id: { in: sortedIds } }, include: productInclude })
+          .then((rows) => sortedIds.map((id) => rows.find((p) => p.id === id)!).filter(Boolean))
+      : prisma.product.findMany({
+          where,
+          take: PAGE_SIZE,
+          skip: (page - 1) * PAGE_SIZE,
+          orderBy,
+          include: productInclude,
+        }),
     prisma.product.count({ where }),
-    // 이 카테고리의 브랜드 목록
     prisma.brand.findMany({
-      where: {
-        products: {
-          some: {
-            categories: { some: { categoryId: { in: catIds } } },
-            status: "ACTIVE",
-          },
-        },
-      },
+      where: { products: { some: catBaseWhere } },
       orderBy: { name: "asc" },
       select: { slug: true, name: true },
+    }),
+    prisma.productOption.findMany({
+      where: { product: catBaseWhere },
+      select: { size: true },
+      distinct: ["size"],
+      orderBy: { size: "asc" },
+    }),
+    prisma.certification.findMany({
+      where: { product: catBaseWhere },
+      select: { type: true },
+      distinct: ["type"],
+    }),
+    prisma.product.findMany({
+      where: catBaseWhere,
+      select: { season: true },
     }),
   ]);
 
   const totalPages = Math.ceil(total / PAGE_SIZE);
+  const uniqueSeasons = [...new Set(availableSeasons.flatMap((p) => p.season))] as string[];
+  const certs = availableCerts.map((c) => c.type as string);
+
+  // 안전화 카테고리는 사이즈 데이터가 없어도 기본 사이즈 표시
+  const SHOE_CATEGORY_SLUGS = ["safety-shoes", "safety-shoes-4inch", "safety-shoes-6inch", "safety-shoes-8inch", "winter-safety-shoes", "safety-shoes-misc"];
+  const isShoeCategory = SHOE_CATEGORY_SLUGS.includes(category) || (cat.parent && SHOE_CATEGORY_SLUGS.includes(cat.parent.slug));
+  const DEFAULT_SHOE_SIZES = ["230", "240", "245", "250", "255", "260", "265", "270", "275", "280", "285", "290"];
+  const dbSizes = availableSizes.map((o) => o.size);
+  const sizes = isShoeCategory && dbSizes.length === 0 ? DEFAULT_SHOE_SIZES : dbSizes;
 
   return (
     <div className="bg-[var(--gray-50)] min-h-screen">
@@ -123,34 +181,52 @@ export default async function CategoryPage({ params, searchParams }: Props) {
         </div>
       </div>
 
-      {/* 하위 카테고리 탭 — 스크롤 시 상단 고정 */}
-      {tabChildren.length > 0 && (
+      {/* 카테고리 탭 바 */}
+      {(isTopLevel ? topLevelCats.length > 0 : tabChildren.length > 0) && (
         <div className="bg-white border-b border-[var(--line)]">
           <div className="max-w-[1340px] mx-auto px-6">
             <div className="flex overflow-x-auto">
-              <Link
-                href={`/categories/${tabParentSlug}`}
-                className={`px-5 py-3.5 text-sm border-b-2 whitespace-nowrap font-bold transition-colors ${
-                  cat.slug === tabParentSlug
-                    ? "border-[var(--black)] text-[var(--black)]"
-                    : "border-transparent text-[var(--gray-500)] hover:text-[var(--black)] hover:border-[var(--gray-300)]"
-                }`}
-              >
-                전체
-              </Link>
-              {tabChildren.map((child) => (
-                <Link
-                  key={child.slug}
-                  href={`/categories/${child.slug}`}
-                  className={`px-5 py-3.5 text-sm border-b-2 whitespace-nowrap transition-colors ${
-                    cat.slug === child.slug
-                      ? "border-[var(--black)] text-[var(--black)] font-bold"
-                      : "border-transparent text-[var(--gray-500)] hover:text-[var(--black)] hover:border-[var(--gray-300)]"
-                  }`}
-                >
-                  {child.name}
-                </Link>
-              ))}
+              {isTopLevel ? (
+                topLevelCats.map((topCat) => (
+                  <Link
+                    key={topCat.slug}
+                    href={`/categories/${topCat.slug}`}
+                    className={`px-5 py-3.5 text-sm border-b-2 whitespace-nowrap transition-colors ${
+                      cat.slug === topCat.slug
+                        ? "border-[var(--black)] text-[var(--black)] font-bold"
+                        : "border-transparent text-[var(--gray-500)] hover:text-[var(--black)] hover:border-[var(--gray-300)]"
+                    }`}
+                  >
+                    {topCat.name}
+                  </Link>
+                ))
+              ) : (
+                <>
+                  <Link
+                    href={`/categories/${tabParentSlug}`}
+                    className={`px-5 py-3.5 text-sm border-b-2 whitespace-nowrap font-bold transition-colors ${
+                      cat.slug === tabParentSlug
+                        ? "border-[var(--black)] text-[var(--black)]"
+                        : "border-transparent text-[var(--gray-500)] hover:text-[var(--black)] hover:border-[var(--gray-300)]"
+                    }`}
+                  >
+                    전체
+                  </Link>
+                  {tabChildren.map((child) => (
+                    <Link
+                      key={child.slug}
+                      href={`/categories/${child.slug}`}
+                      className={`px-5 py-3.5 text-sm border-b-2 whitespace-nowrap transition-colors ${
+                        cat.slug === child.slug
+                          ? "border-[var(--black)] text-[var(--black)] font-bold"
+                          : "border-transparent text-[var(--gray-500)] hover:text-[var(--black)] hover:border-[var(--gray-300)]"
+                      }`}
+                    >
+                      {child.name}
+                    </Link>
+                  ))}
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -160,7 +236,16 @@ export default async function CategoryPage({ params, searchParams }: Props) {
         <div className="grid grid-cols-[240px_1fr] gap-6 items-start">
           {/* 좌측 필터 — 스크롤 시 고정 */}
           <div className="sticky top-4">
-            <CategoryFilter brands={brands} currentBrands={brandFilter} />
+            <CategoryFilter
+              brands={brands}
+              currentBrands={brandFilter}
+              sizes={sizes}
+              currentSizes={sizeFilter}
+              certs={certs}
+              currentCerts={certFilter}
+              seasons={uniqueSeasons}
+              currentSeasons={seasonFilter}
+            />
           </div>
 
           {/* 우측 상품 목록 */}

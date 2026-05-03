@@ -1,182 +1,201 @@
 "use client";
 
+import { useRef } from "react";
 import { POSITION_LABELS } from "@/constants/embroidery";
-import type { EmbroideryTypeKey, EmbroideryPositionKey } from "@/constants/embroidery";
+import type { EmbroideryPositionKey, EmbroiderySizeKey } from "@/constants/embroidery";
+
+export type DesignSource =
+  | { type: "text"; text: string }
+  | { type: "image"; url: string }
+  | { type: "sample"; key: string };
+
+export interface DesignPos { x: number; y: number; }
+
+export const POSITION_COORDS: Record<string, DesignPos> = {
+  LEFT_CHEST:   { x: 148, y: 165 },
+  RIGHT_CHEST:  { x: 252, y: 165 },
+  BACK_CENTER:  { x: 200, y: 290 },
+  BACK_TOP:     { x: 200, y: 140 },
+  LEFT_SLEEVE:  { x: 64,  y: 210 },
+  RIGHT_SLEEVE: { x: 336, y: 210 },
+};
+
+export const VIEW_POSITIONS: Record<string, EmbroideryPositionKey[]> = {
+  "정면":   ["LEFT_CHEST", "RIGHT_CHEST", "LEFT_SLEEVE", "RIGHT_SLEEVE"],
+  "뒷면":   ["BACK_CENTER", "BACK_TOP"],
+  "왼팔":   ["LEFT_SLEEVE"],
+  "오른팔": ["RIGHT_SLEEVE"],
+};
+
+export const POSITION_VIEW: Partial<Record<EmbroideryPositionKey, string>> = {
+  LEFT_CHEST:   "정면",
+  RIGHT_CHEST:  "정면",
+  BACK_CENTER:  "뒷면",
+  BACK_TOP:     "뒷면",
+  LEFT_SLEEVE:  "왼팔",
+  RIGHT_SLEEVE: "오른팔",
+};
+
+const SIZE_DIMS: Record<string, { w: number; h: number }> = {
+  SMALL:   { w: 44,  h: 30  },
+  MEDIUM:  { w: 70,  h: 48  },
+  LARGE:   { w: 88,  h: 60  },
+  XLARGE:  { w: 130, h: 88  },
+  XXLARGE: { w: 172, h: 116 },
+};
 
 interface Props {
   view: string;
-  shirtColor: string;
-  position: EmbroideryPositionKey;
-  text: string;
-  embroideryType: EmbroideryTypeKey;
+  design: DesignSource;
+  embroiderySize: EmbroiderySizeKey;
+  selectedPositions: EmbroideryPositionKey[];
+  designPositions: Record<string, DesignPos>;
+  onDesignPosChange: (key: EmbroideryPositionKey, pos: DesignPos) => void;
 }
 
-// 위치별 SVG 좌표 (정면 기준 %)
-const POSITION_COORDS: Partial<Record<EmbroideryPositionKey, { cx: number; cy: number; label: string }>> = {
-  LEFT_CHEST:  { cx: 38, cy: 32, label: "왼가슴" },
-  RIGHT_CHEST: { cx: 62, cy: 32, label: "오른가슴" },
-  BACK_CENTER: { cx: 50, cy: 55, label: "등판 중앙" },
-  BACK_TOP:    { cx: 50, cy: 28, label: "등 상단" },
-  LEFT_SLEEVE: { cx: 18, cy: 40, label: "왼팔" },
-  RIGHT_SLEEVE:{ cx: 82, cy: 40, label: "오른팔" },
-};
+export default function TshirtCanvas({
+  view, design, embroiderySize,
+  selectedPositions, designPositions, onDesignPosChange,
+}: Props) {
+  const visiblePositions = VIEW_POSITIONS[view] ?? [];
+  const { w: W, h: H } = SIZE_DIMS[embroiderySize] ?? SIZE_DIMS.MEDIUM;
 
-const VIEW_POSITIONS: Record<string, EmbroideryPositionKey[]> = {
-  "정면":  ["LEFT_CHEST", "RIGHT_CHEST", "LEFT_SLEEVE", "RIGHT_SLEEVE"],
-  "뒷면":  ["BACK_CENTER", "BACK_TOP"],
-  "왼팔":  ["LEFT_SLEEVE"],
-  "오른팔":["RIGHT_SLEEVE"],
-};
+  const svgRef = useRef<SVGSVGElement>(null);
+  const draggingKey = useRef<EmbroideryPositionKey | null>(null);
+  const dragOffset = useRef({ x: 0, y: 0 });
 
-// 다크 색상인지 판별 (밝은 자수 마커 색상 결정용)
-function isDark(hex: string): boolean {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  return (r * 299 + g * 587 + b * 114) / 1000 < 128;
-}
+  const hasImage = design.type === "image" && !!design.url;
 
-export default function TshirtCanvas({ view, shirtColor, position, text, embroideryType }: Props) {
-  const markerColor = isDark(shirtColor) ? "#fff" : "#111";
-  const activePositions = VIEW_POSITIONS[view] ?? [];
-  const isActiveInView = activePositions.includes(position);
+  function toSVG(clientX: number, clientY: number) {
+    const rect = svgRef.current?.getBoundingClientRect();
+    if (!rect) return { x: 0, y: 0 };
+    return {
+      x: ((clientX - rect.left) / rect.width) * 400,
+      y: ((clientY - rect.top) / rect.height) * 500,
+    };
+  }
+
+  function onMarkerPointerDown(e: React.PointerEvent, key: EmbroideryPositionKey) {
+    e.preventDefault();
+    e.stopPropagation();
+    e.currentTarget.setPointerCapture(e.pointerId);
+    draggingKey.current = key;
+    const svg = toSVG(e.clientX, e.clientY);
+    const cur = designPositions[key] ?? POSITION_COORDS[key];
+    dragOffset.current = { x: svg.x - cur.x, y: svg.y - cur.y };
+  }
+
+  function onSVGPointerMove(e: React.PointerEvent) {
+    const key = draggingKey.current;
+    if (!key) return;
+    const svg = toSVG(e.clientX, e.clientY);
+    onDesignPosChange(key, {
+      x: Math.max(40, Math.min(360, svg.x - dragOffset.current.x)),
+      y: Math.max(80, Math.min(460, svg.y - dragOffset.current.y)),
+    });
+  }
+
+  function onSVGPointerUp() {
+    draggingKey.current = null;
+  }
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center">
+    <div className="w-full h-full" style={{ filter: "drop-shadow(0 16px 32px rgba(0,0,0,0.18))" }}>
       <svg
-        viewBox="0 0 400 480"
+        ref={svgRef}
+        viewBox="0 0 400 500"
         className="w-full h-full"
-        style={{ filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.12))" }}
+        style={{ userSelect: "none" }}
+        onPointerMove={onSVGPointerMove}
+        onPointerUp={onSVGPointerUp}
+        onPointerLeave={onSVGPointerUp}
       >
-        {/* 티셔츠 본체 SVG */}
+        <defs>
+          <linearGradient id="shirtGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#ffffff" />
+            <stop offset="100%" stopColor="#f0f0f0" />
+          </linearGradient>
+          <linearGradient id="shadowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="rgba(0,0,0,0)" />
+            <stop offset="100%" stopColor="rgba(0,0,0,0.06)" />
+          </linearGradient>
+        </defs>
+
+        {/* 셔츠 */}
         {view === "정면" || view === "뒷면" ? (
           <g>
-            {/* 몸통 */}
-            <path
-              d="M 80 80 L 40 160 L 80 170 L 80 420 L 320 420 L 320 170 L 360 160 L 320 80 L 260 60 C 250 100 150 100 140 60 Z"
-              fill={shirtColor}
-              stroke={isDark(shirtColor) ? "#333" : "#ccc"}
-              strokeWidth="1.5"
-            />
-            {/* 왼쪽 소매 */}
-            <path
-              d="M 80 80 L 20 130 L 40 160 L 80 150 Z"
-              fill={shirtColor}
-              stroke={isDark(shirtColor) ? "#333" : "#ccc"}
-              strokeWidth="1.5"
-            />
-            {/* 오른쪽 소매 */}
-            <path
-              d="M 320 80 L 380 130 L 360 160 L 320 150 Z"
-              fill={shirtColor}
-              stroke={isDark(shirtColor) ? "#333" : "#ccc"}
-              strokeWidth="1.5"
-            />
-            {/* 목 라인 */}
-            <path
-              d="M 140 60 C 150 100 250 100 260 60"
-              fill="none"
-              stroke={isDark(shirtColor) ? "#444" : "#bbb"}
-              strokeWidth="1"
-            />
-            {/* 솔기 라인 */}
-            <line x1="200" y1="100" x2="200" y2="420" stroke={isDark(shirtColor) ? "#333" : "#ddd"} strokeWidth="0.5" strokeDasharray="4 4" />
+            <path d="M 88 88 L 18 145 L 22 155 L 45 165 L 90 165 Z" fill="url(#shirtGrad)" stroke="rgba(0,0,0,0.12)" strokeWidth="1" />
+            <path d="M 312 88 L 382 145 L 378 155 L 355 165 L 310 165 Z" fill="url(#shirtGrad)" stroke="rgba(0,0,0,0.12)" strokeWidth="1" />
+            <path d="M 88 88 L 45 165 L 45 440 L 355 440 L 355 165 L 312 88 L 260 66 C 248 110 152 110 140 66 Z" fill="url(#shirtGrad)" stroke="rgba(0,0,0,0.12)" strokeWidth="1" />
+            <path d="M 88 88 L 45 165 L 45 440 L 355 440 L 355 165 L 312 88 L 260 66 C 248 110 152 110 140 66 Z" fill="url(#shadowGrad)" />
+            <path d="M 140 66 C 152 110 248 110 260 66" fill="none" stroke="rgba(0,0,0,0.1)" strokeWidth="1.5" />
+            <line x1="200" y1="110" x2="200" y2="440" stroke="rgba(0,0,0,0.04)" strokeWidth="1" strokeDasharray="5 6" />
+            {view === "뒷면" && (
+              <text x="200" y="460" textAnchor="middle" fill="rgba(0,0,0,0.07)" fontSize="11" fontFamily="monospace" letterSpacing="3">BACK</text>
+            )}
           </g>
         ) : (
-          // 소매 뷰
           <g>
-            <rect
-              x="60" y="80" width="280" height="320"
-              rx="20"
-              fill={shirtColor}
-              stroke={isDark(shirtColor) ? "#333" : "#ccc"}
-              strokeWidth="1.5"
-            />
-            <text x="200" y="50" textAnchor="middle" fill={isDark(shirtColor) ? "#555" : "#aaa"} fontSize="12" fontFamily="monospace">
+            <rect x="50" y="60" width="300" height="380" fill="url(#shirtGrad)" stroke="rgba(0,0,0,0.12)" strokeWidth="1" />
+            <rect x="50" y="60" width="300" height="380" fill="url(#shadowGrad)" />
+            <text x="200" y="44" textAnchor="middle" fill="rgba(0,0,0,0.12)" fontSize="11" fontFamily="monospace" letterSpacing="2">
               {view === "왼팔" ? "LEFT SLEEVE" : "RIGHT SLEEVE"}
             </text>
           </g>
         )}
 
-        {/* 자수 위치 마커들 */}
-        {Object.entries(POSITION_COORDS).map(([key, coords]) => {
-          if (!activePositions.includes(key as EmbroideryPositionKey)) return null;
-
-          const x = (coords.cx / 100) * 400;
-          const y = (coords.cy / 100) * 480;
-          const isSelected = position === key;
+        {/* 선택된 위치 마커 */}
+        {visiblePositions.map((key) => {
+          if (!selectedPositions.includes(key)) return null;
+          const pos = designPositions[key] ?? POSITION_COORDS[key];
+          const { x, y } = pos;
 
           return (
-            <g key={key}>
-              {isSelected ? (
-                // 선택된 위치 — 자수 미리보기
-                <g>
-                  <rect
-                    x={x - 35}
-                    y={y - 20}
-                    width={70}
-                    height={40}
-                    fill="none"
-                    stroke="#c8161d"
-                    strokeWidth="1.5"
-                    strokeDasharray="none"
-                  />
-                  {/* 자수 내용 표시 */}
-                  {text ? (
-                    <text
-                      x={x}
-                      y={y + 5}
-                      textAnchor="middle"
-                      fill="#c8161d"
-                      fontSize="10"
-                      fontWeight="bold"
-                      fontFamily="monospace"
-                    >
-                      {text.slice(0, 8)}
-                    </text>
-                  ) : (
-                    <text
-                      x={x}
-                      y={y + 5}
-                      textAnchor="middle"
-                      fill="#c8161d"
-                      fontSize="9"
-                      fontFamily="monospace"
-                    >
-                      {embroideryType}
-                    </text>
-                  )}
-                  {/* 빨간 핸들 */}
-                  {[[x - 35, y - 20], [x + 35, y - 20], [x - 35, y + 20], [x + 35, y + 20]].map(([hx, hy], i) => (
-                    <rect key={i} x={hx - 4} y={hy - 4} width={8} height={8} fill="#c8161d" />
-                  ))}
-                </g>
+            <g key={key}
+              onPointerDown={(e) => onMarkerPointerDown(e, key)}
+              style={{ cursor: "grab" }}>
+              {/* 드래그 히트 영역 */}
+              <rect x={x-W/2-10} y={y-H/2-10} width={W+20} height={H+20} fill="transparent" />
+              {/* 자수 프레임 */}
+              <rect x={x-W/2} y={y-H/2} width={W} height={H}
+                fill="rgba(200,22,29,0.06)" stroke="#c8161d" strokeWidth="2" />
+              {/* 모서리 핸들 */}
+              {([[x-W/2,y-H/2],[x+W/2,y-H/2],[x-W/2,y+H/2],[x+W/2,y+H/2]] as [number,number][]).map(([hx,hy],i) => (
+                <rect key={i} x={hx-3} y={hy-3} width={6} height={6} fill="#c8161d" />
+              ))}
+
+              {/* 이미지가 있으면 프레임 안에 표시 */}
+              {hasImage ? (
+                <image
+                  href={(design as { type: "image"; url: string }).url}
+                  x={x-W/2+3} y={y-H/2+3}
+                  width={W-6} height={H-6}
+                  preserveAspectRatio="xMidYMid meet"
+                  style={{ pointerEvents: "none" }}
+                />
               ) : (
-                // 비선택 위치 — 점선 박스 힌트
-                <g opacity={0.4}>
-                  <rect
-                    x={x - 25}
-                    y={y - 15}
-                    width={50}
-                    height={30}
-                    fill="none"
-                    stroke={markerColor}
-                    strokeWidth="1"
-                    strokeDasharray="3 3"
-                  />
-                  <text x={x} y={y + 4} textAnchor="middle" fill={markerColor} fontSize="8" fontFamily="monospace">
-                    {POSITION_LABELS[key as EmbroideryPositionKey]}
-                  </text>
-                </g>
+                <text x={x} y={y+4} textAnchor="middle" fill="#c8161d"
+                  fontSize="8" fontFamily="monospace" opacity={0.6}
+                  style={{ pointerEvents: "none" }}>
+                  {POSITION_LABELS[key]}
+                </text>
               )}
+
+              {/* 위치 라벨 */}
+              <text x={x} y={y+H/2+13} textAnchor="middle"
+                fill="#c8161d" fontSize="8" fontFamily="monospace" fontWeight="bold"
+                style={{ pointerEvents: "none" }}>
+                {POSITION_LABELS[key]}
+              </text>
             </g>
           );
         })}
 
-        {/* 위치 없는 경우 안내 */}
-        {!isActiveInView && (
-          <text x="200" y="440" textAnchor="middle" fill="#aaa" fontSize="11" fontFamily="monospace">
-            이 면에서는 선택한 위치를 볼 수 없습니다
+        {/* 이 면에 선택된 위치 없을 때 */}
+        {selectedPositions.length > 0 && !visiblePositions.some((k) => selectedPositions.includes(k)) && (
+          <text x="200" y="470" textAnchor="middle" fill="rgba(0,0,0,0.15)"
+            fontSize="10" fontFamily="monospace" letterSpacing="1">
+            이 면에는 선택된 위치가 없습니다
           </text>
         )}
       </svg>

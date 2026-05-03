@@ -32,7 +32,7 @@ const SLIDES = [
     tag: "EMBROIDERY",
     stripe: "━━ 누적 12,000건 작업",
     title: ["우리 회사 로고", "맞춤 자수 제작"],
-    sub: "전문 디자이너의 무료 시안 · 저작권 안전 캐릭터 디자인 · 5~7일 빠른 납품",
+    sub: "고객 디자인 기반 시안 · 저작권 안전 캐릭터 디자인 · 5~7일 빠른 납품",
     meta: [{ label: "DESIGN", value: "FREE" }, { label: "DELIVERY", value: "5~7 DAYS" }, { label: "PROJECTS", value: "12,000+", accent: true }],
     btn: "REQUEST QUOTE →",
     href: "/embroidery",

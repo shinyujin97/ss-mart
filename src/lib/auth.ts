@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
-import { MemberStatus } from "@/generated/prisma/client";
+import { MemberRole, MemberStatus } from "@/generated/prisma/client";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   session: { strategy: "jwt" },
@@ -14,16 +14,19 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     Credentials({
       name: "credentials",
       credentials: {
-        email: { label: "이메일", type: "email" },
+        loginId: { label: "아이디", type: "text" },
         password: { label: "비밀번호", type: "password" },
+        rememberMe: { label: "로그인 유지", type: "text" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) return null;
+        if (!credentials?.loginId || !credentials?.password) return null;
 
         const member = await prisma.member.findUnique({
-          where: { email: credentials.email as string },
+          where: { loginId: credentials.loginId as string },
           select: {
             id: true,
+            loginId: true,
+            role: true,
             email: true,
             name: true,
             passwordHash: true,
@@ -42,7 +45,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         );
         if (!valid) return null;
 
-        // 마지막 로그인 시각 업데이트
         await prisma.member.update({
           where: { id: member.id },
           data: { lastLoginAt: new Date() },
@@ -50,10 +52,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         return {
           id: member.id,
-          email: member.email,
+          email: member.email ?? member.loginId,
           name: member.name,
+          role: member.role,
           memberType: member.type,
           memberGrade: member.grade,
+          rememberMe: credentials.rememberMe !== "false",
         };
       },
     }),
@@ -62,14 +66,19 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+        token.role = (user as any).role;
         token.memberType = (user as any).memberType;
         token.memberGrade = (user as any).memberGrade;
+        if ((user as any).rememberMe === false) {
+          token.exp = Math.floor(Date.now() / 1000) + 86400;
+        }
       }
       return token;
     },
     async session({ session, token }) {
       if (token) {
         session.user.id = token.id as string;
+        (session.user as any).role = token.role;
         (session.user as any).memberType = token.memberType;
         (session.user as any).memberGrade = token.memberGrade;
       }

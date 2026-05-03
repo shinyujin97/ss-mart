@@ -51,7 +51,20 @@
       "WebFetch(domain:pixabay.com)",
       "WebFetch(domain:images.pexels.com)",
       "Bash(git rm *)",
-      "Bash(xargs -I {} bash -c 'echo \"=== {} ===\" && head -5 {}')"
+      "Bash(xargs -I {} bash -c 'echo \"=== {} ===\" && head -5 {}')",
+      "Bash(npx prisma *)",
+      "Bash(awk '{print $2}')",
+      "Bash(read f *)",
+      "WebFetch(domain:www.jasuplus.com)",
+      "Bash(kill 1388)",
+      "Bash(lsof -ti:3000)",
+      "Bash(xargs kill *)",
+      "Bash(kill -9 48935 48936 48953)",
+      "Bash(awk '{print \"PID:\",$2,\"시작시간:\",$9}')",
+      "Bash(awk '{print $2, $11}')",
+      "Bash(grep -v \"^$\")",
+      "Bash(npx ts-node --compiler-options '{\"module\":\"commonjs\"}' -e ' *)",
+      "Bash(pkill -f \"next-server\")"
     ]
   }
 }

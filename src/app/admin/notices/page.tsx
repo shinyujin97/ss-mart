@@ -20,7 +20,7 @@ export default function AdminNoticesPage() {
       <div className="flex items-center justify-between">
         <div>
           <div className="font-[var(--font-mono)] text-[10px] text-[#555] tracking-[2px] mb-1">ADMIN / NOTICES</div>
-          <h1 className="text-xl font-black text-white">공지사항 관리</h1>
+          <h1 className="text-xl font-black text-[#111]">공지사항 관리</h1>
         </div>
         <button
           onClick={() => setWriting(!writing)}

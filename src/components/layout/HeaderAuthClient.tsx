@@ -46,17 +46,19 @@ export default function HeaderAuthClient({ name, isAdmin }: { name: string; isAd
             >
               주문 내역
             </Link>
-            <Link
-              href="/mypage/embroidery"
-              onClick={() => setOpen(false)}
-              className="flex items-center gap-2 px-4 py-3 text-xs font-medium hover:bg-[var(--gray-50)] hover:text-[var(--red)] transition-colors border-b border-[var(--line)]"
-            >
-              자수 시안 보관함
-            </Link>
+            {!isAdmin && (
+              <Link
+                href="/mypage/embroidery"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-2 px-4 py-3 text-xs font-medium hover:bg-[var(--gray-50)] hover:text-[var(--red)] transition-colors border-b border-[var(--line)]"
+              >
+                자수 시안 보관함
+              </Link>
+            )}
             <button
               onClick={() => {
                 useCartStore.getState().clearCart();
-                signOut({ callbackUrl: "/" });
+                signOut({ callbackUrl: "/login" });
               }}
               className="w-full text-left flex items-center gap-2 px-4 py-3 text-xs font-medium text-[var(--gray-500)] hover:bg-[var(--gray-50)] hover:text-[var(--red)] transition-colors"
             >

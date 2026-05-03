@@ -1,0 +1,9 @@
+interface Window {
+  daum: {
+    Postcode: new (options: {
+      oncomplete: (data: { zonecode: string; roadAddress: string; jibunAddress: string }) => void;
+      width?: string | number;
+      height?: string | number;
+    }) => { open: () => void };
+  };
+}

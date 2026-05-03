@@ -68,7 +68,7 @@ export default async function AdminDashboard() {
       {/* 헤더 */}
       <div>
         <div className="font-[var(--font-mono)] text-[10px] text-[#555] tracking-[2px] mb-1">ADMIN / DASHBOARD</div>
-        <h1 className="text-2xl font-black text-white">대시보드</h1>
+        <h1 className="text-2xl font-black text-[#111]">대시보드</h1>
         <div className="font-[var(--font-mono)] text-[11px] text-[#555] mt-1">
           {now.toLocaleDateString("ko-KR", { year: "numeric", month: "long", day: "numeric", weekday: "long" })}
         </div>

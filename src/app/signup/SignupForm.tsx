@@ -3,15 +3,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
 
-type MemberType = "INDIVIDUAL" | "BUSINESS";
 
 const STEPS = [
   { num: "01", label: "STEP / 01", name: "약관 동의" },
   { num: "02", label: "STEP / 02", name: "정보 입력" },
-  { num: "03", label: "STEP / 03", name: "이메일 인증" },
-  { num: "04", label: "STEP / 04", name: "가입 완료" },
+  { num: "03", label: "STEP / 03", name: "가입 완료" },
 ];
 
 const TERMS = [
@@ -25,22 +22,18 @@ const TERMS = [
 export default function SignupForm() {
   const router = useRouter();
   const [step, setStep] = useState(1);
-  const [memberType, setMemberType] = useState<MemberType>("INDIVIDUAL");
   const [agreed, setAgreed] = useState<Record<string, boolean>>({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const [form, setForm] = useState({
+    loginId: "",
     email: "",
     password: "",
     passwordConfirm: "",
     name: "",
     phone: "",
-    // 사업자
-    companyName: "",
-    businessNumber: "",
-    representativeName: "",
-    taxInvoiceEmail: "",
   });
 
   function updateForm(key: string, value: string) {
@@ -59,12 +52,10 @@ export default function SignupForm() {
   }
 
   function canProceedStep2() {
+    const idOk = /^[a-zA-Z0-9_]{4,20}$/.test(form.loginId);
     const base =
-      form.email && form.password && form.password === form.passwordConfirm &&
+      idOk && form.password && form.password === form.passwordConfirm &&
       form.name && form.phone && form.password.length >= 6;
-    if (memberType === "BUSINESS") {
-      return base && form.companyName && form.businessNumber;
-    }
     return !!base;
   }
 
@@ -77,23 +68,14 @@ export default function SignupForm() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email: form.email,
+          loginId: form.loginId,
+          email: form.email || undefined,
           password: form.password,
           name: form.name,
           phone: form.phone,
-          type: memberType,
+          type: "INDIVIDUAL",
           marketingEmail: agreed["marketing_email"] ?? false,
           marketingSms: agreed["marketing_sms"] ?? false,
-          ...(memberType === "BUSINESS"
-            ? {
-                businessInfo: {
-                  companyName: form.companyName,
-                  businessNumber: form.businessNumber,
-                  representativeName: form.representativeName || form.name,
-                  taxInvoiceEmail: form.taxInvoiceEmail || form.email,
-                },
-              }
-            : {}),
         }),
       });
 
@@ -104,14 +86,8 @@ export default function SignupForm() {
         return;
       }
 
-      // 자동 로그인
-      await signIn("credentials", {
-        email: form.email,
-        password: form.password,
-        redirect: false,
-      });
-
-      setStep(4);
+      setShowSuccess(true);
+      setTimeout(() => router.push("/login?registered=1"), 2000);
     } catch {
       setError("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
     } finally {
@@ -164,34 +140,6 @@ export default function SignupForm() {
         })}
       </div>
 
-      {/* 회원 유형 탭 (step 1~3에만 표시) */}
-      {step < 4 && (
-        <div className="flex border-b-2 border-[var(--black)] mb-6">
-          {(["INDIVIDUAL", "BUSINESS"] as const).map((t, i) => (
-            <button
-              key={t}
-              onClick={() => setMemberType(t)}
-              className={`flex-1 py-3.5 text-sm font-bold transition-all relative ${
-                memberType === t
-                  ? "text-[var(--black)]"
-                  : "text-[var(--gray-500)] hover:text-[var(--black)]"
-              }`}
-            >
-              <span
-                className={`font-[var(--font-mono)] text-[10px] mr-1.5 ${
-                  memberType === t ? "text-[var(--red)]" : "text-[var(--gray-300)]"
-                }`}
-              >
-                /{String(i + 1).padStart(2, "0")}
-              </span>
-              {t === "INDIVIDUAL" ? "개인 회원" : "법인 / 사업자 회원"}
-              {memberType === t && (
-                <span className="absolute bottom-[-2px] left-0 right-0 h-1 bg-[var(--red)]" />
-              )}
-            </button>
-          ))}
-        </div>
-      )}
 
       {/* STEP 1: 약관 동의 */}
       {step === 1 && (
@@ -301,13 +249,33 @@ export default function SignupForm() {
               <span className="text-sm font-black">로그인 정보</span>
             </div>
             <div className="p-6 space-y-4">
-              <div className="grid grid-cols-[130px_1fr] gap-3.5 items-center">
-                <label className="text-xs font-semibold text-[var(--gray-700)]">
-                  이메일 <span className="text-[var(--red)]">*</span>
+              <div className="grid grid-cols-[130px_1fr] gap-3.5 items-start">
+                <label className="text-xs font-semibold text-[var(--gray-700)] pt-2.5">
+                  아이디 <span className="text-[var(--red)]">*</span>
+                </label>
+                <div>
+                  <input
+                    type="text"
+                    placeholder="4~20자 영문, 숫자, _ 사용"
+                    value={form.loginId}
+                    onChange={(e) => updateForm("loginId", e.target.value)}
+                    autoComplete="username"
+                    className="px-3 py-2.5 border border-[var(--line)] text-sm outline-none focus:border-[var(--black)] w-full font-[var(--font-mono)]"
+                  />
+                  {form.loginId && !/^[a-zA-Z0-9_]{4,20}$/.test(form.loginId) && (
+                    <p className="font-[var(--font-mono)] text-[11px] text-[var(--red)] mt-1">
+                      4~20자, 영문/숫자/언더바(_)만 사용 가능합니다.
+                    </p>
+                  )}
+                </div>
+              </div>
+              <div className="grid grid-cols-[130px_1fr] gap-3.5 items-start">
+                <label className="text-xs font-semibold text-[var(--gray-700)] pt-2.5">
+                  이메일 <span className="text-[var(--gray-400)] font-normal text-[11px]">(선택)</span>
                 </label>
                 <input
                   type="email"
-                  placeholder="example@email.com"
+                  placeholder="비밀번호 찾기 등에 활용"
                   value={form.email}
                   onChange={(e) => updateForm("email", e.target.value)}
                   className="px-3 py-2.5 border border-[var(--line)] text-sm outline-none focus:border-[var(--black)] w-full"
@@ -354,38 +322,6 @@ export default function SignupForm() {
             </div>
           </div>
 
-          {/* 사업자 정보 (BUSINESS만) */}
-          {memberType === "BUSINESS" && (
-            <div className="bg-white border border-[var(--line)]">
-              <div className="flex items-center gap-3 px-5 py-3.5 border-b border-[var(--line)] bg-[var(--gray-50)]">
-                <span className="font-[var(--font-mono)] text-[10px] text-[var(--red)] border border-[var(--red)] px-2 py-0.5 font-bold tracking-[1.5px]">
-                  SECTION / 03
-                </span>
-                <span className="text-sm font-black">사업자 정보</span>
-              </div>
-              <div className="p-6 space-y-4">
-                {[
-                  { key: "companyName", label: "회사명", placeholder: "회사명 입력", required: true },
-                  { key: "businessNumber", label: "사업자등록번호", placeholder: "000-00-00000", required: true },
-                  { key: "representativeName", label: "대표자명", placeholder: "대표자 성명", required: false },
-                  { key: "taxInvoiceEmail", label: "세금계산서 이메일", placeholder: "tax@company.com", required: false },
-                ].map((f) => (
-                  <div key={f.key} className="grid grid-cols-[130px_1fr] gap-3.5 items-center">
-                    <label className="text-xs font-semibold text-[var(--gray-700)]">
-                      {f.label} {f.required && <span className="text-[var(--red)]">*</span>}
-                    </label>
-                    <input
-                      type="text"
-                      placeholder={f.placeholder}
-                      value={form[f.key as keyof typeof form]}
-                      onChange={(e) => updateForm(f.key, e.target.value)}
-                      className="px-3 py-2.5 border border-[var(--line)] text-sm outline-none focus:border-[var(--black)] w-full"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
 
           {error && (
             <p className="text-[var(--red)] text-xs font-[var(--font-mono)] px-1">
@@ -411,33 +347,14 @@ export default function SignupForm() {
         </div>
       )}
 
-      {/* STEP 4: 가입 완료 */}
-      {step === 4 && (
-        <div className="bg-white border border-[var(--line)] p-16 text-center">
-          <div className="font-[var(--font-display)] text-[80px] text-[var(--gray-100)] leading-none mb-6">
-            WELCOME
-          </div>
-          <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[3px] mb-3">
-            ─ SIGNUP COMPLETE
-          </div>
-          <h2 className="text-2xl font-black mb-2">{form.name}님, 환영합니다!</h2>
-          <p className="text-sm text-[var(--gray-500)] mb-10">
-            2,000P가 즉시 적립되었습니다.
-          </p>
-
-          <div className="grid grid-cols-2 gap-3 max-w-sm mx-auto">
-            <button
-              onClick={() => router.push("/")}
-              className="py-4 border-2 border-[var(--black)] text-sm font-bold hover:bg-[var(--gray-50)] transition-colors"
-            >
-              쇼핑 시작 →
-            </button>
-            <button
-              onClick={() => router.push("/mypage")}
-              className="py-4 bg-[var(--black)] text-white text-sm font-bold hover:bg-[var(--gray-900)] transition-colors"
-            >
-              마이페이지
-            </button>
+      {showSuccess && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white border border-[#e5e5e5] shadow-xl w-[340px] flex flex-col items-center px-8 py-10 gap-4">
+            <div className="w-12 h-12 bg-[#111] flex items-center justify-center">
+              <span className="text-[var(--yellow)] text-xl font-bold">✓</span>
+            </div>
+            <p className="text-[#111] font-black text-base text-center">회원가입이 완료되었습니다!</p>
+            <p className="font-[var(--font-mono)] text-[11px] text-[#aaa] text-center">로그인 페이지로 이동합니다...</p>
           </div>
         </div>
       )}

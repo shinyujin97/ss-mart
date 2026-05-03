@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 56">
+  <rect width="160" height="56" fill="#FEE500"/>
+  <circle cx="52" cy="28" r="12" fill="#3C1E1E"/>
+  <text x="72" y="35" font-family="Arial,sans-serif" font-size="22" font-weight="bold" fill="#3C1E1E">pay</text>
+</svg>

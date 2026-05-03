@@ -110,17 +110,10 @@ export default function ProductOptions({
     : (selectedColor && selectedSize ? 99 : null);
   const totalPrice = (salePrice + (selectedOption?.priceAdjust ?? 0)) * quantity;
 
-  const isSizeAvailable = (size: string) => {
-    if (!hasDbOptions) return true;
-    if (!selectedColor) return true;
-    const opt = options.find((o) => o.color === selectedColor && o.size === size);
-    return opt ? opt.stockQuantity - opt.reservedQuantity > 0 : false;
-  };
+  const isSizeAvailable = (_size: string) => true;
 
   // 선택 완료 여부 (DB 옵션 없으면 색상+사이즈만 선택돼도 OK)
-  const canAddToCart = hasDbOptions
-    ? (!!selectedOption && stock !== null && stock > 0)
-    : (!!selectedColor && !!selectedSize);
+  const canAddToCart = !!selectedColor && !!selectedSize && (stock === null || stock > 0);
 
   return (
     <div>
@@ -133,7 +126,10 @@ export default function ProductOptions({
           {colors.map((c) => (
             <button
               key={c.color}
-              onClick={() => { setSelectedColor(c.color); setSelectedSize(null); }}
+              onClick={() => {
+                if (selectedColor === c.color) { setSelectedColor(null); setSelectedSize(null); }
+                else { setSelectedColor(c.color); setSelectedSize(null); }
+              }}
               title={c.color}
               className={`relative w-9 h-9 flex-shrink-0 transition-all ${
                 selectedColor === c.color

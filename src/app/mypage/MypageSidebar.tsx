@@ -9,6 +9,7 @@ interface Props {
     coupons: number;
     wishlist: number;
     embroidery: number;
+    embroideryRequests: number;
     quotes: number;
     points: number;
   };
@@ -26,24 +27,25 @@ const MENU_GROUPS = [
   {
     label: "EMBROIDERY",
     items: [
-      { num: "/04", href: "/mypage/embroidery", label: "★ 자수 시안 보관함", countKey: "embroidery" },
-      { num: "/05", href: "/mypage/bulk-orders", label: "단체주문 견적 내역", countKey: "quotes" },
+      { num: "/04", href: "/mypage/embroidery", label: "자수 시안 보관함", countKey: "embroidery" },
+      { num: "/05", href: "/mypage/embroidery/requests", label: "자수 신청현황", countKey: "embroideryRequests" },
+      { num: "/06", href: "/mypage/bulk-orders", label: "단체주문 견적 내역", countKey: "quotes" },
     ],
   },
   {
     label: "REWARDS",
     items: [
-      { num: "/06", href: "/mypage/points",   label: "적립금 내역",   countKey: "points", unit: "P" },
-      { num: "/07", href: "/mypage/coupons",  label: "쿠폰함",        countKey: "coupons", unit: "장" },
-      { num: "/08", href: "/mypage/wishlist", label: "위시리스트",    countKey: "wishlist" },
+      { num: "/07", href: "/mypage/points",   label: "적립금 내역",   countKey: "points", unit: "P" },
+      { num: "/08", href: "/mypage/coupons",  label: "쿠폰함",        countKey: "coupons", unit: "장" },
+      { num: "/09", href: "/mypage/wishlist", label: "위시리스트",    countKey: "wishlist" },
     ],
   },
   {
     label: "ACCOUNT",
     items: [
-      { num: "/09", href: "/mypage/profile",   label: "회원 정보 수정" },
-      { num: "/10", href: "/mypage/addresses", label: "배송지 관리" },
-      { num: "/11", href: "/mypage/inquiry",   label: "1:1 문의 내역" },
+      { num: "/10", href: "/mypage/profile",   label: "회원 정보 수정" },
+      { num: "/11", href: "/mypage/addresses", label: "배송지 관리" },
+      { num: "/12", href: "/mypage/inquiry",   label: "1:1 문의 내역" },
     ],
   },
 ] as const;

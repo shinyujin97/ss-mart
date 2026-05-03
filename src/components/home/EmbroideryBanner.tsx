@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const FEATURES = [
-  { num: "01", title: "무료 시안 제작", desc: "전문 디자이너가 직접 제작\n시안 확정 전 무제한 수정" },
+  { num: "01", title: "무료 시안 제작", desc: "고객 디자인으로 제작\n시안은 최종 2번까지 수정 가능" },
   { num: "02", title: "7가지 자수 종류", desc: "컴퓨터 자수 / 패치 / 아플리케\n실사 패치 / 벨크로 / 실크 인쇄" },
   { num: "03", title: "빠른 납품", desc: "1~10벌 3~5영업일\n100벌+ 7~14영업일" },
   { num: "04", title: "저작권 안전 보장", desc: "오리지널 캐릭터 디자인\n고객사 자체 로고 전문" },
@@ -28,9 +28,9 @@ export default function EmbroideryBanner() {
               SECTION / 03 ─ EMBROIDERY & MARKING
             </div>
             <h2 className="text-[32px] font-black leading-tight tracking-tight text-white">
-              우리 회사 로고가 박힌
+              원하는 디자인을 바로
               <br />
-              <span className="text-[var(--red)]">맞춤 작업복</span> 제작
+              <span className="text-[var(--red)]">자수·마킹</span> 서비스
             </h2>
           </div>
         </div>

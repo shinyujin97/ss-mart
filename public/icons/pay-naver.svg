@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 56">
+  <rect width="160" height="56" fill="#03C75A"/>
+  <rect x="24" y="10" width="36" height="36" rx="4" fill="#fff"/>
+  <text x="42" y="36" font-family="Arial,sans-serif" font-size="22" font-weight="900" fill="#03C75A" text-anchor="middle">N</text>
+  <text x="76" y="36" font-family="Arial,sans-serif" font-size="22" font-weight="bold" fill="#fff">Pay</text>
+</svg>

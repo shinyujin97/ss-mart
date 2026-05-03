@@ -23,7 +23,7 @@ export default async function AdminCouponsPage() {
       <div className="flex items-center justify-between">
         <div>
           <div className="font-[var(--font-mono)] text-[10px] text-[#555] tracking-[2px] mb-1">ADMIN / COUPONS</div>
-          <h1 className="text-xl font-black text-white">쿠폰 관리</h1>
+          <h1 className="text-xl font-black text-[#111]">쿠폰 관리</h1>
         </div>
         <button className="bg-[#c8161d] text-white px-5 py-2.5 text-sm font-bold hover:bg-[#9c0e15] transition-colors">
           + 쿠폰 생성

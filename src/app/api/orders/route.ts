@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { COMPANY_BANK_ACCOUNT } from "@/constants/bank-account";
 
 export async function POST(req: NextRequest) {
   const session = await auth();
@@ -91,10 +92,16 @@ export async function POST(req: NextRequest) {
       });
       const orderNumber = `SS-${today}-${String(count + 1).padStart(6, "0")}`;
 
+      const isBankTransfer = paymentMethod === "BANK_TRANSFER";
+      const bankDeadline = isBankTransfer
+        ? new Date(Date.now() + COMPANY_BANK_ACCOUNT.deadlineHours * 60 * 60 * 1000)
+        : null;
+
       const newOrder = await tx.order.create({
         data: {
           orderNumber,
           memberId: session.user!.id as string,
+          status: isBankTransfer ? "PENDING_PAYMENT" : "PENDING",
           recipientName: address.recipientName,
           recipientPhone: address.recipientPhone,
           zipCode: address.zipCode,
@@ -109,6 +116,10 @@ export async function POST(req: NextRequest) {
           totalAmount,
           pointsEarned: Math.floor(totalAmount * 0.01),
           hasEmbroidery: embroideryFeeTotal > 0,
+          ...(isBankTransfer ? {
+            bankTransferDeadline: bankDeadline,
+            bankTransferHolder: address.bankTransferHolder ?? null,
+          } : {}),
           items: {
             create: await Promise.all(
               items.map(async (item: { optionId: string; quantity: number; embroideryDesignId?: string }) => {
@@ -150,7 +161,19 @@ export async function POST(req: NextRequest) {
       return newOrder;
     });
 
-    return NextResponse.json({ orderId: order.id, orderNumber: order.orderNumber, amount: order.totalAmount });
+    const res: Record<string, unknown> = {
+      orderId: order.id, orderNumber: order.orderNumber, amount: order.totalAmount,
+    };
+    if (body.paymentMethod === "BANK_TRANSFER") {
+      res.bankTransfer = {
+        bank: COMPANY_BANK_ACCOUNT.bank,
+        accountNumber: COMPANY_BANK_ACCOUNT.accountNumber,
+        holder: COMPANY_BANK_ACCOUNT.holder,
+        deadline: new Date(Date.now() + COMPANY_BANK_ACCOUNT.deadlineHours * 60 * 60 * 1000).toISOString(),
+        amount: order.totalAmount,
+      };
+    }
+    return NextResponse.json(res);
   } catch (error) {
     const message = error instanceof Error ? error.message : "주문 생성에 실패했습니다.";
     return NextResponse.json({ error: message }, { status: 400 });
