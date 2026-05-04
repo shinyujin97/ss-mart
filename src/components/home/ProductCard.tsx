@@ -1,6 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 
+const BLUR_DATA_URL =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==";
+
 interface ProductCardProps {
   slug: string;
   name: string;
@@ -39,6 +42,8 @@ export default function ProductCard({
           sizes="(max-width: 768px) 50vw, (max-width: 1400px) 25vw, 270px"
           priority={priority}
           loading={priority ? undefined : "lazy"}
+          placeholder="blur"
+          blurDataURL={BLUR_DATA_URL}
           className="object-cover group-hover:scale-105 transition-transform duration-500"
         />
         {/* 배지 */}
