@@ -11,6 +11,7 @@ interface ProductCardProps {
   isNew?: boolean;
   isBest?: boolean;
   embroideryAvailable?: boolean;
+  priority?: boolean;
 }
 
 export default function ProductCard({
@@ -23,6 +24,7 @@ export default function ProductCard({
   isNew,
   isBest,
   embroideryAvailable,
+  priority = false,
 }: ProductCardProps) {
   const discountRate = Math.round(((basePrice - salePrice) / basePrice) * 100);
 
@@ -35,6 +37,8 @@ export default function ProductCard({
           alt={name}
           fill
           sizes="(max-width: 768px) 50vw, (max-width: 1400px) 25vw, 270px"
+          priority={priority}
+          loading={priority ? undefined : "lazy"}
           className="object-cover group-hover:scale-105 transition-transform duration-500"
         />
         {/* 배지 */}

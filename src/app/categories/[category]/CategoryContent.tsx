@@ -214,7 +214,7 @@ export default async function CategoryContent({
             </div>
           ) : (
             <div className="grid grid-cols-4 gap-5">
-              {products8.map((p) => (
+              {products8.map((p, i) => (
                 <ProductCard
                   key={p.id}
                   slug={p.slug}
@@ -229,6 +229,7 @@ export default async function CategoryContent({
                   isNew={p.isNew}
                   isBest={p.isBest}
                   embroideryAvailable={p.embroideryAvailable}
+                  priority={i < 4}
                 />
               ))}
               {hasMore && (
