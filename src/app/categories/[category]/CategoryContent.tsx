@@ -146,7 +146,10 @@ export default async function CategoryContent({
     SHOE_CATEGORY_SLUGS.includes(category) ||
     (cat.parent && SHOE_CATEGORY_SLUGS.includes(cat.parent.slug));
   const dbSizes = availableSizes.map((o) => o.size);
-  const sizes = isShoeCategory && dbSizes.length === 0 ? DEFAULT_SHOE_SIZES : dbSizes;
+  const isShoeSize = (s: string) => { const n = Number(s.replace(/mm$/i, "")); return !isNaN(n) && n >= 220 && n <= 320; };
+  const sizes = isShoeCategory
+    ? (dbSizes.filter(isShoeSize).length > 0 ? dbSizes.filter(isShoeSize) : DEFAULT_SHOE_SIZES)
+    : dbSizes.filter((s) => !isShoeSize(s));
 
   const hasMore = total > skip + 8;
   const buildHref = (p: number) => `?sort=${sort}&page=${p}`;
