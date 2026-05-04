@@ -220,13 +220,18 @@ export default function CategoryFilter({
         <div className="grid grid-cols-2 gap-1.5">
           {PRICE_RANGES.map((r) => {
             const active =
-              searchParams.get("minPrice") === String(r.min ?? "") &&
-              searchParams.get("maxPrice") === String(r.max ?? "");
+              searchParams.get("minPrice") === (r.min ? String(r.min) : null) &&
+              searchParams.get("maxPrice") === (r.max ? String(r.max) : null);
             return (
               <button key={r.label}
                 onClick={() => {
-                  updateParam("minPrice", r.min ? String(r.min) : null);
-                  updateParam("maxPrice", r.max ? String(r.max) : null);
+                  const params = new URLSearchParams(searchParams.toString());
+                  if (r.min) params.set("minPrice", String(r.min));
+                  else params.delete("minPrice");
+                  if (r.max) params.set("maxPrice", String(r.max));
+                  else params.delete("maxPrice");
+                  params.delete("page");
+                  router.push(`${pathname}?${params.toString()}`);
                 }}
                 className={`text-xs py-2 border transition-colors ${
                   active
