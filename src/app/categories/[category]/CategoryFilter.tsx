@@ -184,6 +184,28 @@ export default function CategoryFilter({
                 {s} <span>×</span>
               </button>
             ))}
+            {(searchParams.has("minPrice") || searchParams.has("maxPrice")) && (() => {
+              const priceRange = PRICE_RANGES.find((r) =>
+                searchParams.get("minPrice") === (r.min ? String(r.min) : null) &&
+                searchParams.get("maxPrice") === (r.max ? String(r.max) : null)
+              );
+              if (!priceRange) return null;
+              return (
+                <button
+                  key="price"
+                  onClick={() => {
+                    const params = new URLSearchParams(searchParams.toString());
+                    params.delete("minPrice");
+                    params.delete("maxPrice");
+                    params.delete("page");
+                    router.push(`${pathname}?${params.toString()}`);
+                  }}
+                  className="border border-[var(--red)] text-[var(--red)] text-[11px] px-2 py-0.5 flex items-center gap-1 hover:bg-[var(--red)] hover:text-white transition-colors"
+                >
+                  {priceRange.label} <span>×</span>
+                </button>
+              );
+            })()}
           </div>
         </div>
       )}

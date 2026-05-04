@@ -141,9 +141,7 @@ export default async function CategoryContent({
     SHOE_CATEGORY_SLUGS.includes(category) ||
     (cat.parent && SHOE_CATEGORY_SLUGS.includes(cat.parent.slug));
   const dbSizes = availableSizes.map((o) => o.size);
-  const sizes = isShoeCategory
-    ? (dbSizes.length === 0 ? DEFAULT_SHOE_SIZES : dbSizes)
-    : [];
+  const sizes = isShoeCategory && dbSizes.length === 0 ? DEFAULT_SHOE_SIZES : dbSizes;
 
   const hasMore = total > skip + 8;
   const buildHref = (p: number) => `?sort=${sort}&page=${p}`;
