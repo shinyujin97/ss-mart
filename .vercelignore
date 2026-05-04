@@ -1,0 +1,7 @@
+node_modules
+.next
+prisma/seeds
+screenshots
+docs
+.claude
+public/products
