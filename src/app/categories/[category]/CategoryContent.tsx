@@ -53,7 +53,11 @@ export default async function CategoryContent({
 }: Props) {
   const childIds = cat.children.map((c) => c.id);
   const catIds = [cat.id, ...childIds];
-  const useCategorySort = childIds.length > 0 && sort === "newest";
+  const hasFilters =
+    brandFilter.length > 0 || certFilter.length > 0 ||
+    seasonFilter.length > 0 || sizeFilter.length > 0 ||
+    minPrice !== undefined || maxPrice !== undefined;
+  const useCategorySort = childIds.length > 0 && sort === "newest" && !hasFilters;
   const skip = (page - 1) * PAGE_SIZE;
 
   const orderBy =
