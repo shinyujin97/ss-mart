@@ -231,6 +231,9 @@ model Product {
   @@index([brandId])
   @@index([status])
   @@index([isNew, isBest, isFeatured])
+  @@index([status, createdAt])
+  @@index([status, salePrice])
+  @@index([status, orderCount])
   @@map("products")
 }
 
@@ -242,6 +245,7 @@ model ProductCategory {
   sortOrder  Int      @default(0)
 
   @@id([productId, categoryId])
+  @@index([categoryId, productId])
   @@map("product_categories")
 }
 
@@ -285,7 +289,7 @@ model ProductImage {
 
   createdAt DateTime @default(now())
 
-  @@index([productId])
+  @@index([productId, isMain])
   @@map("product_images")
 }
 

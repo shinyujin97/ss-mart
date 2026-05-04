@@ -127,14 +127,19 @@ export default async function CategoryContent({
       select: { type: true },
       distinct: ["type"],
     }),
-    prisma.product.findMany({
-      where: catBaseWhere,
-      select: { season: true },
-    }),
+    prisma.$queryRaw<{ s: string }[]>(
+      Prisma.sql`
+        SELECT DISTINCT unnest(p.season::text[]) AS s
+        FROM products p
+        JOIN product_categories pc ON pc."productId" = p.id
+        WHERE p.status = 'ACTIVE'
+        AND pc."categoryId" IN (${Prisma.join(catIds)})
+      `
+    ),
   ]);
 
   const totalPages = Math.ceil(total / PAGE_SIZE);
-  const uniqueSeasons = [...new Set(availableSeasons.flatMap((p) => p.season))] as string[];
+  const uniqueSeasons = availableSeasons.map((r) => r.s);
   const certs = availableCerts.map((c) => c.type as string);
 
   const isShoeCategory =
