@@ -17,7 +17,6 @@ interface Props {
 }
 
 export default function ProductImageGallery({ images, productName, certifications, certLabels }: Props) {
-  // 대표 이미지만 (dt 상세 이미지 제외)
   const galleryImages = images.filter((i) => !i.url.includes("_dt"));
   const [activeUrl, setActiveUrl] = useState(
     galleryImages.find((i) => i.isMain)?.url ?? galleryImages[0]?.url ?? ""
@@ -25,22 +24,22 @@ export default function ProductImageGallery({ images, productName, certification
 
   return (
     <div>
-      {/* 메인 이미지 */}
+      {/* 메인 이미지 — LCP: priority로 즉시 로드 */}
       <div className="relative aspect-square bg-[var(--gray-100)] mb-3 overflow-hidden">
         {activeUrl ? (
           <Image
             src={activeUrl}
             alt={productName}
             fill
+            priority
+            sizes="(max-width: 1340px) 50vw, 784px"
             className="object-cover"
-            unoptimized
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-[var(--gray-300)] text-sm">
             이미지 준비 중
           </div>
         )}
-        {/* 인증 배지 */}
         {certifications.length > 0 && (
           <div className="absolute top-3 left-3 flex flex-col gap-1">
             {certifications.map((c) => (
@@ -55,7 +54,7 @@ export default function ProductImageGallery({ images, productName, certification
         )}
       </div>
 
-      {/* 썸네일 */}
+      {/* 썸네일 — lazy load */}
       {galleryImages.length > 1 && (
         <div className="grid grid-cols-5 gap-2">
           {galleryImages.map((img) => (
@@ -68,7 +67,14 @@ export default function ProductImageGallery({ images, productName, certification
                   : "border-transparent hover:border-[var(--gray-300)]"
               }`}
             >
-              <Image src={img.url} alt={productName} fill className="object-cover" unoptimized />
+              <Image
+                src={img.url}
+                alt={productName}
+                fill
+                loading="lazy"
+                sizes="(max-width: 1340px) 10vw, 150px"
+                className="object-cover"
+              />
             </button>
           ))}
         </div>

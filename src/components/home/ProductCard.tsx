@@ -34,8 +34,8 @@ export default function ProductCard({
           src={imageUrl}
           alt={name}
           fill
+          sizes="(max-width: 768px) 50vw, (max-width: 1400px) 25vw, 270px"
           className="object-cover group-hover:scale-105 transition-transform duration-500"
-          unoptimized
         />
         {/* 배지 */}
         <div className="absolute top-2 left-2 flex flex-col gap-1">

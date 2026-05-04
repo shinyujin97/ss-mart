@@ -349,6 +349,8 @@ export default async function ProductDetailPage({ params }: Props) {
                     src={img.url}
                     alt={product.name}
                     className="w-full max-w-[860px] block"
+                    loading="lazy"
+                    decoding="async"
                   />
                 ))
             ) : (
