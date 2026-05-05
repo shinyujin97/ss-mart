@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { auth } from "@/lib/auth";
+import { BLUR_DATA_URL } from "@/lib/imageUtils";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 
@@ -48,7 +49,7 @@ export default async function WishlistPage() {
               <div key={product.id} className="group relative">
                 <Link href={`/products/${product.slug}`}>
                   <div className="relative aspect-square bg-[var(--gray-100)] overflow-hidden mb-2.5">
-                    <Image src={imageUrl} alt={product.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" unoptimized />
+                    <Image src={imageUrl} alt={product.name} fill placeholder="blur" blurDataURL={BLUR_DATA_URL} className="object-cover group-hover:scale-105 transition-transform duration-500" />
                     {discountRate > 0 && (
                       <span className="absolute top-2 left-2 bg-[var(--red)] text-white font-[var(--font-mono)] text-[9px] px-2 py-0.5">
                         -{discountRate}%

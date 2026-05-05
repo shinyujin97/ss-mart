@@ -2,9 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-
-const BLUR_DATA_URL =
-  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==";
+import { BLUR_DATA_URL } from "@/lib/imageUtils";
 
 interface ProductImage {
   id: string;

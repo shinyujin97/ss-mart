@@ -4,6 +4,7 @@ import { useCartStore } from "@/lib/cartStore";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { BLUR_DATA_URL } from "@/lib/imageUtils";
 
 export default function CartClient() {
   const { items, removeItem, updateQuantity, totalPrice } = useCartStore();
@@ -72,8 +73,9 @@ export default function CartClient() {
                       src={item.imageUrl}
                       alt={item.productName}
                       fill
+                      placeholder="blur"
+                      blurDataURL={BLUR_DATA_URL}
                       className="object-cover"
-                      unoptimized
                     />
                     <span className="absolute top-1.5 left-1.5 bg-black/70 text-white font-[var(--font-mono)] text-[9px] px-1.5 py-0.5">
                       / {String(idx + 1).padStart(3, "0")}

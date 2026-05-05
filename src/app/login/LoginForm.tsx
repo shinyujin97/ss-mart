@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 type Modal = null | "findEmail" | "findPassword";
 
@@ -15,7 +15,6 @@ function formatPhone(value: string) {
 }
 
 export default function LoginForm() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const justRegistered = searchParams.get("registered") === "1";
   const [loginId, setLoginId] = useState("");
@@ -66,8 +65,8 @@ export default function LoginForm() {
       return;
     }
 
-    router.push("/");
-    router.refresh();
+    const callbackUrl = searchParams.get("callbackUrl") || "/";
+    window.location.href = callbackUrl;
   }
 
   async function handleFindEmail(e: React.FormEvent) {

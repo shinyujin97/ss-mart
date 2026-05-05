@@ -45,10 +45,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         );
         if (!valid) return null;
 
-        await prisma.member.update({
+        // fire-and-forget: lastLoginAt is non-critical, don't block auth response
+        prisma.member.update({
           where: { id: member.id },
           data: { lastLoginAt: new Date() },
-        });
+        }).catch(() => {});
 
         return {
           id: member.id,

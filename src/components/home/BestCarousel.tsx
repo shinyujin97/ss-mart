@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { BLUR_DATA_URL } from "@/lib/imageUtils";
 
 interface Product {
   id: string;
@@ -65,8 +66,9 @@ export default function BestCarousel({ products }: { products: Product[] }) {
                     src={p.imageUrl}
                     alt={p.name}
                     fill
+                    placeholder="blur"
+                    blurDataURL={BLUR_DATA_URL}
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    unoptimized
                   />
                   {discount > 0 && (
                     <span className="absolute top-3 left-3 bg-[var(--red)] text-white font-[var(--font-mono)] text-[10px] px-2 py-1 font-bold">
