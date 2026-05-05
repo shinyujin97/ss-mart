@@ -5,6 +5,7 @@ import { Prisma } from "@/generated/prisma/client";
 import ProductCard from "@/components/home/ProductCard";
 import CategoryFilter from "./CategoryFilter";
 import MoreProducts from "./MoreProducts";
+import CategoryPagination from "./CategoryPagination";
 
 const PAGE_SIZE = 24;
 
@@ -152,17 +153,10 @@ export default async function CategoryContent({
     : dbSizes.filter((s) => !isShoeSize(s));
 
   const hasMore = total > skip + 8;
-  const buildHref = (p: number) => `?sort=${sort}&page=${p}`;
   const GROUP = 10;
   const groupStart = Math.floor((page - 1) / GROUP) * GROUP + 1;
   const groupEnd = Math.min(groupStart + GROUP - 1, totalPages);
-
-  const btnClass = (active: boolean) =>
-    `w-9 h-9 flex items-center justify-center border font-[var(--font-mono)] text-sm transition-colors ${
-      active
-        ? "border-[var(--line)] text-[var(--gray-700)] hover:border-[var(--black)] hover:text-[var(--black)]"
-        : "border-[var(--gray-100)] text-[var(--gray-300)] cursor-not-allowed pointer-events-none"
-    }`;
+  const pageNumbers = Array.from({ length: groupEnd - groupStart + 1 }, (_, i) => groupStart + i);
 
   return (
     <div className="max-w-[1340px] mx-auto px-6 py-6">
@@ -213,65 +207,45 @@ export default async function CategoryContent({
               <p className="text-sm text-[var(--gray-500)]">해당 조건의 상품이 없습니다.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-4 gap-5">
-              {products8.map((p, i) => (
-                <ProductCard
-                  key={p.id}
-                  slug={p.slug}
-                  name={p.name}
-                  brand={p.brand.name}
-                  basePrice={p.basePrice}
-                  salePrice={p.salePrice}
-                  imageUrl={
-                    p.images[0]?.url ??
-                    `https://placehold.co/600x600/f4f4f4/8a8a8a?text=${encodeURIComponent(p.name)}`
-                  }
-                  isNew={p.isNew}
-                  isBest={p.isBest}
-                  embroideryAvailable={p.embroideryAvailable}
-                  priority={i < 4}
-                />
-              ))}
-              {hasMore && (
-                <Suspense fallback={null}>
-                  <MoreProducts
-                    catIds={catIds}
-                    brandFilter={brandFilter}
-                    certFilter={certFilter}
-                    seasonFilter={seasonFilter}
-                    sizeFilter={sizeFilter}
-                    minPrice={minPrice ?? null}
-                    maxPrice={maxPrice ?? null}
-                    sort={sort}
-                    skip={skip + 8}
-                    take={PAGE_SIZE - 8}
-                    useCategorySort={useCategorySort}
+            <CategoryPagination page={page} totalPages={totalPages} pageNumbers={pageNumbers}>
+              <div className="grid grid-cols-4 gap-5">
+                {products8.map((p, i) => (
+                  <ProductCard
+                    key={p.id}
+                    slug={p.slug}
+                    name={p.name}
+                    brand={p.brand.name}
+                    basePrice={p.basePrice}
+                    salePrice={p.salePrice}
+                    imageUrl={
+                      p.images[0]?.url ??
+                      `https://placehold.co/600x600/f4f4f4/8a8a8a?text=${encodeURIComponent(p.name)}`
+                    }
+                    isNew={p.isNew}
+                    isBest={p.isBest}
+                    embroideryAvailable={p.embroideryAvailable}
+                    priority={i < 4}
                   />
-                </Suspense>
-              )}
-            </div>
-          )}
-
-          {totalPages > 1 && (
-            <div className="flex justify-center items-center gap-1 mt-10">
-              <Link href={page > 1 ? buildHref(1) : "#"} aria-disabled={page <= 1} className={btnClass(page > 1)}>{"<<"}</Link>
-              <Link href={page > 1 ? buildHref(page - 1) : "#"} aria-disabled={page <= 1} className={btnClass(page > 1)}>{"<"}</Link>
-              {Array.from({ length: groupEnd - groupStart + 1 }, (_, i) => groupStart + i).map((p) => (
-                <Link
-                  key={p}
-                  href={buildHref(p)}
-                  className={`w-9 h-9 flex items-center justify-center text-sm font-[var(--font-mono)] border transition-colors ${
-                    p === page
-                      ? "bg-[var(--black)] text-white border-[var(--black)]"
-                      : "border-[var(--line)] text-[var(--gray-700)] hover:border-[var(--black)]"
-                  }`}
-                >
-                  {p}
-                </Link>
-              ))}
-              <Link href={page < totalPages ? buildHref(page + 1) : "#"} aria-disabled={page >= totalPages} className={btnClass(page < totalPages)}>{">"}</Link>
-              <Link href={page < totalPages ? buildHref(totalPages) : "#"} aria-disabled={page >= totalPages} className={btnClass(page < totalPages)}>{">>"}</Link>
-            </div>
+                ))}
+                {hasMore && (
+                  <Suspense fallback={null}>
+                    <MoreProducts
+                      catIds={catIds}
+                      brandFilter={brandFilter}
+                      certFilter={certFilter}
+                      seasonFilter={seasonFilter}
+                      sizeFilter={sizeFilter}
+                      minPrice={minPrice ?? null}
+                      maxPrice={maxPrice ?? null}
+                      sort={sort}
+                      skip={skip + 8}
+                      take={PAGE_SIZE - 8}
+                      useCategorySort={useCategorySort}
+                    />
+                  </Suspense>
+                )}
+              </div>
+            </CategoryPagination>
           )}
         </div>
       </div>
