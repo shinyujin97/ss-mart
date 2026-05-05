@@ -260,24 +260,36 @@ export default function ProductOptions({
       </div>
 
       {/* 자수 토글 */}
-      {embroideryAvailable && (
-        <Link
-          href="/embroidery/simulator"
-          className="flex items-center justify-between mt-3 px-4 py-3.5 border border-[var(--yellow)] bg-[var(--yellow)]/10 hover:bg-[var(--yellow)]/20 transition-colors"
-        >
-          <div>
-            <div className="font-[var(--font-mono)] text-[10px] text-[var(--black)] tracking-[1px] font-bold mb-0.5">
-              ▶ 자수 / 마킹 추가
+      {embroideryAvailable && (() => {
+        const params = new URLSearchParams({
+          productId: productId,
+          productSlug: productSlug,
+          productName: productName,
+          ...(selectedColor ? { color: selectedColor } : {}),
+          ...(selectedSize  ? { size: selectedSize }   : {}),
+          qty: String(quantity),
+        });
+        return (
+          <Link
+            href={`/embroidery/simulator?${params}`}
+            className="flex items-center justify-between mt-3 px-4 py-3.5 border border-[var(--yellow)] bg-[var(--yellow)]/10 hover:bg-[var(--yellow)]/20 transition-colors"
+          >
+            <div>
+              <div className="font-[var(--font-mono)] text-[10px] text-[var(--black)] tracking-[1px] font-bold mb-0.5">
+                ▶ 자수 / 마킹 추가
+              </div>
+              <div className="text-xs text-[var(--gray-700)]">
+                {selectedColor && selectedSize
+                  ? `${selectedColor} / ${selectedSize} · 자수 옵션 설정`
+                  : "회사 로고, 이름 자수 추가 가능"}
+              </div>
             </div>
-            <div className="text-xs text-[var(--gray-700)]">
-              회사 로고, 이름 자수 추가 가능
-            </div>
-          </div>
-          <span className="font-[var(--font-mono)] text-xs text-[var(--black)] font-bold">
-            견적보기 →
-          </span>
-        </Link>
-      )}
+            <span className="font-[var(--font-mono)] text-xs text-[var(--black)] font-bold">
+              견적보기 →
+            </span>
+          </Link>
+        );
+      })()}
     </div>
   );
 }

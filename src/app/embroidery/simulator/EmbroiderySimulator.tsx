@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { EMBROIDERY_TYPES, SIZE_LABELS, SIZE_MULTIPLIERS, POSITION_LABELS } from "@/constants/embroidery";
 import type { EmbroideryTypeKey, EmbroiderySizeKey, EmbroideryPositionKey } from "@/constants/embroidery";
 import TshirtCanvas, { POSITION_COORDS, POSITION_VIEW, VIEW_POSITIONS, type DesignPos } from "./TshirtCanvas";
@@ -36,12 +36,21 @@ const POSITION_CONFIG: {
 
 export default function EmbroiderySimulator() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const fromProductId   = searchParams.get("productId") ?? undefined;
+  const fromProductName = searchParams.get("productName") ?? undefined;
+  const fromProductSlug = searchParams.get("productSlug") ?? undefined;
+  const fromColor       = searchParams.get("color") ?? undefined;
+  const fromSize        = searchParams.get("size") ?? undefined;
+  const fromQty         = Number(searchParams.get("qty") ?? "1");
+
   const [view, setView] = useState<typeof CANVAS_VIEWS[number]>("뒷면");
   const [type, setType] = useState<EmbroideryTypeKey>("COMPUTER");
   const [size, setSize] = useState<EmbroiderySizeKey>("MEDIUM");
   const [selectedPositions, setSelectedPositions] = useState<EmbroideryPositionKey[]>([]);
   const [designPositions, setDesignPositions] = useState<Record<string, DesignPos>>({});
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(fromQty > 0 ? fromQty : 1);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
 
@@ -93,6 +102,10 @@ export default function EmbroiderySimulator() {
           designImageUrl: designImage,
           quantity,
           designPositions,
+          productId:    fromProductId,
+          productName:  fromProductName,
+          selectedColor: fromColor,
+          selectedSize:  fromSize,
         }),
       });
       if (res.ok) {
@@ -164,6 +177,17 @@ export default function EmbroiderySimulator() {
         <div className="px-5 py-3.5 border-b border-[#f0f0f0] flex-shrink-0">
           <div className="font-[var(--font-mono)] text-[9px] text-[#c8161d] tracking-[2px] mb-0.5">CUSTOMIZE</div>
           <div className="text-sm font-black text-[#111]">자수 옵션 설정</div>
+          {fromProductName && (
+            <div className="mt-2 px-3 py-2 bg-[#fffbe6] border border-[#ffd400]">
+              <div className="font-[var(--font-mono)] text-[9px] text-[#888] tracking-[1px] mb-0.5">대상 상품</div>
+              <div className="text-xs font-bold text-[#111] truncate">{fromProductName}</div>
+              {(fromColor || fromSize) && (
+                <div className="font-[var(--font-mono)] text-[10px] text-[#666] mt-0.5">
+                  {[fromColor, fromSize].filter(Boolean).join(" / ")}
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         <div className="flex-1 overflow-y-auto">

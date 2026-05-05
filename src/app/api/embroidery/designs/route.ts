@@ -10,7 +10,11 @@ export async function POST(req: NextRequest) {
   const session = await auth();
   const body = await req.json();
 
-  const { type, size, position, positions: positionsArr, textContent, notes, quantity = 1, designImageUrl, designPositions } = body;
+  const {
+    type, size, position, positions: positionsArr,
+    textContent, notes, quantity = 1, designImageUrl, designPositions,
+    productId, productName, selectedColor, selectedSize,
+  } = body;
 
   // 저작권 검증
   if (textContent) {
@@ -60,6 +64,10 @@ export async function POST(req: NextRequest) {
       quantity,
       totalPrice,
       status: "DRAFT",
+      productId: productId ?? null,
+      productName: productName ?? null,
+      selectedColor: selectedColor ?? null,
+      selectedSize: selectedSize ?? null,
     },
     select: { id: true, designNumber: true, unitPrice: true, totalPrice: true, status: true },
   });
