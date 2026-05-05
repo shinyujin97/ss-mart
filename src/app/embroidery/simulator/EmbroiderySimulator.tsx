@@ -5,7 +5,11 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { EMBROIDERY_TYPES, SIZE_LABELS, SIZE_MULTIPLIERS, POSITION_LABELS } from "@/constants/embroidery";
 import type { EmbroideryTypeKey, EmbroiderySizeKey, EmbroideryPositionKey } from "@/constants/embroidery";
-import TshirtCanvas, { POSITION_COORDS, POSITION_VIEW, VIEW_POSITIONS, type DesignPos } from "./TshirtCanvas";
+import TshirtCanvas, {
+  POSITION_COORDS, POSITION_VIEW, VIEW_POSITIONS,
+  POSITION_COORDS_BOTTOM, POSITION_VIEW_BOTTOM, VIEW_POSITIONS_BOTTOM,
+  type DesignPos, type GarmentType,
+} from "./TshirtCanvas";
 
 const CANVAS_VIEWS = ["정면", "뒷면", "왼팔", "오른팔"] as const;
 
@@ -19,18 +23,30 @@ const TYPE_ICONS: Record<EmbroideryTypeKey, string> = {
   SILK_PRINT: "▤",
 };
 
-const POSITION_CONFIG: {
+type PositionConfig = {
   key: EmbroideryPositionKey;
   num: number;
   label: string;
   dot?: { cx: number; cy: number };
-}[] = [
+};
+
+const POSITION_CONFIG: PositionConfig[] = [
   { key: "LEFT_CHEST",   num: 1, label: "왼가슴",   dot: { cx: 59,  cy: 73  } },
   { key: "RIGHT_CHEST",  num: 2, label: "오른가슴",  dot: { cx: 95,  cy: 73  } },
   { key: "LEFT_SLEEVE",  num: 3, label: "왼팔",      dot: { cx: 29,  cy: 89  } },
   { key: "RIGHT_SLEEVE", num: 4, label: "오른팔",    dot: { cx: 125, cy: 89  } },
   { key: "BACK_TOP",     num: 5, label: "등 상단",   dot: { cx: 237, cy: 73  } },
   { key: "BACK_CENTER",  num: 6, label: "등판 중앙", dot: { cx: 237, cy: 117 } },
+  { key: "MULTIPLE",     num: 7, label: "여러 곳" },
+];
+
+const POSITION_CONFIG_BOTTOM: PositionConfig[] = [
+  { key: "LEFT_CHEST",   num: 1, label: "왼허벅지",  dot: { cx: 57,  cy: 105 } },
+  { key: "RIGHT_CHEST",  num: 2, label: "오른허벅지", dot: { cx: 97,  cy: 105 } },
+  { key: "LEFT_SLEEVE",  num: 3, label: "왼다리",    dot: { cx: 50,  cy: 145 } },
+  { key: "RIGHT_SLEEVE", num: 4, label: "오른다리",   dot: { cx: 104, cy: 145 } },
+  { key: "BACK_TOP",     num: 5, label: "뒷면 허리",  dot: { cx: 237, cy: 60  } },
+  { key: "BACK_CENTER",  num: 6, label: "뒷면 허벅지", dot: { cx: 237, cy: 110 } },
   { key: "MULTIPLE",     num: 7, label: "여러 곳" },
 ];
 
@@ -44,8 +60,17 @@ export default function EmbroiderySimulator() {
   const fromColor       = searchParams.get("color") ?? undefined;
   const fromSize        = searchParams.get("size") ?? undefined;
   const fromQty         = Number(searchParams.get("qty") ?? "1");
+  const garmentType     = (searchParams.get("garmentType") ?? "other") as GarmentType;
 
-  const [view, setView] = useState<typeof CANVAS_VIEWS[number]>("뒷면");
+  const isBottom = garmentType === "bottom";
+  const CANVAS_VIEWS = isBottom
+    ? ["정면", "뒷면", "왼다리", "오른다리"] as const
+    : ["정면", "뒷면", "왼팔", "오른팔"] as const;
+  const posCoords  = isBottom ? POSITION_COORDS_BOTTOM : POSITION_COORDS;
+  const posView    = isBottom ? POSITION_VIEW_BOTTOM   : POSITION_VIEW;
+  const viewPos    = isBottom ? VIEW_POSITIONS_BOTTOM  : VIEW_POSITIONS;
+
+  const [view, setView] = useState<string>("뒷면");
   const [type, setType] = useState<EmbroideryTypeKey>("COMPUTER");
   const [size, setSize] = useState<EmbroiderySizeKey>("MEDIUM");
   const [selectedPositions, setSelectedPositions] = useState<EmbroideryPositionKey[]>([]);
@@ -63,9 +88,9 @@ export default function EmbroiderySimulator() {
   function togglePosition(key: EmbroideryPositionKey) {
     setSelectedPositions((prev) => {
       if (prev.includes(key)) return prev.filter((k) => k !== key);
-      const targetView = POSITION_VIEW[key];
-      if (targetView) setView(targetView as typeof CANVAS_VIEWS[number]);
-      setDesignPositions((d) => ({ ...d, [key]: d[key] ?? POSITION_COORDS[key] ?? { x: 200, y: 220 } }));
+      const targetView = posView[key];
+      if (targetView) setView(targetView as string);
+      setDesignPositions((d) => ({ ...d, [key]: d[key] ?? posCoords[key] ?? { x: 200, y: 220 } }));
       return [...prev, key];
     });
   }
@@ -160,6 +185,7 @@ export default function EmbroiderySimulator() {
               selectedPositions={selectedPositions}
               designPositions={designPositions}
               onDesignPosChange={updateDesignPos}
+              garmentType={garmentType}
             />
           </div>
         </div>
@@ -226,50 +252,81 @@ export default function EmbroiderySimulator() {
               )}
             </div>
 
-            {/* 셔츠 다이어그램 */}
+            {/* 의류 다이어그램 */}
             <div className="mb-3 border border-[#f0f0f0] bg-[#fafafa] px-2 py-3">
-              <svg viewBox="0 0 340 175" className="w-full">
-                <text x="77"  y="12" textAnchor="middle" fill="#ccc" fontSize="9" fontFamily="monospace">앞면</text>
-                <text x="237" y="12" textAnchor="middle" fill="#ccc" fontSize="9" fontFamily="monospace">뒷면</text>
-
-                {/* 앞면 */}
-                <g transform="translate(7,15) scale(0.35)" fill="#efefef" stroke="#d8d8d8" strokeWidth="1.5">
-                  <path d="M 88 88 L 18 145 L 22 155 L 45 165 L 90 165 Z" />
-                  <path d="M 312 88 L 382 145 L 378 155 L 355 165 L 310 165 Z" />
-                  <path d="M 88 88 L 45 165 L 45 420 L 355 420 L 355 165 L 312 88 L 260 66 C 248 110 152 110 140 66 Z" />
-                  <path d="M 140 66 C 152 110 248 110 260 66" fill="none" stroke="#ccc" strokeWidth="1.2" />
-                </g>
-
-                {/* 뒷면 */}
-                <g transform="translate(167,15) scale(0.35)" fill="#efefef" stroke="#d8d8d8" strokeWidth="1.5">
-                  <path d="M 88 88 L 18 145 L 22 155 L 45 165 L 90 165 Z" />
-                  <path d="M 312 88 L 382 145 L 378 155 L 355 165 L 310 165 Z" />
-                  <path d="M 88 88 L 45 165 L 45 420 L 355 420 L 355 165 L 312 88 L 260 66 C 248 110 152 110 140 66 Z" />
-                </g>
-
-                {/* 위치 점 */}
-                {POSITION_CONFIG.filter((p) => p.dot).map((p) => {
-                  const selected = selectedPositions.includes(p.key);
-                  const { cx, cy } = p.dot!;
-                  return (
-                    <g key={p.key} onClick={() => togglePosition(p.key)} style={{ cursor: "pointer" }}>
-                      <circle cx={cx} cy={cy} r={11}
-                        fill={selected ? "#c8161d" : "#111"}
-                      />
-                      <text x={cx} y={cy + 4} textAnchor="middle" fill="white"
-                        fontSize="8" fontWeight="bold" fontFamily="monospace"
-                        style={{ pointerEvents: "none" }}>
-                        {p.num}
-                      </text>
-                    </g>
-                  );
-                })}
-              </svg>
+              {isBottom ? (
+                <svg viewBox="0 0 340 175" className="w-full">
+                  <text x="77"  y="12" textAnchor="middle" fill="#ccc" fontSize="9" fontFamily="monospace">앞면</text>
+                  <text x="237" y="12" textAnchor="middle" fill="#ccc" fontSize="9" fontFamily="monospace">뒷면</text>
+                  {/* 앞면 바지 */}
+                  <g transform="translate(14,14) scale(0.35)" fill="#efefef" stroke="#d8d8d8" strokeWidth="1.5">
+                    <rect x="82" y="52" width="236" height="38" />
+                    <path d="M 82,90 Q 94,170 200,182 L 192,420 L 78,420 L 78,90 Z" />
+                    <path d="M 318,90 Q 306,170 200,182 L 208,420 L 322,420 L 322,90 Z" />
+                    <line x1="200" y1="90" x2="200" y2="182" stroke="#ccc" strokeWidth="1" />
+                    <path d="M 82,90 L 118,140" stroke="#ccc" strokeWidth="1.2" fill="none" />
+                    <path d="M 318,90 L 282,140" stroke="#ccc" strokeWidth="1.2" fill="none" />
+                  </g>
+                  {/* 뒷면 바지 */}
+                  <g transform="translate(174,14) scale(0.35)" fill="#efefef" stroke="#d8d8d8" strokeWidth="1.5">
+                    <rect x="82" y="52" width="236" height="38" />
+                    <path d="M 82,90 Q 94,170 200,182 L 192,420 L 78,420 L 78,90 Z" />
+                    <path d="M 318,90 Q 306,170 200,182 L 208,420 L 322,420 L 322,90 Z" />
+                    <rect x="100" y="112" width="65" height="48" fill="none" stroke="#ccc" strokeWidth="1" />
+                    <rect x="235" y="112" width="65" height="48" fill="none" stroke="#ccc" strokeWidth="1" />
+                  </g>
+                  {/* 위치 점 */}
+                  {POSITION_CONFIG_BOTTOM.filter((p) => p.dot).map((p) => {
+                    const selected = selectedPositions.includes(p.key);
+                    const { cx, cy } = p.dot!;
+                    return (
+                      <g key={p.key} onClick={() => togglePosition(p.key)} style={{ cursor: "pointer" }}>
+                        <circle cx={cx} cy={cy} r={11} fill={selected ? "#c8161d" : "#111"} />
+                        <text x={cx} y={cy + 4} textAnchor="middle" fill="white"
+                          fontSize="8" fontWeight="bold" fontFamily="monospace"
+                          style={{ pointerEvents: "none" }}>{p.num}</text>
+                      </g>
+                    );
+                  })}
+                </svg>
+              ) : (
+                <svg viewBox="0 0 340 175" className="w-full">
+                  <text x="77"  y="12" textAnchor="middle" fill="#ccc" fontSize="9" fontFamily="monospace">앞면</text>
+                  <text x="237" y="12" textAnchor="middle" fill="#ccc" fontSize="9" fontFamily="monospace">뒷면</text>
+                  {/* 앞면 작업복 상의 */}
+                  <g transform="translate(7,15) scale(0.35)" fill="#efefef" stroke="#d8d8d8" strokeWidth="1.5">
+                    <path d="M 88 88 L 18 145 L 22 155 L 45 165 L 90 165 Z" />
+                    <path d="M 312 88 L 382 145 L 378 155 L 355 165 L 310 165 Z" />
+                    <path d="M 90,165 L 48,165 L 48,420 L 352,420 L 352,165 L 310,165 L 312,88 L 252,78 L 218,148 L 200,165 L 182,148 L 148,78 L 88,88 Z" />
+                    <path d="M 148,78 L 165,82 L 196,155 L 200,165" fill="none" stroke="#ccc" strokeWidth="1.2" />
+                    <path d="M 252,78 L 235,82 L 204,155 L 200,165" fill="none" stroke="#ccc" strokeWidth="1.2" />
+                  </g>
+                  {/* 뒷면 작업복 상의 */}
+                  <g transform="translate(167,15) scale(0.35)" fill="#efefef" stroke="#d8d8d8" strokeWidth="1.5">
+                    <path d="M 88 88 L 18 145 L 22 155 L 45 165 L 90 165 Z" />
+                    <path d="M 312 88 L 382 145 L 378 155 L 355 165 L 310 165 Z" />
+                    <path d="M 90,165 L 48,165 L 48,420 L 352,420 L 352,165 L 310,165 L 312,88 L 252,78 L 200,66 L 148,78 L 88,88 Z" />
+                  </g>
+                  {/* 위치 점 */}
+                  {POSITION_CONFIG.filter((p) => p.dot).map((p) => {
+                    const selected = selectedPositions.includes(p.key);
+                    const { cx, cy } = p.dot!;
+                    return (
+                      <g key={p.key} onClick={() => togglePosition(p.key)} style={{ cursor: "pointer" }}>
+                        <circle cx={cx} cy={cy} r={11} fill={selected ? "#c8161d" : "#111"} />
+                        <text x={cx} y={cy + 4} textAnchor="middle" fill="white"
+                          fontSize="8" fontWeight="bold" fontFamily="monospace"
+                          style={{ pointerEvents: "none" }}>{p.num}</text>
+                      </g>
+                    );
+                  })}
+                </svg>
+              )}
             </div>
 
             {/* 버튼 그리드 */}
             <div className="grid grid-cols-3 gap-1.5">
-              {POSITION_CONFIG.map((p) => {
+              {(isBottom ? POSITION_CONFIG_BOTTOM : POSITION_CONFIG).map((p) => {
                 const selected = selectedPositions.includes(p.key);
                 return (
                   <button key={p.key} onClick={() => togglePosition(p.key)}

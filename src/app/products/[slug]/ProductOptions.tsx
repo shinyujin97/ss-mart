@@ -33,6 +33,7 @@ interface Props {
   embroideryAvailable: boolean;
   salePrice: number;
   initialWishlisted?: boolean;
+  garmentType?: "top" | "bottom" | "other";
 }
 
 export default function ProductOptions({
@@ -47,6 +48,7 @@ export default function ProductOptions({
   embroideryAvailable,
   salePrice,
   initialWishlisted = false,
+  garmentType = "other",
 }: Props) {
   const router = useRouter();
   const addItem = useCartStore((s) => s.addItem);
@@ -265,6 +267,7 @@ export default function ProductOptions({
           productId: productId,
           productSlug: productSlug,
           productName: productName,
+          garmentType: garmentType,
           ...(selectedColor ? { color: selectedColor } : {}),
           ...(selectedSize  ? { size: selectedSize }   : {}),
           qty: String(quantity),

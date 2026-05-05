@@ -183,6 +183,17 @@ export default async function ProductDetailPage({ params }: Props) {
     ? [...new Set(product.options.map((o) => o.size))]
     : (parsed?.sizes ?? []);
 
+  const BOTTOM_SLUGS = ["workwear-bottom", "workwear-pants", "cargo-pants", "shorts"];
+  const TOP_SLUGS    = ["workwear-top", "workwear-jacket", "workwear-vest", "safety-vest",
+                        "workwear-winter", "workwear-misc", "workwear-fb", "fb-top"];
+  const categorySlugs = product.categories.map((c) => c.category.slug);
+  const garmentType: "top" | "bottom" | "other" =
+    categorySlugs.some((s) => BOTTOM_SLUGS.some((b) => s.includes(b) || b.includes(s)))
+      ? "bottom"
+      : categorySlugs.some((s) => TOP_SLUGS.some((t) => s.includes(t) || t.includes(s)))
+      ? "top"
+      : "other";
+
   return (
     <div className="bg-white min-h-screen">
       {/* 브레드크럼 */}
@@ -275,6 +286,7 @@ export default async function ProductDetailPage({ params }: Props) {
               embroideryAvailable={product.embroideryAvailable}
               salePrice={product.salePrice}
               initialWishlisted={wishlisted}
+              garmentType={garmentType}
             />
 
             {/* 배송 정보 */}
