@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 import EmbroiderySimulator from "./EmbroiderySimulator";
 
 export const metadata: Metadata = {
@@ -21,7 +22,9 @@ export default function SimulatorPage() {
         </div>
         <div className="font-[var(--font-display)] text-2xl text-white/5 leading-none">MARKING</div>
       </div>
-      <EmbroiderySimulator />
+      <Suspense fallback={<div className="flex-1 bg-[#0d0d0d]" />}>
+        <EmbroiderySimulator />
+      </Suspense>
     </div>
   );
 }
