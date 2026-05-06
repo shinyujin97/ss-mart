@@ -139,9 +139,9 @@ export default function GalleryPage() {
           <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[3px] mb-3">─ START YOUR PROJECT</div>
           <h2 className="text-2xl font-black mb-3">우리 회사 작업복에 로고를 새기세요</h2>
           <p className="text-white/60 text-sm mb-6">고객 디자인 기반 시안 무료 · 무제한 수정 · 저작권 안전</p>
-          <Link href="/embroidery/simulator" className="inline-block bg-[var(--red)] text-white px-8 py-4 font-black text-sm hover:bg-[var(--red-dark)] transition-colors">
-            자수 시뮬레이터 시작 →
-          </Link>
+          <a href="tel:031-430-0497" className="inline-block bg-[var(--red)] text-white px-8 py-4 font-black text-sm hover:bg-[var(--red-dark)] transition-colors">
+            031-430-0497 전화 문의 →
+          </a>
         </div>
       </div>
     </div>

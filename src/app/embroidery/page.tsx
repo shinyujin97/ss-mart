@@ -6,14 +6,6 @@ import PositionShowcase from "./PositionShowcase";
 
 export const metadata = { title: "자수 / 마킹 서비스 | 에스에스종합상사" };
 
-const PRICE_TABLE = [
-  { size: "소",   dims: "5×10cm",   note: "왼가슴·이름표 등 소형",  prices: [15000, 25000, 35000, 45000] },
-  { size: "중",   dims: "11×14cm",  note: "오른가슴·소매 로고",      prices: [25000, 35000, 45000, 55000] },
-  { size: "대",   dims: "14×20cm",  note: "등판 상단·중형 패치",     prices: [35000, 45000, 55000, 65000] },
-  { size: "특대", dims: "20×20cm+", note: "등판 전체·대형 디자인",   prices: [45000, 55000, 65000, 75000] },
-];
-const COLOR_COLS = ["1~2도", "3~6도", "7~10도", "10~15도"];
-
 
 const TYPE_ICONS: Record<string, string> = {
   COMPUTER: "◈", PATCH: "◆", APPLIQUE: "◉",
@@ -54,10 +46,11 @@ export default function EmbroideryGuidePage() {
             저작권 안전 · 5~7일 빠른 납품
           </p>
           <div className="flex gap-3 justify-center">
-            <Link href="/embroidery/simulator"
-              className="bg-[var(--red)] text-white px-8 py-4 font-black text-sm tracking-[0.5px] hover:bg-[var(--red-dark)] transition-colors">
-              자수 시뮬레이터 시작 →
-            </Link>
+            <a href="tel:031-430-0497"
+              className="bg-[var(--red)] text-white px-10 py-4 font-black text-sm tracking-[0.5px] hover:bg-[var(--red-dark)] transition-colors flex items-center gap-2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.12 2.2 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.46-.46a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+              031-430-0497 전화 문의
+            </a>
             <Link href="/bulk-order"
               className="border border-white/20 text-white px-8 py-4 font-bold text-sm hover:border-white transition-colors">
               단체주문 견적
@@ -98,10 +91,10 @@ export default function EmbroideryGuidePage() {
           <ProcessSteps />
 
           <div className="mt-6 text-center">
-            <Link href="/embroidery/simulator"
+            <a href="tel:031-430-0497"
               className="inline-block bg-[var(--red)] text-white px-8 py-4 font-black text-sm tracking-[0.5px] hover:bg-[var(--red-dark)] transition-colors">
-              STEP 1 시작하기 — 시뮬레이터 열기 →
-            </Link>
+              STEP 1 시작하기 — 031-430-0497 전화 문의 →
+            </a>
           </div>
         </div>
       </section>
@@ -109,63 +102,40 @@ export default function EmbroideryGuidePage() {
       {/* ── 진행 과정 (다크) ── */}
       <ProcessFlow />
 
-      {/* ── SECTION 02: 가격표 / #111 bg ── */}
+      {/* ── SECTION 02: 가격 문의 / #111 bg ── */}
       <section className="bg-[#111] py-16">
-        <div className="max-w-[1340px] mx-auto px-6">
-          <div className="text-center mb-10">
-            <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[2px] mb-3">
-              SECTION / 02 ─ PRICING
-            </div>
-            <h2 className="text-3xl font-black tracking-tight text-white mb-2">
-              자수 <span className="text-[var(--yellow)]">가격표</span>
-            </h2>
-            <p className="text-sm text-white/40 font-[var(--font-mono)]">사이즈 × 도수(컬러수) 기준 · 단가 (부가세 별도)</p>
+        <div className="max-w-[1340px] mx-auto px-6 text-center">
+          <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[2px] mb-3">
+            SECTION / 02 ─ PRICING
           </div>
-
-          <div className="border border-white/10 overflow-hidden">
-            <div className="grid grid-cols-6">
-              <div className="px-5 py-3.5 col-span-2 font-[var(--font-mono)] text-[11px] tracking-[1.5px] text-white/40 border-b border-white/10">SIZE</div>
-              {COLOR_COLS.map((col) => (
-                <div key={col} className="px-4 py-3.5 font-[var(--font-mono)] text-[11px] tracking-[1px] text-center text-white/40 border-b border-white/10 border-l border-white/10">
-                  {col}
-                </div>
-              ))}
-            </div>
-            {PRICE_TABLE.map((row, i) => (
-              <div key={row.size}
-                className={`grid grid-cols-6 ${i < PRICE_TABLE.length - 1 ? "border-b border-white/10" : ""}`}>
-                <div className="px-5 py-5 col-span-2">
-                  <div className="flex items-baseline gap-3">
-                    <span className="font-[var(--font-display)] text-2xl text-white">{row.size}</span>
-                    <span className="font-[var(--font-mono)] text-[11px] text-[var(--red)] font-bold">{row.dims}</span>
-                  </div>
-                  <div className="font-[var(--font-mono)] text-[10px] text-white/30 mt-0.5">{row.note}</div>
-                </div>
-                {row.prices.map((price, j) => (
-                  <div key={j} className="px-4 py-5 flex items-center justify-center border-l border-white/10">
-                    <div className="text-center">
-                      <div className="font-[var(--font-display)] text-xl text-white">{(price / 10000).toFixed(0)}만</div>
-                      <div className="font-[var(--font-mono)] text-[10px] text-white/30">{price.toLocaleString()}원~</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ))}
+          <h2 className="text-3xl font-black tracking-tight text-white mb-4">
+            자수 가격 <span className="text-[var(--yellow)]">문의</span>
+          </h2>
+          <p className="text-white/50 text-sm leading-relaxed mb-8 max-w-lg mx-auto">
+            자수 종류 · 사이즈 · 수량에 따라 가격이 달라집니다.
+            <br />
+            아래 번호로 문의 주시면 정확한 견적을 빠르게 안내해 드립니다.
+          </p>
+          <a href="tel:031-430-0497"
+            className="inline-block bg-[var(--red)] text-white px-12 py-5 font-black text-sm tracking-[0.5px] hover:bg-[var(--red-dark)] transition-colors mb-4">
+            <span className="font-[var(--font-display)] text-[var(--yellow)] text-2xl tracking-wider">031-430-0497</span>
+          </a>
+          <div className="font-[var(--font-mono)] text-[10px] text-white/30 tracking-[1px]">
+            평일 09:00 – 18:00 · 주말 / 공휴일 휴무
           </div>
-
-          <div className="mt-4 grid grid-cols-2 gap-3">
+          <div className="mt-8 grid grid-cols-2 gap-3 max-w-xl mx-auto">
             <div className="border border-white/10 px-5 py-3 flex items-center gap-3">
               <span className="font-[var(--font-mono)] text-[var(--yellow)] font-black">★</span>
-              <div>
+              <div className="text-left">
                 <div className="text-xs font-black text-white mb-0.5">100벌 이상 단체주문 — 자수 무료</div>
-                <div className="font-[var(--font-mono)] text-[10px] text-white/30">컴퓨터 자수 · 패치 자수 · 실크 인쇄 전부 포함</div>
+                <div className="font-[var(--font-mono)] text-[10px] text-white/30">컴퓨터 자수 · 패치 자수 · 실크 인쇄 포함</div>
               </div>
             </div>
             <div className="border border-white/10 px-5 py-3 flex items-center gap-3">
-              <span className="font-[var(--font-mono)] text-[var(--red)] font-black text-lg">+</span>
-              <div>
-                <div className="text-xs font-black text-white mb-0.5">여러 위치 추가 시 위치 수 × 단가</div>
-                <div className="font-[var(--font-mono)] text-[10px] text-white/30">예) 왼가슴 + 등판 동시 작업 시 2배 적용</div>
+              <span className="font-[var(--font-mono)] text-[var(--red)] font-black text-lg">✓</span>
+              <div className="text-left">
+                <div className="text-xs font-black text-white mb-0.5">시안 제작 무료 · 무제한 수정</div>
+                <div className="font-[var(--font-mono)] text-[10px] text-white/30">확정 전까지 얼마든지 수정 가능</div>
               </div>
             </div>
           </div>
@@ -192,7 +162,7 @@ export default function EmbroideryGuidePage() {
                 </div>
                 <div className="text-sm font-black text-[#111] mb-1">{type.name}</div>
                 <div className="font-[var(--font-mono)] text-[11px] text-[#888]">
-                  기본가 {type.basePrice.toLocaleString()}원~
+                  가격 문의 031-430-0497
                 </div>
                 {type.bulkFree && (
                   <div className="mt-2 font-[var(--font-mono)] text-[9px] text-[var(--black)] bg-[var(--yellow)] px-1.5 py-0.5 inline-block font-bold">
@@ -241,18 +211,19 @@ export default function EmbroideryGuidePage() {
         <div className="max-w-[900px] mx-auto px-6 text-center text-white">
           <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[3px] mb-5">─ START NOW</div>
           <h2 className="text-[38px] font-black tracking-tight leading-tight mb-5">
-            지금 바로 시뮬레이터로
+            자수 문의는
             <br />
-            <span className="text-[var(--yellow)]">무료 시안</span>을 만들어보세요
+            <span className="text-[var(--yellow)]">전화 한 통</span>으로 시작됩니다
           </h2>
           <p className="text-white/50 text-sm leading-relaxed mb-10">
             시안 제작 무료 · 무제한 수정 · 저작권 안전 보장
           </p>
           <div className="flex gap-3 justify-center">
-            <Link href="/embroidery/simulator"
-              className="bg-[var(--red)] text-white px-10 py-4 font-black text-sm tracking-[0.5px] hover:bg-white hover:text-[var(--red)] transition-all">
-              자수 시뮬레이터 →
-            </Link>
+            <a href="tel:031-430-0497"
+              className="bg-[var(--red)] text-white px-10 py-4 font-black text-sm tracking-[0.5px] hover:bg-[var(--red-dark)] transition-colors flex items-center gap-2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.12 2.2 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.46-.46a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+              031-430-0497
+            </a>
             <Link href="/bulk-order"
               className="border border-white/20 text-white px-10 py-4 font-bold text-sm hover:border-white transition-colors">
               단체주문 견적

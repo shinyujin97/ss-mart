@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 
 const POSITIONS = [
   { key: "LEFT_CHEST",   num: 1, label: "왼가슴",   side: "front" as const, x: 148, y: 165, note: "왼쪽 가슴 · 포켓 주변 소형 로고" },
@@ -228,10 +227,10 @@ export default function PositionShowcase() {
 
         {/* CTA */}
         <div className="text-center">
-          <Link href="/embroidery/simulator"
+          <a href="tel:031-430-0497"
             className="inline-block border-2 border-[#111] text-[#111] px-8 py-3.5 font-black text-sm hover:bg-[#111] hover:text-white transition-colors">
-            시뮬레이터에서 위치 직접 설정하기 →
-          </Link>
+            자수 위치 · 종류 문의 031-430-0497 →
+          </a>
         </div>
       </div>
     </section>

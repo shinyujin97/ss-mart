@@ -37,19 +37,19 @@ export default async function EmbroideryPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-black">자수 시안 보관함 (임시저장)</h2>
-        <Link href="/embroidery/simulator" className="bg-[var(--red)] text-white px-4 py-2 text-xs font-bold hover:bg-[var(--red-dark)] transition-colors">
-          + 새 시안 만들기
-        </Link>
+        <h2 className="text-lg font-black">자수 시안 보관함</h2>
+        <a href="tel:031-430-0497" className="bg-[var(--red)] text-white px-4 py-2 text-xs font-bold hover:bg-[var(--red-dark)] transition-colors">
+          자수 문의 031-430-0497
+        </a>
       </div>
 
       {designs.length === 0 ? (
         <div className="border border-[var(--line)] bg-white py-20 text-center">
           <div className="font-[var(--font-display)] text-[60px] text-[var(--gray-100)] leading-none mb-4">EMPTY</div>
-          <p className="text-sm text-[var(--gray-500)] mb-5">임시저장된 자수 시안이 없습니다.</p>
-          <Link href="/embroidery/simulator" className="inline-block bg-[var(--red)] text-white px-6 py-3 text-sm font-bold hover:bg-[var(--red-dark)]">
-            시뮬레이터로 시안 만들기 →
-          </Link>
+          <p className="text-sm text-[var(--gray-500)] mb-5">자수 시안이 없습니다.</p>
+          <a href="tel:031-430-0497" className="inline-block bg-[var(--red)] text-white px-6 py-3 text-sm font-bold hover:bg-[var(--red-dark)]">
+            전화로 자수 문의하기 031-430-0497 →
+          </a>
         </div>
       ) : (
         <div className="grid grid-cols-3 gap-3">
@@ -85,12 +85,10 @@ export default async function EmbroideryPage() {
               <DesignProgress status={d.status} />
               <div className="p-4 pt-3">
                 <div className="flex gap-1.5">
-                  <button className="flex-1 text-[10px] py-2 border border-[var(--line)] font-[var(--font-mono)] hover:border-[var(--black)] transition-colors font-bold">
-                    수정 요청
-                  </button>
-                  <button className="flex-1 text-[10px] py-2 border border-[var(--line)] font-[var(--font-mono)] hover:border-[var(--black)] transition-colors">
-                    재구매
-                  </button>
+                  <a href="tel:031-430-0497"
+                    className="flex-1 text-[10px] py-2 border border-[var(--red)] text-[var(--red)] font-[var(--font-mono)] hover:bg-[var(--red)] hover:text-white transition-colors text-center font-bold">
+                    031-430-0497 문의
+                  </a>
                   <DeleteDesignButton
                     id={d.id}
                     designNumber={d.designNumber}
