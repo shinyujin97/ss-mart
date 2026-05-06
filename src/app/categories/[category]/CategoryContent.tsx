@@ -12,8 +12,6 @@ const PAGE_SIZE = 24;
 const SORT_OPTIONS = [
   { value: "newest", label: "최신순" },
   { value: "best", label: "인기순" },
-  { value: "price_asc", label: "가격 낮은 순" },
-  { value: "price_desc", label: "가격 높은 순" },
 ];
 
 const SHOE_CATEGORY_SLUGS = [
@@ -62,9 +60,7 @@ export default async function CategoryContent({
   const skip = (page - 1) * PAGE_SIZE;
 
   const orderBy =
-    sort === "price_asc" ? { salePrice: "asc" as const }
-    : sort === "price_desc" ? { salePrice: "desc" as const }
-    : sort === "best" ? { orderCount: "desc" as const }
+    sort === "best" ? { orderCount: "desc" as const }
     : { createdAt: "desc" as const };
 
   const where = {
@@ -74,9 +70,6 @@ export default async function CategoryContent({
     ...(certFilter.length > 0 ? { certifications: { some: { type: { in: certFilter as any[] } } } } : {}),
     ...(seasonFilter.length > 0 ? { season: { hasSome: seasonFilter as any[] } } : {}),
     ...(sizeFilter.length > 0 ? { options: { some: { size: { in: sizeFilter } } } } : {}),
-    ...(minPrice !== undefined || maxPrice !== undefined
-      ? { salePrice: { ...(minPrice !== undefined ? { gte: minPrice } : {}), ...(maxPrice !== undefined ? { lte: maxPrice } : {}) } }
-      : {}),
   };
 
   const catBaseWhere = {

@@ -1,32 +1,40 @@
-import CartClient from "./CartClient";
+import Link from "next/link";
 
-export const metadata = { title: "장바구니 | 에스에스종합상사" };
+export const metadata = { title: "제품 문의 | 에스에스종합상사" };
 
 export default function CartPage() {
   return (
-    <div className="bg-[var(--gray-50)] min-h-screen">
-      <div className="bg-white border-b border-[var(--line)]">
-        <div className="max-w-[1340px] mx-auto px-6 py-4 flex items-center justify-between">
-          <div>
-            <div className="font-[var(--font-mono)] text-[10px] text-[var(--red)] tracking-[2px] mb-1">
-              SHOPPING / CART
-            </div>
-            <h1 className="text-xl font-black tracking-tight">장바구니</h1>
-          </div>
-          {/* 진행 단계 */}
-          <div className="flex items-center gap-2 font-[var(--font-mono)] text-[11px]">
-            {["장바구니", "주문서 / 결제", "결제 완료"].map((step, i) => (
-              <div key={step} className="flex items-center gap-2">
-                {i > 0 && <span className="text-[var(--gray-300)]">━</span>}
-                <span className={i === 0 ? "text-[var(--black)] font-bold" : "text-[var(--gray-400)]"}>
-                  {step}
-                </span>
-              </div>
-            ))}
-          </div>
+    <div className="bg-[var(--gray-50)] min-h-screen flex items-center justify-center">
+      <div className="bg-white border border-[var(--line)] p-16 text-center max-w-lg w-full mx-6">
+        <div className="font-[var(--font-mono)] text-[10px] text-[var(--red)] tracking-[2px] mb-6">
+          INQUIRY / CONTACT
         </div>
+        <h1 className="text-2xl font-black tracking-tight text-[var(--black)] mb-4">
+          제품 문의
+        </h1>
+        <p className="text-sm text-[var(--gray-500)] leading-relaxed mb-8">
+          현재 모든 제품은 전화 문의를 통해 안내드리고 있습니다.
+          <br />
+          제품명, 수량, 사이즈 등을 말씀해 주시면 빠르게 도와드리겠습니다.
+        </p>
+        <a
+          href="tel:031-430-0497"
+          className="block bg-[var(--black)] text-white py-5 font-bold text-lg tracking-[1px] hover:bg-[var(--gray-900)] transition-colors mb-3"
+        >
+          <span className="font-[var(--font-display)] text-[var(--yellow)] text-2xl tracking-wider">
+            031-430-0497
+          </span>
+        </a>
+        <p className="font-[var(--font-mono)] text-[10px] text-[var(--gray-400)] tracking-[1px] mb-8">
+          평일 09:00 – 18:00 · 주말 / 공휴일 휴무
+        </p>
+        <Link
+          href="/"
+          className="text-xs text-[var(--gray-500)] underline underline-offset-4 hover:text-[var(--red)] transition-colors"
+        >
+          상품 카탈로그로 돌아가기
+        </Link>
       </div>
-      <CartClient />
     </div>
   );
 }

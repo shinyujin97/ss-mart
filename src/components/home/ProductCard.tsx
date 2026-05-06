@@ -6,8 +6,8 @@ interface ProductCardProps {
   slug: string;
   name: string;
   brand: string;
-  basePrice: number;
-  salePrice: number;
+  basePrice?: number;
+  salePrice?: number;
   imageUrl: string;
   isNew?: boolean;
   isBest?: boolean;
@@ -19,16 +19,12 @@ export default function ProductCard({
   slug,
   name,
   brand,
-  basePrice,
-  salePrice,
   imageUrl,
   isNew,
   isBest,
   embroideryAvailable,
   priority = false,
 }: ProductCardProps) {
-  const discountRate = Math.round(((basePrice - salePrice) / basePrice) * 100);
-
   return (
     <Link href={`/products/${slug}`} className="group block">
       {/* 이미지 */}
@@ -74,20 +70,8 @@ export default function ProductCard({
         <div className="text-sm font-semibold text-[var(--black)] mb-2 line-clamp-2 leading-snug">
           {name}
         </div>
-        <div className="flex items-center gap-2">
-          {discountRate > 0 && (
-            <span className="font-[var(--font-display)] text-[var(--red)] text-base">
-              -{discountRate}%
-            </span>
-          )}
-          <span className="font-bold text-[var(--black)]">
-            {salePrice.toLocaleString()}원
-          </span>
-          {discountRate > 0 && (
-            <span className="text-xs text-[var(--gray-500)] line-through">
-              {basePrice.toLocaleString()}원
-            </span>
-          )}
+        <div className="font-[var(--font-mono)] text-[10px] text-[var(--gray-500)] tracking-[0.5px]">
+          문의 전화 031-430-0497
         </div>
       </div>
     </Link>

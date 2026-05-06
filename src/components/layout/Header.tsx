@@ -1,5 +1,4 @@
 import Link from "next/link";
-import CartIcon from "./CartIcon";
 import WishlistIcon from "./WishlistIcon";
 import HeaderAuth from "./HeaderAuth";
 import SearchBar from "./SearchBar";
@@ -27,7 +26,6 @@ export default function Header() {
         {/* Icons */}
         <div className="flex items-center ml-auto">
           <WishlistIcon />
-          <CartIcon />
           <HeaderAuth />
         </div>
       </div>

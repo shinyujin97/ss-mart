@@ -16,13 +16,6 @@ interface Props {
   currentSeasons: string[];
 }
 
-const PRICE_RANGES = [
-  { label: "~3만원", max: 30000 },
-  { label: "3~5만원", min: 30000, max: 50000 },
-  { label: "5~10만원", min: 50000, max: 100000 },
-  { label: "10만원~", min: 100000 },
-];
-
 const CERT_LABELS: Record<string, string> = {
   KCS: "KCs 인증",
   KS: "KS 인증",
@@ -132,8 +125,7 @@ export default function CategoryFilter({
 
   const hasFilters =
     currentBrands.length > 0 || currentCerts.length > 0 ||
-    currentSeasons.length > 0 || currentSizes.length > 0 ||
-    searchParams.has("minPrice") || searchParams.has("maxPrice");
+    currentSeasons.length > 0 || currentSizes.length > 0;
 
   const filteredBrands = brandSearch
     ? brands.filter((b) => b.name.toLowerCase().includes(brandSearch.toLowerCase()))
@@ -184,28 +176,6 @@ export default function CategoryFilter({
                 {s} <span>×</span>
               </button>
             ))}
-            {(searchParams.has("minPrice") || searchParams.has("maxPrice")) && (() => {
-              const priceRange = PRICE_RANGES.find((r) =>
-                searchParams.get("minPrice") === (r.min ? String(r.min) : null) &&
-                searchParams.get("maxPrice") === (r.max ? String(r.max) : null)
-              );
-              if (!priceRange) return null;
-              return (
-                <button
-                  key="price"
-                  onClick={() => {
-                    const params = new URLSearchParams(searchParams.toString());
-                    params.delete("minPrice");
-                    params.delete("maxPrice");
-                    params.delete("page");
-                    router.push(`${pathname}?${params.toString()}`);
-                  }}
-                  className="border border-[var(--red)] text-[var(--red)] text-[11px] px-2 py-0.5 flex items-center gap-1 hover:bg-[var(--red)] hover:text-white transition-colors"
-                >
-                  {priceRange.label} <span>×</span>
-                </button>
-              );
-            })()}
           </div>
         </div>
       )}
@@ -237,37 +207,7 @@ export default function CategoryFilter({
         </div>
       </Section>
 
-      {/* 02 가격 */}
-      <Section num="02" title="가격">
-        <div className="grid grid-cols-2 gap-1.5">
-          {PRICE_RANGES.map((r) => {
-            const active =
-              searchParams.get("minPrice") === (r.min ? String(r.min) : null) &&
-              searchParams.get("maxPrice") === (r.max ? String(r.max) : null);
-            return (
-              <button key={r.label}
-                onClick={() => {
-                  const params = new URLSearchParams(searchParams.toString());
-                  if (r.min) params.set("minPrice", String(r.min));
-                  else params.delete("minPrice");
-                  if (r.max) params.set("maxPrice", String(r.max));
-                  else params.delete("maxPrice");
-                  params.delete("page");
-                  router.push(`${pathname}?${params.toString()}`);
-                }}
-                className={`text-xs py-2 border transition-colors ${
-                  active
-                    ? "border-[var(--black)] bg-[var(--black)] text-white"
-                    : "border-[var(--line)] hover:border-[var(--black)] hover:bg-[var(--gray-50)]"
-                }`}>
-                {r.label}
-              </button>
-            );
-          })}
-        </div>
-      </Section>
-
-      {/* 03 사이즈 */}
+      {/* 02 사이즈 */}
       {sizes.length > 0 && (
         <Section num="03" title="사이즈">
           <div className="space-y-3">
@@ -326,9 +266,9 @@ export default function CategoryFilter({
         </Section>
       )}
 
-      {/* 04 시즌 */}
+      {/* 03 시즌 */}
       {seasons.length > 0 && (
-        <Section num="04" title="시즌">
+        <Section num="03" title="시즌">
           <div className="space-y-1">
             {seasons.map((s) => (
               <label key={s}
@@ -348,9 +288,9 @@ export default function CategoryFilter({
         </Section>
       )}
 
-      {/* 05 인증 */}
+      {/* 04 인증 */}
       {certs.length > 0 && (
-        <Section num="05" title="인증">
+        <Section num="04" title="인증">
           <div className="space-y-1">
             {certs.map((c) => (
               <label key={c}

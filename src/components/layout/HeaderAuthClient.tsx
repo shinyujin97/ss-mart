@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
-import { useCartStore } from "@/lib/cartStore";
 
 export default function HeaderAuthClient({ name, isAdmin }: { name: string; isAdmin?: boolean }) {
   const [open, setOpen] = useState(false);
@@ -39,25 +38,8 @@ export default function HeaderAuthClient({ name, isAdmin }: { name: string; isAd
             >
               마이페이지
             </Link>
-            <Link
-              href="/mypage/orders"
-              onClick={() => setOpen(false)}
-              className="flex items-center gap-2 px-4 py-3 text-xs font-medium hover:bg-[var(--gray-50)] hover:text-[var(--red)] transition-colors border-b border-[var(--line)]"
-            >
-              주문 내역
-            </Link>
-            {!isAdmin && (
-              <Link
-                href="/mypage/embroidery"
-                onClick={() => setOpen(false)}
-                className="flex items-center gap-2 px-4 py-3 text-xs font-medium hover:bg-[var(--gray-50)] hover:text-[var(--red)] transition-colors border-b border-[var(--line)]"
-              >
-                자수 시안 보관함
-              </Link>
-            )}
             <button
               onClick={() => {
-                useCartStore.getState().clearCart();
                 signOut({ callbackUrl: "/login" });
               }}
               className="w-full text-left flex items-center gap-2 px-4 py-3 text-xs font-medium text-[var(--gray-500)] hover:bg-[var(--gray-50)] hover:text-[var(--red)] transition-colors"

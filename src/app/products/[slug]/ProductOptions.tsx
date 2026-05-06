@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCartStore } from "@/lib/cartStore";
 
 interface Option {
   id: string;
@@ -31,31 +29,22 @@ interface Props {
   colors: ColorInfo[];
   sizes: string[];
   embroideryAvailable: boolean;
-  salePrice: number;
+  salePrice?: number;
   initialWishlisted?: boolean;
   garmentType?: "top" | "bottom" | "other";
 }
 
 export default function ProductOptions({
   productId,
-  productSlug,
   productName,
-  brandName,
-  imageUrl,
   options,
   colors,
   sizes,
-  embroideryAvailable,
-  salePrice,
   initialWishlisted = false,
-  garmentType = "other",
 }: Props) {
   const router = useRouter();
-  const addItem = useCartStore((s) => s.addItem);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
-  const [quantity, setQuantity] = useState(1);
-  const [added, setAdded] = useState(false);
   const [wishlisted, setWishlisted] = useState(initialWishlisted);
   const [wishlistLoading, setWishlistLoading] = useState(false);
 
@@ -70,52 +59,26 @@ export default function ProductOptions({
       if (res.status === 401) { window.location.href = "/login"; return; }
       if (res.ok) {
         setWishlisted((v) => !v);
-        router.refresh(); // 헤더 배지 실시간 업데이트
+        router.refresh();
       }
     } finally {
       setWishlistLoading(false);
     }
   }
 
-  function handleAddToCart() {
-    if (!canAddToCart) return;
-    addItem({
-      id: selectedOption?.id ?? `${productSlug}-${selectedColor}-${selectedSize}`,
-      productId: selectedOption?.id ?? productSlug,
-      productSlug,
-      productName,
-      brandName,
-      imageUrl,
-      color: selectedOption?.color ?? selectedColor ?? "",
-      colorHex: selectedOption?.colorHex ?? null,
-      size: selectedOption?.size ?? selectedSize ?? "",
-      sku: selectedOption?.sku ?? `${productSlug}-${selectedColor}-${selectedSize}`.toUpperCase(),
-      unitPrice: salePrice + (selectedOption?.priceAdjust ?? 0),
-      quantity,
-    });
-    setAdded(true);
-    setTimeout(() => setAdded(false), 2000);
-  }
-
-  function handleBuyNow() {
-    handleAddToCart();
-    router.push("/cart");
-  }
-
   const hasDbOptions = options.length > 0;
   const selectedOption = options.find(
     (o) => o.color === selectedColor && o.size === selectedSize
   );
-  // DB 옵션 없으면 재고 체크 생략, 선택만 가능하게
   const stock = hasDbOptions
     ? (selectedOption ? selectedOption.stockQuantity - selectedOption.reservedQuantity : null)
     : (selectedColor && selectedSize ? 99 : null);
-  const totalPrice = (salePrice + (selectedOption?.priceAdjust ?? 0)) * quantity;
 
-  const isSizeAvailable = (_size: string) => true;
-
-  // 선택 완료 여부 (DB 옵션 없으면 색상+사이즈만 선택돼도 OK)
-  const canAddToCart = !!selectedColor && !!selectedSize && (stock === null || stock > 0);
+  const inquiryText = [
+    `상품: ${productName}`,
+    selectedColor ? `색상: ${selectedColor}` : null,
+    selectedSize ? `사이즈: ${selectedSize}` : null,
+  ].filter(Boolean).join(", ");
 
   return (
     <div>
@@ -151,30 +114,24 @@ export default function ProductOptions({
       </div>
 
       {/* 사이즈 선택 */}
-      <div className="mb-5">
+      <div className="mb-6">
         <div className="font-[var(--font-mono)] text-[10px] text-[var(--gray-500)] tracking-[1.5px] mb-2.5 font-semibold">
           ─ SIZE {selectedSize && <span className="text-[var(--black)]">/ {selectedSize}</span>}
         </div>
         <div className="flex flex-wrap gap-2">
-          {sizes.map((size) => {
-            const available = isSizeAvailable(size);
-            return (
-              <button
-                key={size}
-                onClick={() => available && setSelectedSize(size)}
-                disabled={!available}
-                className={`w-12 h-10 border text-xs font-bold transition-all ${
-                  selectedSize === size
-                    ? "border-[var(--black)] bg-[var(--black)] text-white"
-                    : available
-                    ? "border-[var(--line)] hover:border-[var(--black)]"
-                    : "border-[var(--gray-100)] text-[var(--gray-300)] cursor-not-allowed line-through"
-                }`}
-              >
-                {size}
-              </button>
-            );
-          })}
+          {sizes.map((size) => (
+            <button
+              key={size}
+              onClick={() => setSelectedSize(size)}
+              className={`w-12 h-10 border text-xs font-bold transition-all ${
+                selectedSize === size
+                  ? "border-[var(--black)] bg-[var(--black)] text-white"
+                  : "border-[var(--line)] hover:border-[var(--black)]"
+              }`}
+            >
+              {size}
+            </button>
+          ))}
         </div>
         {stock !== null && stock <= 5 && stock > 0 && (
           <p className="font-[var(--font-mono)] text-[11px] text-[var(--red)] mt-2">
@@ -188,58 +145,17 @@ export default function ProductOptions({
         )}
       </div>
 
-      {/* 수량 */}
-      <div className="mb-6">
-        <div className="font-[var(--font-mono)] text-[10px] text-[var(--gray-500)] tracking-[1.5px] mb-2.5 font-semibold">
-          ─ QUANTITY
-        </div>
-        <div className="flex items-center border border-[var(--line)] w-fit">
-          <button
-            onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-            className="w-10 h-10 text-lg hover:bg-[var(--gray-50)] transition-colors border-r border-[var(--line)]"
-          >
-            −
-          </button>
-          <span className="w-12 text-center font-[var(--font-mono)] text-sm font-bold">
-            {quantity}
-          </span>
-          <button
-            onClick={() => setQuantity((q) => Math.min(stock ?? 99, q + 1))}
-            className="w-10 h-10 text-lg hover:bg-[var(--gray-50)] transition-colors border-l border-[var(--line)]"
-          >
-            +
-          </button>
-        </div>
-      </div>
-
-      {/* 총 금액 */}
-      {selectedColor && selectedSize && (
-        <div className="flex items-center justify-between py-4 border-t border-b border-[var(--line)] mb-5">
-          <span className="font-[var(--font-mono)] text-xs text-[var(--gray-500)] tracking-[1px]">
-            TOTAL
-          </span>
-          <span className="text-2xl font-black text-[var(--red)]">
-            {totalPrice.toLocaleString()}원
-          </span>
-        </div>
-      )}
-
-      {/* 버튼: 장바구니 | 바로구매 | ♥ */}
-      <div className="flex gap-2">
-        <button
-          onClick={handleAddToCart}
-          disabled={!canAddToCart}
-          className="flex-1 bg-[var(--black)] text-white py-4 font-bold text-sm tracking-[0.5px] hover:bg-[var(--gray-900)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+      {/* 전화 문의 버튼 */}
+      <div className="flex gap-2 mb-3">
+        <a
+          href={`tel:031-430-0497`}
+          className="flex-1 bg-[var(--red)] text-white py-4 font-bold text-sm tracking-[0.5px] hover:bg-[var(--red-dark)] transition-colors flex items-center justify-center gap-2"
         >
-          {added ? "담겼습니다 ✓" : "장바구니 담기"}
-        </button>
-        <button
-          onClick={handleBuyNow}
-          disabled={!canAddToCart}
-          className="flex-1 bg-[var(--red)] text-white py-4 font-bold text-sm tracking-[0.5px] hover:bg-[var(--red-dark)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-        >
-          바로 구매
-        </button>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.12 2.2 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.46-.46a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
+          </svg>
+          전화로 문의하기
+        </a>
         {/* 찜하기 */}
         <button
           onClick={toggleWishlist}
@@ -261,38 +177,22 @@ export default function ProductOptions({
         </button>
       </div>
 
-      {/* 자수 토글 */}
-      {embroideryAvailable && (() => {
-        const params = new URLSearchParams({
-          productId: productId,
-          productSlug: productSlug,
-          productName: productName,
-          garmentType: garmentType,
-          ...(selectedColor ? { color: selectedColor } : {}),
-          ...(selectedSize  ? { size: selectedSize }   : {}),
-          qty: String(quantity),
-        });
-        return (
-          <Link
-            href={`/embroidery/simulator?${params}`}
-            className="flex items-center justify-between mt-3 px-4 py-3.5 border border-[var(--yellow)] bg-[var(--yellow)]/10 hover:bg-[var(--yellow)]/20 transition-colors"
-          >
-            <div>
-              <div className="font-[var(--font-mono)] text-[10px] text-[var(--black)] tracking-[1px] font-bold mb-0.5">
-                ▶ 자수 / 마킹 추가
-              </div>
-              <div className="text-xs text-[var(--gray-700)]">
-                {selectedColor && selectedSize
-                  ? `${selectedColor} / ${selectedSize} · 자수 옵션 설정`
-                  : "회사 로고, 이름 자수 추가 가능"}
-              </div>
-            </div>
-            <span className="font-[var(--font-mono)] text-xs text-[var(--black)] font-bold">
-              견적보기 →
-            </span>
-          </Link>
-        );
-      })()}
+      {/* 문의 안내 */}
+      <div className="bg-[var(--gray-50)] border border-[var(--line)] px-4 py-3.5">
+        <div className="font-[var(--font-mono)] text-[10px] text-[var(--gray-500)] tracking-[1px] mb-1">
+          INQUIRY INFO
+        </div>
+        <div className="font-[var(--font-display)] text-[var(--black)] text-xl tracking-wider mb-1">
+          031-430-0497
+        </div>
+        <div className="text-xs text-[var(--gray-500)] leading-relaxed">
+          {inquiryText
+            ? `"${inquiryText}" 으로 문의해 주시면 빠르게 안내해 드립니다.`
+            : "색상과 사이즈를 선택 후 전화 주시면 빠르게 안내해 드립니다."}
+          <br />
+          평일 09:00 – 18:00
+        </div>
+      </div>
     </div>
   );
 }
