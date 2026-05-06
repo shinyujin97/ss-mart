@@ -1,12 +1,14 @@
 # 개발 진행 상황 (Progress Log)
 
-> 마지막 업데이트: 2026-05-02  
+> 마지막 업데이트: 2026-05-06  
 > 다음 세션에서 이 파일을 먼저 읽고 이어서 작업하세요.
 
 ---
 
 ## 현재 상태
 
+**운영 모드**: 카탈로그 전용 (온라인 결제 없음, 전화 문의 방식)  
+**배포**: Vercel 프로덕션 https://ss-mart-ten.vercel.app  
 **개발 서버**: `pnpm dev` → http://localhost:3000  
 **관리자**: http://localhost:3000/admin (`.env`에 `ADMIN_EMAILS=ssy66822@gmail.com` 필요)  
 **DB**: Supabase PostgreSQL (`.env` DATABASE_URL 설정 완료)  
@@ -30,6 +32,46 @@
 | Phase 8 | 관리자 패널 (다크→밝은 테마로 전환) | ✅ |
 | Phase 9 | QA — CRITICAL 3건 + HIGH 3건 수정 | ✅ |
 | Phase 10 | 관리자 상품 CRUD + UI 개선 + 검색 + 버그 수정 | ✅ |
+| Phase 11 | 카탈로그 전용 모드 전환 (가격 제거, 전화 문의) | ✅ |
+
+---
+
+## 2026-05-06 작업 내역
+
+### 카탈로그 전용 모드 전환 (고객사 미팅 결과 반영)
+
+**배경**: 고객사 미팅에서 온라인 판매 없이 카탈로그로만 사용하기로 결정.
+
+#### 상품 가격 40% 인상
+- `prisma/seeds/_update-prices-40pct.ts` 스크립트로 3,836개 상품 일괄 인상
+- `basePrice` / `salePrice` × 1.4, 100원 단위 반올림
+
+#### 고객 페이지 가격 제거 (DB 데이터는 유지, 관리자 페이지는 그대로)
+- `ProductCard.tsx` — 가격 표시 제거 → "문의 전화 031-430-0497"
+- `CategoryContent.tsx` — 가격순 정렬 옵션 제거
+- `CategoryFilter.tsx` — 가격 구간 필터 제거
+- `search/page.tsx` — 가격순 정렬 옵션 제거
+
+#### 구매 기능 → 전화 문의 전환
+- `ProductOptions.tsx` — "장바구니/바로구매" → "전화로 문의하기" 버튼
+- `Header.tsx` — 장바구니 아이콘 제거
+- `cart/page.tsx` — 전화 문의 안내 페이지로 교체
+- `checkout/page.tsx` — `/cart`로 리다이렉트
+- `HeaderAuthClient.tsx` — "주문내역/자수시안보관함" 링크 제거
+
+#### 자수 시뮬레이터 제거
+- `/embroidery/simulator` — `/embroidery`로 리다이렉트
+
+#### 자수 섹션 전화 문의 전환
+- `embroidery/page.tsx` — 가격표 섹션 제거 → 전화 문의 안내
+- `embroidery/page.tsx` — 자수 종류 기본가 → "가격 문의 031-430-0497"
+- `embroidery/page.tsx` — 시뮬레이터 CTA → 전화 문의 버튼
+- `embroidery/gallery/page.tsx` — CTA → 전화 문의
+- `embroidery/PositionShowcase.tsx` — 시뮬레이터 링크 → 전화 문의
+- `mypage/embroidery/page.tsx` — "새 시안 만들기" → 전화 문의, 카드 버튼 교체
+
+#### tsconfig 정리
+- `prisma/seeds` 디렉토리를 TypeScript 체크에서 제외 (기존 타입 오류 격리)
 
 ---
 
@@ -108,13 +150,19 @@
 
 ```
 핵심 비즈니스 로직
-├── src/lib/embroidery/        # 자수 가격계산/저작권/상태머신
+├── src/lib/embroidery/        # 자수 저작권/상태머신 (가격 계산은 미사용)
 ├── src/lib/bulk-order/        # 단체주문 할인/검증/견적번호
 ├── src/lib/product-options.ts # 상품명 파싱 (색상/사이즈 자동 추출)
-├── src/lib/cartStore.ts       # Zustand 장바구니 (localStorage persist)
+├── src/lib/cartStore.ts       # Zustand 찜하기 store (장바구니 기능 비활성)
+
+카탈로그 모드 주요 컴포넌트
+├── src/components/home/ProductCard.tsx    # 가격 제거, 문의 전화 표시
+├── src/app/products/[slug]/ProductOptions.tsx  # 전화 문의 버튼
+├── src/app/cart/page.tsx                  # 전화 문의 안내 페이지
+├── src/app/embroidery/page.tsx            # 가격표 제거, 문의 CTA
 
 관리자
-├── src/app/admin/             # 관리자 패널 전체
+├── src/app/admin/             # 관리자 패널 전체 (가격/주문 관리 그대로 유지)
 ├── src/app/api/admin/products/ # 상품 CRUD API
 
 검색
@@ -122,9 +170,9 @@
 ├── src/components/layout/SearchBar.tsx  # 헤더 검색창
 
 공통 컴포넌트
-├── src/components/layout/Header.tsx
-├── src/components/layout/Navigation.tsx  # 031-430-0497 표시
-├── src/components/layout/HeaderAuthClient.tsx  # 로그아웃 시 카트 초기화
+├── src/components/layout/Header.tsx        # 장바구니 아이콘 제거됨
+├── src/components/layout/Navigation.tsx    # 031-430-0497 표시
+├── src/components/layout/HeaderAuthClient.tsx  # 단순 로그아웃만
 ```
 
 ---
@@ -155,12 +203,13 @@ NEXT_PUBLIC_SITE_URL="https://ssmart.kr"
 
 ## 다음 세션 할 일 (우선순위)
 
-1. **관리자 주문 상태 변경** API + UI
+1. **Cloudflare Pages 마이그레이션** 검토 중 (Vercel 상업적 사용 제한 이슈)
+   - `@cloudflare/next-on-pages` 설치
+   - `wrangler.toml` 설정
+   - Prisma + Hyperdrive 연동
 2. **관리자 자수 시안 승인/거절** 기능
-3. **주문 취소 / 구매 확정** API
-4. **관리자 쿠폰 생성** 기능
-5. **`public/products/` 이미지 → Vercel Blob 업로드** 검토
-6. **Vercel 배포** 준비
+3. **관리자 쿠폰 생성** 기능
+4. **`public/products/` 이미지 → Supabase Storage 업로드** 검토
 
 ---
 
