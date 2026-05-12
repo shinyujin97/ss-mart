@@ -51,9 +51,7 @@ export default function BestCarousel({ products }: { products: Product[] }) {
           className="flex transition-transform duration-500 ease-in-out gap-5"
           style={{ transform: `translateX(calc(-${current * (100 / VISIBLE)}% - ${current * 20 / VISIBLE}px))` }}
         >
-          {products.map((p) => {
-            const discount = Math.round(((p.basePrice - p.salePrice) / p.basePrice) * 100);
-            return (
+          {products.map((p) => (
               <Link
                 key={p.id}
                 href={`/products/${p.slug}`}
@@ -70,11 +68,6 @@ export default function BestCarousel({ products }: { products: Product[] }) {
                     blurDataURL={BLUR_DATA_URL}
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  {discount > 0 && (
-                    <span className="absolute top-3 left-3 bg-[var(--red)] text-white font-[var(--font-mono)] text-[10px] px-2 py-1 font-bold">
-                      -{discount}%
-                    </span>
-                  )}
                 </div>
 
                 {/* 정보 */}
@@ -85,19 +78,12 @@ export default function BestCarousel({ products }: { products: Product[] }) {
                   <p className="text-sm font-bold text-[var(--black)] leading-snug mb-3 line-clamp-2 min-h-[40px]">
                     {p.name}
                   </p>
-                  <div className="flex items-baseline gap-2">
-                    {discount > 0 && (
-                      <span className="font-[var(--font-display)] text-[var(--red)] text-lg">{discount}%</span>
-                    )}
-                    <span className="font-black text-[var(--black)] text-lg">
-                      {p.salePrice.toLocaleString()}
-                      <span className="text-sm font-normal text-[var(--gray-500)]">원</span>
-                    </span>
+                  <div className="font-[var(--font-mono)] text-[10px] text-[var(--gray-500)] tracking-[0.5px]">
+                    문의 031-430-0497
                   </div>
                 </div>
               </Link>
-            );
-          })}
+          ))}
         </div>
       </div>
 

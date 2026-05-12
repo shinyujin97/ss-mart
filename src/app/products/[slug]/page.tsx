@@ -162,10 +162,6 @@ export default async function ProductDetailPage({ params }: Props) {
       }))
     : false;
 
-  const discountRate = Math.round(
-    ((product.basePrice - product.salePrice) / product.basePrice) * 100
-  );
-
   const mainImage =
     product.images.find((i) => i.isMain)?.url ??
     product.images[0]?.url ??
@@ -255,24 +251,6 @@ export default async function ProductDetailPage({ params }: Props) {
               </p>
             )}
 
-            {/* 가격 */}
-            <div className="flex items-baseline gap-3 mb-6 pb-6 border-b border-[var(--line)]">
-              {discountRate > 0 && (
-                <span className="font-[var(--font-display)] text-[var(--red)] text-2xl">
-                  -{discountRate}%
-                </span>
-              )}
-              <span className="text-[32px] font-black text-[var(--black)]">
-                {product.salePrice.toLocaleString()}
-                <span className="text-base font-normal">원</span>
-              </span>
-              {discountRate > 0 && (
-                <span className="text-sm text-[var(--gray-500)] line-through">
-                  {product.basePrice.toLocaleString()}원
-                </span>
-              )}
-            </div>
-
             {/* 옵션 선택 + 찜하기 (Client Component) */}
             <ProductOptions
               productId={product.id}
@@ -284,7 +262,6 @@ export default async function ProductDetailPage({ params }: Props) {
               colors={colors}
               sizes={sizes}
               embroideryAvailable={product.embroideryAvailable}
-              salePrice={product.salePrice}
               initialWishlisted={wishlisted}
               garmentType={garmentType}
             />
@@ -292,7 +269,7 @@ export default async function ProductDetailPage({ params }: Props) {
             {/* 배송 정보 */}
             <div className="border border-[var(--line)] mt-5">
               {[
-                { label: "배송", value: "무료배송 (전 상품)", highlight: true },
+                { label: "배송", value: "배송비 별도 문의" },
                 { label: "출고", value: "평일 14시 이전 주문 당일 출고" },
                 { label: "도착", value: "1~2일 이내" },
               ].map((row) => (
@@ -300,7 +277,7 @@ export default async function ProductDetailPage({ params }: Props) {
                   <span className="w-16 font-[var(--font-mono)] text-[11px] text-[var(--gray-500)] tracking-[0.5px] flex-shrink-0 pt-0.5">
                     {row.label}
                   </span>
-                  <span className={`flex-1 ${row.highlight ? "text-[var(--red)] font-bold" : "text-[var(--gray-700)]"}`}>
+                  <span className="flex-1 text-[var(--gray-700)]">
                     {row.value}
                   </span>
                 </div>

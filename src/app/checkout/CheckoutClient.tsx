@@ -472,7 +472,7 @@ export default function CheckoutClient({ savedAddresses }: Props) {
             </button>
 
             <p className="font-[var(--font-mono)] text-[9px] text-[var(--gray-400)] text-center">
-              전 상품 무료배송 · 평일 14시 이전 결제 시 당일 출고
+              배송비 별도 · 평일 14시 이전 결제 시 당일 출고
             </p>
           </div>
         </div>

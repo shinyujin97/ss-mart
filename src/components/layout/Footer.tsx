@@ -27,15 +27,6 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* 계좌 정보 */}
-          <div>
-            <div className="text-white font-bold text-sm mb-2 font-[var(--font-mono)] tracking-[1px]">BANK ACCOUNT</div>
-            <div className="leading-relaxed">
-              · 기업은행&nbsp;&nbsp;000-000000-000-00<br />
-              <span className="ml-12">(예금주 : 계좌주명)</span>
-            </div>
-          </div>
-
           {/* 사업자 정보 */}
           <div>
             <div className="leading-relaxed">

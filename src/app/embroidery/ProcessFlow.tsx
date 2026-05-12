@@ -64,7 +64,7 @@ const FLOW = [
     code: "SHIP",
     label: "출고",
     title: "포장·출고",
-    desc: "전국 무료 배송\n1~2일 도착",
+    desc: "배송비 별도\n1~2일 도착",
     day: "D+15",
     color: "#ffd400",
     highlight: true,

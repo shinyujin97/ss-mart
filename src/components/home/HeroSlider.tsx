@@ -11,7 +11,7 @@ const SLIDES = [
     stripe: "━━ 한정수량 진행중",
     title: ["동절기 작업복", "최대 50% OFF"],
     sub: "피오젠 · K2세이프티 · 코오롱 동절기 컬렉션 한정 특가",
-    meta: [{ label: "DISCOUNT", value: "-50%", accent: true }, { label: "FROM", value: "44,500원" }, { label: "UNTIL", value: "05:23:47" }],
+    meta: [{ label: "DISCOUNT", value: "-50%", accent: true }, { label: "TEL", value: "031-430-0497" }, { label: "UNTIL", value: "05:23:47" }],
     btn: "SHOP NOW →",
     href: "/categories/workwear",
   },

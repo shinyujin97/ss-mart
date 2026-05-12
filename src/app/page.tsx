@@ -6,9 +6,9 @@ import BrandSection from "@/components/home/BrandSection";
 
 const INFO_BAR = [
   { num: "CONTACT / 01", label: "CUSTOMER CENTER", value: "031-430-0497", big: true },
-  { num: "CONTACT / 02", label: "LOCATION", value: "인천광역시 ○○구" },
+  { num: "CONTACT / 02", label: "LOCATION", value: "경기도 시흥시 공단1대로 204 공구상가 31동 111~112호" },
   { num: "CONTACT / 03", label: "BUSINESS HOURS", value: "평일 09:00 - 18:00" },
-  { num: "CONTACT / 04", label: "KAKAO TALK", value: "@ssmart" },
+  { num: "CONTACT / 04", label: "단체주문 문의", value: "0497ss@naver.com" },
 ];
 
 export default function HomePage() {

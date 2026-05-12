@@ -236,7 +236,7 @@ export default function CartClient() {
           {/* 혜택 안내 */}
           <div className="border border-[var(--line)] border-t-0 px-5 py-4 bg-[var(--gray-50)]">
             {[
-              "전 상품 무료 배송 (제주 포함)",
+              "배송비 별도 (전화 문의 031-430-0497)",
               "평일 14시 이전 주문 당일 출고",
               "7일 이내 무료 반품 (자수 제외)",
             ].map((text) => (

@@ -230,7 +230,7 @@ export default function EmbroideryGuidePage() {
             </Link>
           </div>
           <div className="flex gap-8 justify-center mt-10 pt-8 border-t border-white/10 font-[var(--font-mono)] text-[11px] text-white/30">
-            {["시안 제작 무료", "무제한 무료 수정", "저작권 안전 보장", "5~7일 빠른 납품", "전국 무료 배송"].map((t) => (
+            {["시안 제작 무료", "무제한 무료 수정", "저작권 안전 보장", "5~7일 빠른 납품", "배송비 별도"].map((t) => (
               <span key={t}>✓ {t}</span>
             ))}
           </div>
