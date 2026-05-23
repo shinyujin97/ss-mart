@@ -3,6 +3,8 @@ import { Noto_Sans_KR, IBM_Plex_Mono, Bebas_Neue } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
+import FloatingCTA from "@/components/FloatingCTA";
+import Providers from "@/components/Providers";
 import "./globals.css";
 
 const notoSansKr = Noto_Sans_KR({
@@ -58,11 +60,14 @@ export default function RootLayout({
       className={`${notoSansKr.variable} ${ibmPlexMono.variable} ${bebasNeue.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <Providers>
           <Header />
           <Navigation />
           <main className="flex-1">{children}</main>
           <Footer />
-        </body>
+          <FloatingCTA />
+        </Providers>
+      </body>
     </html>
   );
 }

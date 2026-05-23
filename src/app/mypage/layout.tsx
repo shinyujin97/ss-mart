@@ -17,7 +17,6 @@ export default async function MypageLayout({ children }: { children: React.React
           coupons: { where: { usedAt: null } },
           wishlist: true,
           embroideryDesigns: { where: { status: "DRAFT" } },
-          quoteRequests: true,
         },
       },
     },
@@ -112,7 +111,6 @@ export default async function MypageLayout({ children }: { children: React.React
               wishlist: member._count.wishlist,
               embroidery: member._count.embroideryDesigns,
               embroideryRequests: embroideryRequestsCount,
-              quotes: member._count.quoteRequests,
               points: member.points,
             }}
           />

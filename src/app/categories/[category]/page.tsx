@@ -51,6 +51,19 @@ function ContentSkeleton() {
   );
 }
 
+export async function generateMetadata({ params }: Pick<Props, "params">) {
+  const { category } = await params;
+  const cat = await prisma.category.findUnique({
+    where: { slug: category },
+    select: { name: true, parent: { select: { name: true } } },
+  });
+  if (!cat) return {};
+
+  const title = cat.parent ? `${cat.parent.name} > ${cat.name}` : cat.name;
+  const description = `에스에스종합상사 ${cat.name} — 80여 개 브랜드 작업복·안전용품 전문. 전화 문의 031-430-0497`;
+  return { title, description, openGraph: { title, description } };
+}
+
 export default async function CategoryPage({ params, searchParams }: Props) {
   const { category } = await params;
   if (category === "all-products") redirect("/categories/workwear");

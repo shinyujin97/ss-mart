@@ -10,6 +10,19 @@ interface Props {
 
 const PAGE_SIZE = 24;
 
+export async function generateMetadata({ params }: Pick<Props, "params">) {
+  const { slug } = await params;
+  const brand = await prisma.brand.findUnique({
+    where: { slug },
+    select: { name: true, description: true },
+  });
+  if (!brand) return {};
+
+  const title = `${brand.name} | 브랜드관`;
+  const description = brand.description ?? `${brand.name} 전 상품 — 에스에스종합상사. 전화 문의 031-430-0497`;
+  return { title, description, openGraph: { title, description } };
+}
+
 export default async function BrandPage({ params, searchParams }: Props) {
   const { slug } = await params;
   const sp = await searchParams;

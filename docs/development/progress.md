@@ -1,6 +1,6 @@
 # 개발 진행 상황 (Progress Log)
 
-> 마지막 업데이트: 2026-05-06  
+> 마지막 업데이트: 2026-05-23  
 > 다음 세션에서 이 파일을 먼저 읽고 이어서 작업하세요.
 
 ---
@@ -33,6 +33,71 @@
 | Phase 9 | QA — CRITICAL 3건 + HIGH 3건 수정 | ✅ |
 | Phase 10 | 관리자 상품 CRUD + UI 개선 + 검색 + 버그 수정 | ✅ |
 | Phase 11 | 카탈로그 전용 모드 전환 (가격 제거, 전화 문의) | ✅ |
+
+---
+
+## 2026-05-23 작업 내역
+
+### 운영 진단 및 보안/정책 긴급 수정
+
+**배경**: 쇼핑몰 운영 전문가 관점 전체 진단 → 위험도 순 긴급 수정.
+
+#### 1. 결제 승인 API 차단 (보안)
+- `src/app/api/payments/confirm/route.ts` — 토스페이먼츠 실결제 로직 전체 제거
+- POST 요청 시 HTTP 410 Gone + "전화 문의" 메시지 반환
+- **이전 상태**: `TOSS_SECRET_KEY`로 실제 PG 승인 호출 가능한 상태였음
+
+#### 2. 주문 생성 API 차단 (보안)
+- `src/app/api/orders/route.ts` — 주문 생성 + 재고 차감 로직 전체 제거
+- POST 요청 시 HTTP 410 Gone 반환
+- **이전 상태**: 외부에서 직접 호출 시 DB 재고 차감 + 포인트 차감 가능한 상태였음
+
+#### 3. 마이페이지 주문내역 가격 노출 제거 (정책 위반)
+- `src/app/mypage/orders/page.tsx`
+  - `item.totalPrice.toLocaleString()원` 제거
+  - `order.totalAmount.toLocaleString()원` 제거
+  - 주문 취소 버튼, 구매 확정 버튼 제거
+  - → 전화 문의 링크(`tel:031-430-0497`)로 교체
+
+#### 4. 위시리스트 가격/할인율 노출 제거 (정책 위반)
+- `src/app/mypage/wishlist/page.tsx`
+  - `product.salePrice` 가격 표시 제거
+  - `discountRate` 할인율 뱃지 제거
+  - DB 조회에서 `basePrice` / `salePrice` 필드 제외 (불필요 데이터 차단)
+  - → "전화 문의 031-430-0497" 텍스트로 교체
+
+#### 5. 사이드바 404 링크 3개 제거 (UX 파손)
+- `src/app/mypage/MypageSidebar.tsx`
+  - `/mypage/returns` (취소/교환/반품) — 페이지 없음
+  - `/mypage/bulk-orders` (단체주문 견적 내역) — 페이지 없음
+  - `/mypage/inquiry` (1:1 문의 내역) — 페이지 없음
+  - `quotes` counts 키 제거 (DB 조회 제거)
+- `src/app/mypage/layout.tsx` — `quoteRequests` DB 카운트 조회 제거, `quotes` props 제거
+
+---
+
+### 운영 진단 결과 — 추가 개선 대기 목록
+
+#### Quick Wins (2026-05-23 완료)
+| # | 항목 | 파일 | 상태 |
+|---|------|------|------|
+| ① | 플로팅 전화/카카오 버튼 (전 페이지 우측 하단) | `src/components/FloatingCTA.tsx` + `layout.tsx` | ✅ |
+| ② | Footer 전화번호 `<a href="tel:">` 래핑 | `Footer.tsx` | ✅ |
+| ③ | 상품 상세 동적 metadata (SEO + SNS 썸네일) | `products/[slug]/page.tsx` | ✅ |
+| ④ | 카테고리/브랜드 페이지 동적 metadata | `categories/[category]/page.tsx`, `brands/[slug]/page.tsx` | ✅ |
+| ⑤ | 상품 JSON-LD 구조화 데이터 (구글 쇼핑 노출) | `products/[slug]/page.tsx` | ✅ |
+
+#### 기술 부채 (2026-05-23 완료)
+| 항목 | 조치 | 상태 |
+|------|------|------|
+| `@tosspayments/tosspayments-sdk` | `pnpm remove` | ✅ |
+| `zustand` 패키지 | `pnpm remove` | ✅ |
+| `src/lib/cartStore.ts` | 파일 삭제 | ✅ |
+| `src/app/cart/CartClient.tsx` | 파일 삭제 (dead code) | ✅ |
+| `src/app/checkout/CheckoutClient.tsx` | 파일 삭제 (dead code) | ✅ |
+| `src/components/layout/CartIcon.tsx` | 파일 삭제 (dead code) | ✅ |
+| `sitemap.ts` `/embroidery/simulator` 제거 + `/brands` 추가 | 수정 | ✅ |
+| `about/page.tsx` 사업자 정보 플레이스홀더 | 실제 정보로 교체 (대표: 신상영, 사업자번호: 134-09-17919, 주소: 시흥시) | ✅ |
 
 ---
 

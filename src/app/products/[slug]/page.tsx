@@ -9,6 +9,34 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+export async function generateMetadata({ params }: Props) {
+  const { slug } = await params;
+  const product = await prisma.product.findUnique({
+    where: { slug },
+    select: {
+      name: true,
+      shortDescription: true,
+      brand: { select: { name: true } },
+      images: { where: { isMain: true }, select: { url: true }, take: 1 },
+    },
+  });
+  if (!product) return {};
+
+  const title = `${product.name}`;
+  const description = product.shortDescription ?? `${product.brand.name} ${product.name} — 에스에스종합상사`;
+  const image = product.images[0]?.url;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      ...(image ? { images: [{ url: image, width: 600, height: 600, alt: product.name }] } : {}),
+    },
+  };
+}
+
 // 색상명 → HEX 매핑
 const COLOR_HEX: Record<string, string> = {
   "블랙": "#111111", "BLACK": "#111111",
@@ -190,8 +218,27 @@ export default async function ProductDetailPage({ params }: Props) {
       ? "top"
       : "other";
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.shortDescription ?? undefined,
+    image: mainImage,
+    brand: { "@type": "Brand", name: product.brand.name },
+    offers: {
+      "@type": "Offer",
+      availability: "https://schema.org/InStock",
+      priceCurrency: "KRW",
+      seller: { "@type": "Organization", name: "에스에스종합상사" },
+    },
+  };
+
   return (
     <div className="bg-white min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* 브레드크럼 */}
       <div className="border-b border-[var(--line)]">
         <div className="max-w-[1340px] mx-auto px-6 py-3 flex items-center gap-2 font-[var(--font-mono)] text-[11px] text-[var(--gray-500)]">
