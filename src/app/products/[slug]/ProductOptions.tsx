@@ -133,16 +133,6 @@ export default function ProductOptions({
             </button>
           ))}
         </div>
-        {stock !== null && stock <= 5 && stock > 0 && (
-          <p className="font-[var(--font-mono)] text-[11px] text-[var(--red)] mt-2">
-            ⚠ 잔여 {stock}개
-          </p>
-        )}
-        {stock === 0 && (
-          <p className="font-[var(--font-mono)] text-[11px] text-[var(--gray-500)] mt-2">
-            품절
-          </p>
-        )}
       </div>
 
       {/* 전화 문의 버튼 */}
