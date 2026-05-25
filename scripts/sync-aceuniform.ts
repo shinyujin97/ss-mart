@@ -24,9 +24,28 @@ const BUCKET = "products";
 const BRAND_SLUG = "aceuniform";
 
 const CATEGORIES: { ca_id: string; name: string }[] = [
-  { ca_id: "1010", name: "춘하복" },
-  { ca_id: "1020", name: "추동복" },
+  // 춘하복 하위
+  { ca_id: "101010", name: "춘하복-신제품" },
+  { ca_id: "101020", name: "춘하복-자켓" },
+  { ca_id: "101030", name: "춘하복-상하세트" },
+  { ca_id: "101040", name: "춘하복-조끼" },
+  { ca_id: "101050", name: "춘하복-바지" },
+  { ca_id: "101070", name: "춘하복-제전복" },
+  { ca_id: "101080", name: "춘하복-여성복" },
+  { ca_id: "101090", name: "춘하복-티셔츠" },
+  // 추동복 하위
+  { ca_id: "102010", name: "추동복-신제품" },
+  { ca_id: "102020", name: "추동복-점퍼" },
+  { ca_id: "102030", name: "추동복-상하세트" },
+  { ca_id: "102040", name: "추동복-조끼" },
+  { ca_id: "102050", name: "추동복-바지" },
+  { ca_id: "102060", name: "추동복-경비복" },
+  { ca_id: "102070", name: "추동복-파카" },
+  { ca_id: "102080", name: "추동복-티셔츠" },
+  { ca_id: "102090", name: "추동복-스즈끼" },
+  // 용접복
   { ca_id: "1030", name: "용접복" },
+  // 안전화
   { ca_id: "2010", name: "안전화-4인치" },
   { ca_id: "2020", name: "안전화-6인치" },
   { ca_id: "2030", name: "안전화-8인치" },
