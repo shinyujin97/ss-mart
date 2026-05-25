@@ -226,36 +226,6 @@ export default function LoginForm() {
           </button>
         </form>
 
-        {/* OR 구분선 */}
-        <div className="relative my-5 text-center">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-[var(--line)]" />
-          </div>
-          <span className="relative bg-white px-3 font-[var(--font-mono)] text-[10px] text-[var(--gray-500)] tracking-[1.5px]">
-            OR CONTINUE WITH
-          </span>
-        </div>
-
-        {/* 소셜 로그인 */}
-        <div className="grid grid-cols-2 gap-1.5 mb-5">
-          <button className="flex items-center justify-center gap-2.5 py-[14px] text-[13px] font-bold bg-[#fee500] text-[#1a1a1a] border border-[#fee500] hover:bg-[#f5dc00] transition-colors">
-            <span className="font-[var(--font-mono)] text-[11px] font-black w-5 h-5 flex items-center justify-center">KA</span>
-            카카오
-          </button>
-          <button className="flex items-center justify-center gap-2.5 py-[14px] text-[13px] font-bold bg-[#03c75a] text-white border border-[#03c75a] hover:bg-[#02a64a] transition-colors">
-            <span className="font-[var(--font-mono)] text-[11px] font-black w-5 h-5 flex items-center justify-center">N</span>
-            네이버
-          </button>
-          <button className="flex items-center justify-center gap-2.5 py-[14px] text-[13px] font-bold bg-white text-[#1a1a1a] border border-[var(--line)] hover:border-[var(--black)] transition-colors">
-            <span className="font-[var(--font-mono)] text-[11px] font-black w-5 h-5 flex items-center justify-center">G</span>
-            Google
-          </button>
-          <button className="flex items-center justify-center gap-2.5 py-[14px] text-[13px] font-bold bg-[#1a1a1a] text-white border border-[#1a1a1a] hover:bg-[var(--gray-900)] transition-colors">
-            <span className="font-[var(--font-mono)] text-[11px] font-black w-5 h-5 flex items-center justify-center">A</span>
-            Apple
-          </button>
-        </div>
-
         {/* 회원가입 */}
         <div className="border border-[var(--line)] p-5 flex items-center justify-between">
           <div>

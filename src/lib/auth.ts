@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 import { MemberRole, MemberStatus } from "@/generated/prisma/client";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  session: { strategy: "jwt" },
+  session: { strategy: "jwt", maxAge: 3600 },
   pages: {
     signIn: "/login",
     error: "/login",
@@ -70,8 +70,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         token.role = (user as any).role;
         token.memberType = (user as any).memberType;
         token.memberGrade = (user as any).memberGrade;
-        if ((user as any).rememberMe === false) {
-          token.exp = Math.floor(Date.now() / 1000) + 86400;
+        if ((user as any).rememberMe === true) {
+          // 로그인 유지 선택 시 7일
+          token.exp = Math.floor(Date.now() / 1000) + 604800;
+        } else {
+          // 기본 1시간
+          token.exp = Math.floor(Date.now() / 1000) + 3600;
         }
       }
       return token;
