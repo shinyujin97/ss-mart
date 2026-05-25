@@ -49,9 +49,7 @@ async function fetchHtml(url: string): Promise<string> {
     },
   });
   if (!res.ok) throw new Error(`HTTP ${res.status}: ${url}`);
-  const buf = await res.arrayBuffer();
-  // EUC-KR 디코딩
-  return new TextDecoder("euc-kr").decode(buf);
+  return res.text();
 }
 
 function toAbsUrl(url: string): string {
@@ -109,9 +107,10 @@ async function runScrape() {
       const m = href.match(/it_id=(\d+)/);
       if (!m) return;
       const itId = m[1];
-      // 이름: sct_txt 텍스트 또는 img alt
-      const name = $(el).find(".sct_txt a").text().trim() ||
+      // 이름: sct_txt 텍스트 또는 img alt, " | 카테고리명" suffix 제거
+      const rawName = $(el).find(".sct_txt a").text().trim() ||
         $(el).find("img").attr("alt")?.trim() || itId;
+      const name = rawName.split(/\s*\|\s*/)[0].trim();
       if (!links.find(l => l.itId === itId)) links.push({ itId, name });
     });
 
