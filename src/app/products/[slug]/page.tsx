@@ -389,6 +389,11 @@ export default async function ProductDetailPage({ params }: Props) {
                     decoding="async"
                   />
                 ))
+            ) : product.description ? (
+              <div
+                className="w-full max-w-[860px]"
+                dangerouslySetInnerHTML={{ __html: product.description }}
+              />
             ) : (
               <div className="py-20 text-center text-[var(--gray-300)] font-[var(--font-mono)] text-sm">
                 상세 이미지 준비 중입니다.
