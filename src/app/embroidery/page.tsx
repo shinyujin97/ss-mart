@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { EMBROIDERY_TYPES } from "@/constants/embroidery";
 import ProcessSteps from "./ProcessSteps";
 import ProcessFlow from "./ProcessFlow";
 import PositionShowcase from "./PositionShowcase";
@@ -7,16 +6,12 @@ import PositionShowcase from "./PositionShowcase";
 export const metadata = { title: "자수 / 마킹 서비스 | 에스에스종합상사" };
 
 
-const TYPE_ICONS: Record<string, string> = {
-  COMPUTER: "◈", PATCH: "◆", APPLIQUE: "◉",
-  REAL_PATCH: "▣", VELCRO: "⊞", CHARACTER: "★", SILK_PRINT: "▤",
-};
 
 const NOTICES = [
   { label: "01", title: "저작권 있는 디자인은 불가합니다", desc: "디즈니·마블 등 유명 캐릭터나 타 브랜드 로고, 무단 폰트가 포함된 디자인은 작업이 어렵습니다. 직접 만드신 도안이나 회사 자체 로고라면 문제없습니다." },
   { label: "02", title: "어떤 파일 형식이든 괜찮습니다", desc: "JPG, PNG, AI, PSD, PDF 등 대부분의 파일 형식을 받습니다. 파일이 없으셔도 스케치나 참고 이미지만 있으면 상담 후 진행할 수 있습니다." },
   { label: "03", title: "시안 확정 후에는 환불이 어렵습니다", desc: "자수가 들어간 맞춤 제작 특성상 시안 확정 뒤에는 단순 변심 환불이 어렵습니다. 확정 전에 충분히 검토해 주시고, 수정이 필요하면 말씀해 주세요." },
-  { label: "04", title: "100벌 이상이면 자수가 무료입니다", desc: "단체주문(100벌+)을 진행하시면 컴퓨터 자수·패치·실크 인쇄 비용이 따로 들지 않습니다. 단체주문 페이지에서 먼저 견적을 받아보세요." },
+  { label: "04", title: "100벌 이상이면 자수가 무료입니다", desc: "단체주문(100벌+)을 진행하시면 컴퓨터 자수 비용이 따로 들지 않습니다. 단체주문 페이지에서 먼저 견적을 받아보세요." },
 ];
 
 export default function EmbroideryGuidePage() {
@@ -128,7 +123,7 @@ export default function EmbroideryGuidePage() {
               <span className="font-[var(--font-mono)] text-[var(--yellow)] font-black">★</span>
               <div className="text-left">
                 <div className="text-xs font-black text-white mb-0.5">100벌 이상 단체주문 — 자수 무료</div>
-                <div className="font-[var(--font-mono)] text-[10px] text-white/30">컴퓨터 자수 · 패치 자수 · 실크 인쇄 포함</div>
+                <div className="font-[var(--font-mono)] text-[10px] text-white/30">컴퓨터 자수 포함</div>
               </div>
             </div>
             <div className="border border-white/10 px-5 py-3 flex items-center gap-3">
@@ -150,25 +145,25 @@ export default function EmbroideryGuidePage() {
               SECTION / 03 ─ EMBROIDERY TYPES
             </div>
             <h2 className="text-3xl font-black tracking-tight">
-              7가지 자수 <span className="text-[var(--red)]">종류</span>
+              컴퓨터 자수 <span className="text-[var(--red)]">서비스</span>
             </h2>
           </div>
           <div className="grid grid-cols-4 gap-px bg-[#e5e5e5] border border-[#e5e5e5]">
-            {Object.entries(EMBROIDERY_TYPES).map(([key, type], i) => (
-              <div key={key} className="bg-white p-6 hover:bg-[#fafafa] transition-colors">
+            {[
+              { icon: "◈", label: "01", title: "로고·엠블럼", desc: "회사 로고, 브랜드 엠블럼\n선명한 재현" },
+              { icon: "◈", label: "02", title: "텍스트·이름", desc: "이름, 직책, 부서명\n한글·영문 모두 가능" },
+              { icon: "◈", label: "03", title: "캐릭터 도안", desc: "자체 제작 캐릭터\n오리지널 디자인만 가능" },
+              { icon: "◈", label: "04", title: "복합 디자인", desc: "로고+텍스트 조합\n다양한 색상 구현" },
+            ].map((item) => (
+              <div key={item.label} className="bg-white p-6 hover:bg-[#fafafa] transition-colors">
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="font-[var(--font-mono)] text-2xl text-[var(--red)]">{TYPE_ICONS[key]}</span>
-                  <span className="font-[var(--font-mono)] text-[10px] text-[#bbb]">/ {String(i + 1).padStart(2, "0")}</span>
+                  <span className="font-[var(--font-mono)] text-2xl text-[var(--red)]">{item.icon}</span>
+                  <span className="font-[var(--font-mono)] text-[10px] text-[#bbb]">/ {item.label}</span>
                 </div>
-                <div className="text-sm font-black text-[#111] mb-1">{type.name}</div>
-                <div className="font-[var(--font-mono)] text-[11px] text-[#888]">
-                  가격 문의 031-430-0497
+                <div className="text-sm font-black text-[#111] mb-1">{item.title}</div>
+                <div className="font-[var(--font-mono)] text-[11px] text-[#888] whitespace-pre-line leading-relaxed">
+                  {item.desc}
                 </div>
-                {type.bulkFree && (
-                  <div className="mt-2 font-[var(--font-mono)] text-[9px] text-[var(--black)] bg-[var(--yellow)] px-1.5 py-0.5 inline-block font-bold">
-                    단체무료
-                  </div>
-                )}
               </div>
             ))}
           </div>

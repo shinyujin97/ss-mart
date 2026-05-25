@@ -4,7 +4,7 @@ export const metadata = { title: "단체주문 견적 신청 | 에스에스종�
 
 const BENEFITS = [
   { num: "01", title: "최대 30% 할인", desc: "100벌+ 20% · 200벌+ 25% · 500벌+ 30%" },
-  { num: "02", title: "자수 무료 포함", desc: "컴퓨터 자수·패치·실크 인쇄 무료" },
+  { num: "02", title: "자수 무료 포함", desc: "컴퓨터 자수 무료" },
   { num: "03", title: "전담 매니저 배정", desc: "1:1 전담 매니저 2시간 내 배정" },
   { num: "04", title: "세금계산서 발행", desc: "사업자 회원 자동 발행" },
   { num: "05", title: "분할 배송 가능", desc: "사업장별 분할 납품 협의 가능" },

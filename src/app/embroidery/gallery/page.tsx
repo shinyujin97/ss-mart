@@ -6,14 +6,14 @@ export const metadata: Metadata = {
   description: "14년간 12,000여 거래처와 함께한 자수·마킹 작업 사례 갤러리.",
 };
 
-const FILTER_TYPES = ["전체", "컴퓨터 자수", "패치 자수", "아플리케", "실사 패치", "캐릭터 디자인", "실크 인쇄"];
+const FILTER_TYPES = ["전체", "컴퓨터 자수"];
 const FILTER_INDUSTRIES = ["전체", "건설/중공업", "제조/공장", "물류/배송", "F&B/주방", "의료/위생", "환경미화", "스포츠/레저"];
 const FILTER_POSITIONS = ["전체", "왼가슴", "등판", "소매", "여러 곳"];
 
 // 실제 자수 사진
 const REAL_ITEMS = [
   { id: 1, caseNum: "CASE/001", type: "컴퓨터 자수", industry: "전체", position: "왼가슴", client: "고객사 의뢰", rating: 5.0, imageUrl: "/embroidery/배터리.jpg" },
-  { id: 2, caseNum: "CASE/002", type: "패치 자수",   industry: "전체", position: "등판",   client: "고객사 의뢰", rating: 5.0, imageUrl: "/embroidery/황금빛사자.jpg" },
+  { id: 2, caseNum: "CASE/002", type: "컴퓨터 자수", industry: "전체", position: "등판",   client: "고객사 의뢰", rating: 5.0, imageUrl: "/embroidery/황금빛사자.jpg" },
   { id: 3, caseNum: "CASE/003", type: "컴퓨터 자수", industry: "전체", position: "소매",   client: "고객사 의뢰", rating: 5.0, imageUrl: "/embroidery/고양이.jpg" },
 ];
 
