@@ -190,6 +190,39 @@ async function runCreate() {
     console.log(`📌 기존 브랜드 사용: ${brand.name}`);
   }
 
+  // 카테고리 매핑 (aceuniform 카테고리 → DB category slug)
+  const CAT_MAP: Record<string, string[]> = {
+    "춘하복-신제품":   ["workwear"],
+    "춘하복-자켓":    ["workwear-top"],
+    "춘하복-상하세트": ["workwear-set"],
+    "춘하복-조끼":    ["workwear-vest"],
+    "춘하복-바지":    ["workwear-bottom"],
+    "춘하복-제전복":  ["workwear-top"],
+    "춘하복-여성복":  ["workwear-top"],
+    "춘하복-티셔츠":  ["workwear-top"],
+    "추동복-신제품":   ["workwear-winter"],
+    "추동복-점퍼":    ["workwear-winter"],
+    "추동복-상하세트": ["workwear-set"],
+    "추동복-조끼":    ["workwear-vest"],
+    "추동복-바지":    ["workwear-bottom"],
+    "추동복-경비복":  ["workwear-top"],
+    "추동복-파카":    ["workwear-winter"],
+    "추동복-티셔츠":  ["workwear-top"],
+    "추동복-스즈끼":  ["workwear-set"],
+    "용접복":        ["workwear-top"],
+    "안전화-4인치":   ["safety-shoes-4inch"],
+    "안전화-6인치":   ["safety-shoes-6inch"],
+    "안전화-8인치":   ["safety-shoes-8inch"],
+    "안전화-기능성":  ["safety-shoes-misc"],
+    "안전용품":       ["safety-equipment"],
+  };
+
+  // DB 카테고리 ID 사전 로드
+  const allSlugs = [...new Set(Object.values(CAT_MAP).flat())];
+  const dbCats = await prisma.category.findMany({ where: { slug: { in: allSlugs } } });
+  const catIdMap = new Map(dbCats.map(c => [c.slug, c.id]));
+  console.log(`카테고리 로드: ${dbCats.length}개`);
+
   // Supabase 클라이언트 (기존 이미지 URL에서 origin 추출)
   const anyImg = await prisma.productImage.findFirst({ where: { url: { contains: "supabase.co" } } });
   if (!anyImg) { console.error("❌ Supabase URL 추출 실패 (기존 이미지 없음)"); process.exit(1); }
@@ -221,6 +254,17 @@ async function runCreate() {
         status: "ACTIVE",
       },
     });
+
+    // 카테고리 연결
+    const catSlugs = CAT_MAP[sp.category] ?? ["workwear"];
+    for (const catSlug of catSlugs) {
+      const catId = catIdMap.get(catSlug);
+      if (catId) {
+        await prisma.productCategory.create({
+          data: { productId: product.id, categoryId: catId },
+        });
+      }
+    }
 
     // 이미지 업로드
     for (let i = 0; i < sp.imageUrls.length; i++) {
