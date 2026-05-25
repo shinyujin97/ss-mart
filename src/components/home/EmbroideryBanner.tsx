@@ -61,10 +61,10 @@ export default function EmbroideryBanner() {
         {/* CTA */}
         <div className="flex gap-3">
           <Link
-            href="/embroidery/simulator"
+            href="/embroidery"
             className="bg-[var(--red)] text-white px-8 py-4 font-bold text-sm tracking-[0.5px] hover:bg-[var(--red-dark)] transition-colors"
           >
-            자수 시뮬레이터 →
+            자수·마킹 안내 →
           </Link>
           <Link
             href="/bulk-order"
