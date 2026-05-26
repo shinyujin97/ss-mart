@@ -4,7 +4,6 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import ProductOptions from "./ProductOptions";
 import ProductImageGallery from "./ProductImageGallery";
-import CatalogPageSelector from "./CatalogPageSelector";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -172,7 +171,7 @@ export default async function ProductDetailPage({ params }: Props) {
       include: {
         brand: true,
         images: { orderBy: { sortOrder: "asc" } },
-        options: { where: { isActive: true }, orderBy: [{ color: "asc" }, { size: "asc" }] },
+        options: { where: { isActive: true }, orderBy: [{ modelCode: "asc" }, { color: "asc" }, { size: "asc" }] },
         certifications: true,
         categories: { include: { category: true } },
       },
@@ -180,19 +179,6 @@ export default async function ProductDetailPage({ params }: Props) {
     auth(),
   ]);
 
-  // 같은 카탈로그 페이지의 다른 상품들 (드롭다운용)
-  const catalogSiblings = product?.catalogPage
-    ? await prisma.product.findMany({
-        where: { catalogPage: product.catalogPage, status: "ACTIVE" },
-        select: {
-          slug: true,
-          name: true,
-          shortDescription: true,
-          options: { where: { isActive: true }, select: { color: true }, distinct: ["color"] },
-        },
-        orderBy: { name: "asc" },
-      })
-    : [];
 
   if (!product || product.status === "HIDDEN") notFound();
 
@@ -311,15 +297,6 @@ export default async function ProductDetailPage({ params }: Props) {
               <p className="text-sm text-[var(--gray-500)] mb-5 leading-relaxed">
                 {product.shortDescription}
               </p>
-            )}
-
-            {/* 카탈로그 페이지 내 다른 상품 선택 드롭다운 */}
-            {product.catalogPage && catalogSiblings.length > 1 && (
-              <CatalogPageSelector
-                currentSlug={product.slug}
-                siblings={catalogSiblings}
-                catalogPage={product.catalogPage}
-              />
             )}
 
             {/* 옵션 선택 + 찜하기 (Client Component) */}

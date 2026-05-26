@@ -256,10 +256,11 @@ model ProductOption {
   productId String
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
-  color    String
-  colorHex String?
-  size     String
-  sku      String  @unique
+  modelCode String? // 카탈로그 내 세부 품목코드 (예: "IT-616")
+  color     String
+  colorHex  String?
+  size      String
+  sku       String  @unique
 
   stockQuantity     Int @default(0)
   reservedQuantity  Int @default(0)

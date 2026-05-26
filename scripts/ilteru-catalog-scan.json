@@ -6,8 +6,17 @@
         "code": "ITV-59A",
         "name": "방범 조끼",
         "fabric": "POLYESTER 100%",
-        "colors": ["FLUORESCENCE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "FLUORESCENCE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "특수조끼"
       }
@@ -20,8 +29,12 @@
         "code": "ITV-78A",
         "name": "특수 조끼",
         "fabric": "POLYESTER 100%",
-        "colors": ["ORANGE"],
-        "sizes": ["FREE SIZE"],
+        "colors": [
+          "ORANGE"
+        ],
+        "sizes": [
+          "FREE SIZE"
+        ],
         "sizeType": "free",
         "category": "특수조끼"
       },
@@ -29,8 +42,12 @@
         "code": "ITV-77A",
         "name": "특수 조끼",
         "fabric": "POLYESTER 100%",
-        "colors": ["FLUORESCENCE"],
-        "sizes": ["FREE SIZE"],
+        "colors": [
+          "FLUORESCENCE"
+        ],
+        "sizes": [
+          "FREE SIZE"
+        ],
         "sizeType": "free",
         "category": "특수조끼"
       }
@@ -43,8 +60,18 @@
         "code": "IT-872",
         "name": "고급 점퍼",
         "fabric": "POLYESTER 65%, RAYON 35% T/R캐비딘",
-        "colors": ["DARK NAVY"],
-        "sizes": ["S", "M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "DARK NAVY"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "점퍼"
       }
@@ -57,8 +84,18 @@
         "code": "IT-872",
         "name": "고급 점퍼",
         "fabric": "POLYESTER 65%, RAYON 35% T/R캐비딘",
-        "colors": ["DARK NAVY"],
-        "sizes": ["S", "M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "DARK NAVY"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "점퍼"
       }
@@ -71,8 +108,17 @@
         "code": "IT-193",
         "name": "점퍼",
         "fabric": "POLYESTER 100%",
-        "colors": ["NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "점퍼"
       }
@@ -85,8 +131,17 @@
         "code": "IT-824",
         "name": "점퍼",
         "fabric": "POLYESTER 100%",
-        "colors": ["DARK NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "DARK NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "점퍼"
       }
@@ -99,8 +154,17 @@
         "code": "IT-150",
         "name": "점퍼",
         "fabric": "POLYESTER 100%",
-        "colors": ["BLUE GRAY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "BLUE GRAY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "점퍼"
       },
@@ -108,8 +172,17 @@
         "code": "ITV-151",
         "name": "조끼",
         "fabric": "POLYESTER 100%",
-        "colors": ["BLUE GRAY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "BLUE GRAY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       }
@@ -122,8 +195,18 @@
         "code": "IT-240",
         "name": "민방위복",
         "fabric": "NYION 100%",
-        "colors": ["GREEN"],
-        "sizes": ["S", "M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GREEN"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "점퍼"
       }
@@ -136,8 +219,17 @@
         "code": "IT-710",
         "name": "점퍼",
         "fabric": "POLYESTER 65%, RAYON 35% 트로피칼",
-        "colors": ["GRAY BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GRAY BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "점퍼"
       }
@@ -150,8 +242,17 @@
         "code": "IT-818",
         "name": "점퍼",
         "fabric": "POLYESTER 100%",
-        "colors": ["GRAY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GRAY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "점퍼"
       }
@@ -164,8 +265,17 @@
         "code": "KJ-8",
         "name": "점퍼",
         "fabric": "POLYESTER 65%, RAYON 35% T/R 트로피칼",
-        "colors": ["GRAY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GRAY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "점퍼"
       },
@@ -173,8 +283,17 @@
         "code": "KJ-9",
         "name": "점퍼",
         "fabric": "POLYESTER 65%, RAYON 35% T/R",
-        "colors": ["GRAY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GRAY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "점퍼"
       }
@@ -187,8 +306,17 @@
         "code": "IT-802",
         "name": "점퍼",
         "fabric": "POLYESTER 100% 쿨스핀",
-        "colors": ["GRAY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GRAY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "점퍼"
       }
@@ -201,8 +329,17 @@
         "code": "KJ-12",
         "name": "점퍼",
         "fabric": "POLYESTER 65%, RAYON 35% T/R 트로피칼",
-        "colors": ["D.BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "D.BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "점퍼"
       }
@@ -215,8 +352,18 @@
         "code": "IT-632",
         "name": "점퍼",
         "fabric": "POLYESTER 65%, RAYON 35% T/R",
-        "colors": ["KHAKI", "NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "KHAKI",
+          "NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "점퍼"
       }
@@ -229,8 +376,17 @@
         "code": "IT-130",
         "name": "점퍼",
         "fabric": "POLYESTER 100% 쿨스핀",
-        "colors": ["L.GRAY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "L.GRAY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "점퍼"
       }
@@ -243,8 +399,17 @@
         "code": "KJ-7",
         "name": "점퍼",
         "fabric": "POLYESTER 65%, RAYON 35% T/R",
-        "colors": ["GRAY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GRAY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "점퍼"
       },
@@ -252,8 +417,16 @@
         "code": "KJ-7A",
         "name": "점퍼 여",
         "fabric": "POLYESTER 65%, RAYON 35% T/R",
-        "colors": ["NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL"
+        ],
         "sizeType": "alpha",
         "category": "점퍼"
       }
@@ -266,8 +439,17 @@
         "code": "IT-230",
         "name": "점퍼",
         "fabric": "POLYESTER 65%, COTTON 35% T/C",
-        "colors": ["GRAY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GRAY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "점퍼"
       },
@@ -275,8 +457,17 @@
         "code": "IT-220",
         "name": "점퍼",
         "fabric": "POLYESTER 100% 본딩",
-        "colors": ["NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "점퍼"
       }
@@ -289,8 +480,17 @@
         "code": "IT-615",
         "name": "상하 세트",
         "fabric": "POLYESTER 65%, RAYON 35% 트로피칼",
-        "colors": ["NAVY BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "NAVY BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "작업복세트",
         "note": "상 M~4XL, 하 28~42"
@@ -304,8 +504,16 @@
         "code": "IT-004",
         "name": "상하 세트",
         "fabric": "POLYESTER 65%, RAYON 35% T/R 캐비딘",
-        "colors": ["BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL"],
+        "colors": [
+          "BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL"
+        ],
         "sizeType": "alpha",
         "category": "작업복세트",
         "note": "상 M~3XL, 하 28~38"
@@ -314,8 +522,16 @@
         "code": "IT-100",
         "name": "상하 세트",
         "fabric": "POLYESTER 65%, RAYON 35% T/R 캐비딘",
-        "colors": ["DARK GREEN"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL"],
+        "colors": [
+          "DARK GREEN"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL"
+        ],
         "sizeType": "alpha",
         "category": "작업복세트",
         "note": "상 M~3XL, 하 28~40"
@@ -329,8 +545,17 @@
         "code": "IT-621",
         "name": "상하 세트",
         "fabric": "POLYESTER 65%, RAYON 35% T/R 캐버딘",
-        "colors": ["GRAY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GRAY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "작업복세트",
         "note": "상 M~4XL, 하 28~42"
@@ -344,8 +569,17 @@
         "code": "IT-430-1",
         "name": "상하 세트",
         "fabric": "POLYESTER 65%, COTTON 35% T/C",
-        "colors": ["GREEN"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GREEN"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "작업복세트",
         "note": "상 M~4XL, 하 28~42"
@@ -354,8 +588,16 @@
         "code": "IT-430",
         "name": "상하 세트",
         "fabric": "POLYESTER 65%, COTTON 35% T/C",
-        "colors": ["GREEN"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL"],
+        "colors": [
+          "GREEN"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL"
+        ],
         "sizeType": "alpha",
         "category": "작업복세트",
         "note": "상 M~3XL, 하 28~42"
@@ -369,8 +611,18 @@
         "code": "IT-871",
         "name": "상하 세트",
         "fabric": "POLYESTER 65%, RAYON 35% T/R 캐버딘",
-        "colors": ["NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL", "5XL"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL",
+          "5XL"
+        ],
         "sizeType": "alpha",
         "category": "작업복세트",
         "note": "상 M~5XL, 하 28~44"
@@ -379,8 +631,24 @@
         "code": "IT-02-1",
         "name": "바지",
         "fabric": "POLYESTER 65%, RAYON 35% T/R 캐버딘 일자형 바지",
-        "colors": ["NAVY BLUE"],
-        "sizes": ["28", "29", "30", "31", "32", "33", "34", "35", "36", "38", "40", "42", "44"],
+        "colors": [
+          "NAVY BLUE"
+        ],
+        "sizes": [
+          "28",
+          "29",
+          "30",
+          "31",
+          "32",
+          "33",
+          "34",
+          "35",
+          "36",
+          "38",
+          "40",
+          "42",
+          "44"
+        ],
         "sizeType": "numeric",
         "category": "바지"
       }
@@ -393,8 +661,17 @@
         "code": "IT-427",
         "name": "상하 세트",
         "fabric": "POLYESTER 65%, RAYON 35% T/R",
-        "colors": ["GRAY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GRAY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "작업복세트",
         "note": "상 M~4XL, 하 28~40"
@@ -403,8 +680,16 @@
         "code": "IT-406",
         "name": "상하 세트",
         "fabric": "POLYESTER 65%, RAYON 35% T/R",
-        "colors": ["MELANGE GARY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL"],
+        "colors": [
+          "MELANGE GARY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL"
+        ],
         "sizeType": "alpha",
         "category": "작업복세트",
         "note": "상 M~3XL, 하 28~40"
@@ -418,8 +703,17 @@
         "code": "IT-622",
         "name": "상하 세트",
         "fabric": "POLYESTER 65%, COTTON 35% T/C",
-        "colors": ["GRAY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GRAY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "작업복세트",
         "note": "상 M~4XL, 하 28~42"
@@ -433,8 +727,18 @@
         "code": "IT-429",
         "name": "상하 세트",
         "fabric": "POLYESTER 65%, COTTON 35% T/C",
-        "colors": ["L.BLUE", "GRAY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "L.BLUE",
+          "GRAY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "작업복세트",
         "note": "상 M~4XL, 하 28~42"
@@ -443,8 +747,17 @@
         "code": "IT-603",
         "name": "상하 세트",
         "fabric": "POLYESTER 65%, RAYON 35%",
-        "colors": ["D.GRAY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "D.GRAY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "작업복세트",
         "note": "상 M~4XL, 하 28~42"
@@ -458,8 +771,18 @@
         "code": "IT-426",
         "name": "상하 세트",
         "fabric": "POLYESTER 65%, COTTON 35% T/C",
-        "colors": ["NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL", "5XL"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL",
+          "5XL"
+        ],
         "sizeType": "alpha",
         "category": "작업복세트",
         "note": "상 M~5XL, 하 28~44"
@@ -468,20 +791,21 @@
         "code": "IT-426B",
         "name": "상하 세트",
         "fabric": "POLYESTER 65%, COTTON 35% T/C",
-        "colors": ["GRAY", "NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GRAY",
+          "NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "작업복세트",
         "note": "상 M~4XL, 하 28~44"
-      },
-      {
-        "code": "IT-616",
-        "name": "바지",
-        "fabric": "POLYESTER 65%, COTTON 35% T/C 일자형 바지",
-        "colors": ["NAVY BLUE"],
-        "sizes": ["28", "29", "30", "31", "32", "33", "34", "35", "36", "38", "40", "42"],
-        "sizeType": "numeric",
-        "category": "바지"
       }
     ]
   },
@@ -492,8 +816,17 @@
         "code": "IT-440",
         "name": "상하 세트 (클린룸)",
         "fabric": "POLYESTER 100% 무진복 차이나 Y형",
-        "colors": ["WHITE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "WHITE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "클린룸웨어"
       },
@@ -501,8 +834,17 @@
         "code": "IT-441",
         "name": "상하 세트 (클린룸)",
         "fabric": "POLYESTER 100% 무진복 차이나 Y형",
-        "colors": ["L.BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "L.BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "클린룸웨어"
       },
@@ -510,8 +852,13 @@
         "code": "IT-440h",
         "name": "모자 (클린룸)",
         "fabric": "POLYESTER 100%",
-        "colors": ["WHITE"],
-        "sizes": ["M", "L"],
+        "colors": [
+          "WHITE"
+        ],
+        "sizes": [
+          "M",
+          "L"
+        ],
         "sizeType": "alpha",
         "category": "클린룸웨어"
       },
@@ -519,8 +866,13 @@
         "code": "IT-441h",
         "name": "모자 (클린룸)",
         "fabric": "POLYESTER 100%",
-        "colors": ["L.BLUE"],
-        "sizes": ["M", "L"],
+        "colors": [
+          "L.BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L"
+        ],
         "sizeType": "alpha",
         "category": "클린룸웨어"
       }
@@ -533,8 +885,17 @@
         "code": "IT-123",
         "name": "청남방",
         "fabric": "COTTON 100%",
-        "colors": ["DENIM BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "DENIM BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "셔츠"
       },
@@ -542,8 +903,17 @@
         "code": "IT-121",
         "name": "서츠",
         "fabric": "POLYESTER 65%, RAYON 35%",
-        "colors": ["WHITE STRIPE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "WHITE STRIPE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "셔츠"
       },
@@ -551,8 +921,16 @@
         "code": "IT-443",
         "name": "상하 경비복",
         "fabric": "POLYESTER 65%, RAYON 35% T/R",
-        "colors": ["GRAY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL"],
+        "colors": [
+          "GRAY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL"
+        ],
         "sizeType": "alpha",
         "category": "경비복",
         "note": "상 M~3XL, 하 28~40"
@@ -561,8 +939,16 @@
         "code": "IT-442",
         "name": "상하 경비복",
         "fabric": "POLYESTER 65%, RAYON 35% T/R",
-        "colors": ["L.BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL"],
+        "colors": [
+          "L.BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL"
+        ],
         "sizeType": "alpha",
         "category": "경비복",
         "note": "상 M~3XL, 하 28~40"
@@ -576,8 +962,17 @@
         "code": "IT-005",
         "name": "청지해지 상하",
         "fabric": "COTTON 100%",
-        "colors": ["GRAY BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GRAY BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "작업복세트",
         "note": "상 M~4XL, 하 28~42"
@@ -591,8 +986,17 @@
         "code": "IT-428",
         "name": "청지 상하",
         "fabric": "COTTON 80%, POLYESTER 20%",
-        "colors": ["BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "작업복세트",
         "note": "상 M~4XL, 하 28~38"
@@ -606,8 +1010,16 @@
         "code": "IT-432",
         "name": "상하",
         "fabric": "POLYESTER 65%, RAYON 35% T/R 썬크로스",
-        "colors": ["L.BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL"],
+        "colors": [
+          "L.BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL"
+        ],
         "sizeType": "alpha",
         "category": "작업복세트",
         "note": "상 M~3XL, 하 28~40"
@@ -616,8 +1028,16 @@
         "code": "IT-432",
         "name": "썬크로스 지퍼 상하",
         "fabric": "POLYESTER 65%, RAYON 35% T/R 썬크로스",
-        "colors": ["L.BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL"],
+        "colors": [
+          "L.BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL"
+        ],
         "sizeType": "alpha",
         "category": "작업복세트",
         "note": "상 M~3XL, 하 28~40"
@@ -631,8 +1051,17 @@
         "code": "IT-431",
         "name": "블루진 상하",
         "fabric": "POLYESTER 65%, RAYON 35% T/R BLUE JEAN",
-        "colors": ["BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "작업복세트",
         "note": "상 M~4XL, 하 28~42"
@@ -641,8 +1070,17 @@
         "code": "IT-431",
         "name": "블루진 지퍼 상하",
         "fabric": "POLYESTER 65%, RAYON 35% T/R BLUE JEAN",
-        "colors": ["BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "작업복세트",
         "note": "상 M~4XL, 하 28~42"
@@ -656,8 +1094,16 @@
         "code": "ITZ-435",
         "name": "정비복",
         "fabric": "POLYESTER 65%, COTTON 35% T/C",
-        "colors": ["BLUE", "RED"],
-        "sizes": ["M", "L", "XL", "2XL"],
+        "colors": [
+          "BLUE",
+          "RED"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL"
+        ],
         "sizeType": "alpha",
         "category": "정비복"
       },
@@ -665,8 +1111,18 @@
         "code": "ITZ-931",
         "name": "정비복",
         "fabric": "POLYESTER 65%, COTTON 35% T/C",
-        "colors": ["GRAY", "ORANGE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GRAY",
+          "ORANGE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "정비복"
       }
@@ -679,8 +1135,18 @@
         "code": "ITZ-932",
         "name": "정비복",
         "fabric": "POLYESTER 65%, COTTON 35% T/C",
-        "colors": ["NAVY", "ORANGE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "NAVY",
+          "ORANGE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "정비복"
       },
@@ -688,8 +1154,17 @@
         "code": "ITZ-428s",
         "name": "정비복",
         "fabric": "COTTON 80%, POLYESTER 20%",
-        "colors": ["BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "정비복"
       }
@@ -702,8 +1177,17 @@
         "code": "IS-23",
         "name": "티셔츠",
         "fabric": "POLYESTER 60%, COOLON 40%",
-        "colors": ["NAVY BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "NAVY BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "티셔츠"
       }
@@ -716,8 +1200,17 @@
         "code": "IS-21",
         "name": "긴팔",
         "fabric": "COOLON 코오롱T, 지퍼",
-        "colors": ["D.GRAY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "D.GRAY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "티셔츠"
       },
@@ -725,8 +1218,17 @@
         "code": "IS-22",
         "name": "긴팔",
         "fabric": "COOLON 코오롱T, 지퍼",
-        "colors": ["D.BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "D.BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "티셔츠"
       },
@@ -734,8 +1236,17 @@
         "code": "IT-2412",
         "name": "긴팔",
         "fabric": "PK",
-        "colors": ["GRAY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GRAY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "티셔츠"
       },
@@ -743,8 +1254,17 @@
         "code": "IT-2410",
         "name": "긴팔",
         "fabric": "PK",
-        "colors": ["NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "티셔츠"
       }
@@ -757,8 +1277,16 @@
         "code": "IS-01",
         "name": "티셔츠",
         "fabric": "POLYESTER 60%, COOLON 40%",
-        "colors": ["STRIPED NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL"],
+        "colors": [
+          "STRIPED NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL"
+        ],
         "sizeType": "alpha",
         "category": "티셔츠"
       },
@@ -766,8 +1294,17 @@
         "code": "IS-06",
         "name": "티셔츠",
         "fabric": "POLYESTER 100%, 카치온",
-        "colors": ["GRAY BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GRAY BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "티셔츠"
       },
@@ -775,8 +1312,17 @@
         "code": "IS-04",
         "name": "티셔츠",
         "fabric": "POLYESTER 60% COOLON 40%",
-        "colors": ["DARK NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "DARK NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "티셔츠"
       },
@@ -784,8 +1330,17 @@
         "code": "IT-2406",
         "name": "티셔츠",
         "fabric": "PK",
-        "colors": ["NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "티셔츠"
       },
@@ -793,8 +1348,17 @@
         "code": "IT-2402",
         "name": "티셔츠",
         "fabric": "PK",
-        "colors": ["L.GRAY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "L.GRAY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "티셔츠"
       },
@@ -802,8 +1366,17 @@
         "code": "IT-2405",
         "name": "티셔츠",
         "fabric": "PK",
-        "colors": ["NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "티셔츠"
       },
@@ -811,8 +1384,19 @@
         "code": "IS-771",
         "name": "티셔츠",
         "fabric": "순면 COTTON 100%",
-        "colors": ["NAVY"],
-        "sizes": ["85", "90", "95", "100", "105", "110", "115", "120"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "85",
+          "90",
+          "95",
+          "100",
+          "105",
+          "110",
+          "115",
+          "120"
+        ],
         "sizeType": "numeric",
         "category": "티셔츠"
       }
@@ -825,8 +1409,17 @@
         "code": "IS-02",
         "name": "티셔츠",
         "fabric": "COOLON 코오롱 T",
-        "colors": ["NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "티셔츠"
       },
@@ -834,8 +1427,17 @@
         "code": "IS-07",
         "name": "티셔츠",
         "fabric": "COOLON 코오롱 T",
-        "colors": ["D.BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "D.BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "티셔츠"
       },
@@ -843,8 +1445,17 @@
         "code": "IS-03",
         "name": "티셔츠",
         "fabric": "COOLON 코오롱 T",
-        "colors": ["GRAY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GRAY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "티셔츠"
       },
@@ -852,8 +1463,17 @@
         "code": "IS-11",
         "name": "티셔츠",
         "fabric": "COOLON 코오롱 T",
-        "colors": ["L.BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "L.BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "티셔츠"
       },
@@ -861,8 +1481,17 @@
         "code": "IS-14",
         "name": "엠보싱",
         "fabric": "COOLON 코오롱 T, 지퍼",
-        "colors": ["D.BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "D.BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "티셔츠"
       },
@@ -870,8 +1499,17 @@
         "code": "IS-20",
         "name": "티셔츠",
         "fabric": "COOLON 코오롱 T, 지퍼",
-        "colors": ["NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "티셔츠"
       }
@@ -884,8 +1522,17 @@
         "code": "ITV-01",
         "name": "아이스 조끼",
         "fabric": "POLYESTER 100%",
-        "colors": ["NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "아이스조끼"
       }
@@ -898,8 +1545,17 @@
         "code": "ITV-59A",
         "name": "방범 조끼",
         "fabric": "POLYESTER 100%",
-        "colors": ["FLUORESCENCE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "FLUORESCENCE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "특수조끼"
       }
@@ -912,8 +1568,12 @@
         "code": "ITV-78A",
         "name": "특수 조끼",
         "fabric": "POLYESTER 100%",
-        "colors": ["ORANGE"],
-        "sizes": ["FREE SIZE"],
+        "colors": [
+          "ORANGE"
+        ],
+        "sizes": [
+          "FREE SIZE"
+        ],
         "sizeType": "free",
         "category": "특수조끼"
       },
@@ -921,8 +1581,12 @@
         "code": "ITV-77A",
         "name": "특수 조끼",
         "fabric": "POLYESTER 100%",
-        "colors": ["FLUORESCENCE"],
-        "sizes": ["FREE SIZE"],
+        "colors": [
+          "FLUORESCENCE"
+        ],
+        "sizes": [
+          "FREE SIZE"
+        ],
         "sizeType": "free",
         "category": "특수조끼"
       }
@@ -935,8 +1599,17 @@
         "code": "ITV-50",
         "name": "경찰형 조끼",
         "fabric": "POLYESTER 100%",
-        "colors": ["FLUORESCENCE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "FLUORESCENCE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "특수조끼"
       },
@@ -944,8 +1617,17 @@
         "code": "ITV-57A",
         "name": "특수 조끼",
         "fabric": "POLYESTER 100%",
-        "colors": ["FLUORESCENCE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "FLUORESCENCE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "특수조끼"
       }
@@ -958,8 +1640,17 @@
         "code": "ITV-52",
         "name": "특수 조끼",
         "fabric": "POLYESTER 100%",
-        "colors": ["BLACK"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "BLACK"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "특수조끼"
       },
@@ -967,8 +1658,17 @@
         "code": "ITV-53A",
         "name": "특수 조끼",
         "fabric": "POLYESTER 100%",
-        "colors": ["FLUORESCENCE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "FLUORESCENCE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "특수조끼"
       }
@@ -981,8 +1681,17 @@
         "code": "ITV-58A",
         "name": "신호수 조끼",
         "fabric": "POLYESTER 100%",
-        "colors": ["ORANGE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "ORANGE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "신호수조끼"
       },
@@ -990,8 +1699,17 @@
         "code": "ITV-56A",
         "name": "신호수 조끼",
         "fabric": "POLYESTER 100%",
-        "colors": ["FLUORESCENCE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "FLUORESCENCE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "신호수조끼"
       }
@@ -1004,8 +1722,17 @@
         "code": "ITV-31",
         "name": "조끼",
         "fabric": "TASLAN",
-        "colors": ["L.BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "L.BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1013,8 +1740,17 @@
         "code": "ITV-32",
         "name": "조끼",
         "fabric": "TASLAN",
-        "colors": ["KHAKI"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "KHAKI"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1022,8 +1758,17 @@
         "code": "ITV-33",
         "name": "조끼",
         "fabric": "TASLAN",
-        "colors": ["NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1031,8 +1776,17 @@
         "code": "ITV-34",
         "name": "조끼",
         "fabric": "TASLAN",
-        "colors": ["BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       }
@@ -1045,8 +1799,17 @@
         "code": "ITV-30",
         "name": "조끼",
         "fabric": "TASLAN",
-        "colors": ["NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1054,8 +1817,17 @@
         "code": "ITV-51",
         "name": "조끼",
         "fabric": "POLYESTER 100%",
-        "colors": ["BLACK"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "BLACK"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       }
@@ -1068,8 +1840,17 @@
         "code": "ITV-54A",
         "name": "조끼",
         "fabric": "POLYESTER 100%",
-        "colors": ["FLUORESCENCE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "FLUORESCENCE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       }
@@ -1082,8 +1863,17 @@
         "code": "ITV-55",
         "name": "조끼",
         "fabric": "NYLON 100%",
-        "colors": ["NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       }
@@ -1096,8 +1886,17 @@
         "code": "ITV-30",
         "name": "고급 왕망사 조끼",
         "fabric": "TASLAN",
-        "colors": ["NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1105,8 +1904,17 @@
         "code": "ITV-31",
         "name": "고급 왕망사 조끼",
         "fabric": "TASLAN",
-        "colors": ["L.BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "L.BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1114,8 +1922,17 @@
         "code": "ITV-32",
         "name": "고급 왕망사 조끼",
         "fabric": "TASLAN",
-        "colors": ["KHAKI"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "KHAKI"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1123,8 +1940,17 @@
         "code": "ITV-33",
         "name": "고급 왕망사 조끼",
         "fabric": "TASLAN",
-        "colors": ["NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1132,8 +1958,17 @@
         "code": "ITV-34",
         "name": "고급 왕망사 조끼",
         "fabric": "TASLAN",
-        "colors": ["BLUE"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "BLUE"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1141,8 +1976,16 @@
         "code": "ITV-8A",
         "name": "망사아광띠 조끼 곤색",
         "fabric": "망사아광띠",
-        "colors": ["DARK NAVY"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "DARK NAVY"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1150,8 +1993,16 @@
         "code": "ITV-10A",
         "name": "망사아광띠 조끼 코발트",
         "fabric": "망사아광띠",
-        "colors": ["COBALT"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "COBALT"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1159,8 +2010,16 @@
         "code": "ITV-23A",
         "name": "망사아광띠 조끼 노랑",
         "fabric": "망사아광띠",
-        "colors": ["YELLOW"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "YELLOW"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1168,8 +2027,16 @@
         "code": "ITV-37A",
         "name": "망사아광띠 조끼 회색",
         "fabric": "망사아광띠",
-        "colors": ["GRAY"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GRAY"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1177,8 +2044,16 @@
         "code": "ITV-38A",
         "name": "망사아광띠 조끼 베이지",
         "fabric": "망사아광띠",
-        "colors": ["BEIGE"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "BEIGE"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1186,8 +2061,16 @@
         "code": "ITV-5A",
         "name": "망사아광띠 조끼 형광",
         "fabric": "망사아광띠",
-        "colors": ["FLUORESCENCE"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "FLUORESCENCE"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1195,8 +2078,16 @@
         "code": "ITV-16A",
         "name": "망사아광띠 조끼 하늘색",
         "fabric": "망사아광띠",
-        "colors": ["SKY BLUE"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "SKY BLUE"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1204,8 +2095,16 @@
         "code": "ITV-36A",
         "name": "망사아광띠 조끼 주황색",
         "fabric": "망사아광띠",
-        "colors": ["ORANGE"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "ORANGE"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1213,8 +2112,16 @@
         "code": "ITV-7A",
         "name": "망사아광띠 조끼 빨강",
         "fabric": "망사아광띠",
-        "colors": ["RED"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "RED"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1222,8 +2129,16 @@
         "code": "ITV-35A",
         "name": "망사아광띠 조끼 초록",
         "fabric": "망사아광띠",
-        "colors": ["GREEN"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GREEN"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1231,8 +2146,17 @@
         "code": "ITV-37C",
         "name": "망사조끼 회색",
         "fabric": "망사",
-        "colors": ["GRAY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GRAY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1240,8 +2164,17 @@
         "code": "ITV-22c",
         "name": "망사 카키",
         "fabric": "망사",
-        "colors": ["KHAKI"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "KHAKI"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1249,8 +2182,17 @@
         "code": "ITV-43C",
         "name": "망사 검정",
         "fabric": "망사",
-        "colors": ["BLACK"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "BLACK"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1258,8 +2200,17 @@
         "code": "ITV-8C",
         "name": "망사 곤색",
         "fabric": "망사",
-        "colors": ["DARK NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "DARK NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1267,8 +2218,17 @@
         "code": "ITV-10C",
         "name": "망사 코발트",
         "fabric": "망사",
-        "colors": ["COBALT"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "COBALT"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1276,8 +2236,17 @@
         "code": "ITV-23C",
         "name": "망사 노랑",
         "fabric": "망사",
-        "colors": ["YELLOW"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "YELLOW"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1285,8 +2254,17 @@
         "code": "ITV-7C",
         "name": "망사 빨강",
         "fabric": "망사",
-        "colors": ["RED"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "RED"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1294,8 +2272,17 @@
         "code": "ITV-35C",
         "name": "망사 초록",
         "fabric": "망사",
-        "colors": ["GREEN"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GREEN"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       }
@@ -1308,8 +2295,16 @@
         "code": "ITV-12A",
         "name": "T/C 야광띠 조끼 곤색",
         "fabric": "T/C 야광띠",
-        "colors": ["DARK NAVY"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "DARK NAVY"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1317,8 +2312,16 @@
         "code": "ITV-13A",
         "name": "T/C 야광띠 조끼 코발트",
         "fabric": "T/C 야광띠",
-        "colors": ["COBALT"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "COBALT"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1326,8 +2329,16 @@
         "code": "ITV-3A",
         "name": "T/C 야광띠 조끼 노랑",
         "fabric": "T/C 야광띠",
-        "colors": ["YELLOW"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "YELLOW"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1335,8 +2346,16 @@
         "code": "ITV-40A",
         "name": "T/C 야광띠 조끼 회색",
         "fabric": "T/C 야광띠",
-        "colors": ["GRAY"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GRAY"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1344,8 +2363,16 @@
         "code": "ITV-39A",
         "name": "T/C 야광띠 조끼 베이지",
         "fabric": "T/C 야광띠",
-        "colors": ["BEIGE"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "BEIGE"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1353,8 +2380,16 @@
         "code": "ITV-4A",
         "name": "T/C 야광띠 조끼 형광",
         "fabric": "T/C 야광띠",
-        "colors": ["FLUORESCENCE"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "FLUORESCENCE"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1362,8 +2397,16 @@
         "code": "ITV-42A",
         "name": "T/C 야광띠 조끼 하늘색",
         "fabric": "T/C 야광띠",
-        "colors": ["SKY BLUE"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "SKY BLUE"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1371,8 +2414,16 @@
         "code": "ITV-41A",
         "name": "T/C 야광띠 조끼 주황",
         "fabric": "T/C 야광띠",
-        "colors": ["ORANGE"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "ORANGE"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1380,8 +2431,16 @@
         "code": "ITV-6A",
         "name": "T/C 야광띠 조끼 빨강",
         "fabric": "T/C 야광띠",
-        "colors": ["RED"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "RED"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1389,8 +2448,16 @@
         "code": "ITV-2A",
         "name": "T/C 야광띠 조끼 초록",
         "fabric": "T/C 야광띠",
-        "colors": ["GREEN"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GREEN"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1398,8 +2465,17 @@
         "code": "ITV-11",
         "name": "T/C 조끼 연카키",
         "fabric": "T/C",
-        "colors": ["LIGHT KHAKI"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "LIGHT KHAKI"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1407,8 +2483,17 @@
         "code": "ITV-18",
         "name": "T/C 조끼 회색",
         "fabric": "T/C",
-        "colors": ["GRAY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GRAY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1416,8 +2501,17 @@
         "code": "ITV-19C",
         "name": "T/C 조끼 카키",
         "fabric": "T/C",
-        "colors": ["KHAKI"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "KHAKI"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1425,8 +2519,17 @@
         "code": "ITV-44C",
         "name": "T/C 조끼 검정",
         "fabric": "T/C",
-        "colors": ["BLACK"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "BLACK"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1434,8 +2537,17 @@
         "code": "ITV-40C",
         "name": "T/C 조끼 회색",
         "fabric": "T/C",
-        "colors": ["GRAY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GRAY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1443,8 +2555,17 @@
         "code": "ITV-12C",
         "name": "T/C 조끼 곤색",
         "fabric": "T/C",
-        "colors": ["DARK NAVY"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "DARK NAVY"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1452,8 +2573,17 @@
         "code": "ITV-13C",
         "name": "T/C 조끼 코발트",
         "fabric": "T/C",
-        "colors": ["COBALT"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "COBALT"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1461,8 +2591,17 @@
         "code": "ITV-3C",
         "name": "T/C 조끼 노랑",
         "fabric": "T/C",
-        "colors": ["YELLOW"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "YELLOW"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1470,8 +2609,17 @@
         "code": "ITV-6C",
         "name": "T/C 조끼 빨강",
         "fabric": "T/C",
-        "colors": ["RED"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "RED"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1479,8 +2627,17 @@
         "code": "ITV-2C",
         "name": "T/C 조끼 초록",
         "fabric": "T/C",
-        "colors": ["GREEN"],
-        "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "GREEN"
+        ],
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       }
@@ -1493,8 +2650,16 @@
         "code": "ITV-7A",
         "name": "바디캠 조끼 빨강",
         "fabric": "망사아광띠",
-        "colors": ["RED"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "RED"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1502,8 +2667,16 @@
         "code": "ITV-5A",
         "name": "바디캠 조끼 형광",
         "fabric": "망사아광띠",
-        "colors": ["FLUORESCENCE"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "FLUORESCENCE"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       },
@@ -1511,8 +2684,16 @@
         "code": "ITV-8A",
         "name": "바디캠 조끼 곤색",
         "fabric": "망사아광띠",
-        "colors": ["DARK NAVY"],
-        "sizes": ["L", "XL", "2XL", "3XL", "4XL"],
+        "colors": [
+          "DARK NAVY"
+        ],
+        "sizes": [
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
         "sizeType": "alpha",
         "category": "조끼"
       }
@@ -1525,8 +2706,23 @@
         "code": "IT-612",
         "name": "등산바지",
         "fabric": "POLYESTER 100%",
-        "colors": ["BLACK"],
-        "sizes": ["28", "29", "30", "31", "32", "33", "34", "35", "36", "38", "40", "42"],
+        "colors": [
+          "BLACK"
+        ],
+        "sizes": [
+          "28",
+          "29",
+          "30",
+          "31",
+          "32",
+          "33",
+          "34",
+          "35",
+          "36",
+          "38",
+          "40",
+          "42"
+        ],
         "sizeType": "numeric",
         "category": "바지"
       },
@@ -1534,8 +2730,23 @@
         "code": "IT-613",
         "name": "바지",
         "fabric": "고밀도",
-        "colors": ["DARK NAVY"],
-        "sizes": ["28", "29", "30", "31", "32", "33", "34", "35", "36", "38", "40", "42"],
+        "colors": [
+          "DARK NAVY"
+        ],
+        "sizes": [
+          "28",
+          "29",
+          "30",
+          "31",
+          "32",
+          "33",
+          "34",
+          "35",
+          "36",
+          "38",
+          "40",
+          "42"
+        ],
         "sizeType": "numeric",
         "category": "바지"
       },
@@ -1543,8 +2754,23 @@
         "code": "IT-614",
         "name": "바지",
         "fabric": "트로피칼",
-        "colors": ["NAVY"],
-        "sizes": ["28", "29", "30", "31", "32", "33", "34", "35", "36", "38", "40", "42"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "28",
+          "29",
+          "30",
+          "31",
+          "32",
+          "33",
+          "34",
+          "35",
+          "36",
+          "38",
+          "40",
+          "42"
+        ],
         "sizeType": "numeric",
         "category": "바지"
       },
@@ -1552,8 +2778,23 @@
         "code": "IT-615",
         "name": "바지",
         "fabric": "트로피칼 견뺑",
-        "colors": ["DARK NAVY"],
-        "sizes": ["28", "29", "30", "31", "32", "33", "34", "35", "36", "38", "40", "42"],
+        "colors": [
+          "DARK NAVY"
+        ],
+        "sizes": [
+          "28",
+          "29",
+          "30",
+          "31",
+          "32",
+          "33",
+          "34",
+          "35",
+          "36",
+          "38",
+          "40",
+          "42"
+        ],
         "sizeType": "numeric",
         "category": "바지"
       }
@@ -1565,9 +2806,24 @@
       {
         "code": "IT-616",
         "name": "바지",
-        "fabric": "T/C 건뽕없음",
-        "colors": ["DARK NAVY"],
-        "sizes": ["28", "29", "30", "31", "32", "33", "34", "35", "36", "38", "40", "42"],
+        "fabric": "T/C건빵없음",
+        "colors": [
+          "DARK NAVY"
+        ],
+        "sizes": [
+          "28",
+          "29",
+          "30",
+          "31",
+          "32",
+          "33",
+          "34",
+          "35",
+          "36",
+          "38",
+          "40",
+          "42"
+        ],
         "sizeType": "numeric",
         "category": "바지"
       },
@@ -1575,8 +2831,23 @@
         "code": "IT-617",
         "name": "바지",
         "fabric": "면스판",
-        "colors": ["NAVY BLUE"],
-        "sizes": ["28", "29", "30", "31", "32", "33", "34", "35", "36", "38", "40", "42"],
+        "colors": [
+          "NAVY BLUE"
+        ],
+        "sizes": [
+          "28",
+          "29",
+          "30",
+          "31",
+          "32",
+          "33",
+          "34",
+          "35",
+          "36",
+          "38",
+          "40",
+          "42"
+        ],
         "sizeType": "numeric",
         "category": "바지"
       },
@@ -1584,8 +2855,23 @@
         "code": "IT-618",
         "name": "바지",
         "fabric": "T/R 트로피칼 스판",
-        "colors": ["GRAY"],
-        "sizes": ["28", "29", "30", "31", "32", "33", "34", "35", "36", "38", "40", "42"],
+        "colors": [
+          "GRAY"
+        ],
+        "sizes": [
+          "28",
+          "29",
+          "30",
+          "31",
+          "32",
+          "33",
+          "34",
+          "35",
+          "36",
+          "38",
+          "40",
+          "42"
+        ],
         "sizeType": "numeric",
         "category": "바지"
       },
@@ -1593,8 +2879,23 @@
         "code": "IT-619",
         "name": "바지",
         "fabric": "T/R 트로피칼 스판",
-        "colors": ["NAVY"],
-        "sizes": ["28", "29", "30", "31", "32", "33", "34", "35", "36", "38", "40", "42"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "28",
+          "29",
+          "30",
+          "31",
+          "32",
+          "33",
+          "34",
+          "35",
+          "36",
+          "38",
+          "40",
+          "42"
+        ],
         "sizeType": "numeric",
         "category": "바지"
       },
@@ -1602,8 +2903,23 @@
         "code": "IT-606",
         "name": "여름 스판바지",
         "fabric": "NALON 100%",
-        "colors": ["CHARCOAL"],
-        "sizes": ["28", "29", "30", "31", "32", "33", "34", "35", "36", "38", "40", "42"],
+        "colors": [
+          "CHARCOAL"
+        ],
+        "sizes": [
+          "28",
+          "29",
+          "30",
+          "31",
+          "32",
+          "33",
+          "34",
+          "35",
+          "36",
+          "38",
+          "40",
+          "42"
+        ],
         "sizeType": "numeric",
         "category": "바지"
       }
@@ -1616,8 +2932,23 @@
         "code": "AW-440",
         "name": "방수 절연화",
         "fabric": "UPPER: 액손누벅+메쉬, SOLE: RUBBER+PHYLON",
-        "colors": ["NAVY"],
-        "sizes": ["235", "240", "245", "250", "255", "260", "265", "270", "275", "280", "285", "290"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "235",
+          "240",
+          "245",
+          "250",
+          "255",
+          "260",
+          "265",
+          "270",
+          "275",
+          "280",
+          "285",
+          "290"
+        ],
         "sizeType": "numeric",
         "category": "안전화"
       },
@@ -1625,8 +2956,23 @@
         "code": "AW-45",
         "name": "4인치 안전화",
         "fabric": "UPPER: 스프리트+메쉬, SOLE: RUBBER+PHYLON",
-        "colors": ["NAVY"],
-        "sizes": ["235", "240", "245", "250", "255", "260", "265", "270", "275", "280", "285", "290"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "235",
+          "240",
+          "245",
+          "250",
+          "255",
+          "260",
+          "265",
+          "270",
+          "275",
+          "280",
+          "285",
+          "290"
+        ],
         "sizeType": "numeric",
         "category": "안전화"
       },
@@ -1634,8 +2980,23 @@
         "code": "AW-450",
         "name": "방수 절연화",
         "fabric": "UPPER: 액손누벅, SOLE: RUBBER+PHYLON",
-        "colors": ["BROWN"],
-        "sizes": ["235", "240", "245", "250", "255", "260", "265", "270", "275", "280", "285", "290"],
+        "colors": [
+          "BROWN"
+        ],
+        "sizes": [
+          "235",
+          "240",
+          "245",
+          "250",
+          "255",
+          "260",
+          "265",
+          "270",
+          "275",
+          "280",
+          "285",
+          "290"
+        ],
         "sizeType": "numeric",
         "category": "안전화"
       },
@@ -1643,8 +3004,23 @@
         "code": "AW-49D",
         "name": "4인치 안전화",
         "fabric": "UPPER: 액손누벅+메쉬, SOLE: RUBBER+PHYLON",
-        "colors": ["GRAY"],
-        "sizes": ["235", "240", "245", "250", "255", "260", "265", "270", "275", "280", "285", "290"],
+        "colors": [
+          "GRAY"
+        ],
+        "sizes": [
+          "235",
+          "240",
+          "245",
+          "250",
+          "255",
+          "260",
+          "265",
+          "270",
+          "275",
+          "280",
+          "285",
+          "290"
+        ],
         "sizeType": "numeric",
         "category": "안전화"
       },
@@ -1652,8 +3028,24 @@
         "code": "AW-43",
         "name": "4인치 안전화",
         "fabric": "UPPER: 액손누벅+메쉬, SOLE: RUBBER+PHYLON",
-        "colors": ["GRAY"],
-        "sizes": ["230", "235", "240", "245", "250", "255", "260", "265", "270", "275", "280", "285", "290"],
+        "colors": [
+          "GRAY"
+        ],
+        "sizes": [
+          "230",
+          "235",
+          "240",
+          "245",
+          "250",
+          "255",
+          "260",
+          "265",
+          "270",
+          "275",
+          "280",
+          "285",
+          "290"
+        ],
         "sizeType": "numeric",
         "category": "안전화"
       },
@@ -1661,8 +3053,23 @@
         "code": "AW-425",
         "name": "난슬립 안전화",
         "fabric": "UPPER: 액손누벅+메쉬, SOLE: RUBBER+PHYLON",
-        "colors": ["BLACK"],
-        "sizes": ["235", "240", "245", "250", "255", "260", "265", "270", "275", "280", "285", "290"],
+        "colors": [
+          "BLACK"
+        ],
+        "sizes": [
+          "235",
+          "240",
+          "245",
+          "250",
+          "255",
+          "260",
+          "265",
+          "270",
+          "275",
+          "280",
+          "285",
+          "290"
+        ],
         "sizeType": "numeric",
         "category": "안전화"
       },
@@ -1670,8 +3077,23 @@
         "code": "AW-47D",
         "name": "4인치 안전화",
         "fabric": "UPPER: 액손누벅+메쉬, SOLE: RUBBER+PHYLON",
-        "colors": ["NAVY"],
-        "sizes": ["235", "240", "245", "250", "255", "260", "265", "270", "275", "280", "285", "290"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "235",
+          "240",
+          "245",
+          "250",
+          "255",
+          "260",
+          "265",
+          "270",
+          "275",
+          "280",
+          "285",
+          "290"
+        ],
         "sizeType": "numeric",
         "category": "안전화"
       }
@@ -1684,8 +3106,23 @@
         "code": "AW-65D",
         "name": "6인치 안전화",
         "fabric": "UPPER: 액손누벅+메쉬, SOLE: RUBBER+PHYLON",
-        "colors": ["NAVY"],
-        "sizes": ["235", "240", "245", "250", "255", "260", "265", "270", "275", "280", "285", "290"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "235",
+          "240",
+          "245",
+          "250",
+          "255",
+          "260",
+          "265",
+          "270",
+          "275",
+          "280",
+          "285",
+          "290"
+        ],
         "sizeType": "numeric",
         "category": "안전화"
       },
@@ -1693,8 +3130,23 @@
         "code": "AW-골드400-1",
         "name": "4인치 신끈 안전화",
         "fabric": "UPPER: 국세시 빌름누벅, SOLE: RUBBER+P.U",
-        "colors": ["DARK NAVY"],
-        "sizes": ["235", "240", "245", "250", "255", "260", "265", "270", "275", "280", "285", "290"],
+        "colors": [
+          "DARK NAVY"
+        ],
+        "sizes": [
+          "235",
+          "240",
+          "245",
+          "250",
+          "255",
+          "260",
+          "265",
+          "270",
+          "275",
+          "280",
+          "285",
+          "290"
+        ],
         "sizeType": "numeric",
         "category": "안전화"
       },
@@ -1702,8 +3154,23 @@
         "code": "AW-67",
         "name": "6인치 안전화",
         "fabric": "UPPER: 액손누벅+메쉬, SOLE: RUBBER+PHYLON",
-        "colors": ["NAVY"],
-        "sizes": ["235", "240", "245", "250", "255", "260", "265", "270", "275", "280", "285", "290"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "235",
+          "240",
+          "245",
+          "250",
+          "255",
+          "260",
+          "265",
+          "270",
+          "275",
+          "280",
+          "285",
+          "290"
+        ],
         "sizeType": "numeric",
         "category": "안전화"
       }
@@ -1716,8 +3183,23 @@
         "code": "AW-69D",
         "name": "6인치 안전화",
         "fabric": "UPPER: 액손누벅+메쉬, SOLE: RUBBER+PHYLON",
-        "colors": ["GRAY"],
-        "sizes": ["235", "240", "245", "250", "255", "260", "265", "270", "275", "280", "285", "290"],
+        "colors": [
+          "GRAY"
+        ],
+        "sizes": [
+          "235",
+          "240",
+          "245",
+          "250",
+          "255",
+          "260",
+          "265",
+          "270",
+          "275",
+          "280",
+          "285",
+          "290"
+        ],
         "sizeType": "numeric",
         "category": "안전화"
       },
@@ -1725,8 +3207,22 @@
         "code": "AW-68N",
         "name": "6인치 안전화 (방수)",
         "fabric": "UPPER: 천연누벅(방수), SOLE: RUBBER+PHYLON",
-        "colors": ["BROWN"],
-        "sizes": ["240", "245", "250", "255", "260", "265", "270", "275", "280", "285", "290"],
+        "colors": [
+          "BROWN"
+        ],
+        "sizes": [
+          "240",
+          "245",
+          "250",
+          "255",
+          "260",
+          "265",
+          "270",
+          "275",
+          "280",
+          "285",
+          "290"
+        ],
         "sizeType": "numeric",
         "category": "안전화"
       },
@@ -1734,8 +3230,23 @@
         "code": "AW-610",
         "name": "6인치 안전화",
         "fabric": "UPPER: 액손누벅+메쉬, SOLE: RUBBER+PHYLON",
-        "colors": ["NAVY"],
-        "sizes": ["235", "240", "245", "250", "255", "260", "265", "270", "275", "280", "285", "290"],
+        "colors": [
+          "NAVY"
+        ],
+        "sizes": [
+          "235",
+          "240",
+          "245",
+          "250",
+          "255",
+          "260",
+          "265",
+          "270",
+          "275",
+          "280",
+          "285",
+          "290"
+        ],
         "sizeType": "numeric",
         "category": "안전화"
       },
@@ -1743,8 +3254,23 @@
         "code": "AW-하이브",
         "name": "6인치 안전화",
         "fabric": "UPPER: 액손누벅+메쉬, SOLE: RUBBER+PHYLON",
-        "colors": ["BEIGE"],
-        "sizes": ["235", "240", "245", "250", "255", "260", "265", "270", "275", "280", "285", "290"],
+        "colors": [
+          "BEIGE"
+        ],
+        "sizes": [
+          "235",
+          "240",
+          "245",
+          "250",
+          "255",
+          "260",
+          "265",
+          "270",
+          "275",
+          "280",
+          "285",
+          "290"
+        ],
         "sizeType": "numeric",
         "category": "안전화"
       },
@@ -1752,8 +3278,22 @@
         "code": "AW-601",
         "name": "6인치 지퍼 안전화",
         "fabric": "UPPER: PERMAIR LEATHER, SOLE: RUBBER",
-        "colors": ["BROWN"],
-        "sizes": ["240", "245", "250", "255", "260", "265", "270", "275", "280", "285", "290"],
+        "colors": [
+          "BROWN"
+        ],
+        "sizes": [
+          "240",
+          "245",
+          "250",
+          "255",
+          "260",
+          "265",
+          "270",
+          "275",
+          "280",
+          "285",
+          "290"
+        ],
         "sizeType": "numeric",
         "category": "안전화"
       },
@@ -1761,8 +3301,23 @@
         "code": "AW-60",
         "name": "6인치 안전화",
         "fabric": "UPPER: 액손누벅+메쉬, SOLE: RUBBER+PHYLON",
-        "colors": ["GRAY"],
-        "sizes": ["235", "240", "245", "250", "255", "260", "265", "270", "275", "280", "285", "290"],
+        "colors": [
+          "GRAY"
+        ],
+        "sizes": [
+          "235",
+          "240",
+          "245",
+          "250",
+          "255",
+          "260",
+          "265",
+          "270",
+          "275",
+          "280",
+          "285",
+          "290"
+        ],
         "sizeType": "numeric",
         "category": "안전화"
       }

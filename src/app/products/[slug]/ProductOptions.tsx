@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 interface Option {
   id: string;
+  modelCode: string | null;
   color: string;
   colorHex: string | null;
   size: string;
@@ -43,10 +44,36 @@ export default function ProductOptions({
   initialWishlisted = false,
 }: Props) {
   const router = useRouter();
+
+  // 옵션에 modelCode가 있는지 확인
+  const modelCodes = [...new Set(options.map((o) => o.modelCode).filter(Boolean))] as string[];
+  const isMultiModel = modelCodes.length > 1;
+
+  const [selectedModel, setSelectedModel] = useState<string | null>(
+    isMultiModel ? null : (modelCodes[0] ?? null)
+  );
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [wishlisted, setWishlisted] = useState(initialWishlisted);
   const [wishlistLoading, setWishlistLoading] = useState(false);
+
+  // 선택된 모델의 옵션만 필터
+  const activeOptions = selectedModel
+    ? options.filter((o) => o.modelCode === selectedModel)
+    : options;
+
+  // 현재 모델의 색상/사이즈
+  const activeColors = [...new Map(
+    activeOptions.map((o) => [o.color, { color: o.color, colorHex: o.colorHex }])
+  ).values()];
+  const activeSizes = [...new Set(activeOptions.map((o) => o.size))];
+
+  function handleModelSelect(code: string) {
+    if (selectedModel === code) return;
+    setSelectedModel(code);
+    setSelectedColor(null);
+    setSelectedSize(null);
+  }
 
   async function toggleWishlist() {
     setWishlistLoading(true);
@@ -57,38 +84,57 @@ export default function ProductOptions({
         body: JSON.stringify({ productId }),
       });
       if (res.status === 401) { window.location.href = "/login"; return; }
-      if (res.ok) {
-        setWishlisted((v) => !v);
-        router.refresh();
-      }
+      if (res.ok) { setWishlisted((v) => !v); router.refresh(); }
     } finally {
       setWishlistLoading(false);
     }
   }
 
-  const hasDbOptions = options.length > 0;
-  const selectedOption = options.find(
-    (o) => o.color === selectedColor && o.size === selectedSize
-  );
-  const stock = hasDbOptions
-    ? (selectedOption ? selectedOption.stockQuantity - selectedOption.reservedQuantity : null)
-    : (selectedColor && selectedSize ? 99 : null);
-
-  const inquiryText = [
+  const inquiryParts = [
     `상품: ${productName}`,
+    selectedModel ? `품목: ${selectedModel}` : null,
     selectedColor ? `색상: ${selectedColor}` : null,
     selectedSize ? `사이즈: ${selectedSize}` : null,
-  ].filter(Boolean).join(", ");
+  ].filter(Boolean);
+  const inquiryText = inquiryParts.join(", ");
 
   return (
     <div>
-      {/* 색상 선택 */}
-      <div className="mb-5">
+      {/* ── 모델 선택 (여러 품목이 있을 때만) ─────────────────── */}
+      {isMultiModel && (
+        <div className="mb-5">
+          <div className="font-[var(--font-mono)] text-[10px] text-[var(--gray-500)] tracking-[1.5px] mb-2.5 font-semibold">
+            ─ 품목 선택{" "}
+            {selectedModel && (
+              <span className="text-[var(--black)]">/ {selectedModel}</span>
+            )}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {modelCodes.map((code) => (
+              <button
+                key={code}
+                onClick={() => handleModelSelect(code)}
+                className={`px-3 py-2 text-[12px] font-[var(--font-mono)] font-bold border transition-all ${
+                  selectedModel === code
+                    ? "border-[var(--black)] bg-[var(--black)] text-white"
+                    : "border-[var(--line)] text-[var(--gray-700)] hover:border-[var(--black)] hover:text-[var(--black)]"
+                }`}
+              >
+                {code}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── 색상 선택 ──────────────────────────────────────────── */}
+      <div className={`mb-5 ${isMultiModel && !selectedModel ? "opacity-40 pointer-events-none" : ""}`}>
         <div className="font-[var(--font-mono)] text-[10px] text-[var(--gray-500)] tracking-[1.5px] mb-2.5 font-semibold">
-          ─ COLOR {selectedColor && <span className="text-[var(--black)]">/ {selectedColor}</span>}
+          ─ COLOR{" "}
+          {selectedColor && <span className="text-[var(--black)]">/ {selectedColor}</span>}
         </div>
         <div className="flex flex-wrap gap-2">
-          {colors.map((c) => (
+          {activeColors.map((c) => (
             <button
               key={c.color}
               onClick={() => {
@@ -113,13 +159,14 @@ export default function ProductOptions({
         </div>
       </div>
 
-      {/* 사이즈 선택 */}
-      <div className="mb-6">
+      {/* ── 사이즈 선택 ────────────────────────────────────────── */}
+      <div className={`mb-6 ${isMultiModel && !selectedModel ? "opacity-40 pointer-events-none" : ""}`}>
         <div className="font-[var(--font-mono)] text-[10px] text-[var(--gray-500)] tracking-[1.5px] mb-2.5 font-semibold">
-          ─ SIZE {selectedSize && <span className="text-[var(--black)]">/ {selectedSize}</span>}
+          ─ SIZE{" "}
+          {selectedSize && <span className="text-[var(--black)]">/ {selectedSize}</span>}
         </div>
         <div className="flex flex-wrap gap-2">
-          {sizes.map((size) => (
+          {activeSizes.map((size) => (
             <button
               key={size}
               onClick={() => setSelectedSize(size)}
@@ -135,10 +182,10 @@ export default function ProductOptions({
         </div>
       </div>
 
-      {/* 전화 문의 버튼 */}
+      {/* ── 전화 문의 버튼 ─────────────────────────────────────── */}
       <div className="flex gap-2 mb-3">
         <a
-          href={`tel:031-430-0497`}
+          href="tel:031-430-0497"
           className="flex-1 bg-[var(--red)] text-white py-4 font-bold text-sm tracking-[0.5px] hover:bg-[var(--red-dark)] transition-colors flex items-center justify-center gap-2"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -146,7 +193,6 @@ export default function ProductOptions({
           </svg>
           전화로 문의하기
         </a>
-        {/* 찜하기 */}
         <button
           onClick={toggleWishlist}
           disabled={wishlistLoading}
@@ -167,7 +213,7 @@ export default function ProductOptions({
         </button>
       </div>
 
-      {/* 문의 안내 */}
+      {/* ── 문의 안내 ──────────────────────────────────────────── */}
       <div className="bg-[var(--gray-50)] border border-[var(--line)] px-4 py-3.5">
         <div className="font-[var(--font-mono)] text-[10px] text-[var(--gray-500)] tracking-[1px] mb-1">
           INQUIRY INFO
@@ -178,6 +224,8 @@ export default function ProductOptions({
         <div className="text-xs text-[var(--gray-500)] leading-relaxed">
           {inquiryText
             ? `"${inquiryText}" 으로 문의해 주시면 빠르게 안내해 드립니다.`
+            : isMultiModel
+            ? "품목을 먼저 선택해 주세요."
             : "색상과 사이즈를 선택 후 전화 주시면 빠르게 안내해 드립니다."}
           <br />
           평일 09:00 – 18:00
