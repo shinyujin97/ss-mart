@@ -43,7 +43,7 @@ export default function ProductCard({
         {/* 배지 */}
         <div className="absolute top-2 left-2 flex flex-col gap-1">
           {isNew && (
-            <span className="bg-[var(--black)] text-white font-[var(--font-mono)] text-[9px] px-2 py-0.5 tracking-[1px]">
+            <span className="bg-[var(--red)] text-white font-[var(--font-mono)] text-[9px] px-2 py-0.5 tracking-[1px]">
               NEW
             </span>
           )}
