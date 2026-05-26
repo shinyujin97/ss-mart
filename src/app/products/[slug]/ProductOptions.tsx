@@ -136,22 +136,6 @@ export default function ProductOptions({
                 );
               })}
             </select>
-            {/* 빠른 선택 버튼 */}
-            <div className="flex flex-wrap gap-1.5">
-              {modelCodes.map((code) => (
-                <button
-                  key={code}
-                  onClick={() => handleModelSelect(code)}
-                  className={`px-2.5 py-1 text-[11px] font-[var(--font-mono)] font-semibold transition-all ${
-                    selectedModel === code
-                      ? "bg-[var(--black)] text-white"
-                      : "bg-white border border-[var(--line)] text-[var(--gray-700)] hover:border-[var(--black)] hover:text-[var(--black)]"
-                  }`}
-                >
-                  {code}
-                </button>
-              ))}
-            </div>
           </div>
         </div>
       )}
