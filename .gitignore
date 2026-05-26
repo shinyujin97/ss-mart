@@ -15,3 +15,4 @@ node_modules
 public/products/
 .env*.local
 scripts/tbuc-scraped.json
+tsconfig.tsbuildinfo
