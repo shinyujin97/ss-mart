@@ -215,6 +215,7 @@ model Product {
 
   metaTitle       String?
   metaDescription String?
+  catalogPage     String? // 카탈로그 페이지 번호 (예: "056") - 같은 페이지 상품 그룹핑용
 
   categories ProductCategory[]
   options    ProductOption[]
