@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import CategoryDropdown from "./CategoryDropdown";
+import MobileMenu from "./MobileMenu";
 
 const NAV_LINKS = [
   { href: "/categories/all-products", label: "전체 보기" },
@@ -34,7 +35,8 @@ export default async function Navigation() {
 
   return (
     <nav className="bg-[var(--black)]">
-      <div className="max-w-[1340px] mx-auto px-6 flex items-stretch h-[52px]">
+      {/* 데스크톱 네비 (md 이상) */}
+      <div className="hidden md:flex max-w-[1340px] mx-auto px-6 items-stretch h-[52px]">
         {/* ALL CATEGORIES 드롭다운 */}
         <CategoryDropdown categories={categories} />
 
@@ -61,6 +63,9 @@ export default async function Navigation() {
           </span>
         </div>
       </div>
+
+      {/* 모바일 네비 (md 미만) — 햄버거 + 드로어 */}
+      <MobileMenu navLinks={NAV_LINKS} categories={categories} />
     </nav>
   );
 }

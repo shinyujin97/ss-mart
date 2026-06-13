@@ -242,7 +242,7 @@ export default async function ProductDetailPage({ params }: Props) {
       />
       {/* 브레드크럼 */}
       <div className="border-b border-[var(--line)]">
-        <div className="max-w-[1340px] mx-auto px-6 py-3 flex items-center gap-2 font-[var(--font-mono)] text-[11px] text-[var(--gray-500)]">
+        <div className="max-w-[1340px] mx-auto px-4 md:px-6 py-3 flex items-center gap-2 font-[var(--font-mono)] text-[11px] text-[var(--gray-500)]">
           <Link href="/" className="hover:text-[var(--red)]">HOME</Link>
           <span>/</span>
           {product.categories[0] && (
@@ -257,8 +257,8 @@ export default async function ProductDetailPage({ params }: Props) {
         </div>
       </div>
 
-      <div className="max-w-[1340px] mx-auto px-6 py-8">
-        <div className="grid grid-cols-[1fr_460px] gap-12" id="product-top">
+      <div className="max-w-[1340px] mx-auto px-4 md:px-6 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_460px] gap-8 md:gap-12" id="product-top">
           {/* 좌측: 이미지 갤러리 */}
           <ProductImageGallery
             images={product.images}
@@ -358,13 +358,13 @@ export default async function ProductDetailPage({ params }: Props) {
 
       {/* 상세 설명 섹션 */}
       <div className="border-t border-[var(--line)] mt-4">
-        <div className="max-w-[1340px] mx-auto px-6">
+        <div className="max-w-[1340px] mx-auto px-4 md:px-6">
           {/* 탭 헤더 */}
           <div className="flex border-b border-[var(--line)]">
             {["상품 상세", "배송/교환/반품"].map((tab, i) => (
               <div
                 key={tab}
-                className={`px-8 py-4 font-[var(--font-mono)] text-[12px] tracking-[1px] font-semibold border-b-2 transition-colors ${
+                className={`px-5 md:px-8 py-4 font-[var(--font-mono)] text-[12px] tracking-[1px] font-semibold border-b-2 transition-colors ${
                   i === 0
                     ? "border-[var(--black)] text-[var(--black)]"
                     : "border-transparent text-[var(--gray-500)]"

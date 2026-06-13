@@ -20,9 +20,9 @@ interface Props {
 
 function ContentSkeleton() {
   return (
-    <div className="max-w-[1340px] mx-auto px-6 py-6">
-      <div className="grid grid-cols-[240px_1fr] gap-6">
-        <div>
+    <div className="max-w-[1340px] mx-auto px-4 md:px-6 py-6">
+      <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-6">
+        <div className="hidden md:block">
           <div className="h-11 bg-[var(--black)] opacity-80" />
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="bg-white border border-[var(--line)] border-t-0 h-24 animate-pulse" />
@@ -33,7 +33,7 @@ function ContentSkeleton() {
             <div className="h-5 w-36 bg-[var(--gray-100)] animate-pulse" />
             <div className="h-8 w-56 bg-[var(--gray-100)] animate-pulse" />
           </div>
-          <div className="grid grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
             {Array.from({ length: 8 }).map((_, i) => (
               <div key={i} className="bg-white border border-[var(--line)]">
                 <div className="aspect-square bg-[var(--gray-100)] animate-pulse" />
@@ -105,7 +105,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     <div className="bg-[var(--gray-50)] min-h-screen">
       {/* 브레드크럼 — 즉시 렌더 */}
       <div className="bg-white border-b border-[var(--line)]">
-        <div className="max-w-[1340px] mx-auto px-6 py-3 flex items-center gap-2 font-[var(--font-mono)] text-[11px] text-[var(--gray-500)]">
+        <div className="max-w-[1340px] mx-auto px-4 md:px-6 py-3 flex items-center gap-2 font-[var(--font-mono)] text-[11px] text-[var(--gray-500)]">
           <Link href="/" className="hover:text-[var(--red)]">HOME</Link>
           <span>/</span>
           <span className="text-[var(--black)] font-semibold">{cat.name}</span>
@@ -115,7 +115,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
       {/* 카테고리 탭 — 즉시 렌더 */}
       {(isTopLevel ? topLevelCats.length > 0 : tabChildren.length > 0) && (
         <div className="bg-white border-b border-[var(--line)]">
-          <div className="max-w-[1340px] mx-auto px-6">
+          <div className="max-w-[1340px] mx-auto px-4 md:px-6">
             <div className="flex overflow-x-auto">
               {isTopLevel ? (
                 topLevelCats.map((topCat) => (

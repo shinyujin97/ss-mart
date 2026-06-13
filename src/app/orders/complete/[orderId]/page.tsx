@@ -47,7 +47,7 @@ export default async function OrderCompletePage({ params, searchParams }: Props)
     <div className="bg-[var(--gray-50)] min-h-screen">
       {/* 헤더 */}
       <div className="bg-white border-b border-[var(--line)]">
-        <div className="max-w-[1340px] mx-auto px-6 py-4">
+        <div className="max-w-[1340px] mx-auto px-4 md:px-6 py-4">
           <div className="font-[var(--font-mono)] text-[10px] text-[var(--red)] tracking-[2px] mb-1">
             ORDER / COMPLETE
           </div>
@@ -63,10 +63,10 @@ export default async function OrderCompletePage({ params, searchParams }: Props)
         />
       )}
 
-      <div className="max-w-[800px] mx-auto px-6 py-10">
+      <div className="max-w-[800px] mx-auto px-4 md:px-6 py-10">
         {/* 완료 메시지 */}
         <div className="text-center mb-10">
-          <div className="font-[var(--font-display)] text-[80px] text-[var(--gray-100)] leading-none mb-4">
+          <div className="font-[var(--font-display)] text-[56px] md:text-[80px] text-[var(--gray-100)] leading-none mb-4">
             DONE
           </div>
           <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[3px] mb-3">
@@ -82,18 +82,18 @@ export default async function OrderCompletePage({ params, searchParams }: Props)
         </div>
 
         {/* 진행 단계 */}
-        <div className="grid border border-[var(--line)] mb-6" style={{ gridTemplateColumns: `repeat(${STEP_LABELS.length}, 1fr)` }}>
+        <div className="flex md:grid border border-[var(--line)] mb-6 overflow-x-auto" style={{ gridTemplateColumns: `repeat(${STEP_LABELS.length}, 1fr)` }}>
           {STEP_LABELS.map((s, i) => (
             <div
               key={s.num}
-              className={`px-4 py-3 flex items-center gap-2 border-r border-[var(--line)] last:border-r-0 ${
+              className={`px-4 py-3 flex items-center gap-2 border-r border-[var(--line)] last:border-r-0 flex-shrink-0 ${
                 i === 0 ? "bg-[var(--black)] text-white" : "bg-[var(--gray-50)]"
               }`}
             >
               <span className={`font-[var(--font-display)] text-lg leading-none ${i === 0 ? "text-[var(--yellow)]" : "text-[var(--gray-300)]"}`}>
                 {s.num}
               </span>
-              <span className="text-xs font-bold">{s.label}</span>
+              <span className="text-xs font-bold whitespace-nowrap">{s.label}</span>
             </div>
           ))}
         </div>

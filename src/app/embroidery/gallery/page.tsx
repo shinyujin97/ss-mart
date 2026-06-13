@@ -24,12 +24,12 @@ export default function GalleryPage() {
     <div className="bg-[var(--gray-50)] min-h-screen">
       {/* 히어로 */}
       <section className="bg-[var(--black)] text-white py-14">
-        <div className="max-w-[1340px] mx-auto px-6 flex items-end justify-between">
+        <div className="max-w-[1340px] mx-auto px-4 md:px-6 flex flex-col md:flex-row gap-8 md:gap-0 md:items-end md:justify-between">
           <div>
             <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[3px] mb-3">
               EMBROIDERY GALLERY / CASE STUDY
             </div>
-            <h1 className="text-[42px] font-black leading-tight tracking-tight mb-3">
+            <h1 className="text-3xl md:text-[42px] font-black leading-tight tracking-tight mb-3">
               자수 작업
               <br />
               <span className="text-[var(--red)]">갤러리</span>
@@ -38,7 +38,7 @@ export default function GalleryPage() {
               14년간 12,000여 거래처와 함께한 자수·마킹 작업 사례
             </p>
           </div>
-          <div className="flex gap-8 pb-2">
+          <div className="flex flex-wrap gap-6 md:gap-8 pb-2">
             {[
               { label: "TOTAL CASES", value: "38,420" },
               { label: "CLIENTS", value: "12,000+" },
@@ -53,7 +53,7 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      <div className="max-w-[1340px] mx-auto px-6 py-6">
+      <div className="max-w-[1340px] mx-auto px-4 md:px-6 py-6">
         {/* 필터 */}
         <div className="bg-white border border-[var(--line)] p-5 mb-6 space-y-3">
           {[
@@ -61,7 +61,7 @@ export default function GalleryPage() {
             { label: "업종", items: FILTER_INDUSTRIES },
             { label: "위치", items: FILTER_POSITIONS },
           ].map((group) => (
-            <div key={group.label} className="flex items-center gap-3">
+            <div key={group.label} className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
               <span className="font-[var(--font-mono)] text-[10px] text-[var(--gray-500)] w-16 flex-shrink-0 tracking-[0.5px]">
                 {group.label}
               </span>
@@ -96,7 +96,7 @@ export default function GalleryPage() {
         </div>
 
         {/* 갤러리 그리드 */}
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
           {GALLERY_ITEMS.map((item) => (
             <div key={item.id} className="group bg-white border border-[var(--line)] hover:border-[var(--red)] transition-all hover:-translate-y-1 cursor-pointer">
               {/* 이미지 */}
@@ -135,7 +135,7 @@ export default function GalleryPage() {
         </div>
 
         {/* CTA */}
-        <div className="mt-12 bg-[var(--black)] text-white p-10 text-center">
+        <div className="mt-12 bg-[var(--black)] text-white p-6 md:p-10 text-center">
           <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[3px] mb-3">─ START YOUR PROJECT</div>
           <h2 className="text-2xl font-black mb-3">우리 회사 작업복에 로고를 새기세요</h2>
           <p className="text-white/60 text-sm mb-6">고객 디자인 기반 시안 무료 · 무제한 수정 · 저작권 안전</p>

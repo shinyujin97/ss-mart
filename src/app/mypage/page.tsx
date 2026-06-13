@@ -85,7 +85,7 @@ export default async function MypageDashboard() {
   return (
     <div>
       {/* 빠른 액션 */}
-      <div className="grid grid-cols-4 border border-[var(--line)] bg-white mb-3">
+      <div className="grid grid-cols-2 lg:grid-cols-4 border border-[var(--line)] bg-white mb-3">
         {[
           { href: "/categories/workwear", label: "작업복 쇼핑", icon: "👕", sub: "5,940+ 상품" },
           { href: "/embroidery/simulator", label: "자수 시뮬레이터", icon: "✍️", sub: "무료 시안 제작" },
@@ -95,7 +95,7 @@ export default async function MypageDashboard() {
           <Link
             key={a.href}
             href={a.href}
-            className={`flex items-center gap-4 px-5 py-5 hover:bg-[var(--gray-50)] transition-colors ${i < 3 ? "border-r border-[var(--line)]" : ""}`}
+            className={`flex items-center gap-4 px-5 py-5 hover:bg-[var(--gray-50)] transition-colors border-[var(--line)] ${i % 2 === 0 ? "border-r" : ""} ${i < 2 ? "border-b lg:border-b-0" : ""} ${i < 3 ? "lg:border-r" : "lg:border-r-0"}`}
           >
             <span className="text-2xl">{a.icon}</span>
             <div>
@@ -152,7 +152,7 @@ export default async function MypageDashboard() {
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-3 divide-x divide-[var(--line)]">
+          <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[var(--line)]">
             {recentDesigns.map((d) => (
               <div key={d.id} className="p-4">
                 <div className="font-[var(--font-mono)] text-[9px] text-[var(--gray-400)] mb-1">{d.designNumber}</div>

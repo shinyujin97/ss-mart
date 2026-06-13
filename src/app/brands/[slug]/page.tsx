@@ -68,7 +68,7 @@ export default async function BrandPage({ params, searchParams }: Props) {
     <div className="bg-[var(--gray-50)] min-h-screen">
       {/* 브레드크럼 */}
       <div className="bg-white border-b border-[var(--line)]">
-        <div className="max-w-[1340px] mx-auto px-6 py-3 flex items-center gap-2 font-[var(--font-mono)] text-[11px] text-[var(--gray-500)]">
+        <div className="max-w-[1340px] mx-auto px-4 md:px-6 py-3 flex items-center gap-2 font-[var(--font-mono)] text-[11px] text-[var(--gray-500)]">
           <Link href="/" className="hover:text-[var(--red)]">HOME</Link>
           <span>/</span>
           <Link href="/brands" className="hover:text-[var(--red)]">브랜드관</Link>
@@ -77,27 +77,27 @@ export default async function BrandPage({ params, searchParams }: Props) {
         </div>
       </div>
 
-      <div className="max-w-[1340px] mx-auto px-6 py-8">
+      <div className="max-w-[1340px] mx-auto px-4 md:px-6 py-8">
         {/* 브랜드 헤더 */}
-        <div className="bg-white border border-[var(--line)] px-8 py-6 mb-6 flex items-center gap-6">
+        <div className="bg-white border border-[var(--line)] px-5 md:px-8 py-6 mb-6 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
           <div>
-            <div className="font-[var(--font-display)] text-[36px] text-[var(--black)] tracking-wide leading-none mb-1">
+            <div className="font-[var(--font-display)] text-[28px] md:text-[36px] text-[var(--black)] tracking-wide leading-none mb-1">
               {brand.name}
             </div>
             <div className="text-sm text-[var(--gray-500)]">{brand.nameKr}</div>
           </div>
-          <div className="ml-auto font-[var(--font-mono)] text-right">
+          <div className="sm:ml-auto font-[var(--font-mono)] sm:text-right">
             <div className="text-[10px] text-[var(--gray-400)] tracking-[1px]">TOTAL ITEMS</div>
             <div className="text-[28px] text-[var(--red)] font-bold">{total.toLocaleString()}</div>
           </div>
         </div>
 
         {/* 정렬 */}
-        <div className="flex justify-between items-center mb-5">
+        <div className="flex flex-wrap gap-3 justify-between items-center mb-5">
           <span className="font-[var(--font-mono)] text-sm text-[var(--gray-500)]">
             총 <span className="text-[var(--black)] font-bold">{total.toLocaleString()}</span>개
           </span>
-          <div className="flex border border-[var(--line)]">
+          <div className="flex border border-[var(--line)] overflow-x-auto max-w-full">
             {[
               { value: "newest", label: "최신순" },
               { value: "best", label: "인기순" },
@@ -107,7 +107,7 @@ export default async function BrandPage({ params, searchParams }: Props) {
               <Link
                 key={opt.value}
                 href={`?sort=${opt.value}`}
-                className={`px-4 py-2 text-xs font-semibold border-r border-[var(--line)] last:border-r-0 transition-colors ${
+                className={`px-4 py-2 text-xs font-semibold border-r border-[var(--line)] last:border-r-0 transition-colors whitespace-nowrap ${
                   sort === opt.value ? "bg-[var(--black)] text-white" : "text-[var(--gray-700)] hover:bg-[var(--gray-50)]"
                 }`}
               >
@@ -123,7 +123,7 @@ export default async function BrandPage({ params, searchParams }: Props) {
             상품이 없습니다.
           </div>
         ) : (
-          <div className="grid grid-cols-5 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-5">
             {products.map((p) => (
               <ProductCard
                 key={p.id}
@@ -143,7 +143,7 @@ export default async function BrandPage({ params, searchParams }: Props) {
 
         {/* 페이지네이션 */}
         {totalPages > 1 && (
-          <div className="flex justify-center items-center gap-1 mt-10">
+          <div className="flex flex-wrap justify-center items-center gap-1 mt-10">
             <Link href={page > 1 ? buildHref(1) : "#"} aria-disabled={page <= 1} className={btnClass(page > 1)}>{"<<"}</Link>
             <Link href={page > 1 ? buildHref(page - 1) : "#"} aria-disabled={page <= 1} className={btnClass(page > 1)}>{"<"}</Link>
             {Array.from({ length: groupEnd - groupStart + 1 }, (_, i) => groupStart + i).map((p) => (

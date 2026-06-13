@@ -9,7 +9,7 @@ const FEATURES = [
 
 export default function EmbroideryBanner() {
   return (
-    <section className="text-white py-16 my-12 relative overflow-hidden">
+    <section className="text-white py-12 md:py-16 my-10 md:my-12 relative overflow-hidden">
       {/* 배경 이미지 */}
       <div
         className="absolute inset-0 bg-cover bg-center"
@@ -20,14 +20,14 @@ export default function EmbroideryBanner() {
       {/* 상단 라인 */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-[var(--red)]" />
 
-      <div className="max-w-[1340px] mx-auto px-6 relative z-10">
+      <div className="max-w-[1340px] mx-auto px-4 md:px-6 relative z-10">
         {/* 헤더 */}
         <div className="flex items-end justify-between mb-10 pb-5 border-b border-white/20">
           <div>
             <div className="font-[var(--font-mono)] text-[11px] text-[var(--yellow)] tracking-[2px] mb-2">
               SECTION / 03 ─ EMBROIDERY & MARKING
             </div>
-            <h2 className="text-[32px] font-black leading-tight tracking-tight text-white">
+            <h2 className="text-[24px] md:text-[32px] font-black leading-tight tracking-tight text-white">
               원하는 디자인을 바로
               <br />
               <span className="text-[var(--red)]">자수·마킹</span> 서비스
@@ -36,7 +36,7 @@ export default function EmbroideryBanner() {
         </div>
 
         {/* 피처 그리드 */}
-        <div className="grid grid-cols-4 gap-4 mb-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
           {FEATURES.map((f) => (
             <div
               key={f.num}
@@ -59,16 +59,16 @@ export default function EmbroideryBanner() {
         </div>
 
         {/* CTA */}
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <Link
             href="/embroidery"
-            className="bg-[var(--red)] text-white px-8 py-4 font-bold text-sm tracking-[0.5px] hover:bg-[var(--red-dark)] transition-colors"
+            className="text-center bg-[var(--red)] text-white px-8 py-4 font-bold text-sm tracking-[0.5px] hover:bg-[var(--red-dark)] transition-colors"
           >
             자수·마킹 안내 →
           </Link>
           <Link
             href="/bulk-order"
-            className="bg-white/15 border border-white/50 text-white px-8 py-4 font-bold text-sm tracking-[0.5px] hover:bg-white/25 hover:border-white transition-all backdrop-blur-sm"
+            className="text-center bg-white/15 border border-white/50 text-white px-8 py-4 font-bold text-sm tracking-[0.5px] hover:bg-white/25 hover:border-white transition-all backdrop-blur-sm"
           >
             단체주문 견적 →
           </Link>

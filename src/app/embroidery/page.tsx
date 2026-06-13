@@ -19,18 +19,18 @@ export default function EmbroideryGuidePage() {
     <div className="bg-white">
 
       {/* ── 히어로 / #111 bg ── */}
-      <section className="text-white py-24 relative overflow-hidden" style={{ backgroundColor: "#111" }}>
+      <section className="text-white py-16 md:py-24 relative overflow-hidden" style={{ backgroundColor: "#111" }}>
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: "url('/embroidery/machine.jpg')", opacity: 0.45 }}
         />
         <div className="absolute inset-0" style={{ background: "rgba(17,17,17,0.5)" }} />
         <div className="absolute top-0 left-0 right-0 h-1 bg-[var(--red)]" />
-        <div className="relative z-10 max-w-[1340px] mx-auto px-6 text-center">
+        <div className="relative z-10 max-w-[1340px] mx-auto px-4 md:px-6 text-center">
           <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[3px] mb-4">
             EMBROIDERY & MARKING / SERVICE
           </div>
-          <h1 className="text-[48px] font-black leading-tight tracking-tight mb-5">
+          <h1 className="text-3xl md:text-[48px] font-black leading-tight tracking-tight mb-5">
             우리 회사 로고가 박힌
             <br />
             <span className="text-[var(--yellow)]">맞춤 작업복</span> 제작
@@ -40,18 +40,18 @@ export default function EmbroideryGuidePage() {
             <br />
             저작권 안전 · 5~7일 빠른 납품
           </p>
-          <div className="flex gap-3 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">
             <a href="tel:031-430-0497"
-              className="bg-[var(--red)] text-white px-10 py-4 font-black text-sm tracking-[0.5px] hover:bg-[var(--red-dark)] transition-colors flex items-center gap-2">
+              className="bg-[var(--red)] text-white px-10 py-4 font-black text-sm tracking-[0.5px] hover:bg-[var(--red-dark)] transition-colors flex items-center justify-center gap-2">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.12 2.2 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.46-.46a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
               031-430-0497 전화 문의
             </a>
             <Link href="/bulk-order"
-              className="border border-white/20 text-white px-8 py-4 font-bold text-sm hover:border-white transition-colors">
+              className="border border-white/20 text-white px-8 py-4 font-bold text-sm hover:border-white transition-colors text-center">
               단체주문 견적
             </Link>
           </div>
-          <div className="flex gap-10 justify-center mt-14 pt-10 border-t border-white/10">
+          <div className="flex flex-wrap gap-x-8 gap-y-6 md:gap-10 justify-center mt-12 md:mt-14 pt-10 border-t border-white/10">
             {[
               { label: "누적 시안", value: "12,000+" },
               { label: "재구매율", value: "87%" },
@@ -69,7 +69,7 @@ export default function EmbroideryGuidePage() {
 
       {/* ── SECTION 01: 신청 방법 / white bg ── */}
       <section className="bg-white py-16">
-        <div className="max-w-[1340px] mx-auto px-6">
+        <div className="max-w-[1340px] mx-auto px-4 md:px-6">
           <div className="text-center mb-12">
             <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[2px] mb-3">
               SECTION / 01 ─ HOW TO ORDER
@@ -87,7 +87,7 @@ export default function EmbroideryGuidePage() {
 
           <div className="mt-6 text-center">
             <a href="tel:031-430-0497"
-              className="inline-block bg-[var(--red)] text-white px-8 py-4 font-black text-sm tracking-[0.5px] hover:bg-[var(--red-dark)] transition-colors">
+              className="inline-block bg-[var(--red)] text-white px-6 md:px-8 py-4 font-black text-xs md:text-sm tracking-[0.5px] hover:bg-[var(--red-dark)] transition-colors">
               STEP 1 시작하기 — 031-430-0497 전화 문의 →
             </a>
           </div>
@@ -99,7 +99,7 @@ export default function EmbroideryGuidePage() {
 
       {/* ── SECTION 02: 가격 문의 / #111 bg ── */}
       <section className="bg-[#111] py-16">
-        <div className="max-w-[1340px] mx-auto px-6 text-center">
+        <div className="max-w-[1340px] mx-auto px-4 md:px-6 text-center">
           <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[2px] mb-3">
             SECTION / 02 ─ PRICING
           </div>
@@ -118,7 +118,7 @@ export default function EmbroideryGuidePage() {
           <div className="font-[var(--font-mono)] text-[10px] text-white/30 tracking-[1px]">
             평일 09:00 – 18:00 · 주말 / 공휴일 휴무
           </div>
-          <div className="mt-8 grid grid-cols-2 gap-3 max-w-xl mx-auto">
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl mx-auto">
             <div className="border border-white/10 px-5 py-3 flex items-center gap-3">
               <span className="font-[var(--font-mono)] text-[var(--yellow)] font-black">★</span>
               <div className="text-left">
@@ -139,7 +139,7 @@ export default function EmbroideryGuidePage() {
 
       {/* ── SECTION 03: 자수 종류 / white bg ── */}
       <section className="bg-white py-16">
-        <div className="max-w-[1340px] mx-auto px-6">
+        <div className="max-w-[1340px] mx-auto px-4 md:px-6">
           <div className="text-center mb-10">
             <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[2px] mb-3">
               SECTION / 03 ─ EMBROIDERY TYPES
@@ -148,7 +148,7 @@ export default function EmbroideryGuidePage() {
               컴퓨터 자수 <span className="text-[var(--red)]">서비스</span>
             </h2>
           </div>
-          <div className="grid grid-cols-4 gap-px bg-[#e5e5e5] border border-[#e5e5e5]">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#e5e5e5] border border-[#e5e5e5]">
             {[
               { icon: "◈", label: "01", title: "로고·엠블럼", desc: "회사 로고, 브랜드 엠블럼\n선명한 재현" },
               { icon: "◈", label: "02", title: "텍스트·이름", desc: "이름, 직책, 부서명\n한글·영문 모두 가능" },
@@ -175,7 +175,7 @@ export default function EmbroideryGuidePage() {
 
       {/* ── SECTION 05: 주의사항 / white bg ── */}
       <section className="bg-white py-16">
-        <div className="max-w-[1340px] mx-auto px-6">
+        <div className="max-w-[1340px] mx-auto px-4 md:px-6">
           <div className="text-center mb-10">
             <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[2px] mb-3">
               SECTION / 05 ─ NOTICE
@@ -184,9 +184,9 @@ export default function EmbroideryGuidePage() {
               미리 알아두시면 <span className="text-[var(--red)]">편합니다</span>
             </h2>
           </div>
-          <div className="grid grid-cols-2 gap-px bg-[#e5e5e5] border border-[#e5e5e5]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[#e5e5e5] border border-[#e5e5e5]">
             {NOTICES.map((n) => (
-              <div key={n.label} className="bg-white p-7 flex gap-5">
+              <div key={n.label} className="bg-white p-6 md:p-7 flex gap-5">
                 <div className="flex-shrink-0">
                   <span className="font-[var(--font-mono)] text-[11px] text-[var(--red)] font-bold">{n.label}</span>
                 </div>
@@ -203,9 +203,9 @@ export default function EmbroideryGuidePage() {
       {/* ── CTA / #111 bg ── */}
       <section className="bg-[#111] py-20 relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-1 bg-[var(--red)]" />
-        <div className="max-w-[900px] mx-auto px-6 text-center text-white">
+        <div className="max-w-[900px] mx-auto px-4 md:px-6 text-center text-white">
           <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[3px] mb-5">─ START NOW</div>
-          <h2 className="text-[38px] font-black tracking-tight leading-tight mb-5">
+          <h2 className="text-3xl md:text-[38px] font-black tracking-tight leading-tight mb-5">
             자수 문의는
             <br />
             <span className="text-[var(--yellow)]">전화 한 통</span>으로 시작됩니다
@@ -213,18 +213,18 @@ export default function EmbroideryGuidePage() {
           <p className="text-white/50 text-sm leading-relaxed mb-10">
             시안 제작 무료 · 무제한 수정 · 저작권 안전 보장
           </p>
-          <div className="flex gap-3 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">
             <a href="tel:031-430-0497"
-              className="bg-[var(--red)] text-white px-10 py-4 font-black text-sm tracking-[0.5px] hover:bg-[var(--red-dark)] transition-colors flex items-center gap-2">
+              className="bg-[var(--red)] text-white px-10 py-4 font-black text-sm tracking-[0.5px] hover:bg-[var(--red-dark)] transition-colors flex items-center justify-center gap-2">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.12 2.2 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.46-.46a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
               031-430-0497
             </a>
             <Link href="/bulk-order"
-              className="border border-white/20 text-white px-10 py-4 font-bold text-sm hover:border-white transition-colors">
+              className="border border-white/20 text-white px-10 py-4 font-bold text-sm hover:border-white transition-colors text-center">
               단체주문 견적
             </Link>
           </div>
-          <div className="flex gap-8 justify-center mt-10 pt-8 border-t border-white/10 font-[var(--font-mono)] text-[11px] text-white/30">
+          <div className="flex flex-wrap gap-x-6 gap-y-2 md:gap-8 justify-center mt-10 pt-8 border-t border-white/10 font-[var(--font-mono)] text-[11px] text-white/30">
             {["시안 제작 무료", "무제한 무료 수정", "저작권 안전 보장", "5~7일 빠른 납품", "배송비 별도"].map((t) => (
               <span key={t}>✓ {t}</span>
             ))}

@@ -22,10 +22,10 @@ export default async function LoginPage() {
 
   return (
     <div className="min-h-screen bg-[var(--gray-50)] flex items-center justify-center py-16 px-4">
-      <div className="w-full max-w-[1000px] grid grid-cols-[1fr_420px]">
+      <div className="w-full max-w-[1000px] grid grid-cols-1 md:grid-cols-[1fr_420px]">
         {/* 좌측: 비주얼 */}
         <div
-          className="relative flex flex-col justify-between p-[50px] text-white"
+          className="hidden md:flex relative flex-col justify-between p-[50px] text-white"
           style={{
             backgroundImage:
               "linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 100%), url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=85&auto=format&fit=crop')",
@@ -82,7 +82,7 @@ export default async function LoginPage() {
         </div>
 
         {/* 우측: 폼 */}
-        <Suspense fallback={<div className="bg-white border border-[var(--line)] border-l-0" />}>
+        <Suspense fallback={<div className="bg-white border border-[var(--line)] md:border-l-0" />}>
           <LoginForm />
         </Suspense>
       </div>

@@ -15,7 +15,7 @@ export default function SearchBar() {
   }
 
   return (
-    <div className="flex-1 relative flex items-center border border-[var(--line)] h-[46px] focus-within:border-[var(--red)] transition-colors">
+    <div className="w-full relative flex items-center border border-[var(--line)] h-[46px] focus-within:border-[var(--red)] transition-colors">
       <input
         ref={inputRef}
         type="text"

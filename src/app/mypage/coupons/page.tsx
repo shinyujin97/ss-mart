@@ -73,7 +73,7 @@ export default async function CouponsPage() {
           <div className="font-[var(--font-mono)] text-[11px] text-[var(--black)] font-bold tracking-[1px] mb-2">
             사용 가능 ({available.length}장)
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {available.map((mc) => <CouponCard key={mc.id} mc={mc} />)}
           </div>
         </div>
@@ -85,7 +85,7 @@ export default async function CouponsPage() {
           <div className="font-[var(--font-mono)] text-[11px] text-[var(--gray-500)] font-bold tracking-[1px] mb-2">
             사용 완료 ({used.length}장)
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {used.map((mc) => <CouponCard key={mc.id} mc={mc} dim />)}
           </div>
         </div>

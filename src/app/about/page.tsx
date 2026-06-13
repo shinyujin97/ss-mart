@@ -38,18 +38,18 @@ export default function AboutPage() {
     <div className="bg-white">
       {/* 히어로 */}
       <section
-        className="text-white py-24 relative overflow-hidden"
+        className="text-white py-16 md:py-24 relative overflow-hidden"
         style={{
           backgroundImage: "linear-gradient(135deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.6) 100%), url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1600&q=85')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        <div className="max-w-[1340px] mx-auto px-6">
+        <div className="max-w-[1340px] mx-auto px-4 md:px-6">
           <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[3px] mb-4">
             ABOUT US / COMPANY PROFILE
           </div>
-          <h1 className="text-[48px] font-black leading-tight tracking-tight mb-4">
+          <h1 className="text-[32px] md:text-[48px] font-black leading-tight tracking-tight mb-4">
             현장의 신뢰
             <br />
             <span className="text-[var(--red)]">에스에스종합상사</span>
@@ -61,7 +61,7 @@ export default function AboutPage() {
             <br />
             자수 / 마킹까지 한 번에 해결합니다.
           </p>
-          <div className="flex gap-10 pt-10 border-t border-white/15">
+          <div className="flex flex-wrap gap-x-8 gap-y-5 md:gap-10 pt-10 border-t border-white/15">
             {[
               { label: "창업", value: "2010" },
               { label: "입점 브랜드", value: "80+" },
@@ -69,7 +69,7 @@ export default function AboutPage() {
               { label: "자수 케이스", value: "12,000+" },
             ].map((s) => (
               <div key={s.label}>
-                <div className="font-[var(--font-display)] text-[36px] text-[var(--yellow)]">{s.value}</div>
+                <div className="font-[var(--font-display)] text-[28px] md:text-[36px] text-[var(--yellow)]">{s.value}</div>
                 <div className="font-[var(--font-mono)] text-[10px] text-white/40 tracking-[1px] mt-0.5">{s.label}</div>
               </div>
             ))}
@@ -78,17 +78,17 @@ export default function AboutPage() {
       </section>
 
       {/* 4가지 강점 */}
-      <section className="max-w-[1340px] mx-auto px-6 py-16">
+      <section className="max-w-[1340px] mx-auto px-4 md:px-6 py-16">
         <div className="mb-10">
           <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[2px] mb-2">SECTION / 01 ─ STRENGTHS</div>
-          <h2 className="text-[32px] font-black tracking-tight">왜 <span className="text-[var(--red)]">에스에스</span>인가</h2>
+          <h2 className="text-[26px] md:text-[32px] font-black tracking-tight">왜 <span className="text-[var(--red)]">에스에스</span>인가</h2>
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {STRENGTHS.map((s) => (
-            <div key={s.num} className="border border-[var(--line)] p-8 flex gap-6 hover:border-[var(--black)] transition-colors">
-              <div className="font-[var(--font-display)] text-[56px] text-[var(--gray-100)] leading-none flex-shrink-0">{s.num}</div>
-              <div>
-                <div className="flex items-baseline gap-3 mb-2">
+            <div key={s.num} className="border border-[var(--line)] p-6 md:p-8 flex gap-4 md:gap-6 hover:border-[var(--black)] transition-colors">
+              <div className="font-[var(--font-display)] text-[44px] md:text-[56px] text-[var(--gray-100)] leading-none flex-shrink-0">{s.num}</div>
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
                   <h3 className="text-lg font-black">{s.title}</h3>
                   <span className="font-[var(--font-display)] text-2xl text-[var(--red)]">{s.stat}</span>
                 </div>
@@ -101,16 +101,16 @@ export default function AboutPage() {
 
       {/* 연혁 */}
       <section className="bg-[var(--gray-50)] py-16">
-        <div className="max-w-[1340px] mx-auto px-6">
+        <div className="max-w-[1340px] mx-auto px-4 md:px-6">
           <div className="mb-10">
             <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[2px] mb-2">SECTION / 02 ─ HISTORY</div>
-            <h2 className="text-[32px] font-black tracking-tight">회사 <span className="text-[var(--red)]">연혁</span></h2>
+            <h2 className="text-[26px] md:text-[32px] font-black tracking-tight">회사 <span className="text-[var(--red)]">연혁</span></h2>
           </div>
           <div className="space-y-0">
             {HISTORY.map((h, i) => (
-              <div key={h.year} className={`grid grid-cols-[120px_1fr] border-l-2 ${i === HISTORY.length - 1 ? "border-[var(--red)]" : "border-[var(--line)]"} pl-6 pb-8`}>
+              <div key={h.year} className={`grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr] border-l-2 ${i === HISTORY.length - 1 ? "border-[var(--red)]" : "border-[var(--line)]"} pl-4 md:pl-6 pb-8`}>
                 <div>
-                  <span className="font-[var(--font-display)] text-2xl text-[var(--red)]">{h.year}</span>
+                  <span className="font-[var(--font-display)] text-xl md:text-2xl text-[var(--red)]">{h.year}</span>
                 </div>
                 <div>
                   <div className="font-bold mb-1">{h.title}</div>
@@ -124,15 +124,15 @@ export default function AboutPage() {
 
       {/* 회사 정보 */}
       <section className="bg-[var(--black)] text-white py-16">
-        <div className="max-w-[1340px] mx-auto px-6">
+        <div className="max-w-[1340px] mx-auto px-4 md:px-6">
           <div className="mb-10">
             <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[2px] mb-2">SECTION / 03 ─ INFO</div>
-            <h2 className="text-[32px] font-black tracking-tight text-white">회사 <span className="text-[var(--yellow)]">정보</span></h2>
+            <h2 className="text-[26px] md:text-[32px] font-black tracking-tight text-white">회사 <span className="text-[var(--yellow)]">정보</span></h2>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-3">
             {INFO_ITEMS.map((item) => (
               <div key={item.label} className="flex border-b border-[#333] py-3.5">
-                <span className="w-40 font-[var(--font-mono)] text-[11px] text-white/40 tracking-[0.5px] flex-shrink-0">{item.label}</span>
+                <span className="w-28 md:w-40 font-[var(--font-mono)] text-[11px] text-white/40 tracking-[0.5px] flex-shrink-0">{item.label}</span>
                 <span className="text-sm text-white/80">{item.value}</span>
               </div>
             ))}
@@ -142,13 +142,13 @@ export default function AboutPage() {
 
       {/* CTA */}
       <section className="bg-[var(--gray-50)] py-16">
-        <div className="max-w-[900px] mx-auto px-6 text-center">
+        <div className="max-w-[900px] mx-auto px-4 md:px-6 text-center">
           <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[3px] mb-4">─ CONTACT US</div>
-          <h2 className="text-[32px] font-black tracking-tight mb-4">함께 일하고 싶으신가요?</h2>
+          <h2 className="text-[26px] md:text-[32px] font-black tracking-tight mb-4">함께 일하고 싶으신가요?</h2>
           <p className="text-sm text-[var(--gray-600)] leading-relaxed mb-8">
             단체주문 견적부터 자수 상담까지 전담 매니저가 도와드립니다.
           </p>
-          <div className="flex gap-3 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/bulk-order" className="bg-[var(--red)] text-white px-8 py-4 font-black text-sm hover:bg-[var(--red-dark)] transition-colors">
               단체주문 견적 →
             </Link>

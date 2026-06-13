@@ -19,12 +19,9 @@ const CATEGORY_LIST = [
 export default async function HeroSection() {
 
   return (
-    <section
-      className="max-w-[1340px] mx-auto pl-6"
-      style={{ display: "grid", gridTemplateColumns: "200px 1fr 214px", gap: 0, height: 480 }}
-    >
-      {/* 좌측: 카테고리 리스트 */}
-      <div className="bg-white border-r border-[var(--line)] overflow-y-auto">
+    <section className="max-w-[1340px] mx-auto px-4 md:pl-6 md:pr-0 md:grid md:h-[480px] flex flex-col gap-4 md:gap-0 md:[grid-template-columns:200px_1fr_214px]">
+      {/* 좌측: 카테고리 리스트 (데스크톱 전용) */}
+      <div className="hidden md:block bg-white border-r border-[var(--line)] overflow-y-auto">
         <div className="bg-[var(--black)] text-white px-4 py-3 font-[var(--font-mono)] text-[11px] tracking-[1px] font-semibold flex items-center gap-2">
           ▣ CATEGORY
         </div>
@@ -48,10 +45,10 @@ export default async function HeroSection() {
       <HeroSlider />
 
       {/* 우측 사이드 배너 */}
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col gap-4 md:gap-0 md:h-full">
         <Link
           href="/embroidery"
-          className="flex-1 flex flex-col justify-end p-6 text-white relative overflow-hidden hover:-translate-y-0.5 transition-transform"
+          className="min-h-[160px] flex-1 flex flex-col justify-end p-6 text-white relative overflow-hidden hover:-translate-y-0.5 transition-transform"
           style={{ background: "linear-gradient(135deg, rgba(200,22,29,0.9), rgba(156,14,21,0.98))" }}
         >
           <div className="font-[var(--font-mono)] text-[10px] text-white/70 tracking-[1.5px] mb-2.5 font-semibold">
@@ -71,7 +68,7 @@ export default async function HeroSection() {
         </Link>
         <Link
           href="/bulk-order"
-          className="flex-1 flex flex-col justify-end p-6 text-white relative overflow-hidden hover:-translate-y-0.5 transition-transform"
+          className="min-h-[160px] flex-1 flex flex-col justify-end p-6 text-white relative overflow-hidden hover:-translate-y-0.5 transition-transform"
           style={{ background: "linear-gradient(135deg, rgba(26,26,26,0.95), rgba(0,0,0,0.98))" }}
         >
           <div className="font-[var(--font-mono)] text-[10px] text-[var(--yellow)] tracking-[1.5px] mb-2.5 font-semibold">

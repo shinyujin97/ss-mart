@@ -53,7 +53,7 @@ export default function SupportTabs() {
   return (
     <div>
       {/* 탭 */}
-      <div className="flex border-b-2 border-[var(--black)] mb-6">
+      <div className="flex border-b-2 border-[var(--black)] mb-6 overflow-x-auto">
         {([
           { key: "notice", label: "공지사항" },
           { key: "faq",    label: "자주 묻는 질문 (FAQ)" },
@@ -62,7 +62,7 @@ export default function SupportTabs() {
           <button
             key={t.key}
             onClick={() => setTab(t.key)}
-            className={`px-6 py-3.5 text-sm font-bold relative transition-colors ${
+            className={`px-4 md:px-6 py-3.5 text-sm font-bold relative transition-colors whitespace-nowrap flex-shrink-0 ${
               tab === t.key ? "text-[var(--black)]" : "text-[var(--gray-500)] hover:text-[var(--black)]"
             }`}
           >
@@ -75,20 +75,24 @@ export default function SupportTabs() {
       {/* 공지사항 */}
       {tab === "notice" && (
         <div className="border border-[var(--line)] bg-white">
-          <div className="grid grid-cols-[60px_80px_1fr_100px_80px] font-[var(--font-mono)] text-[10px] text-[var(--gray-500)] tracking-[0.5px] px-5 py-3 bg-[var(--gray-50)] border-b border-[var(--line)]">
+          <div className="hidden md:grid grid-cols-[60px_80px_1fr_100px_80px] font-[var(--font-mono)] text-[10px] text-[var(--gray-500)] tracking-[0.5px] px-5 py-3 bg-[var(--gray-50)] border-b border-[var(--line)]">
             <div>번호</div><div>분류</div><div>제목</div><div className="text-center">날짜</div><div className="text-center">조회</div>
           </div>
           {NOTICES.map((n) => (
-            <div key={n.id} className={`grid grid-cols-[60px_80px_1fr_100px_80px] items-center px-5 py-4 border-b border-[var(--line)] last:border-b-0 hover:bg-[var(--gray-50)] cursor-pointer ${n.pinned ? "bg-[#fffef5]" : ""}`}>
-              <div className="font-[var(--font-mono)] text-[11px] text-[var(--gray-400)]">
-                {n.pinned ? <span className="text-[var(--red)] font-bold">고정</span> : n.id}
-              </div>
-              <div>
-                <span className="font-[var(--font-mono)] text-[10px] border border-[var(--gray-300)] px-1.5 py-0.5 text-[var(--gray-600)]">{n.category}</span>
+            <div key={n.id} className={`flex flex-col gap-2 md:grid md:grid-cols-[60px_80px_1fr_100px_80px] md:items-center px-4 md:px-5 py-4 border-b border-[var(--line)] last:border-b-0 hover:bg-[var(--gray-50)] cursor-pointer ${n.pinned ? "bg-[#fffef5]" : ""}`}>
+              <div className="flex items-center gap-2 md:contents">
+                <div className="font-[var(--font-mono)] text-[11px] text-[var(--gray-400)]">
+                  {n.pinned ? <span className="text-[var(--red)] font-bold">고정</span> : n.id}
+                </div>
+                <div>
+                  <span className="font-[var(--font-mono)] text-[10px] border border-[var(--gray-300)] px-1.5 py-0.5 text-[var(--gray-600)]">{n.category}</span>
+                </div>
               </div>
               <div className="text-sm font-semibold hover:text-[var(--red)]">{n.title}</div>
-              <div className="font-[var(--font-mono)] text-[11px] text-[var(--gray-500)] text-center">{n.date}</div>
-              <div className="font-[var(--font-mono)] text-[11px] text-[var(--gray-500)] text-center">{n.views.toLocaleString()}</div>
+              <div className="flex items-center gap-3 md:contents font-[var(--font-mono)] text-[11px] text-[var(--gray-500)]">
+                <div className="md:text-center">{n.date}</div>
+                <div className="md:text-center"><span className="md:hidden">조회 </span>{n.views.toLocaleString()}</div>
+              </div>
             </div>
           ))}
         </div>
@@ -111,16 +115,16 @@ export default function SupportTabs() {
                   <div key={i} className="border-b border-[var(--line)] last:border-b-0">
                     <button
                       onClick={() => setOpenFaq(open ? null : key)}
-                      className="w-full flex items-center justify-between px-6 py-4 hover:bg-[var(--gray-50)] text-left transition-colors"
+                      className="w-full flex items-center justify-between px-4 md:px-6 py-4 hover:bg-[var(--gray-50)] text-left transition-colors"
                     >
-                      <span className="text-sm font-semibold flex items-center gap-2">
+                      <span className="text-sm font-semibold flex items-start gap-2">
                         <span className="font-[var(--font-mono)] text-[var(--red)] font-bold">Q.</span>
                         {item.q}
                       </span>
                       <span className="text-[var(--gray-400)] font-[var(--font-mono)] text-sm ml-4 flex-shrink-0">{open ? "−" : "+"}</span>
                     </button>
                     {open && (
-                      <div className="px-6 pb-5 pt-1">
+                      <div className="px-4 md:px-6 pb-5 pt-1">
                         <div className="flex gap-2 text-sm text-[var(--gray-700)] leading-relaxed">
                           <span className="font-[var(--font-mono)] text-[var(--black)] font-bold flex-shrink-0">A.</span>
                           {item.a}
@@ -137,14 +141,14 @@ export default function SupportTabs() {
 
       {/* 1:1 문의 */}
       {tab === "inquiry" && (
-        <div className="border border-[var(--line)] bg-white p-8">
+        <div className="border border-[var(--line)] bg-white p-5 md:p-8">
           <h3 className="text-lg font-black mb-6">1:1 문의 작성</h3>
           <div className="space-y-4 max-w-2xl">
             {[
               { label: "문의 유형", type: "select", options: ["배송 문의", "교환/반품", "자수/마킹", "단체주문", "계정/결제", "기타"] },
               { label: "제목", type: "text", placeholder: "문의 제목을 입력하세요" },
             ].map((f) => (
-              <div key={f.label} className="grid grid-cols-[120px_1fr] gap-3 items-center">
+              <div key={f.label} className="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-1.5 md:gap-3 md:items-center">
                 <label className="text-xs font-semibold text-[var(--gray-700)]">{f.label} *</label>
                 {f.type === "select" ? (
                   <select className="px-3 py-2.5 border border-[var(--line)] text-sm outline-none focus:border-[var(--black)] bg-white w-full">
@@ -155,9 +159,9 @@ export default function SupportTabs() {
                 )}
               </div>
             ))}
-            <div className="grid grid-cols-[120px_1fr] gap-3">
-              <label className="text-xs font-semibold text-[var(--gray-700)] pt-2">내용 *</label>
-              <textarea rows={6} placeholder="문의 내용을 자세히 입력해 주세요" className="px-3 py-3 border border-[var(--line)] text-sm outline-none focus:border-[var(--black)] resize-none leading-relaxed" />
+            <div className="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-1.5 md:gap-3">
+              <label className="text-xs font-semibold text-[var(--gray-700)] md:pt-2">내용 *</label>
+              <textarea rows={6} placeholder="문의 내용을 자세히 입력해 주세요" className="w-full px-3 py-3 border border-[var(--line)] text-sm outline-none focus:border-[var(--black)] resize-none leading-relaxed" />
             </div>
             <div className="flex justify-end">
               <button className="bg-[var(--red)] text-white px-8 py-3.5 font-bold text-sm hover:bg-[var(--red-dark)] transition-colors">

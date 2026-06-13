@@ -4,7 +4,7 @@ export const metadata: Metadata = { title: "이용약관 | 에스에스종합상
 
 export default function TermsPage() {
   return (
-    <div className="max-w-[800px] mx-auto px-6 py-12">
+    <div className="max-w-[800px] mx-auto px-4 md:px-6 py-12">
       <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[2px] mb-2">LEGAL</div>
       <h1 className="text-2xl font-black mb-8">이용약관</h1>
       <div className="prose prose-sm max-w-none space-y-6 text-sm text-[var(--gray-700)] leading-relaxed">

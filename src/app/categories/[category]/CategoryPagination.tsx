@@ -12,7 +12,7 @@ interface Props {
 
 function ProductSkeleton() {
   return (
-    <div className="grid grid-cols-4 gap-5">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
       {Array.from({ length: 8 }).map((_, i) => (
         <div key={i} className="bg-white border border-[var(--line)]">
           <div className="aspect-square bg-[var(--gray-100)] animate-pulse" />
@@ -58,7 +58,7 @@ export default function CategoryPagination({ children, page, totalPages, pageNum
 
       {/* 페이지네이션 */}
       {totalPages > 1 && (
-        <div className="flex justify-center items-center gap-1 mt-10">
+        <div className="flex flex-wrap justify-center items-center gap-1 mt-10">
           <button onClick={() => navigate(1)} disabled={page <= 1} className={page > 1 ? btnActive : btnDisabled}>{"<<"}</button>
           <button onClick={() => navigate(page - 1)} disabled={page <= 1} className={page > 1 ? btnActive : btnDisabled}>{"<"}</button>
           {pageNumbers.map((p) => (

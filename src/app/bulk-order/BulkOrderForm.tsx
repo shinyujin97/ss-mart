@@ -95,8 +95,8 @@ export default function BulkOrderForm() {
   // 접수 완료 화면
   if (submitted) {
     return (
-      <div className="bg-white border border-[var(--line)] p-16 text-center">
-        <div className="font-[var(--font-display)] text-[80px] text-[var(--gray-100)] leading-none mb-6">DONE</div>
+      <div className="bg-white border border-[var(--line)] p-8 md:p-16 text-center">
+        <div className="font-[var(--font-display)] text-[56px] md:text-[80px] text-[var(--gray-100)] leading-none mb-6">DONE</div>
         <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[3px] mb-3">
           ─ QUOTE REQUEST COMPLETE
         </div>
@@ -126,7 +126,7 @@ export default function BulkOrderForm() {
   );
 
   const InputRow = ({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) => (
-    <div className="grid grid-cols-[140px_1fr] gap-3.5 items-center py-1.5">
+    <div className="grid grid-cols-1 md:grid-cols-[140px_1fr] gap-1.5 md:gap-3.5 md:items-center py-1.5">
       <label className="text-xs font-semibold text-[var(--gray-700)]">
         {label} {required && <span className="text-[var(--red)]">*</span>}
       </label>
@@ -139,7 +139,7 @@ export default function BulkOrderForm() {
       {/* SECTION 01: 회사 정보 */}
       <div className="border border-[var(--line)]">
         <SectionHeader num="01 / COMPANY" title="회사 / 담당자 정보" />
-        <div className="p-6 space-y-1">
+        <div className="p-4 md:p-6 space-y-1">
           {[
             { key: "companyName", label: "회사명", value: companyName, setter: setCompanyName, required: true, placeholder: "회사명 입력" },
             { key: "businessNumber", label: "사업자등록번호", value: businessNumber, setter: setBusinessNumber, placeholder: "000-00-00000 (선택)" },
@@ -164,8 +164,8 @@ export default function BulkOrderForm() {
       {/* SECTION 02: 카테고리 */}
       <div className="border border-[var(--line)]">
         <SectionHeader num="02 / CATEGORY" title="필요 카테고리 (복수 선택)" />
-        <div className="p-6">
-          <div className="grid grid-cols-4 gap-2">
+        <div className="p-4 md:p-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             {CATEGORY_OPTIONS.map((cat) => (
               <button
                 key={cat.value}
@@ -192,8 +192,8 @@ export default function BulkOrderForm() {
       {/* SECTION 03: 사이즈별 수량 */}
       <div className="border border-[var(--line)]">
         <SectionHeader num="03 / QUANTITY" title="사이즈별 수량 입력" />
-        <div className="p-6">
-          <div className="grid grid-cols-7 gap-2">
+        <div className="p-4 md:p-6">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-2">
             {SIZES.map((s) => (
               <div key={s} className="border border-[var(--line)] p-3 text-center">
                 <div className="font-[var(--font-mono)] text-[11px] text-[var(--gray-700)] tracking-[0.5px] mb-2 font-bold">{s}</div>
@@ -215,7 +215,7 @@ export default function BulkOrderForm() {
 
           {/* 할인율 표시 */}
           {totalQty > 0 && (
-            <div className={`mt-3 px-4 py-3 font-[var(--font-mono)] text-sm font-bold flex items-center gap-3 ${
+            <div className={`mt-3 px-4 py-3 font-[var(--font-mono)] text-sm font-bold flex flex-wrap items-center gap-x-3 gap-y-1 ${
               discountRate > 0 ? "bg-[var(--red)]/5 border border-[var(--red)]/30 text-[var(--red)]" : "bg-[var(--gray-50)] border border-[var(--line)] text-[var(--gray-500)]"
             }`}>
               {discountRate > 0 ? (
@@ -235,7 +235,7 @@ export default function BulkOrderForm() {
       {/* SECTION 04: 자수 옵션 */}
       <div className="border border-[var(--line)]">
         <SectionHeader num="04 / EMBROIDERY" title="자수 / 마킹 옵션" />
-        <div className="p-6">
+        <div className="p-4 md:p-6">
           <div className="grid grid-cols-3 gap-2 mb-5">
             {(["YES", "NO", "CONSULT"] as EmbroideryOption[]).map((opt, i) => (
               <button
@@ -257,7 +257,7 @@ export default function BulkOrderForm() {
           </div>
 
           {embOption === "YES" && (
-            <div className="space-y-3 border border-[var(--line)] p-5 bg-[var(--gray-50)]">
+            <div className="space-y-3 border border-[var(--line)] p-4 md:p-5 bg-[var(--gray-50)]">
               <InputRow label="자수 종류">
                 <select value={embType} onChange={(e) => setEmbType(e.target.value)} className="px-3 py-2.5 border border-[var(--line)] text-sm outline-none focus:border-[var(--black)] w-full bg-white">
                   <option value="">선택하세요</option>
@@ -290,7 +290,7 @@ export default function BulkOrderForm() {
       {/* SECTION 05: 일정 / 예산 */}
       <div className="border border-[var(--line)]">
         <SectionHeader num="05 / SCHEDULE" title="일정 / 예산 / 결제 방식" />
-        <div className="p-6 space-y-1">
+        <div className="p-4 md:p-6 space-y-1">
           <InputRow label="희망 납기일">
             <input type="date" value={desiredDate} onChange={(e) => setDesiredDate(e.target.value)} className="px-3 py-2.5 border border-[var(--line)] text-sm outline-none focus:border-[var(--black)] w-full" />
           </InputRow>
@@ -315,7 +315,7 @@ export default function BulkOrderForm() {
       {/* SECTION 06: 추가 요청 */}
       <div className="border border-[var(--line)]">
         <SectionHeader num="06 / NOTES" title="추가 요청사항 (선택)" />
-        <div className="p-6">
+        <div className="p-4 md:p-6">
           <textarea
             value={notes}
             onChange={(e) => setNotes(e.target.value)}

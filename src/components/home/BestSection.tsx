@@ -92,7 +92,7 @@ export default async function BestSection() {
   }));
 
   return (
-    <section className="max-w-[1340px] mx-auto px-6 my-14">
+    <section className="max-w-[1340px] mx-auto px-4 md:px-6 my-10 md:my-14">
       {/* 섹션 헤더 */}
       <div className="flex items-end justify-between mb-5 pb-3.5 border-b-2 border-[var(--black)]">
         <div className="flex items-end gap-[18px]">

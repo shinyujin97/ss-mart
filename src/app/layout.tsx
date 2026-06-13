@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Noto_Sans_KR, IBM_Plex_Mono, Bebas_Neue } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Navigation from "@/components/layout/Navigation";
@@ -26,6 +26,11 @@ const bebasNeue = Bebas_Neue({
 });
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ssmart.kr";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),

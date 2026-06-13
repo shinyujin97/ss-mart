@@ -12,7 +12,7 @@ export default async function SignupPage() {
 
   return (
     <div className="bg-[var(--gray-50)] py-10">
-      <div className="max-w-[900px] mx-auto px-6 mb-8">
+      <div className="max-w-[900px] mx-auto px-4 md:px-6 mb-8">
         <div className="font-[var(--font-mono)] text-[11px] text-[var(--gray-500)] tracking-[2px] mb-2">
           MEMBERSHIP / REGISTER
         </div>

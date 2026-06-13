@@ -118,7 +118,7 @@ export default function DesignMockup({ position, text, imageUrl }: Props) {
   const primaryView = POSITION_VIEW[position] ?? "front";
 
   return (
-    <div className="flex gap-1 bg-[#f8f8f8] p-1.5">
+    <div className="grid grid-cols-2 sm:flex gap-1 bg-[#f8f8f8] p-1.5">
       {/* 앞면 */}
       <MockupPanel
         photoUrl={PHOTOS.front_male}

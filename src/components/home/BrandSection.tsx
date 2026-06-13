@@ -14,7 +14,7 @@ export default async function BrandSection() {
   const total = await prisma.brand.count({ where: { isActive: true, slug: { not: "etc-brand" } } });
 
   return (
-    <section className="max-w-[1340px] mx-auto px-6 my-14">
+    <section className="max-w-[1340px] mx-auto px-4 md:px-6 my-10 md:my-14">
       <div className="flex items-end justify-between mb-5 pb-3.5 border-b-2 border-[var(--black)]">
         <div className="flex items-end gap-[18px]">
           <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[2px] pb-1">
@@ -35,7 +35,7 @@ export default async function BrandSection() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-5 border-l border-t border-[var(--line)]">
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 border-l border-t border-[var(--line)]">
         {brands.map((b) => (
           <div
             key={b.slug}

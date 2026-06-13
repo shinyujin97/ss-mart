@@ -62,9 +62,9 @@ export default function MypageSidebar({ counts }: Props) {
   }
 
   return (
-    <aside className="sticky top-6">
+    <aside className="md:sticky md:top-6 flex md:block gap-2 overflow-x-auto md:overflow-visible -mx-4 px-4 md:mx-0 md:px-0 pb-1 md:pb-0">
       {MENU_GROUPS.map((group) => (
-        <div key={group.label} className="border border-[var(--line)] bg-white mb-2">
+        <div key={group.label} className="border border-[var(--line)] bg-white mb-0 md:mb-2 shrink-0 w-[200px] md:w-auto">
           <div className="bg-[var(--black)] text-white px-4 py-3 font-[var(--font-mono)] text-[10px] tracking-[1.5px] font-semibold flex items-center gap-2">
             <span className="text-[var(--yellow)]">▣</span>
             {group.label}

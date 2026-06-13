@@ -43,7 +43,8 @@ export default function ProcessSteps() {
   }, [visible]);
 
   return (
-    <div ref={ref} className="relative">
+    <div className="overflow-x-auto md:overflow-visible -mx-4 px-4 md:mx-0 md:px-0">
+    <div ref={ref} className="relative min-w-[760px] md:min-w-0">
 
       {/* 상단 진행 라인 */}
       <div className="absolute top-0 left-0 right-0 h-[3px] bg-[#f0f0f0] z-10" />
@@ -109,6 +110,7 @@ export default function ProcessSteps() {
           );
         })}
       </div>
+    </div>
     </div>
   );
 }

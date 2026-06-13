@@ -111,7 +111,7 @@ export default function LoginForm() {
 
   return (
     <>
-      <div className="login-form-wrapper bg-white border border-[var(--line)] border-l-0 p-[50px] flex flex-col">
+      <div className="login-form-wrapper bg-white border border-[var(--line)] md:border-l-0 p-6 sm:p-8 md:p-[50px] flex flex-col">
         {/* 회원가입 완료 배너 */}
         {justRegistered && (
           <div className="bg-[#111] text-white px-4 py-3 mb-5 flex items-center gap-3">
@@ -244,8 +244,8 @@ export default function LoginForm() {
 
       {/* 아이디 찾기 모달 */}
       {modal === "findEmail" && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white border border-[#e5e5e5] shadow-xl w-[400px]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white border border-[#e5e5e5] shadow-xl w-full max-w-[400px]">
             <div className="flex items-center justify-between px-6 pt-5 pb-1">
               <div>
                 <div className="font-[var(--font-mono)] text-[10px] tracking-[2px] text-[#aaa]">FIND / ID</div>
@@ -315,8 +315,8 @@ export default function LoginForm() {
 
       {/* 비밀번호 찾기 모달 */}
       {modal === "findPassword" && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white border border-[#e5e5e5] shadow-xl w-[400px]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white border border-[#e5e5e5] shadow-xl w-full max-w-[400px]">
             <div className="flex items-center justify-between px-6 pt-5 pb-1">
               <div>
                 <div className="font-[var(--font-mono)] text-[10px] tracking-[2px] text-[#aaa]">FIND / PASSWORD</div>

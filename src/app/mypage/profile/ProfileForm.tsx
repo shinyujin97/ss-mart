@@ -29,7 +29,7 @@ export default function ProfileForm({ member }: Props) {
   }
 
   const InputRow = ({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) => (
-    <div className="grid grid-cols-[140px_1fr] gap-3.5 items-center py-2 border-b border-[var(--line)] last:border-b-0">
+    <div className="grid grid-cols-1 md:grid-cols-[140px_1fr] gap-1.5 md:gap-3.5 md:items-center py-2.5 md:py-2 border-b border-[var(--line)] last:border-b-0">
       <label className="text-xs font-semibold text-[var(--gray-700)]">
         {label} {required && <span className="text-[var(--red)]">*</span>}
       </label>

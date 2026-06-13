@@ -31,12 +31,12 @@ export default function BulkOrderPage() {
           backgroundPosition: "center",
         }}
       >
-        <div className="max-w-[1340px] mx-auto px-6">
+        <div className="max-w-[1340px] mx-auto px-4 md:px-6">
           <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[3px] mb-3 flex items-center gap-3">
             <span className="w-7 h-px bg-[var(--red)]" />
             BULK ORDER / B2B QUOTE
           </div>
-          <h1 className="text-[44px] font-black leading-tight tracking-tight mb-4">
+          <h1 className="text-[30px] md:text-[44px] font-black leading-tight tracking-tight mb-4">
             단체주문 견적 신청
             <br />
             <span className="text-[var(--yellow)]">최대 30% 할인</span>
@@ -47,7 +47,7 @@ export default function BulkOrderPage() {
             전담 매니저 1:1 배정 · 세금계산서 자동 발행
           </p>
           {/* 통계 */}
-          <div className="flex gap-8">
+          <div className="flex flex-wrap gap-x-8 gap-y-4">
             {[
               { label: "누적 단체주문", value: "3,200+" },
               { label: "최대 할인율", value: "30%" },
@@ -64,13 +64,13 @@ export default function BulkOrderPage() {
       </section>
 
       {/* 메인 콘텐츠 */}
-      <div className="max-w-[1340px] mx-auto px-6 py-8">
-        <div className="grid grid-cols-[1fr_300px] gap-6 items-start">
+      <div className="max-w-[1340px] mx-auto px-4 md:px-6 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_300px] gap-6 items-start">
           {/* 폼 */}
           <BulkOrderForm />
 
           {/* 사이드바 */}
-          <div className="sticky top-6 space-y-3">
+          <div className="md:sticky md:top-6 space-y-3">
             {/* 진행 단계 */}
             <div className="border border-[var(--line)] bg-white">
               <div className="bg-[var(--black)] text-white px-5 py-3.5">

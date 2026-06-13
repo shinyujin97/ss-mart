@@ -18,9 +18,9 @@ export default function HomePage() {
 
       {/* INFO BAR */}
       <div className="bg-[var(--black)] border-t border-[#333] mt-2">
-        <div className="max-w-[1340px] mx-auto px-6 grid grid-cols-4 divide-x divide-[#333]">
+        <div className="max-w-[1340px] mx-auto px-4 md:px-6 grid grid-cols-2 md:grid-cols-4 divide-x divide-[#333]">
           {INFO_BAR.map((item) => (
-            <div key={item.num} className="px-6 py-5">
+            <div key={item.num} className="px-4 md:px-6 py-5">
               <div className="font-[var(--font-mono)] text-[10px] text-white/40 tracking-[1px] mb-0.5">
                 {item.num}
               </div>

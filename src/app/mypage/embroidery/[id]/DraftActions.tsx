@@ -52,8 +52,8 @@ export default function DraftActions({ designId, canRequest }: Props) {
       </div>
 
       {showConfirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white border border-[#e5e5e5] shadow-xl w-[380px]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white border border-[#e5e5e5] shadow-xl w-full max-w-[380px]">
             <div className="px-6 pt-5 pb-1">
               <div className="font-[var(--font-mono)] text-[10px] tracking-[2px] text-[#aaa]">견적 요청 확인</div>
               <h3 className="text-base font-black text-[#111] mt-1">이 시안으로 견적을 요청하시겠습니까?</h3>

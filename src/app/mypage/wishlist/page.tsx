@@ -40,7 +40,7 @@ export default async function WishlistPage() {
           </Link>
         </div>
       ) : (
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {wishlist.map(({ product }) => {
             const imageUrl = product.images[0]?.url ?? `https://placehold.co/400x400/f4f4f4/8a8a8a?text=${encodeURIComponent(product.name)}`;
 

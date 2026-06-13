@@ -22,27 +22,27 @@ export default async function BrandsPage() {
     <div className="bg-[var(--gray-50)] min-h-screen">
       {/* 브레드크럼 */}
       <div className="bg-white border-b border-[var(--line)]">
-        <div className="max-w-[1340px] mx-auto px-6 py-3 flex items-center gap-2 font-[var(--font-mono)] text-[11px] text-[var(--gray-500)]">
+        <div className="max-w-[1340px] mx-auto px-4 md:px-6 py-3 flex items-center gap-2 font-[var(--font-mono)] text-[11px] text-[var(--gray-500)]">
           <Link href="/" className="hover:text-[var(--red)]">HOME</Link>
           <span>/</span>
           <span className="text-[var(--black)] font-semibold">브랜드관</span>
         </div>
       </div>
 
-      <div className="max-w-[1340px] mx-auto px-6 py-8">
+      <div className="max-w-[1340px] mx-auto px-4 md:px-6 py-8">
         {/* 타이틀 */}
         <div className="mb-8">
           <div className="font-[var(--font-mono)] text-[10px] text-[var(--red)] tracking-[2px] mb-2 font-semibold">
             BRAND / {String(activeBrands.length).padStart(2, "0")}
           </div>
-          <h1 className="text-[28px] font-black text-[var(--black)] tracking-tight">브랜드관</h1>
+          <h1 className="text-[22px] md:text-[28px] font-black text-[var(--black)] tracking-tight">브랜드관</h1>
           <p className="text-sm text-[var(--gray-500)] mt-1">
             총 {activeBrands.length}개 브랜드 · {activeBrands.reduce((s, b) => s + b._count.products, 0).toLocaleString()}개 상품
           </p>
         </div>
 
         {/* 입점 브랜드 그리드 */}
-        <div className="grid grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
           {activeBrands.map((brand) => (
             <Link
               key={brand.slug}

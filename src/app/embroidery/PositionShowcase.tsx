@@ -140,7 +140,7 @@ export default function PositionShowcase() {
 
   return (
     <section className="bg-[#f4f4f4] py-16">
-      <div className="max-w-[1340px] mx-auto px-6">
+      <div className="max-w-[1340px] mx-auto px-4 md:px-6">
 
         {/* 헤더 */}
         <div className="text-center mb-12">
@@ -156,7 +156,7 @@ export default function PositionShowcase() {
         </div>
 
         {/* 셔츠 + 선택 정보 */}
-        <div className="grid grid-cols-[1fr_260px_1fr] gap-5 items-start mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_260px_1fr] gap-5 items-start mb-8 max-w-[440px] md:max-w-none mx-auto">
 
           {/* 앞면 */}
           <ShirtSVG side="front" activeKey={activeKey} onHover={setActiveKey} />
@@ -228,7 +228,7 @@ export default function PositionShowcase() {
         {/* CTA */}
         <div className="text-center">
           <a href="tel:031-430-0497"
-            className="inline-block border-2 border-[#111] text-[#111] px-8 py-3.5 font-black text-sm hover:bg-[#111] hover:text-white transition-colors">
+            className="inline-block border-2 border-[#111] text-[#111] px-6 md:px-8 py-3.5 font-black text-xs md:text-sm hover:bg-[#111] hover:text-white transition-colors">
             자수 위치 · 종류 문의 031-430-0497 →
           </a>
         </div>

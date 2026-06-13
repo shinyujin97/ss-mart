@@ -50,7 +50,7 @@ export default async function BestPage() {
     <div className="bg-[var(--gray-50)] min-h-screen">
       {/* 헤더 */}
       <div className="bg-white border-b border-[var(--line)]">
-        <div className="max-w-[1340px] mx-auto px-6 py-3 flex items-center gap-2 font-[var(--font-mono)] text-[11px] text-[var(--gray-500)]">
+        <div className="max-w-[1340px] mx-auto px-4 md:px-6 py-3 flex items-center gap-2 font-[var(--font-mono)] text-[11px] text-[var(--gray-500)]">
           <Link href="/" className="hover:text-[var(--red)]">HOME</Link>
           <span>/</span>
           <span className="text-[var(--black)] font-semibold">베스트</span>
@@ -59,14 +59,14 @@ export default async function BestPage() {
 
       {/* 타이틀 */}
       <div className="bg-white border-b border-[var(--line)]">
-        <div className="max-w-[1340px] mx-auto px-6 py-8">
+        <div className="max-w-[1340px] mx-auto px-4 md:px-6 py-8">
           <div className="font-[var(--font-mono)] text-[10px] text-[var(--red)] tracking-[2px] mb-2">BEST ITEMS</div>
-          <h1 className="text-[28px] font-black tracking-tight">카테고리별 베스트</h1>
+          <h1 className="text-[22px] md:text-[28px] font-black tracking-tight">카테고리별 베스트</h1>
           <p className="text-sm text-[var(--gray-500)] mt-1">각 카테고리 인기 상품 모음</p>
         </div>
       </div>
 
-      <div className="max-w-[1340px] mx-auto px-6 py-10 space-y-14">
+      <div className="max-w-[1340px] mx-auto px-4 md:px-6 py-10 space-y-14">
         {validSections.map((section) => (
           <div key={section.slug}>
             {/* 섹션 헤더 */}
@@ -81,7 +81,7 @@ export default async function BestPage() {
             </div>
 
             {/* 상품 그리드 */}
-            <div className="grid grid-cols-4 gap-5">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
               {section.products.map((p) => (
                 <ProductCard
                   key={p.id}

@@ -52,15 +52,16 @@ export default async function MypageLayout({ children }: { children: React.React
     <div className="bg-[var(--gray-50)] min-h-screen">
       {/* 유저 히어로 */}
       <section className="bg-[var(--black)] text-white">
-        <div className="max-w-[1340px] mx-auto px-6 py-8">
-          <div className="flex items-center gap-8">
+        <div className="max-w-[1340px] mx-auto px-4 md:px-6 py-8">
+          <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-8">
+            <div className="flex items-center gap-4 md:gap-8 md:flex-1">
             {/* 아바타 */}
             <div className="w-16 h-16 bg-[var(--red)] flex items-center justify-center text-2xl font-black flex-shrink-0">
               {initial}
             </div>
 
             {/* 정보 */}
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <div className="font-[var(--font-mono)] text-[10px] text-white/40 tracking-[2px] mb-1.5">
                 MY PAGE / DASHBOARD
               </div>
@@ -82,15 +83,16 @@ export default async function MypageLayout({ children }: { children: React.React
                 )}
               </div>
             </div>
+            </div>
 
             {/* 통계 */}
-            <div className="flex gap-0 border-l border-[#333]">
+            <div className="flex gap-0 border-t md:border-t-0 md:border-l border-[#333] pt-4 md:pt-0">
               {[
                 { label: "POINTS",   value: `${member.points.toLocaleString()}P`, sub: "사용 가능" },
                 { label: "COUPONS",  value: `${member._count.coupons}장`,          sub: "보유 쿠폰" },
                 { label: "WISHLIST", value: `${member._count.wishlist}`,            sub: "관심 상품" },
               ].map((s) => (
-                <div key={s.label} className="px-8 py-2 border-r border-[#333] text-center">
+                <div key={s.label} className="flex-1 md:flex-none px-2 md:px-8 py-2 border-r border-[#333] last:border-r-0 md:last:border-r text-center">
                   <div className="font-[var(--font-mono)] text-[9px] text-white/40 tracking-[1px] mb-1">{s.label}</div>
                   <div className="font-[var(--font-display)] text-xl text-[var(--yellow)]">{s.value}</div>
                   <div className="text-[10px] text-white/40 mt-0.5">{s.sub}</div>
@@ -102,8 +104,8 @@ export default async function MypageLayout({ children }: { children: React.React
       </section>
 
       {/* 메인 콘텐츠 */}
-      <div className="max-w-[1340px] mx-auto px-6 py-6">
-        <div className="grid grid-cols-[220px_1fr] gap-5 items-start">
+      <div className="max-w-[1340px] mx-auto px-4 md:px-6 py-6">
+        <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-5 items-start">
           <MypageSidebar
             counts={{
               orders: member.totalOrders,
@@ -114,7 +116,7 @@ export default async function MypageLayout({ children }: { children: React.React
               points: member.points,
             }}
           />
-          <div>{children}</div>
+          <div className="min-w-0">{children}</div>
         </div>
       </div>
     </div>

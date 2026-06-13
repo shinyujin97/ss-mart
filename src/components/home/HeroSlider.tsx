@@ -64,7 +64,7 @@ export default function HeroSlider() {
   const slide = SLIDES[current];
 
   return (
-    <div className="relative overflow-hidden h-full">
+    <div className="relative overflow-hidden h-[360px] md:h-full">
       {/* 배경 이미지만 fade */}
       {SLIDES.map((s, i) => (
         <div
@@ -85,7 +85,7 @@ export default function HeroSlider() {
         {slide.vol}
       </div>
 
-      <div className="relative h-full flex flex-col justify-end p-10 pb-14">
+      <div className="relative h-full flex flex-col justify-end p-6 pb-12 md:p-10 md:pb-14">
         <div className="flex items-center gap-3 mb-4">
           <span className="bg-[var(--red)] text-white text-[11px] font-bold px-3 py-1 font-[var(--font-mono)] tracking-[1px]">
             {slide.tag}
@@ -93,15 +93,15 @@ export default function HeroSlider() {
           <span className="text-white/60 text-[12px] font-[var(--font-mono)]">{slide.stripe}</span>
         </div>
 
-        <h2 className="text-[42px] font-black text-white leading-tight tracking-tight mb-3">
+        <h2 className="text-[28px] md:text-[42px] font-black text-white leading-tight tracking-tight mb-3">
           {slide.title[0]}
           <br />
           <span className="text-[var(--red)]">{slide.title[1]}</span>
         </h2>
 
-        <p className="text-white/60 text-sm mb-6">{slide.sub}</p>
+        <p className="text-white/60 text-xs md:text-sm mb-6 line-clamp-2 md:line-clamp-none">{slide.sub}</p>
 
-        <div className="flex items-center gap-6 mb-6">
+        <div className="flex items-center gap-4 md:gap-6 mb-6 flex-wrap">
           {slide.meta.map((m) => (
             <div key={m.label}>
               <div className="font-[var(--font-mono)] text-[9px] text-white/40 tracking-[1px]">{m.label}</div>

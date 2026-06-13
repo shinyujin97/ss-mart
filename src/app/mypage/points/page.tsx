@@ -38,7 +38,7 @@ export default async function PointsPage() {
       </div>
 
       {/* 적립금 잔액 */}
-      <div className="grid grid-cols-2 gap-3 mb-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
         <div className="border border-[var(--line)] bg-white p-5">
           <div className="font-[var(--font-mono)] text-[10px] text-[var(--red)] tracking-[1.5px] mb-2">AVAILABLE POINTS</div>
           <div className="font-[var(--font-display)] text-[42px] text-[var(--black)] leading-none mb-1">

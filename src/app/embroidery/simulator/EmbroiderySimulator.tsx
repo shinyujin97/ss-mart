@@ -152,11 +152,11 @@ export default function EmbroiderySimulator() {
     : null;
 
   return (
-    <div className="flex" style={{ height: "calc(100vh - 120px)", minHeight: 640 }}>
+    <div className="flex flex-col md:flex-row md:h-[calc(100vh-120px)] md:min-h-[640px]">
 
       {/* ── 좌측: 다크 캔버스 ── */}
-      <div className="flex-1 bg-[#0d0d0d] flex flex-col relative overflow-hidden">
-        <div className="flex items-center gap-1 px-6 pt-5 pb-3 z-10">
+      <div className="flex-1 bg-[#0d0d0d] flex flex-col relative overflow-hidden min-h-[360px] md:min-h-0">
+        <div className="flex items-center flex-wrap gap-1 px-4 md:px-6 pt-5 pb-3 z-10">
           {CANVAS_VIEWS.map((v, i) => (
             <button key={v} onClick={() => setView(v)}
               className={`flex items-center gap-1.5 px-4 py-2 text-xs font-bold transition-all ${
@@ -176,7 +176,7 @@ export default function EmbroiderySimulator() {
           </div>
         </div>
 
-        <div className="flex-1 flex items-center justify-center px-8 py-4">
+        <div className="flex-1 flex items-center justify-center px-4 md:px-8 py-4">
           <div className="w-full max-w-[440px] h-full">
             <TshirtCanvas
               view={view}
@@ -198,7 +198,7 @@ export default function EmbroiderySimulator() {
       </div>
 
       {/* ── 우측: 옵션 패널 ── */}
-      <div className="w-[380px] flex-shrink-0 bg-white flex flex-col border-l border-[#e5e5e5]">
+      <div className="w-full md:w-[380px] flex-shrink-0 bg-white flex flex-col border-t md:border-t-0 md:border-l border-[#e5e5e5]">
 
         <div className="px-5 py-3.5 border-b border-[#f0f0f0] flex-shrink-0">
           <div className="font-[var(--font-mono)] text-[9px] text-[#c8161d] tracking-[2px] mb-0.5">CUSTOMIZE</div>

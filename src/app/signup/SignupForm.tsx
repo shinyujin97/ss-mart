@@ -96,9 +96,9 @@ export default function SignupForm() {
   }
 
   return (
-    <div className="max-w-[900px] mx-auto px-6 pb-16">
+    <div className="max-w-[900px] mx-auto px-4 md:px-6 pb-16">
       {/* 스텝 진행 바 */}
-      <div className="grid grid-cols-4 border border-[var(--line)] mb-8">
+      <div className="grid grid-cols-3 md:grid-cols-4 border border-[var(--line)] mb-8">
         {STEPS.map((s, i) => {
           const num = i + 1;
           const isDone = step > num;
@@ -106,7 +106,7 @@ export default function SignupForm() {
           return (
             <div
               key={s.num}
-              className={`px-4 py-3.5 flex items-center gap-3 border-r border-[var(--line)] last:border-r-0 ${
+              className={`px-2.5 md:px-4 py-3.5 flex items-center gap-2 md:gap-3 border-r border-[var(--line)] last:border-r-0 ${
                 isActive
                   ? "bg-[var(--black)] text-white"
                   : isDone
@@ -224,7 +224,7 @@ export default function SignupForm() {
                 { key: "name", label: "이름", type: "text", placeholder: "실명 입력", required: true },
                 { key: "phone", label: "휴대폰 번호", type: "tel", placeholder: "010-0000-0000", required: true },
               ].map((f) => (
-                <div key={f.key} className="grid grid-cols-[130px_1fr] gap-3.5 items-center">
+                <div key={f.key} className="grid grid-cols-1 md:grid-cols-[130px_1fr] gap-1.5 md:gap-3.5 md:items-center">
                   <label className="text-xs font-semibold text-[var(--gray-700)]">
                     {f.label} {f.required && <span className="text-[var(--red)]">*</span>}
                   </label>
@@ -249,8 +249,8 @@ export default function SignupForm() {
               <span className="text-sm font-black">로그인 정보</span>
             </div>
             <div className="p-6 space-y-4">
-              <div className="grid grid-cols-[130px_1fr] gap-3.5 items-start">
-                <label className="text-xs font-semibold text-[var(--gray-700)] pt-2.5">
+              <div className="grid grid-cols-1 md:grid-cols-[130px_1fr] gap-1.5 md:gap-3.5 md:items-start">
+                <label className="text-xs font-semibold text-[var(--gray-700)] md:pt-2.5">
                   아이디 <span className="text-[var(--red)]">*</span>
                 </label>
                 <div>
@@ -269,8 +269,8 @@ export default function SignupForm() {
                   )}
                 </div>
               </div>
-              <div className="grid grid-cols-[130px_1fr] gap-3.5 items-start">
-                <label className="text-xs font-semibold text-[var(--gray-700)] pt-2.5">
+              <div className="grid grid-cols-1 md:grid-cols-[130px_1fr] gap-1.5 md:gap-3.5 md:items-start">
+                <label className="text-xs font-semibold text-[var(--gray-700)] md:pt-2.5">
                   이메일 <span className="text-[var(--gray-400)] font-normal text-[11px]">(선택)</span>
                 </label>
                 <input
@@ -281,7 +281,7 @@ export default function SignupForm() {
                   className="px-3 py-2.5 border border-[var(--line)] text-sm outline-none focus:border-[var(--black)] w-full"
                 />
               </div>
-              <div className="grid grid-cols-[130px_1fr] gap-3.5 items-center">
+              <div className="grid grid-cols-1 md:grid-cols-[130px_1fr] gap-1.5 md:gap-3.5 md:items-center">
                 <label className="text-xs font-semibold text-[var(--gray-700)]">
                   비밀번호 <span className="text-[var(--red)]">*</span>
                 </label>
@@ -300,7 +300,7 @@ export default function SignupForm() {
                   )}
                 </div>
               </div>
-              <div className="grid grid-cols-[130px_1fr] gap-3.5 items-center">
+              <div className="grid grid-cols-1 md:grid-cols-[130px_1fr] gap-1.5 md:gap-3.5 md:items-center">
                 <label className="text-xs font-semibold text-[var(--gray-700)]">
                   비밀번호 확인 <span className="text-[var(--red)]">*</span>
                 </label>
@@ -348,8 +348,8 @@ export default function SignupForm() {
       )}
 
       {showSuccess && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white border border-[#e5e5e5] shadow-xl w-[340px] flex flex-col items-center px-8 py-10 gap-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white border border-[#e5e5e5] shadow-xl w-full max-w-[340px] flex flex-col items-center px-8 py-10 gap-4">
             <div className="w-12 h-12 bg-[#111] flex items-center justify-center">
               <span className="text-[var(--yellow)] text-xl font-bold">✓</span>
             </div>

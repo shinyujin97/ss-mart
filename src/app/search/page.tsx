@@ -23,7 +23,7 @@ export default async function SearchPage({ searchParams }: Props) {
   if (!q) {
     return (
       <div className="bg-[var(--gray-50)] min-h-screen">
-        <div className="max-w-[1340px] mx-auto px-6 py-20 text-center">
+        <div className="max-w-[1340px] mx-auto px-4 md:px-6 py-20 text-center">
           <div className="font-[var(--font-mono)] text-[10px] text-[var(--gray-400)] tracking-[2px] mb-4">SEARCH</div>
           <p className="text-[var(--gray-500)] text-sm">검색어를 입력하세요</p>
           <div className="mt-8 max-w-md mx-auto">
@@ -73,9 +73,9 @@ export default async function SearchPage({ searchParams }: Props) {
     <div className="bg-[var(--gray-50)] min-h-screen">
       {/* 헤더 */}
       <div className="bg-white border-b border-[var(--line)]">
-        <div className="max-w-[1340px] mx-auto px-6 py-5">
+        <div className="max-w-[1340px] mx-auto px-4 md:px-6 py-5">
           <div className="font-[var(--font-mono)] text-[10px] text-[var(--gray-400)] tracking-[2px] mb-1">SEARCH RESULTS</div>
-          <div className="flex items-end gap-4">
+          <div className="flex flex-wrap items-end gap-x-4 gap-y-1">
             <h1 className="text-xl font-black text-[var(--black)]">
               &ldquo;{q}&rdquo; 검색 결과
             </h1>
@@ -87,9 +87,9 @@ export default async function SearchPage({ searchParams }: Props) {
         </div>
       </div>
 
-      <div className="max-w-[1340px] mx-auto px-6 py-6">
+      <div className="max-w-[1340px] mx-auto px-4 md:px-6 py-6">
         {/* 정렬 */}
-        <div className="flex items-center justify-between mb-5">
+        <div className="flex flex-wrap gap-3 items-center justify-between mb-5">
           <div className="flex gap-2">
             {SORT_OPTIONS.map((opt) => (
               <Link
@@ -124,7 +124,7 @@ export default async function SearchPage({ searchParams }: Props) {
 
         {/* 상품 그리드 */}
         {products.length > 0 && (
-          <div className="grid grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
             {products.map((p) => (
               <ProductCard
                 key={p.id}
@@ -144,7 +144,7 @@ export default async function SearchPage({ searchParams }: Props) {
 
         {/* 페이지네이션 */}
         {totalPages > 1 && (
-          <div className="flex justify-center gap-1 mt-10">
+          <div className="flex flex-wrap justify-center gap-1 mt-10">
             {page > 1 && (
               <Link href={buildUrl({ page: String(page - 1) })}
                 className="w-9 h-9 flex items-center justify-center border border-[var(--line)] text-sm hover:border-[var(--black)] transition-colors">

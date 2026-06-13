@@ -36,7 +36,7 @@ export default async function EmbroideryPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
         <h2 className="text-lg font-black">자수 시안 보관함</h2>
         <a href="tel:031-430-0497" className="bg-[var(--red)] text-white px-4 py-2 text-xs font-bold hover:bg-[var(--red-dark)] transition-colors">
           자수 문의 031-430-0497
@@ -52,7 +52,7 @@ export default async function EmbroideryPage() {
           </a>
         </div>
       ) : (
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {designs.map((d) => (
             <div key={d.id} className="border border-[var(--line)] bg-white hover:border-[var(--red)] transition-colors">
               {/* 흰 티셔츠 미리보기 → 시안 확인 페이지로 이동 */}

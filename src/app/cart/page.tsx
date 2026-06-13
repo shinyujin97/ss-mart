@@ -5,7 +5,7 @@ export const metadata = { title: "제품 문의 | 에스에스종합상사" };
 export default function CartPage() {
   return (
     <div className="bg-[var(--gray-50)] min-h-screen flex items-center justify-center">
-      <div className="bg-white border border-[var(--line)] p-16 text-center max-w-lg w-full mx-6">
+      <div className="bg-white border border-[var(--line)] p-8 md:p-16 text-center max-w-lg w-full mx-4 md:mx-6">
         <div className="font-[var(--font-mono)] text-[10px] text-[var(--red)] tracking-[2px] mb-6">
           INQUIRY / CONTACT
         </div>

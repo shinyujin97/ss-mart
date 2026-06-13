@@ -99,6 +99,8 @@ export default function CategoryFilter({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [brandSearch, setBrandSearch] = useState("");
+  // 모바일: 필터 본문 접기/펼치기 (기본 닫힘). md 이상에서는 항상 노출.
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const updateParam = useCallback((key: string, value: string | null) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -135,11 +137,19 @@ export default function CategoryFilter({
 
   return (
     <aside>
-      {/* 헤더 */}
+      {/* 헤더 — 모바일에서는 탭하여 필터 본문 토글 */}
       <div className="bg-[var(--black)] text-white px-[18px] py-3.5 flex items-center justify-between border border-[var(--black)]">
-        <span className="font-[var(--font-mono)] text-xs tracking-[1.5px] font-semibold flex items-center gap-2">
-          <span className="text-[var(--yellow)]">▣</span> FILTER
-        </span>
+        <button
+          onClick={() => setMobileOpen((v) => !v)}
+          className="md:pointer-events-none flex items-center gap-2"
+        >
+          <span className="font-[var(--font-mono)] text-xs tracking-[1.5px] font-semibold flex items-center gap-2">
+            <span className="text-[var(--yellow)]">▣</span> FILTER
+          </span>
+          <span className="md:hidden font-[var(--font-mono)] text-[11px] text-white/60">
+            {mobileOpen ? "▲" : "▼"}
+          </span>
+        </button>
         {hasFilters && (
           <button onClick={resetAll} className="text-[11px] text-white/70 hover:text-[var(--yellow)] transition-colors">
             전체 초기화
@@ -147,6 +157,8 @@ export default function CategoryFilter({
         )}
       </div>
 
+      {/* 필터 본문 — 모바일: mobileOpen일 때만, 데스크톱: 항상 노출 */}
+      <div className={mobileOpen ? "block" : "hidden md:block"}>
       {/* 적용된 필터 태그 */}
       {hasFilters && (
         <div className="bg-[#fff5f5] border border-[var(--line)] border-t-0 px-3.5 py-3">
@@ -309,6 +321,7 @@ export default function CategoryFilter({
           </div>
         </Section>
       )}
+      </div>
     </aside>
   );
 }

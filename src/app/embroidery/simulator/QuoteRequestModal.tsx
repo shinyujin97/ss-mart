@@ -107,8 +107,8 @@ export default function QuoteRequestModal({
   const positionNames = positions.map((p) => POSITION_LABELS[p]).join(", ");
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4">
-      <div className="bg-white w-full max-w-[560px] max-h-[90vh] overflow-y-auto shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-stretch md:items-center justify-center bg-black/60 px-0 md:px-4">
+      <div className="bg-white w-full max-w-none md:max-w-[560px] h-full md:h-auto max-h-none md:max-h-[90vh] overflow-y-auto shadow-2xl">
 
         {/* 헤더 */}
         <div className="bg-[#111] text-white px-6 py-4 flex items-start justify-between">
@@ -160,7 +160,7 @@ export default function QuoteRequestModal({
             {/* 시뮬레이터 선택값 요약 (읽기 전용) */}
             <div className="bg-[#f8f8f8] border border-[#e8e8e8] px-4 py-3">
               <div className="font-[var(--font-mono)] text-[9px] text-[#999] tracking-[1.5px] mb-2">시뮬레이터 설정값 (자동 반영)</div>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {[
                   { label: "자수 종류", value: typeName },
                   { label: "위치", value: positionNames },

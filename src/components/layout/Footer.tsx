@@ -19,8 +19,8 @@ const BOTTOM_LINKS = [
 export default function Footer() {
   return (
     <footer className="bg-[var(--black)] text-[#888] text-xs">
-      <div className="max-w-[1340px] mx-auto px-6 py-8">
-        <div className="flex justify-between items-start pb-7 border-b border-[#333]">
+      <div className="max-w-[1340px] mx-auto px-4 md:px-6 py-8">
+        <div className="flex flex-col gap-8 md:flex-row md:justify-between md:items-start md:gap-6 pb-7 border-b border-[#333]">
 
           {/* 고객센터 */}
           <div>
@@ -64,9 +64,9 @@ export default function Footer() {
         </div>
 
         {/* 하단 링크 */}
-        <div className="pt-5 flex items-center gap-5 text-[#666]">
+        <div className="pt-5 flex flex-wrap items-center gap-x-3 gap-y-2 md:gap-5 text-[#666]">
           {BOTTOM_LINKS.map((link, i) => (
-            <span key={link.href} className="flex items-center gap-5">
+            <span key={link.href} className="flex items-center gap-3 md:gap-5">
               <Link href={link.href} className="hover:text-white transition-colors">
                 {link.label}
               </Link>

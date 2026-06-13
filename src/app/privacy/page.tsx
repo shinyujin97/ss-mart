@@ -27,12 +27,12 @@ export default function PrivacyPage() {
   ];
 
   return (
-    <div className="max-w-[800px] mx-auto px-6 py-12">
+    <div className="max-w-[800px] mx-auto px-4 md:px-6 py-12">
       <div className="font-[var(--font-mono)] text-[11px] text-[var(--red)] tracking-[2px] mb-2">LEGAL</div>
       <h1 className="text-2xl font-black mb-8">개인정보처리방침</h1>
       <div className="space-y-6">
         {ITEMS.map((item) => (
-          <section key={item.title} className="border border-[var(--line)] p-6">
+          <section key={item.title} className="border border-[var(--line)] p-5 md:p-6">
             <h2 className="text-sm font-black text-[var(--black)] mb-3">{item.title}</h2>
             <p className="text-sm text-[var(--gray-700)] leading-relaxed whitespace-pre-line">{item.content}</p>
           </section>

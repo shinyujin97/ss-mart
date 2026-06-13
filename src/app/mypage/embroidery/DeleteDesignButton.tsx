@@ -41,8 +41,8 @@ export default function DeleteDesignButton({ id, designNumber, disabled }: Props
       </button>
 
       {showConfirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white border border-[#e5e5e5] shadow-xl w-[320px]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white border border-[#e5e5e5] shadow-xl w-full max-w-[320px]">
             <div className="px-6 pt-5 pb-1">
               <div className="font-[var(--font-mono)] text-[10px] tracking-[2px] text-[#aaa]">CONFIRM / DELETE</div>
               <h3 className="text-base font-black text-[#111] mt-1">시안을 삭제하시겠습니까?</h3>

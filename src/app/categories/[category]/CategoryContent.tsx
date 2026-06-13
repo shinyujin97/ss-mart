@@ -152,9 +152,9 @@ export default async function CategoryContent({
   const pageNumbers = Array.from({ length: groupEnd - groupStart + 1 }, (_, i) => groupStart + i);
 
   return (
-    <div className="max-w-[1340px] mx-auto px-6 py-6">
-      <div className="grid grid-cols-[240px_1fr] gap-6 items-start">
-        <div className="sticky top-4">
+    <div className="max-w-[1340px] mx-auto px-4 md:px-6 py-6">
+      <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-6 items-start">
+        <div className="md:sticky md:top-4">
           <CategoryFilter
             brands={brands}
             currentBrands={brandFilter}
@@ -201,7 +201,7 @@ export default async function CategoryContent({
             </div>
           ) : (
             <CategoryPagination page={page} totalPages={totalPages} pageNumbers={pageNumbers}>
-              <div className="grid grid-cols-4 gap-5">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
                 {products8.map((p, i) => (
                   <ProductCard
                     key={p.id}

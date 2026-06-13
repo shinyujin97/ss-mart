@@ -110,7 +110,7 @@ export default function ProcessFlow() {
 
   return (
     <section ref={ref} className="bg-[#0d0d0d] py-16 overflow-hidden">
-      <div className="max-w-[1340px] mx-auto px-6">
+      <div className="max-w-[1340px] mx-auto px-4 md:px-6">
 
         {/* 헤더 */}
         <div className="text-center mb-14">
@@ -126,7 +126,8 @@ export default function ProcessFlow() {
         </div>
 
         {/* 타임라인 */}
-        <div className="relative">
+        <div className="relative overflow-x-auto md:overflow-visible -mx-4 px-4 md:mx-0 md:px-0">
+        <div className="relative min-w-[680px] md:min-w-0">
 
           {/* 배경 연결선 (회색) */}
           <div className="absolute top-[28px] left-[6%] right-[6%] h-[2px] bg-white/10" />
@@ -197,9 +198,10 @@ export default function ProcessFlow() {
             })}
           </div>
         </div>
+        </div>
 
         {/* 하단 안내 */}
-        <div className="mt-12 grid grid-cols-3 gap-px border border-white/10">
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-px border border-white/10">
           {[
             { label: "1~10벌",   period: "3~5일",   note: "소량 신속 제작" },
             { label: "10~99벌",  period: "5~7일",   note: "중량 표준 납기" },

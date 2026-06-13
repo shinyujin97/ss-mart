@@ -17,9 +17,22 @@ interface Product {
 
 export default function BestCarousel({ products }: { products: Product[] }) {
   const [current, setCurrent] = useState(0);
-  const VISIBLE = 4;
+  // 보이는 카드 수: 모바일 2 / 데스크톱(md+) 4 — 레이아웃용 반응형 값
+  const [VISIBLE, setVisible] = useState(4);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const apply = () => setVisible(mq.matches ? 4 : 2);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
   const total = products.length;
   const maxIndex = total - VISIBLE;
+
+  // VISIBLE 변경 시 현재 인덱스가 범위를 벗어나면 보정
+  useEffect(() => {
+    setCurrent((c) => (c > maxIndex ? Math.max(0, maxIndex) : c));
+  }, [maxIndex]);
 
   const next = useCallback(() => {
     setCurrent((c) => (c >= maxIndex ? 0 : c + 1));
@@ -40,7 +53,7 @@ export default function BestCarousel({ products }: { products: Product[] }) {
       {/* 좌측 화살표 */}
       <button
         onClick={prev}
-        className="absolute -left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white border border-[var(--line)] hover:border-[var(--black)] hover:bg-[var(--black)] hover:text-white transition-all flex items-center justify-center shadow-md"
+        className="absolute left-1 md:-left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white border border-[var(--line)] hover:border-[var(--black)] hover:bg-[var(--black)] hover:text-white transition-all flex items-center justify-center shadow-md"
       >
         ‹
       </button>
@@ -90,7 +103,7 @@ export default function BestCarousel({ products }: { products: Product[] }) {
       {/* 우측 화살표 */}
       <button
         onClick={next}
-        className="absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white border border-[var(--line)] hover:border-[var(--black)] hover:bg-[var(--black)] hover:text-white transition-all flex items-center justify-center shadow-md"
+        className="absolute right-1 md:-right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white border border-[var(--line)] hover:border-[var(--black)] hover:bg-[var(--black)] hover:text-white transition-all flex items-center justify-center shadow-md"
       >
         ›
       </button>
