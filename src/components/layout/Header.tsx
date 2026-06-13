@@ -10,12 +10,12 @@ export default function Header() {
         {/* Logo */}
         <Link
           href="/"
-          className="flex flex-col leading-none md:pr-[30px] md:border-r md:border-[var(--line)] min-w-0"
+          className="flex flex-col leading-none md:pr-[30px] md:border-r md:border-[var(--line)] min-w-0 overflow-hidden shrink-0"
         >
-          <span className="text-xl md:text-2xl font-black text-[var(--black)] tracking-tight whitespace-nowrap">
+          <span className="text-lg md:text-2xl font-black text-[var(--black)] tracking-tight whitespace-nowrap">
             에스에스<span className="text-[var(--red)]">종합상사</span>
           </span>
-          <span className="font-[var(--font-display)] text-[10px] md:text-[11px] tracking-[3px] text-[var(--gray-500)] mt-[5px]">
+          <span className="font-[var(--font-display)] text-[8px] md:text-[11px] tracking-[1px] md:tracking-[3px] text-[var(--gray-500)] mt-[3px] md:mt-[5px] whitespace-nowrap">
             SAFETY · WORKWEAR · SINCE
           </span>
         </Link>

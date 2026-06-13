@@ -11,7 +11,7 @@ export default function HeaderAuthClient({ name, isAdmin }: { name: string; isAd
     <div className="relative border-l border-[var(--line)]">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="px-[18px] py-[10px] text-xs font-medium text-[var(--gray-700)] hover:text-[var(--red)] transition-colors flex items-center gap-1.5"
+        className="px-2.5 py-2 md:px-[18px] md:py-[10px] text-xs font-medium text-[var(--gray-700)] hover:text-[var(--red)] transition-colors flex items-center gap-1.5 whitespace-nowrap"
       >
         <span className="text-[var(--red)] font-bold">{name}</span>님
         <span className="text-[var(--gray-400)] text-[10px]">▾</span>

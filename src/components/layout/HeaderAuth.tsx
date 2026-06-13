@@ -12,13 +12,13 @@ export default async function HeaderAuth() {
       <div className="flex items-center">
         <Link
           href="/login"
-          className="px-[18px] py-[10px] text-xs font-medium text-[var(--gray-700)] hover:text-[var(--red)] transition-colors border-l border-[var(--line)]"
+          className="px-2.5 py-2 md:px-[18px] md:py-[10px] text-xs font-medium text-[var(--gray-700)] hover:text-[var(--red)] transition-colors border-l border-[var(--line)] whitespace-nowrap"
         >
           로그인
         </Link>
         <Link
           href="/signup"
-          className="px-[18px] py-[10px] text-xs font-medium text-[var(--gray-700)] hover:text-[var(--red)] transition-colors border-l border-[var(--line)]"
+          className="px-2.5 py-2 md:px-[18px] md:py-[10px] text-xs font-medium text-[var(--gray-700)] hover:text-[var(--red)] transition-colors border-l border-[var(--line)] whitespace-nowrap"
         >
           회원가입
         </Link>
