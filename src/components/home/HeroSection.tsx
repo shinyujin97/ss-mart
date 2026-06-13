@@ -44,17 +44,37 @@ export default async function HeroSection() {
       {/* 메인 배너 슬라이더 */}
       <HeroSlider />
 
-      {/* 우측 사이드 배너 */}
-      <div className="flex flex-col gap-4 md:gap-0 md:h-full">
+      {/* 모바일 전용 카테고리 타일 (데스크톱은 좌측 사이드바 사용) */}
+      <div className="md:hidden">
+        <div className="bg-[var(--black)] text-white px-3 py-2 font-[var(--font-mono)] text-[10px] tracking-[1.5px] font-semibold">
+          ▣ CATEGORY
+        </div>
+        <div className="grid grid-cols-4 gap-px bg-[var(--line)] border-x border-b border-[var(--line)]">
+          {CATEGORY_LIST.map((cat) => (
+            <Link
+              key={cat.href}
+              href={cat.href}
+              className={`bg-white flex items-center justify-center text-center py-3.5 px-1 text-[10.5px] leading-[1.25] active:bg-[var(--gray-50)] ${
+                cat.special ? "text-[var(--red)] font-bold" : "text-[var(--gray-700)]"
+              }`}
+            >
+              {cat.label}
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* 우측 사이드 배너 (모바일은 2열) */}
+      <div className="grid grid-cols-2 gap-3 md:flex md:flex-col md:gap-0 md:h-full">
         <Link
           href="/embroidery"
-          className="min-h-[160px] flex-1 flex flex-col justify-end p-6 text-white relative overflow-hidden hover:-translate-y-0.5 transition-transform"
+          className="min-h-[140px] md:min-h-[160px] flex-1 flex flex-col justify-end p-4 md:p-6 text-white relative overflow-hidden hover:-translate-y-0.5 transition-transform"
           style={{ background: "linear-gradient(135deg, rgba(200,22,29,0.9), rgba(156,14,21,0.98))" }}
         >
           <div className="font-[var(--font-mono)] text-[10px] text-white/70 tracking-[1.5px] mb-2.5 font-semibold">
             ▶ EMBROIDERY
           </div>
-          <div className="text-[22px] font-black leading-tight tracking-tight mb-1.5">
+          <div className="text-lg md:text-[22px] font-black leading-tight tracking-tight mb-1.5">
             우리 회사
             <br />
             로고 자수
@@ -68,13 +88,13 @@ export default async function HeroSection() {
         </Link>
         <Link
           href="/bulk-order"
-          className="min-h-[160px] flex-1 flex flex-col justify-end p-6 text-white relative overflow-hidden hover:-translate-y-0.5 transition-transform"
+          className="min-h-[140px] md:min-h-[160px] flex-1 flex flex-col justify-end p-4 md:p-6 text-white relative overflow-hidden hover:-translate-y-0.5 transition-transform"
           style={{ background: "linear-gradient(135deg, rgba(26,26,26,0.95), rgba(0,0,0,0.98))" }}
         >
           <div className="font-[var(--font-mono)] text-[10px] text-[var(--yellow)] tracking-[1.5px] mb-2.5 font-semibold">
             ▶ BULK ORDER
           </div>
-          <div className="text-[22px] font-black leading-tight tracking-tight mb-1.5">
+          <div className="text-lg md:text-[22px] font-black leading-tight tracking-tight mb-1.5">
             단체주문
             <br />
             최대 30%
