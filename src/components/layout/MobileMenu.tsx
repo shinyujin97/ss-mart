@@ -60,9 +60,20 @@ export default function MobileMenu({
           <span>MENU</span>
         </button>
 
+        <Link
+          href="/search"
+          aria-label="검색"
+          className="ml-auto flex items-center justify-center w-9 h-9 text-white"
+        >
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="11" cy="11" r="7" />
+            <path d="M21 21l-4.35-4.35" />
+          </svg>
+        </Link>
+
         <a
           href="tel:031-430-0497"
-          className="ml-auto flex items-center gap-2 text-white h-full"
+          className="ml-3 flex items-center gap-2 text-white h-full"
         >
           <span className="font-[var(--font-mono)] text-[9px] text-white/50 tracking-[1.5px]">
             문의
