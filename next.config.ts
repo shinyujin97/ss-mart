@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "images.unsplash.com" },
       { protocol: "https", hostname: "*.supabase.co", pathname: "/storage/v1/object/public/**" },
       { protocol: "https", hostname: "pub-6ae5048278f24ad48b62dc77072943aa.r2.dev" },
-      { protocol: "https", hostname: "www.tbuc.co.kr", pathname: "/tbuc/**" },
+      { protocol: "https", hostname: "www.tbuc.co.kr" },
     ],
     unoptimized: true,
     formats: ["image/avif", "image/webp"],
