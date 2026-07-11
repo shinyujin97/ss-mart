@@ -10,7 +10,7 @@ export default async function BrandsPage() {
   });
 
   const activeBrands = brands
-    .filter((b) => b._count.products > 0 && b.slug !== "etc-brand")
+    .filter((b) => b.slug !== "etc-brand")
     .sort((a, b) => {
       if (a.logoUrl && !b.logoUrl) return -1;
       if (!a.logoUrl && b.logoUrl) return 1;
