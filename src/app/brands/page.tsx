@@ -9,8 +9,11 @@ export default async function BrandsPage() {
     orderBy: { products: { _count: "desc" } },
   });
 
+  // 이미지/상품 재정비 중이라 일시적으로 0 ITEMS인 브랜드는 예외로 계속 노출
+  const ALWAYS_SHOW_SLUGS = ["k2", "piozen", "blackyak"];
+
   const activeBrands = brands
-    .filter((b) => b.slug !== "etc-brand")
+    .filter((b) => b.slug !== "etc-brand" && (b._count.products > 0 || ALWAYS_SHOW_SLUGS.includes(b.slug)))
     .sort((a, b) => {
       if (a.logoUrl && !b.logoUrl) return -1;
       if (!a.logoUrl && b.logoUrl) return 1;
