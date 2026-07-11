@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 export default async function BrandsPage() {
   const brands = await prisma.brand.findMany({
     where: { isActive: true },
-    include: { _count: { select: { products: true } } },
+    include: { _count: { select: { products: { where: { status: "ACTIVE" } } } } },
     orderBy: { products: { _count: "desc" } },
   });
 
