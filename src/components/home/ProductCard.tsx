@@ -12,6 +12,7 @@ interface ProductCardProps {
   isNew?: boolean;
   isBest?: boolean;
   embroideryAvailable?: boolean;
+  categories: { category: { slug: string; parent: { slug: string } | null } }[];
   priority?: boolean;
 }
 
@@ -23,8 +24,12 @@ export default function ProductCard({
   isNew,
   isBest,
   embroideryAvailable,
+  categories,
   priority = false,
 }: ProductCardProps) {
+  const isSafetyShoe = categories.some(({ category }) =>
+    category.slug === "safety-shoes" || category.parent?.slug === "safety-shoes"
+  );
   return (
     <Link href={`/products/${slug}`} className="group block">
       {/* 이미지 */}
@@ -53,7 +58,7 @@ export default function ProductCard({
             </span>
           )}
         </div>
-        {embroideryAvailable && (
+        {embroideryAvailable && !isSafetyShoe && (
           <div className="absolute bottom-2 left-2">
             <span className="bg-[var(--yellow)] text-[var(--black)] font-[var(--font-mono)] text-[9px] px-2 py-0.5 tracking-[0.5px] font-bold">
               자수 가능
