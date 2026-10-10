@@ -44,7 +44,10 @@ export default async function BrandPage({ params, searchParams }: Props) {
   const [products, total] = await Promise.all([
     prisma.product.findMany({
       where: { brandId: brand.id, status: "ACTIVE" },
-      include: { images: { where: { isMain: true }, take: 1 } },
+      include: {
+        images: { where: { isMain: true }, take: 1 },
+        categories: { select: { category: { select: { slug: true, parent: { select: { slug: true } } } } } },
+      },
       orderBy,
       take: PAGE_SIZE,
       skip: (page - 1) * PAGE_SIZE,
@@ -136,6 +139,7 @@ export default async function BrandPage({ params, searchParams }: Props) {
                 isNew={p.isNew}
                 isBest={p.isBest}
                 embroideryAvailable={p.embroideryAvailable}
+                categories={p.categories}
               />
             ))}
           </div>
