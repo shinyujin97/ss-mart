@@ -58,6 +58,7 @@ export default async function SearchPage({ searchParams }: Props) {
       include: {
         brand: { select: { name: true } },
         images: { where: { isMain: true }, take: 1 },
+        categories: { select: { category: { select: { slug: true, parent: { select: { slug: true } } } } } },
       },
     }),
   ]);
@@ -137,6 +138,7 @@ export default async function SearchPage({ searchParams }: Props) {
                 isNew={p.isNew}
                 isBest={p.isBest}
                 embroideryAvailable={p.embroideryAvailable}
+                categories={p.categories}
               />
             ))}
           </div>
