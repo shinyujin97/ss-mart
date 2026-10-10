@@ -36,6 +36,7 @@ export default async function BestPage() {
         include: {
           brand: { select: { name: true } },
           images: { where: { isMain: true }, take: 1 },
+          categories: { select: { category: { select: { slug: true, parent: { select: { slug: true } } } } } },
         },
       });
 
@@ -94,6 +95,7 @@ export default async function BestPage() {
                   isNew={p.isNew}
                   isBest={p.isBest}
                   embroideryAvailable={p.embroideryAvailable}
+                  categories={p.categories}
                 />
               ))}
             </div>
