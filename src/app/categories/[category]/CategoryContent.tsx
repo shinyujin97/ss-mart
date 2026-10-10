@@ -23,6 +23,7 @@ const DEFAULT_SHOE_SIZES = ["230","240","245","250","255","260","265","270","275
 const productInclude = {
   brand: { select: { name: true, slug: true } },
   images: { where: { isMain: true }, take: 1 },
+  categories: { select: { category: { select: { slug: true, parent: { select: { slug: true } } } } } },
 } as const;
 
 interface CategoryInfo {
@@ -217,6 +218,7 @@ export default async function CategoryContent({
                     isNew={p.isNew}
                     isBest={p.isBest}
                     embroideryAvailable={p.embroideryAvailable}
+                    categories={p.categories}
                     priority={i < 4}
                   />
                 ))}

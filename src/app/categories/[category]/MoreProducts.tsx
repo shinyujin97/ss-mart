@@ -5,6 +5,7 @@ import ProductCard from "@/components/home/ProductCard";
 const productInclude = {
   brand: { select: { name: true, slug: true } },
   images: { where: { isMain: true }, take: 1 },
+  categories: { select: { category: { select: { slug: true, parent: { select: { slug: true } } } } } },
 } as const;
 
 interface Props {
@@ -85,6 +86,7 @@ export default async function MoreProducts({
           isNew={p.isNew}
           isBest={p.isBest}
           embroideryAvailable={p.embroideryAvailable}
+          categories={p.categories}
         />
       ))}
     </>
